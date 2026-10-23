@@ -61,7 +61,7 @@ html,body{margin:0;background:#FFFFFF}*{box-sizing:border-box}::selection{backgr
 [data-hs=mlang]{background:transparent;color:#928C8E;transition:color 150ms}[data-hs=mlang][aria-pressed=true]{color:#0C0C0C}[data-hs=mlang]:hover{color:#0C0C0C}
 [data-hs=mmain]{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px}
 [data-hs=mcontacts]{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 24px}
-[data-hs=flink]{color:#F2EAD8;text-decoration:none;transition:color 150ms}[data-hs=flink]:hover{color:#7ABFB2}
+[data-hs=flink]{color:#FFFFFF;text-decoration:none;transition:color 150ms}[data-hs=flink]:hover{color:#7ABFB2}
 [data-hs=fgrid]{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:32px 24px}
 [data-hs=tab]{background:#182820;color:#F2EAD8;transition:background 150ms,color 150ms}[data-hs=tab]:hover{background:#7ABFB2;color:#182820}
 [data-hs=wslide]{opacity:0;transform:translateY(8px);transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 900ms cubic-bezier(.22,1,.36,1)}[data-hs=wstage][data-active="0"] [data-slide="0"],[data-hs=wstage][data-active="1"] [data-slide="1"],[data-hs=wstage][data-active="2"] [data-slide="2"]{opacity:1;transform:none}
@@ -135,8 +135,7 @@ html,body{margin:0;background:#FFFFFF}*{box-sizing:border-box}::selection{backgr
 <picture style="display:contents"><source media="(max-width:767px)" srcset="assets/photos/hero-summer-mob.jpg"><img data-hs="summer" src="assets/photos/hero-summer.jpg" alt="Комплекс FORREST Trinity Resort влітку: три корпуси серед смерекового лісу на схилі" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></picture>
 <picture style="display:contents"><source media="(max-width:767px)" srcset="assets/photos/hero-winter-mob.jpg"><img data-hs="winter" src="assets/photos/hero-winter.jpg" alt="Комплекс FORREST Trinity Resort взимку: корпуси серед засніжених смерек і гір" aria-hidden="{{ winterHidden }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"></picture>
 <div data-hs="scrim" aria-hidden="true" style="position:absolute;inset:0;z-index:2;pointer-events:none"></div>
-<div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:clamp(120px,16vh,180px);z-index:4;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,.62) 0%,rgba(255,255,255,.38) 40%,rgba(255,255,255,.12) 72%,rgba(255,255,255,0) 100%)"></div>
-<header style="position:absolute;top:0;left:0;right:0;z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:clamp(12px,1.6vw,24px) clamp(16px,2.2vw,40px)">
+<header data-hs="hbar" style="position:absolute;top:clamp(8px,1vw,16px);left:clamp(8px,1vw,16px);right:clamp(8px,1vw,16px);z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:10px clamp(10px,1.2vw,16px);border-radius:8px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);box-shadow:inset 0 0 0 1px rgba(12,12,12,.06)">
 <div style="display:flex;align-items:center;gap:12px">
 <button data-hs="menubtn" aria-label="Відкрити меню" onClick="{{ openMenu }}" style="display:flex;align-items:center;gap:10px;height:36px;border-radius:4px;font-weight:600;font-size:16px;line-height:20px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg><span data-hs="hlabel">Меню</span></button>
 <div data-hs="hlang" role="group" aria-label="Мова" style="gap:2px;padding:3px;border-radius:4px">
@@ -339,7 +338,7 @@ html,body{margin:0;background:#FFFFFF}*{box-sizing:border-box}::selection{backgr
 </button>
 </div>
 </section>
-<footer data-screen-label="04 Footer" style="position:relative;margin-top:0;border-radius:0;overflow:hidden;background:#182820;color:#F2EAD8;isolation:isolate">
+<footer data-screen-label="04 Footer" style="position:relative;margin-top:0;border-radius:0;overflow:hidden;background:#182820;color:#FFFFFF;isolation:isolate">
 <img src="assets/photos/footer-bridge.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%;z-index:0">
 <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(12,12,12,.78);z-index:1"></div>
 <div style="position:relative;z-index:2;display:flex;flex-direction:column;padding:clamp(56px,7vw,128px) clamp(20px,2.6vw,48px) clamp(24px,2.4vw,40px)">
@@ -351,27 +350,27 @@ html,body{margin:0;background:#FFFFFF}*{box-sizing:border-box}::selection{backgr
 <a data-hs="flink" href="tel:+380777999999" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.9vw,28px);line-height:1.3;color:#FFFFFF">+380 (777) 999-999</a>
 </div>
 <nav data-hs="fgroup" data-g="0" aria-label="Проєкт" style="font-size:17px;line-height:26px">
-<button data-hs="ftitle" type="button" aria-expanded="{{ fexp0 }}" onClick="{{ ftog0 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Проєкт</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp0 }}" onClick="{{ ftog0 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#FFFFFF;cursor:default;text-align:left"><span>Проєкт</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
 <div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#worlds">Три світи</a><a data-hs="flink" href="#advantages">Переваги</a><a data-hs="flink" href="#progress">Хід будівництва</a><a data-hs="flink" href="#news">Новини</a></div></div></div>
 </nav>
 <nav data-hs="fgroup" data-g="1" aria-label="Черги" style="font-size:17px;line-height:26px">
-<button data-hs="ftitle" type="button" aria-expanded="{{ fexp1 }}" onClick="{{ ftog1 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Черги</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp1 }}" onClick="{{ ftog1 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#FFFFFF;cursor:default;text-align:left"><span>Черги</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
 <div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#wind" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">WIND</a><a data-hs="flink" href="#rock" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">ROCK</a><a data-hs="flink" href="#sun" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">SUN</a></div></div></div>
 </nav>
 <nav data-hs="fgroup" data-g="2" aria-label="Забудовник" style="font-size:17px;line-height:26px">
-<button data-hs="ftitle" type="button" aria-expanded="{{ fexp2 }}" onClick="{{ ftog2 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Забудовник</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp2 }}" onClick="{{ ftog2 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#FFFFFF;cursor:default;text-align:left"><span>Забудовник</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
 <div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#about">Про компанію</a><a data-hs="flink" href="#partners">Партнери</a><a data-hs="flink" href="#ambassadors">Амбасадори</a></div></div></div>
 </nav>
 <nav data-hs="fgroup" data-g="3" aria-label="Контакти" style="font-size:17px;line-height:26px">
-<button data-hs="ftitle" type="button" aria-expanded="{{ fexp3 }}" onClick="{{ ftog3 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Контакти</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp3 }}" onClick="{{ ftog3 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#FFFFFF;cursor:default;text-align:left"><span>Контакти</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
 <div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#">Telegram</a><a data-hs="flink" href="#">Instagram</a><a data-hs="flink" href="#">Facebook</a><a data-hs="flink" href="mailto:">E-mail</a></div></div></div>
 </nav>
 </div>
 <div style="height:1px;background:#FFFFFF;margin:clamp(48px,6vw,96px) 0 clamp(24px,2.4vw,32px)"></div>
-<div data-hs="legal" style="display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;font-size:14px;line-height:20px;color:#DDEBE6">
+<div data-hs="legal" style="display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;font-size:14px;line-height:20px;color:#FFFFFF">
 <span>© 2026 FORREST Trinity Resort</span>
-<div style="display:flex;gap:16px 32px;flex-wrap:wrap"><a data-hs="flink" href="#privacy" style="color:#DDEBE6">Політика конфіденційності</a><a data-hs="flink" href="#terms" style="color:#DDEBE6">Умови використання</a></div>
-<a data-hs="flink" href="#" style="display:flex;align-items:center;gap:12px;color:#DDEBE6"><span>Створено з душею</span><span role="img" aria-label="welldone" style="width:96px;aspect-ratio:181/30;background:currentColor;-webkit-mask:url(assets/logo-welldone.svg) center/contain no-repeat;mask:url(assets/logo-welldone.svg) center/contain no-repeat"></span></a>
+<div style="display:flex;gap:16px 32px;flex-wrap:wrap"><a data-hs="flink" href="#privacy" style="color:#FFFFFF">Політика конфіденційності</a><a data-hs="flink" href="#terms" style="color:#FFFFFF">Умови використання</a></div>
+<a data-hs="flink" href="#" style="display:flex;align-items:center;gap:12px;color:#FFFFFF"><span>Створено з душею</span><span role="img" aria-label="welldone" style="width:96px;aspect-ratio:181/30;background:currentColor;-webkit-mask:url(assets/logo-welldone.svg) center/contain no-repeat;mask:url(assets/logo-welldone.svg) center/contain no-repeat"></span></a>
 </div>
 </div>
 </footer>
