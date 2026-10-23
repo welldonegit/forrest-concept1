@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FORREST Trinity Resort</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Hero — сезони" description="Головний екран FORREST з перемикачем літо/зима та плавною зміною рендерів" -->
+<helmet><script src="./ds-base.js"></script><style>
+html,body{margin:0;background:#FFFFFF}*{box-sizing:border-box}::selection{background:#7ABFB2;color:#182820}button{font:inherit;cursor:pointer}
+[data-hs=summer]{opacity:0;transform:scale(1);transition:transform 1600ms cubic-bezier(.22,1,.36,1),opacity 400ms ease-out}
+[data-hs=winter]{opacity:0;transform:scale(1.06);clip-path:circle(0% at 91% 84%);transition:clip-path 1400ms cubic-bezier(.65,0,.35,1),opacity 900ms ease-in-out,transform 1600ms cubic-bezier(.22,1,.36,1)}
+[data-loaded=yes] [data-hs=summer],[data-loaded=yes] [data-hs=winter]{opacity:1}
+[data-reveal=wipe] [data-hs=winter]{clip-path:inset(0 0 0 100%)}
+[data-reveal=fade] [data-hs=winter]{clip-path:none;opacity:0}
+[data-season=winter] [data-hs=summer]{transform:scale(1.04)}
+[data-season=winter] [data-hs=winter]{transform:scale(1);clip-path:circle(150% at 91% 84%)}
+[data-season=winter][data-reveal=wipe] [data-hs=winter]{clip-path:inset(0 0 0 0)}
+[data-season=winter][data-reveal=fade] [data-hs=winter]{clip-path:none;opacity:1}
+[data-hs=scrim]{background:radial-gradient(ellipse 72% 70% at 0% 100%,rgba(12,12,12,.82) 0%,rgba(12,12,12,.72) 20%,rgba(12,12,12,.54) 38%,rgba(12,12,12,.32) 55%,rgba(12,12,12,.14) 72%,rgba(12,12,12,.04) 86%,rgba(12,12,12,0) 100%)}
+[data-hs=ink]{color:#182820;border-color:#182820}
+[data-hs=iconbtn]{background:transparent;color:#182820;transition:background 150ms,color 150ms}[data-hs=iconbtn]:hover{background:#DDEBE6;color:#182820}
+[data-hs=menubtn]{background:transparent;color:#0C0C0C;border:1px solid #0C0C0C;cursor:pointer;transition:background 150ms,color 150ms}[data-hs=menubtn]:hover{background:#0C0C0C;color:#FFFFFF}
+[data-hs=hlang]{display:flex;box-shadow:inset 0 0 0 1px #0C0C0C}[data-hs=menubtn]{padding:0 16px 0 12px}
+[data-hs=hphone]{color:#0C0C0C;transition:opacity 150ms}[data-hs=hphone]:hover{opacity:.6}
+[data-hs=hicon]{display:flex;color:#0C0C0C;box-shadow:inset 0 0 0 1px #0C0C0C;transition:background 150ms,color 150ms}[data-hs=hicon]:hover{background:#0C0C0C;color:#FFFFFF}[data-hs=hicon][data-mob]{display:none}
+[data-hs=lang]{cursor:pointer;background:transparent;color:#0C0C0C;transition:background 150ms,color 150ms}[data-hs=lang][aria-pressed=true]{background:#0C0C0C;color:#FFFFFF}[data-hs=lang]:hover{background:#E1D4CB;color:#182820}
+[data-hs=contact]{display:flex;color:#FFFFFF;background:#0C0C0C;border:1px solid #0C0C0C;transition:background 150ms,border-color 150ms,color 150ms}[data-hs=contact]:hover{background:#322512;border-color:#322512;color:#FFFFFF}
+[data-hs=head]{opacity:0;transform:translateY(12px);transition:opacity 400ms ease-out,transform 400ms ease-out;top:calc(clamp(84px,10vh,120px) + 10px)}[data-loaded=yes] [data-hs=head]{opacity:1;transform:none}
+[data-hs=h1]{text-transform:uppercase}[data-case=sentence] [data-hs=h1]{text-transform:none}
+[data-hs=line1]{color:#182820}[data-hs=line2]{align-self:flex-end;margin-right:3.6vw}
+[data-hs=cta]{flex:0 0 auto;background:#F2EAD8;color:#182820;transition:background 150ms}[data-hs=cta]:hover{background:#7ABFB2}
+@keyframes playpulse{0%{box-shadow:0 0 0 0 rgba(242,234,216,.55)}70%{box-shadow:0 0 0 14px rgba(242,234,216,0)}100%{box-shadow:0 0 0 0 rgba(242,234,216,0)}}
+[data-hs=play]{position:relative;border:1px solid #F2EAD8;color:#F2EAD8;transition:background 150ms,color 150ms,border-color 150ms}a:hover>[data-hs=play]{background:#7ABFB2;border-color:#7ABFB2;color:#182820}
+[data-hs=thumb]{transform:translateX(0);transition:transform 600ms cubic-bezier(.65,0,.35,1)}[data-season=winter] [data-hs=thumb]{transform:translateX(100%)}
+[data-hs=seg]{color:#F2EAD8;transition:color 400ms}[data-hs=seg][aria-checked=true]{color:#0C0C0C}[data-hs=seg][aria-checked=false]:hover{color:#7ABFB2}
+[data-hs=snow],[data-hs=sun]{transition:opacity 500ms,transform 700ms cubic-bezier(.22,1,.36,1)}[data-hs=sun]{opacity:0;transform:rotate(-90deg) scale(.6)}
+[data-season=winter] [data-hs=snow]{opacity:0;transform:rotate(90deg) scale(.6)}[data-season=winter] [data-hs=sun]{opacity:1;transform:none}
+[data-hs=towinter],[data-hs=tosummer]{transition:opacity 400ms}[data-hs=tosummer]{opacity:0}[data-season=winter] [data-hs=towinter]{opacity:0}[data-season=winter] [data-hs=tosummer]{opacity:1}
+[data-hs=menu]{visibility:hidden;opacity:0;transition:opacity 300ms,visibility 300ms}[data-menu=open] [data-hs=menu]{visibility:visible;opacity:1}
+[data-hs=pitem]{overflow:hidden;padding-bottom:.06em}
+[data-hs=plink]{display:inline-block;color:#0C0C0C;text-decoration:none;transform:translateY(105%);transition:transform 300ms cubic-bezier(.22,1,.36,1),color 250ms}
+[data-menu=open] [data-hs=plink]{transform:none;transition-duration:700ms,250ms}
+[data-menu=open] [data-hs=pitem]:nth-child(2) [data-hs=plink]{transition-delay:70ms,0ms}[data-menu=open] [data-hs=pitem]:nth-child(3) [data-hs=plink]{transition-delay:140ms,0ms}[data-menu=open] [data-hs=pitem]:nth-child(4) [data-hs=plink]{transition-delay:210ms,0ms}[data-menu=open] [data-hs=pitem]:nth-child(5) [data-hs=plink]{transition-delay:280ms,0ms}
+[data-hs=pnav]:hover [data-hs=plink]{color:#928C8E}[data-hs=pnav] [data-hs=plink]:hover,[data-hs=pnav] [data-hs=plink]:focus-visible{color:#0C0C0C}
+[data-hs=mfade],[data-hs=mfade2]{opacity:0;transform:translateY(24px);transition:opacity 200ms,transform 200ms}
+[data-menu=open] [data-hs=mfade]{opacity:1;transform:none;transition:opacity 500ms 200ms,transform 600ms 200ms cubic-bezier(.22,1,.36,1)}
+[data-menu=open] [data-hs=mfade2]{opacity:1;transform:none;transition:opacity 500ms 380ms,transform 600ms 380ms cubic-bezier(.22,1,.36,1)}
+[data-hs=mimg],[data-hs=mcap]{opacity:0;transition:opacity 600ms ease-in-out}
+[data-mimg="0"] [data-i="0"],[data-mimg="1"] [data-i="1"],[data-mimg="2"] [data-i="2"],[data-mimg="3"] [data-i="3"],[data-mimg="4"] [data-i="4"]{opacity:1}
+[data-hs=slink]{color:#0C0C0C;text-decoration:none;background:linear-gradient(#0C0C0C,#0C0C0C) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size 300ms cubic-bezier(.22,1,.36,1)}[data-hs=slink]:hover{background-size:100% 1px}
+[data-hs=mclose]{background:transparent;color:#0C0C0C;box-shadow:inset 0 0 0 1px #0C0C0C;transition:background 150ms,color 150ms}[data-hs=mclose]:hover{background:#0C0C0C;color:#FFFFFF}
+[data-hs=mlang]{background:transparent;color:#928C8E;transition:color 150ms}[data-hs=mlang][aria-pressed=true]{color:#0C0C0C}[data-hs=mlang]:hover{color:#0C0C0C}
+[data-hs=mmain]{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px}
+[data-hs=mcontacts]{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 24px}
+[data-hs=flink]{color:#F2EAD8;text-decoration:none;transition:color 150ms}[data-hs=flink]:hover{color:#7ABFB2}
+[data-hs=fgrid]{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:32px 24px}
+[data-hs=tab]{background:#182820;color:#F2EAD8;transition:background 150ms,color 150ms}[data-hs=tab]:hover{background:#7ABFB2;color:#182820}
+[data-hs=wslide]{opacity:0;transform:translateY(8px);transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 900ms cubic-bezier(.22,1,.36,1)}[data-hs=wstage][data-active="0"] [data-slide="0"],[data-hs=wstage][data-active="1"] [data-slide="1"],[data-hs=wstage][data-active="2"] [data-slide="2"]{opacity:1;transform:none}
+[data-hs=wdot]{color:#FFFFFF;background:linear-gradient(#FFFFFF,#FFFFFF) 0 100%/0 2px no-repeat;padding-bottom:6px;transition:background-size 400ms cubic-bezier(.22,1,.36,1)}[data-hs=wstage][data-active="0"] [data-dot="0"],[data-hs=wstage][data-active="1"] [data-dot="1"],[data-hs=wstage][data-active="2"] [data-dot="2"]{background-size:100% 2px}
+[data-hs=wbtn]{background:#F2EAD8;color:#182820;transition:background 150ms}[data-hs=wbtn]:hover{background:#7ABFB2}
+[data-wreveal]{clip-path:inset(100% 0 0 0);will-change:clip-path,transform}[data-hs=wcard]{position:absolute;left:0;top:0;border-radius:8px;overflow:hidden;will-change:transform,width,height}
+@keyframes mwin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+[data-hs=modal]{visibility:hidden;pointer-events:none;transition:visibility 0s 700ms}[data-mopen=yes] [data-hs=modal]{visibility:visible;pointer-events:auto;transition:visibility 0s}
+[data-hs=mback]{opacity:0;transition:opacity 500ms ease}[data-mopen=yes] [data-hs=mback]{opacity:1;transition:opacity 700ms ease}
+[data-hs=mpanel]{clip-path:inset(100% 0 0 0 round 8px);transition:clip-path 600ms cubic-bezier(.76,0,.24,1)}[data-mopen=yes] [data-hs=mpanel]{clip-path:inset(0 0 0 0 round 8px);transition:clip-path 1000ms cubic-bezier(.76,0,.24,1)}
+[data-hs=mimgw]{opacity:0;transform:scale(1.14);transition:opacity 800ms ease,transform 1600ms cubic-bezier(.22,1,.36,1)}[data-mopen=yes] [data-hs=mimgw]{transform:scale(1)}
+[data-mw="0"] [data-hs=mimgw][data-w="0"],[data-mw="1"] [data-hs=mimgw][data-w="1"],[data-mw="2"] [data-hs=mimgw][data-w="2"]{opacity:1}
+[data-hs=mrise]{opacity:0;transform:translateY(28px);transition:opacity 300ms,transform 300ms}[data-mopen=yes] [data-hs=mrise]{opacity:1;transform:none;transition:opacity 800ms cubic-bezier(.22,1,.36,1) 450ms,transform 1000ms cubic-bezier(.22,1,.36,1) 450ms}[data-mopen=yes] [data-hs=mrise][data-d="2"]{transition-delay:580ms}
+[data-hs=mw]{display:none}[data-mw="0"] [data-hs=mw][data-w="0"],[data-mw="1"] [data-hs=mw][data-w="1"],[data-mw="2"] [data-hs=mw][data-w="2"]{display:block;animation:mwin 700ms cubic-bezier(.22,1,.36,1)}
+[data-hs=mtab]{color:#928C8E;background:linear-gradient(#0C0C0C,#0C0C0C) 0 100%/0 2px no-repeat;transition:color 250ms,background-size 400ms cubic-bezier(.22,1,.36,1)}[data-hs=mtab]:hover{color:#0C0C0C}
+[data-mw="0"] [data-hs=mtab][data-w="0"],[data-mw="1"] [data-hs=mtab][data-w="1"],[data-mw="2"] [data-hs=mtab][data-w="2"]{color:#0C0C0C;background-size:100% 2px}
+[data-hs=mx]{background:#FFFFFF;color:#0C0C0C;box-shadow:inset 0 0 0 1px #0C0C0C;transition:background 150ms,color 150ms}[data-hs=mx]:hover{background:#0C0C0C;color:#FFFFFF}
+[data-hs=minput]{width:100%;height:52px;padding:0 16px;border:1px solid #928C8E;border-radius:4px;background:#FFFFFF;color:#0C0C0C;font:inherit;font-size:17px;outline:none;transition:border-color 150ms,box-shadow 150ms}[data-hs=minput]:hover{border-color:#0C0C0C}[data-hs=minput]:focus{border-color:#0C0C0C;box-shadow:inset 0 0 0 1px #0C0C0C}
+[data-hs=mchip]{position:relative;display:block}[data-hs=mchip] input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}[data-hs=mchip] span{display:flex;align-items:center;justify-content:center;height:44px;padding:0 16px;border:1px solid #928C8E;border-radius:4px;background:#FFFFFF;color:#0C0C0C;font-weight:600;font-size:14px;transition:background 150ms,border-color 150ms,color 150ms}[data-hs=mchip]:hover span{border-color:#0C0C0C}[data-hs=mchip] input:checked+span{background:#0C0C0C;border-color:#0C0C0C;color:#FFFFFF}[data-hs=mchip] input:focus-visible+span{outline:2px solid #0C0C0C;outline-offset:2px}
+[data-hs=msubmit]{background:#0C0C0C;color:#FFFFFF;transition:background 200ms}[data-hs=msubmit]:hover{background:#322512}
+[data-hs=msuccess]{display:none}
+[data-msent~="w0"] [data-hs=mform][data-w="0"],[data-msent~="w1"] [data-hs=mform][data-w="1"],[data-msent~="w2"] [data-hs=mform][data-w="2"]{display:none}[data-msent~="w0"] [data-hs=msuccess][data-w="0"],[data-msent~="w1"] [data-hs=msuccess][data-w="1"],[data-msent~="w2"] [data-hs=msuccess][data-w="2"]{display:block;animation:mwin 700ms cubic-bezier(.22,1,.36,1)}
+[data-hs=mgrid]{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}[data-hs=mright]{overflow-y:auto}[data-hs=minfra]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}[data-hs=mfields]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:900px){[data-hs=mgrid]{display:block;overflow-y:auto}[data-hs=mleft]{height:52svh;position:relative}[data-hs=mright]{overflow:visible}[data-hs=minfra]{grid-template-columns:minmax(0,1fr)}[data-hs=mfields]{grid-template-columns:minmax(0,1fr)}[data-hs=mfacts]{grid-template-columns:minmax(0,1fr)}}
+[data-hs=ptab]{background:#FFFFFF;color:#0C0C0C;transition:background 200ms,color 200ms}[data-hs=ptab]:hover{background:#E1D4CB}[data-hs=ptab][aria-selected=true]{background:#0C0C0C;color:#FFFFFF}
+[data-hs=pgrid]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+[data-hs=pcard]{display:none !important;animation:mwin 700ms cubic-bezier(.22,1,.36,1) both}[data-pt="0"] [data-hs=pcard][data-w="0"],[data-pt="1"] [data-hs=pcard][data-w="1"],[data-pt="2"] [data-hs=pcard][data-w="2"]{display:flex !important}
+[data-hs=pcard]:nth-of-type(3n+2){animation-delay:80ms}[data-hs=pcard]:nth-of-type(3n){animation-delay:160ms}
+[data-hs=pcard]:focus-visible{outline:2px solid #0C0C0C;outline-offset:3px}
+[data-hs=pview]{position:fixed;inset:0;z-index:75;visibility:hidden;pointer-events:none}[data-popen=yes] [data-hs=pview]{visibility:visible;pointer-events:auto}
+[data-hs=pback]{opacity:0;transition:opacity 450ms ease}[data-popen=yes] [data-hs=pback]{opacity:1;transition:opacity 700ms ease 150ms}
+[data-hs=pgridv]{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+[data-hs=pinfo]{opacity:0;transform:translateX(40px);transition:opacity 250ms,transform 250ms}[data-pready=yes] [data-hs=pinfo]{opacity:1;transform:none;transition:opacity 700ms cubic-bezier(.22,1,.36,1),transform 900ms cubic-bezier(.22,1,.36,1)}
+[data-hs=pframeimg]{opacity:0;transition:opacity 200ms}[data-pready=yes] [data-hs=pframeimg]{opacity:1;transition:opacity 500ms}
+[data-hs=psib]{background:#F2EAD8;color:#0C0C0C;transition:background 150ms,color 150ms}[data-hs=psib]:hover{background:#E1D4CB}[data-hs=psib][aria-pressed=true]{background:#0C0C0C;color:#FFFFFF}
+[data-hs=plans]{transform-origin:50% 50%;transition:transform 1000ms cubic-bezier(.7,0,.2,1),filter 1000ms}
+@media (max-width:900px){[data-hs=pgrid]{grid-template-columns:minmax(0,1fr)}[data-hs=pgridv]{display:block;overflow-y:auto}[data-hs=pframe]{height:50svh}[data-hs=pinfo]{border-left:0;border-top:1px solid #E1D4CB}}
+[data-hs=sstats]{position:absolute;top:0;bottom:0;right:clamp(20px,4.4vw,88px);width:calc(52% - clamp(20px,4.4vw,88px));display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:center;gap:clamp(40px,7vh,88px) clamp(24px,3vw,48px);will-change:opacity,transform}
+[data-hs=stext]{position:absolute;left:0;top:0;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:24px 48px;pointer-events:none}
+[data-hs=splayicon]{background:#F2EAD8;color:#0C0C0C;transition:background 200ms,transform 400ms cubic-bezier(.22,1,.36,1)}[data-hs=splaybtn]:hover [data-hs=splayicon]{background:#FFFFFF;transform:scale(1.06)}
+[data-hs=svideo][data-ready=yes]{opacity:1 !important}
+[data-hs=vplayer]{visibility:hidden;opacity:0;clip-path:inset(12% 12% round 8px);transition:opacity 400ms,clip-path 600ms cubic-bezier(.76,0,.24,1),visibility 0s 600ms}[data-vopen=yes] [data-hs=vplayer]{visibility:visible;opacity:1;clip-path:inset(0 0 round 0px);transition:opacity 400ms,clip-path 900ms cubic-bezier(.76,0,.24,1),visibility 0s}
+[data-hs=vclose]{background:#F2EAD8;color:#0C0C0C;transition:background 150ms}[data-hs=vclose]:hover{background:#FFFFFF}
+[data-hs=st1],[data-hs=st2]{opacity:0;will-change:opacity,transform}
+@media (max-width:767px){[data-hs=stext]{grid-template-columns:minmax(0,1fr) !important}[data-hs=sstats]{top:auto;left:20px;right:20px;width:auto;bottom:24px;align-content:end;gap:28px 16px}[data-hs=stext]{grid-template-columns:minmax(0,1fr);gap:16px}}
+@media (max-width:1199px){[data-hs=hphone]{display:none}}
+[data-hs=fchev]{display:none}[data-hs=fbody]{display:grid;grid-template-rows:1fr}
+@media (max-width:767px){[data-hs=fgrid]{grid-template-columns:minmax(0,1fr) !important;row-gap:0 !important}[data-hs=faddr]{margin-bottom:40px}
+[data-hs=fgroup]{border-top:1px solid rgba(255,255,255,.28)}[data-hs=fgroup][data-g="3"]{border-bottom:1px solid rgba(255,255,255,.28)}
+[data-hs=ftitle]{min-height:64px;cursor:pointer !important;color:#FFFFFF !important;font-family:'Unbounded','Arial Black',sans-serif !important;font-weight:400;font-size:18px !important}
+[data-hs=fchev]{display:block;transition:transform 400ms cubic-bezier(.22,1,.36,1)}[data-hs=ftitle][aria-expanded=true] [data-hs=fchev]{transform:rotate(180deg)}
+[data-hs=fbody]{grid-template-rows:0fr;transition:grid-template-rows 500ms cubic-bezier(.22,1,.36,1)}[data-hs=fgroup]:has([aria-expanded=true]) [data-hs=fbody]{grid-template-rows:1fr}
+[data-hs=fbody]>div>div{padding:0 0 24px !important;opacity:0;transition:opacity 300ms}[data-hs=fgroup]:has([aria-expanded=true]) [data-hs=fbody]>div>div{opacity:1;transition:opacity 500ms 120ms}}
+@media (max-width:1023px){[data-hs=fgrid]{grid-template-columns:repeat(2,minmax(0,1fr))}[data-hs=faddr]{grid-column:1/-1}}
+@media (max-width:767px){
+[data-hs=tab]{display:none}[data-hs=wdesc]{font-size:15px !important;line-height:23px !important}[data-hs=wdots]{display:none}[data-hs=mmain]{grid-template-columns:minmax(0,1fr)}[data-hs=mmedia]{display:none}[data-hs=mcontacts]{grid-template-columns:repeat(2,minmax(0,1fr))}[data-hs=mbar]{padding:12px 12px 0}[data-hs=legal]{flex-direction:column;align-items:flex-start}
+[data-hs=summer],[data-hs=winter]{object-position:50% 50%}
+[data-hs=winter]{clip-path:circle(0% at 78% 90%)}[data-season=winter] [data-hs=winter]{clip-path:circle(150% at 78% 90%)}
+[data-hs=scrim]{background:linear-gradient(to top,rgba(12,12,12,.9) 0%,rgba(12,12,12,.78) 22%,rgba(12,12,12,.52) 40%,rgba(12,12,12,.22) 56%,rgba(12,12,12,.06) 68%,rgba(12,12,12,0) 76%)}
+[data-hs=contact]{display:none}[data-hs=hphone]{display:none}[data-hs=hicon][data-desk]{display:none}[data-hs=hicon][data-mob]{display:flex}[data-hs=hlabel]{display:none}[data-hs=menubtn]{padding:0 10px}[data-hs=hlang]{display:none}
+[data-hs=head]{top:106px}[data-hs=h1]{font-size:40px !important}[data-hs=line2]{align-self:flex-start;margin-right:0}
+[data-hs=ctarow]{flex-wrap:nowrap !important;gap:12px !important}[data-hs=cta]{flex:1 1 auto;min-width:0;padding:0 20px !important}[data-hs=playlabel]{display:none}[data-hs=play]{flex:none;animation:playpulse 2.2s cubic-bezier(.22,1,.36,1) infinite}
+[data-hs=season]{width:100%}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></helmet>
+<div data-vopen="{{ vOpenAttr }}" data-popen="{{ pOpenAttr }}" data-pready="{{ pReadyAttr }}" data-pt="{{ ptAttr }}" data-mopen="{{ mOpenAttr }}" data-mw="{{ mwAttr }}" data-msent="{{ mSentAttr }}" data-season="{{ season }}" data-reveal="{{ reveal }}" data-menu="{{ menuState }}" data-loaded="{{ loadedAttr }}" data-case="{{ headCase }}" style="background:#FFFFFF;padding:0;min-height:100svh;font-family:'Mulish','Segoe UI',Arial,sans-serif">
+<section data-screen-label="01 Hero" style="position:relative;height:100svh;min-height:620px;border-radius:0;overflow:hidden;background:#182820;color:#FFFFFF;isolation:isolate">
+<picture style="display:contents"><source media="(max-width:767px)" srcset="assets/photos/hero-summer-mob.jpg"><img data-hs="summer" src="assets/photos/hero-summer.jpg" alt="Комплекс FORREST Trinity Resort влітку: три корпуси серед смерекового лісу на схилі" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></picture>
+<picture style="display:contents"><source media="(max-width:767px)" srcset="assets/photos/hero-winter-mob.jpg"><img data-hs="winter" src="assets/photos/hero-winter.jpg" alt="Комплекс FORREST Trinity Resort взимку: корпуси серед засніжених смерек і гір" aria-hidden="{{ winterHidden }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"></picture>
+<div data-hs="scrim" aria-hidden="true" style="position:absolute;inset:0;z-index:2;pointer-events:none"></div>
+<header style="position:absolute;top:0;left:0;right:0;z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:clamp(12px,1.6vw,24px) clamp(16px,2.2vw,40px)">
+<div style="display:flex;align-items:center;gap:12px">
+<button data-hs="menubtn" aria-label="Відкрити меню" onClick="{{ openMenu }}" style="display:flex;align-items:center;gap:10px;height:44px;border-radius:4px;font-weight:600;font-size:16px;line-height:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg><span data-hs="hlabel">Меню</span></button>
+<div data-hs="hlang" role="group" aria-label="Мова" style="gap:2px;padding:3px;border-radius:4px">
+<button data-hs="lang" aria-pressed="{{ uaOn }}" onClick="{{ pickUA }}" style="min-width:40px;height:36px;padding:0 10px;border:0;border-radius:4px;font-weight:600;font-size:14px;line-height:20px">UA</button>
+<button data-hs="lang" aria-pressed="{{ enOn }}" onClick="{{ pickEN }}" style="min-width:40px;height:36px;padding:0 10px;border:0;border-radius:4px;font-weight:600;font-size:14px;line-height:20px">EN</button>
+</div>
+</div>
+<a href="#" aria-label="FORREST Trinity Resort — на головну" style="display:block;line-height:0"><img data-hs="logo" src="assets/logo-forrest.svg" alt="FORREST" style="width:clamp(120px,12vw,176px);height:auto"></a>
+<div style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+<a data-hs="hphone" href="tel:+380777999999" style="margin-right:12px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px;white-space:nowrap">+380 (777) 999-999</a>
+<a data-hs="hicon" data-desk="1" href="#" aria-label="Telegram" style="width:44px;height:44px;align-items:center;justify-content:center;border-radius:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M21.5 4.5 2.8 11.6c-.7.3-.7 1.2 0 1.4l4.6 1.5 1.8 5.4c.2.6 1 .8 1.4.3l2.6-2.6 4.6 3.4c.5.4 1.3.1 1.4-.5L22.6 5.6c.2-.8-.5-1.4-1.1-1.1Z"></path><path d="m7.4 14.5 10.1-6.7-7.5 8"></path></svg></a>
+<a data-hs="hicon" data-desk="1" href="#" aria-label="Viber" style="width:44px;height:44px;align-items:center;justify-content:center;border-radius:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8c-4.9 0-8.2 1.6-8.2 7.4 0 3.2 1 5.2 2.9 6.3V21l3.4-3.1c.6.1 1.2.1 1.9.1 4.9 0 8.2-1.6 8.2-7.8S16.9 2.8 12 2.8Z"></path><path d="M9.3 7.6c.4-.3.9-.2 1.1.2l.6 1.2c.2.4.1.8-.2 1.1l-.4.3c.4 1 1.2 1.8 2.2 2.2l.3-.4c.3-.3.7-.4 1.1-.2l1.2.6c.4.2.5.7.2 1.1-.6.8-1.5 1.1-2.4.7a7.5 7.5 0 0 1-4.1-4.1c-.4-.9-.1-1.8.4-2.7Z"></path></svg></a>
+<a data-hs="hicon" data-desk="1" href="#" aria-label="WhatsApp" style="width:44px;height:44px;align-items:center;justify-content:center;border-radius:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5 4.8 16A8.6 8.6 0 1 1 8 19.3l-4.5 1.2Z"></path><path d="M9.2 8.2c.3-.3.8-.3 1 .1l.6 1.3c.1.3.1.6-.1.9l-.4.5c.5 1.1 1.4 2 2.5 2.5l.5-.4c.3-.2.6-.2.9-.1l1.3.6c.4.2.4.7.1 1-.7.7-1.7.9-2.6.5a7.4 7.4 0 0 1-3.9-3.9c-.4-.9-.2-1.9.1-3Z"></path></svg></a>
+<a data-hs="hicon" data-mob="1" href="tel:+380777999999" aria-label="Зателефонувати" style="width:44px;height:44px;align-items:center;justify-content:center;border-radius:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4Z"></path></svg></a>
+<a data-hs="contact" href="#contact" style="align-items:center;height:44px;padding:0 24px;margin-left:8px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px">Консультація</a>
+</div>
+</header>
+<div data-hs="head" style="position:absolute;z-index:4;left:0;right:0;padding:0 clamp(20px,4.4vw,88px);display:flex;flex-direction:column">
+<h1 data-hs="h1" style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,5.6vw,112px);line-height:1;letter-spacing:-0.03em;display:flex;flex-direction:column;gap:.08em;color:#182820">
+<span data-hs="line1">Три світи —</span>
+<span data-hs="line2" style="color:#FFFFFF">один актив</span>
+</h1>
+</div>
+<div style="position:absolute;z-index:4;left:0;right:0;bottom:0;padding:0 clamp(20px,4.4vw,88px) clamp(20px,4.4vw,72px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:32px;max-width:620px;flex:1 1 320px">
+<p style="margin:0;font-size:clamp(18px,1.4vw,20px);line-height:1.5;color:#FFFFFF;text-wrap:pretty;max-width:540px">Інвестиційні апартаменти у першому в Буковелі курортному комплексі формату Trinity Resort.</p>
+<div data-hs="ctarow" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+<a data-hs="cta" href="#finmodel" style="display:flex;align-items:center;justify-content:center;height:52px;padding:0 28px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px">Отримати фінмодель</a>
+<a href="#presentation" aria-label="Дивитися презентацію" style="display:flex;align-items:center;gap:16px;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:16px;line-height:20px">
+<span data-hs="play" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:4px"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"></path></svg></span>
+<span data-hs="playlabel">Дивитися презентацію</span>
+</a>
+</div>
+</div>
+<div data-hs="season" role="radiogroup" aria-label="Сезон" style="position:relative;flex:none;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:4px;background:#0C0C0C">
+<span data-hs="thumb" aria-hidden="true" style="position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:4px;background:#F2EAD8"></span>
+<button data-hs="seg" role="radio" aria-checked="{{ summerOn }}" onClick="{{ setSummer }}" style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;height:40px;min-width:104px;padding:0 16px;border:0;border-radius:4px;background:transparent;font-weight:600;font-size:14px;line-height:20px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg><span>Літо</span></button>
+<button data-hs="seg" role="radio" aria-checked="{{ winterOn }}" onClick="{{ setWinter }}" style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;height:40px;min-width:104px;padding:0 16px;border:0;border-radius:4px;background:transparent;font-weight:600;font-size:14px;line-height:20px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5M3.5 9l2.5 3-2.5 3M20.5 9L18 12l2.5 3"></path></svg><span>Зима</span></button>
+</div>
+</div>
+</section>
+<section id="stats" ref="{{ statsRef }}" data-screen-label="02 Цифри та відео" style="position:relative;height:440vh;margin-top:0">
+<div data-hs="sstage" style="position:sticky;top:0;height:100svh;min-height:600px;border-radius:8px;background:#FFFFFF;color:#0C0C0C;overflow:hidden">
+<div data-hs="sstats">
+<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,84px);line-height:1;letter-spacing:-0.03em;white-space:nowrap">460+</span>
+<span style="display:flex;flex-direction:column;gap:2px;font-size:clamp(15px,1.15vw,17px);line-height:1.5"><span>апартаментів в 5 форматах</span><span style="color:#928C8E">від 27,4 до 115 м²</span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,84px);line-height:1;letter-spacing:-0.03em;white-space:nowrap">10<span style="font-family:'Mulish',sans-serif;font-weight:400;font-size:clamp(16px,1.5vw,24px);letter-spacing:0;margin-left:8px">років</span></span>
+<span style="display:flex;flex-direction:column;gap:2px;font-size:clamp(15px,1.15vw,17px);line-height:1.5"><span>до повної окупності</span><span style="color:#928C8E">капіталізація 20%</span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,84px);line-height:1;letter-spacing:-0.03em;white-space:nowrap">10 750<span style="font-family:'Mulish',sans-serif;font-weight:400;font-size:clamp(16px,1.5vw,24px);letter-spacing:0;margin-left:8px">$</span></span>
+<span style="display:flex;flex-direction:column;gap:2px;font-size:clamp(15px,1.15vw,17px);line-height:1.5"><span>мінімальний щорічний прибуток</span><span style="color:#928C8E">12% річних</span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,84px);line-height:1;letter-spacing:-0.03em;white-space:nowrap">24<span style="font-family:'Mulish',sans-serif;font-weight:400;font-size:clamp(16px,1.5vw,24px);letter-spacing:0;margin-left:8px">міс</span></span>
+<span style="display:flex;flex-direction:column;gap:2px;font-size:clamp(15px,1.15vw,17px);line-height:1.5"><span>розтермінування</span><span style="color:#928C8E">з першим внеском від 30%</span></span>
+</div>
+</div>
+<div data-hs="svid" style="position:absolute;left:0;top:0;overflow:hidden;border-radius:8px;background:#0C0C0C;will-change:transform,width,height"><video data-hs="svideo" src="assets/video/video-rest.mp4" muted playsinline preload="auto" aria-label="Відео курорту FORREST у різні сезони" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 600ms ease"></video>
+<div data-hs="splay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(12,12,12,.38) 0%,rgba(12,12,12,0) 100%)">
+<button data-hs="splaybtn" onClick="{{ openVideo }}" aria-label="Дивитися відео зі звуком" style="display:flex;align-items:center;gap:16px;border:0;background:transparent;color:#FFFFFF;padding:0;cursor:pointer;font-weight:600;font-size:16px;line-height:20px">
+<span data-hs="splayicon" style="width:72px;height:72px;display:flex;align-items:center;justify-content:center;border-radius:4px"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"></path></svg></span>
+<span>Дивитися відео</span>
+</button>
+</div>
+</div>
+<div data-hs="stext">
+<div data-hs="st1" style="display:flex;flex-direction:column;gap:16px">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em;text-transform:uppercase">Всесезонний курорт</span>
+<h2 style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(28px,3.4vw,60px);line-height:1.04;letter-spacing:-0.02em;text-transform:uppercase;text-wrap:balance">Дохід 365 днів на рік</h2>
+</div>
+<div data-hs="st2">
+<p style="margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.6;max-width:520px;text-wrap:pretty">Сезонність Буковеля ми перетворили на перевагу. FORREST складається з трьох секцій, кожна з яких працює зі своєю аудиторією та власним сценарієм попиту в різні періоди року. Завдяки цьому курорт залишається затребуваним протягом усього року, а інвестор отримує актив, що працює 365 днів.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="worlds" ref="{{ worldsRef }}" data-screen-label="02 Три світи" style="position:relative;height:440vh;margin-top:0">
+<div data-hs="wstage" data-active="0" style="position:sticky;top:0;height:100svh;min-height:560px;border-radius:0;background:#F2EAD8;overflow:hidden">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(32px,6vh,72px);padding:0 clamp(20px,4.4vw,88px)">
+<h2 data-hs="whead" style="margin:0;text-align:center;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(24px,5.4vw,96px);line-height:1.08;letter-spacing:-0.02em;text-transform:uppercase;color:#182820;will-change:transform,opacity">
+<span style="display:block">Три<span aria-hidden="true" style="display:inline-block;width:1.9em;height:.92em;border-radius:8px;overflow:hidden;vertical-align:-0.06em;margin:0 .22em"><img src="assets/photos/card-apartments.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:60% 45%;display:block"></span>аудиторії</span>
+<span style="display:block">три сценарії<span aria-hidden="true" style="display:inline-block;width:1.9em;height:.92em;border-radius:8px;overflow:hidden;vertical-align:-0.06em;margin:0 .22em"><img src="assets/photos/hero-summer.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></span>попиту</span>
+<span style="display:block;color:#928C8E">один актив</span>
+</h2>
+<div aria-hidden="true" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.6vw,24px);width:100%;max-width:1640px">
+<div data-ph="l" style="aspect-ratio:2.16/1"></div><div data-ph="c" style="aspect-ratio:2.16/1"></div><div data-ph="r" style="aspect-ratio:2.16/1"></div>
+</div>
+</div>
+<div data-hs="wcard" data-card="l" aria-hidden="true" style="z-index:1"><img src="assets/photos/rock-section.jpg" alt=""  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+<div data-hs="wcard" data-card="r" aria-hidden="true" style="z-index:1"><img src="assets/photos/sun-section.jpg" alt=""  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+<div data-hs="wcard" data-card="c" style="z-index:2;background:#0C0C0C">
+<img src="assets/photos/wind-section.jpg" alt="Секція WIND — апартаменти для тиші та відновлення"  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img src="assets/photos/rock-section.jpg" alt="Секція ROCK — апартаменти для бізнесу та масштабування" data-wreveal="1" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img src="assets/photos/sun-section.jpg" alt="Секція SUN — апартаменти для родинного відпочинку" data-wreveal="2" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<div data-hs="wtext" style="position:absolute;inset:0;opacity:0">
+<div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse 85% 95% at 0% 100%,rgba(12,12,12,.9) 0%,rgba(12,12,12,.8) 20%,rgba(12,12,12,.62) 38%,rgba(12,12,12,.38) 56%,rgba(12,12,12,.16) 74%,rgba(12,12,12,.04) 88%,rgba(12,12,12,0) 100%),linear-gradient(to top,rgba(12,12,12,.35) 0%,rgba(12,12,12,0) 40%)"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;display:grid;padding:0 clamp(20px,4.4vw,88px) clamp(24px,4.4vw,72px)">
+<div data-hs="wslide" data-slide="0" style="grid-area:1/1;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2vw,24px);max-width:760px;color:#FFFFFF">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 1</span>
+<h3 style="margin:0;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px)"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,11vw,200px);line-height:.9;letter-spacing:-0.03em">WIND</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,28px);line-height:1.3">Світ тиші та відновлення</span></h3>
+<p data-hs="wdesc" style="margin:0;font-size:17px;line-height:27px;max-width:560px;color:#FFFFFF;text-wrap:pretty">Приватний формат для дорослої платоспроможної аудиторії, яка обирає тишу, wellness, recovery та сервіс високого рівня. Попит формують зимовий ski-сценарій, програми відновлення, rooftop experience та короткі преміальні заїзди протягом року.</p>
+<button data-hs="wbtn" type="button" onClick="{{ openW0 }}" style="border:0;cursor:pointer;font-family:inherit;display:flex;align-items:center;height:52px;padding:0 28px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px;margin-top:8px">Детальніше про WIND</button>
+</div>
+<div data-hs="wslide" data-slide="1" style="grid-area:1/1;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2vw,24px);max-width:760px;color:#FFFFFF">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 2</span>
+<h3 style="margin:0;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px)"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,11vw,200px);line-height:.9;letter-spacing:-0.03em">ROCK</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,28px);line-height:1.3">Простір рішень і масштабування</span></h3>
+<p data-hs="wdesc" style="margin:0;font-size:17px;line-height:27px;max-width:560px;color:#FFFFFF;text-wrap:pretty">Формат для підприємців, управлінських команд, інвесторів і корпоративних подій. Конференції, стратегічні сесії, медійна інфраструктура та MICE створюють окремий потік попиту, особливо в періоди поза піковим туристичним сезоном.</p>
+<button data-hs="wbtn" type="button" onClick="{{ openW1 }}" style="border:0;cursor:pointer;font-family:inherit;display:flex;align-items:center;height:52px;padding:0 28px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px;margin-top:8px">Детальніше про ROCK</button>
+</div>
+<div data-hs="wslide" data-slide="2" style="grid-area:1/1;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2vw,24px);max-width:760px;color:#FFFFFF">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 3</span>
+<h3 style="margin:0;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px)"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,11vw,200px);line-height:.9;letter-spacing:-0.03em">SUN</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,28px);line-height:1.3">Світ дому, тепла та спільного відпочинку</span></h3>
+<p data-hs="wdesc" style="margin:0;font-size:17px;line-height:27px;max-width:560px;color:#FFFFFF;text-wrap:pretty">Сімейний формат, розрахований на батьків із дітьми та подорожі кількох поколінь. Довші заїзди, канікули, повторні візити та розвинена family-інфраструктура формують стійкий попит у різні періоди року.</p>
+<button data-hs="wbtn" type="button" onClick="{{ openW2 }}" style="border:0;cursor:pointer;font-family:inherit;display:flex;align-items:center;height:52px;padding:0 28px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px;margin-top:8px">Детальніше про SUN</button>
+</div>
+</div>
+<div data-hs="wdots" aria-hidden="true" style="position:absolute;right:clamp(20px,4.4vw,88px);bottom:clamp(24px,4.4vw,72px);display:flex;gap:32px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px">
+<span data-hs="wdot" data-dot="0">WIND</span><span data-hs="wdot" data-dot="1">ROCK</span><span data-hs="wdot" data-dot="2">SUN</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="plans" data-hs="plans" data-screen-label="03 Планування" style="margin-top:8px;border-radius:8px;background:#F2EAD8;color:#0C0C0C;padding:clamp(64px,8vw,128px) clamp(20px,4.4vw,88px)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 48px">
+<h2 style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(28px,3.4vw,56px);line-height:1.1;letter-spacing:-0.01em"><span style="display:block">Планування,</span><span style="display:block;color:#928C8E">які приносять дохід</span></h2>
+<p style="margin:0;max-width:480px;font-size:clamp(18px,1.4vw,20px);line-height:1.5;text-wrap:pretty">Три корпуси — три сценарії життя. Оберіть секцію й подивіться планування апартаментів.</p>
+</div>
+<div role="tablist" aria-label="Секції" style="display:flex;gap:8px;margin:clamp(40px,4vw,56px) 0 32px">
+<button data-hs="ptab" data-w="0" role="tab" aria-selected="{{ ptab0 }}" onClick="{{ pickP0 }}" style="height:48px;padding:0 24px;border:0;border-radius:4px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:16px;line-height:20px;cursor:pointer">WIND</button><button data-hs="ptab" data-w="1" role="tab" aria-selected="{{ ptab1 }}" onClick="{{ pickP1 }}" style="height:48px;padding:0 24px;border:0;border-radius:4px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:16px;line-height:20px;cursor:pointer">ROCK</button><button data-hs="ptab" data-w="2" role="tab" aria-selected="{{ ptab2 }}" onClick="{{ pickP2 }}" style="height:48px;padding:0 24px;border:0;border-radius:4px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:16px;line-height:20px;cursor:pointer">SUN</button>
+</div>
+<div data-hs="pgrid">
+<button data-hs="pcard" data-w="0" data-idx="0" onClick="{{ openPlan }}" aria-label="Відкрити планування WIND, 32 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів WIND, 32 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">WIND</span><span style="font-size:17px;line-height:26px">Студія для соло-перезавантаження.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">32<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="0" data-idx="1" onClick="{{ openPlan }}" aria-label="Відкрити планування WIND, 46 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів WIND, 46 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">WIND</span><span style="font-size:17px;line-height:26px">Апартаменти з видом на ліс.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">46<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="0" data-idx="2" onClick="{{ openPlan }}" aria-label="Відкрити планування WIND, 58 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів WIND, 58 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">WIND</span><span style="font-size:17px;line-height:26px">Простір для пари.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">58<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="1" data-idx="3" onClick="{{ openPlan }}" aria-label="Відкрити планування ROCK, 40 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів ROCK, 40 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">ROCK</span><span style="font-size:17px;line-height:26px">Кабінет і спальня разом.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">40<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="1" data-idx="4" onClick="{{ openPlan }}" aria-label="Відкрити планування ROCK, 64 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів ROCK, 64 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">ROCK</span><span style="font-size:17px;line-height:26px">Формат для команди.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">64<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="1" data-idx="5" onClick="{{ openPlan }}" aria-label="Відкрити планування ROCK, 82 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів ROCK, 82 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">ROCK</span><span style="font-size:17px;line-height:26px">Резиденція з переговорною.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">82<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="2" data-idx="6" onClick="{{ openPlan }}" aria-label="Відкрити планування SUN, 54 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів SUN, 54 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">SUN</span><span style="font-size:17px;line-height:26px">Дві спальні для родини.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">54<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="2" data-idx="7" onClick="{{ openPlan }}" aria-label="Відкрити планування SUN, 72 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів SUN, 72 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">SUN</span><span style="font-size:17px;line-height:26px">Простір для трьох поколінь.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">72<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+<button data-hs="pcard" data-w="2" data-idx="8" onClick="{{ openPlan }}" aria-label="Відкрити планування SUN, 96 м²" style="text-align:left;border:0;padding:0;border-radius:8px;overflow:hidden;background:#FFFFFF;cursor:zoom-in;font:inherit;color:#0C0C0C;display:flex;flex-direction:column">
+<span style="display:block;position:relative;aspect-ratio:1/0.86;padding:clamp(16px,2vw,32px)"><img data-hs="pimg" src="assets/photos/plan-room.jpg" alt="Планування апартаментів SUN, 96 м²" style="width:100%;height:100%;object-fit:contain;display:block"></span>
+<span style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 16px;padding:24px clamp(20px,2vw,32px) 28px;border-top:1px solid #E1D4CB">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.04em">SUN</span><span style="font-size:17px;line-height:26px">Апартаменти з терасою.</span></span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1;white-space:nowrap">96<span style="font-family:'Mulish',sans-serif;font-size:16px;margin-left:4px">м²</span></span>
+</span>
+</button>
+</div>
+</section>
+<footer data-screen-label="04 Footer" style="position:relative;margin-top:0;border-radius:0;overflow:hidden;background:#182820;color:#F2EAD8;isolation:isolate">
+<img src="assets/photos/footer-bridge.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%;z-index:0">
+<div aria-hidden="true" style="position:absolute;inset:0;background:rgba(12,12,12,.78);z-index:1"></div>
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;padding:clamp(56px,7vw,128px) clamp(20px,2.6vw,48px) clamp(24px,2.4vw,40px)">
+<div role="img" aria-label="FORREST" style="width:100%;aspect-ratio:1000/167.8;background:#FFFFFF;-webkit-mask:url(assets/logo-forrest-word.svg) center/contain no-repeat;mask:url(assets/logo-forrest-word.svg) center/contain no-repeat"></div>
+<div style="height:clamp(64px,14vw,240px)"></div>
+<div data-hs="fgrid">
+<div data-hs="faddr" style="display:flex;flex-direction:column;gap:16px">
+<p style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.9vw,28px);line-height:1.3;color:#FFFFFF;max-width:340px">Буковель, Івано-Франківська область</p>
+<a data-hs="flink" href="tel:+380777999999" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.9vw,28px);line-height:1.3;color:#FFFFFF">+380 (777) 999-999</a>
+</div>
+<nav data-hs="fgroup" data-g="0" aria-label="Проєкт" style="font-size:17px;line-height:26px">
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp0 }}" onClick="{{ ftog0 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Проєкт</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#worlds">Три світи</a><a data-hs="flink" href="#advantages">Переваги</a><a data-hs="flink" href="#progress">Хід будівництва</a><a data-hs="flink" href="#news">Новини</a></div></div></div>
+</nav>
+<nav data-hs="fgroup" data-g="1" aria-label="Черги" style="font-size:17px;line-height:26px">
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp1 }}" onClick="{{ ftog1 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Черги</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#wind" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">WIND</a><a data-hs="flink" href="#rock" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">ROCK</a><a data-hs="flink" href="#sun" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px">SUN</a></div></div></div>
+</nav>
+<nav data-hs="fgroup" data-g="2" aria-label="Забудовник" style="font-size:17px;line-height:26px">
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp2 }}" onClick="{{ ftog2 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Забудовник</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#about">Про компанію</a><a data-hs="flink" href="#partners">Партнери</a><a data-hs="flink" href="#ambassadors">Амбасадори</a></div></div></div>
+</nav>
+<nav data-hs="fgroup" data-g="3" aria-label="Контакти" style="font-size:17px;line-height:26px">
+<button data-hs="ftitle" type="button" aria-expanded="{{ fexp3 }}" onClick="{{ ftog3 }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;padding:0;font:inherit;color:#DDEBE6;cursor:default;text-align:left"><span>Контакти</span><svg data-hs="fchev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div data-hs="fbody"><div style="overflow:hidden;min-height:0"><div style="display:flex;flex-direction:column;gap:16px;padding-top:24px"><a data-hs="flink" href="#">Telegram</a><a data-hs="flink" href="#">Instagram</a><a data-hs="flink" href="#">Facebook</a><a data-hs="flink" href="mailto:">E-mail</a></div></div></div>
+</nav>
+</div>
+<div style="height:1px;background:#FFFFFF;margin:clamp(48px,6vw,96px) 0 clamp(24px,2.4vw,32px)"></div>
+<div data-hs="legal" style="display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;font-size:14px;line-height:20px;color:#DDEBE6">
+<span>© 2026 FORREST Trinity Resort</span>
+<div style="display:flex;gap:16px 32px;flex-wrap:wrap"><a data-hs="flink" href="#privacy" style="color:#DDEBE6">Політика конфіденційності</a><a data-hs="flink" href="#terms" style="color:#DDEBE6">Умови використання</a></div>
+<a data-hs="flink" href="#" style="display:flex;align-items:center;gap:12px;color:#DDEBE6"><span>Створено з душею</span><span role="img" aria-label="welldone" style="width:96px;aspect-ratio:181/30;background:currentColor;-webkit-mask:url(assets/logo-welldone.svg) center/contain no-repeat;mask:url(assets/logo-welldone.svg) center/contain no-repeat"></span></a>
+</div>
+</div>
+</footer>
+<a data-hs="tab" href="#calc" style="position:fixed;right:8px;top:50%;transform:translateY(-50%);z-index:40;writing-mode:vertical-rl;padding:24px 14px;border-radius:8px 0 0 8px;text-decoration:none;font-weight:600;font-size:16px;line-height:20px">Розрахувати дохід</a>
+<div data-hs="modal" role="dialog" aria-modal="true" aria-label="{{ modalLabel }}" aria-hidden="{{ modalHidden }}" style="position:fixed;inset:0;z-index:70">
+<div data-hs="mback" onClick="{{ closeModal }}" style="position:absolute;inset:0;background:rgba(12,12,12,.62)"></div>
+<div data-hs="mpanel" style="position:absolute;inset:8px;border-radius:8px;overflow:hidden;background:#FFFFFF;color:#0C0C0C">
+<div data-hs="mgrid" style="position:absolute;inset:0">
+<div data-hs="mleft" style="position:relative;overflow:hidden;background:#0C0C0C">
+<img data-hs="mimgw" data-w="0" src="assets/photos/wind-section.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimgw" data-w="1" src="assets/photos/rock-section.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimgw" data-w="2" src="assets/photos/sun-section.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,12,.86) 0%,rgba(12,12,12,.55) 30%,rgba(12,12,12,0) 60%)"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;padding:clamp(24px,3.6vw,64px);color:#FFFFFF">
+<div data-hs="mw" data-w="0"><div data-hs="mrise" style="display:flex;flex-direction:column;gap:16px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 1</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,8vw,152px);line-height:.9;letter-spacing:-0.03em">WIND</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.7vw,26px);line-height:1.3;max-width:440px">Світ тиші та відновлення</span></div></div>
+<div data-hs="mw" data-w="1"><div data-hs="mrise" style="display:flex;flex-direction:column;gap:16px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 2</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,8vw,152px);line-height:.9;letter-spacing:-0.03em">ROCK</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.7vw,26px);line-height:1.3;max-width:440px">Простір рішень і масштабування</span></div></div>
+<div data-hs="mw" data-w="2"><div data-hs="mrise" style="display:flex;flex-direction:column;gap:16px"><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em;text-transform:uppercase">Секція 3</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,8vw,152px);line-height:.9;letter-spacing:-0.03em">SUN</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.7vw,26px);line-height:1.3;max-width:440px">Світ дому, тепла та спільного відпочинку</span></div></div>
+</div>
+</div>
+<div data-hs="mright" style="position:relative;display:flex;flex-direction:column">
+<div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(16px,2vw,28px) clamp(24px,4.4vw,80px);background:#FFFFFF;border-bottom:1px solid #E1D4CB">
+<div role="tablist" aria-label="Секції" style="display:flex;gap:28px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px">
+<button data-hs="mtab" data-w="0" role="tab" aria-selected="{{ mtab0 }}" onClick="{{ openW0 }}" style="border:0;padding:10px 0 8px;font:inherit;cursor:pointer">WIND</button><button data-hs="mtab" data-w="1" role="tab" aria-selected="{{ mtab1 }}" onClick="{{ openW1 }}" style="border:0;padding:10px 0 8px;font:inherit;cursor:pointer">ROCK</button><button data-hs="mtab" data-w="2" role="tab" aria-selected="{{ mtab2 }}" onClick="{{ openW2 }}" style="border:0;padding:10px 0 8px;font:inherit;cursor:pointer">SUN</button>
+</div>
+<button data-hs="mx" aria-label="Закрити" onClick="{{ closeModal }}" style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;border:0;border-radius:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div data-hs="mrise" data-d="2" style="padding:clamp(32px,4.4vw,72px) clamp(24px,4.4vw,80px) clamp(32px,4vw,64px)">
+<div data-hs="mw" data-w="0" style="max-width:760px">
+<section style="display:flex;flex-direction:column;gap:20px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Про секцію</span><p style="margin:0;font-size:clamp(18px,1.4vw,21px);line-height:1.6;text-wrap:pretty">Преміальний Adults Only-простір для гостей, які цінують приватність, тишу та відновлення. Комерційно секція орієнтована на платоспроможну аудиторію, короткі преміальні заїзди та попит у різні сезони, що підсилює потенціал стабільного завантаження протягом року.</p></section>
+<div data-hs="mfacts" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 32px;margin:clamp(40px,4vw,56px) 0;padding:28px 0;border-top:1px solid #E1D4CB;border-bottom:1px solid #E1D4CB">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Введення в експлуатацію</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">IV квартал 2028 року</span></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Доступ до траси</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">Ski In / Ski Out, 5G</span></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Ключова інфраструктура</span>
+<ul data-hs="minfra" style="list-style:none;margin:0;padding:0"><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">Adults Only</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">прямий Ski In / Ski Out до траси 5G</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">Biohacking & Recovery Center</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">SPA та wellness</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">Rooftop Pool</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">ресторан і бар</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">mini-coworking</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">переговорні кімнати</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">premium recovery services</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">підземний і гостьовий паркінг</li></ul>
+</section>
+<section style="margin-top:clamp(48px,5vw,72px);background:#F2EAD8;border-radius:6px;padding:clamp(24px,3vw,40px)">
+<form data-hs="mform" data-w="0" onSubmit="{{ submitW0 }}" style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px"><h3 style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,24px);line-height:1.33">Отримайте матеріали по WIND</h3><p style="margin:0;font-size:17px;line-height:27px;max-width:560px;text-wrap:pretty">Актуальні планування, доступні апартаменти, умови придбання та персональний розрахунок прогнозованої дохідності.</p></div>
+<div data-hs="mfields">
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Ім’я</span><input data-hs="minput" name="name" autocomplete="name" required></label>
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Телефон</span><input data-hs="minput" name="phone" type="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></label>
+</div>
+<fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:8px"><legend style="padding:0;margin-bottom:8px;font-size:13px;line-height:18px;font-weight:600">Зручний спосіб зв’язку</legend>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><label data-hs="mchip"><input type="radio" name="contact-wind" value="Telegram" checked><span>Telegram</span></label><label data-hs="mchip"><input type="radio" name="contact-wind" value="Viber"><span>Viber</span></label><label data-hs="mchip"><input type="radio" name="contact-wind" value="WhatsApp"><span>WhatsApp</span></label><label data-hs="mchip"><input type="radio" name="contact-wind" value="Дзвінок"><span>Дзвінок</span></label></div>
+</fieldset>
+<div style="display:flex;flex-direction:column;gap:12px"><button data-hs="msubmit" type="submit" style="height:56px;border:0;border-radius:4px;font-weight:600;font-size:16px;line-height:20px;cursor:pointer">Отримати матеріали та розрахунок</button><span style="font-size:14px;line-height:20px">Натискаючи кнопку, ви погоджуєтесь з політикою конфіденційності.</span></div>
+</form>
+<div data-hs="msuccess" data-w="0" role="status"><h3 style="margin:0 0 12px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:24px;line-height:1.33">Дякуємо</h3><p style="margin:0;font-size:17px;line-height:27px">Ми надішлемо матеріали по WIND та зв’яжемося з вами найближчим часом.</p></div>
+</section>
+</div>
+<div data-hs="mw" data-w="1" style="max-width:760px">
+<section style="display:flex;flex-direction:column;gap:20px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Про секцію</span><p style="margin:0;font-size:clamp(18px,1.4vw,21px);line-height:1.6;text-wrap:pretty">Секція створена для ділової аудиторії, корпоративних команд, подій і професійних спільнот. Її ключова перевага для інвестора — окремий B2B-сценарій попиту, який допомагає залучати гостей не лише у високий туристичний сезон, а й у традиційно слабші періоди року.</p></section>
+<div data-hs="mfacts" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 32px;margin:clamp(40px,4vw,56px) 0;padding:28px 0;border-top:1px solid #E1D4CB;border-bottom:1px solid #E1D4CB">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Введення в експлуатацію</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">2030 рік</span></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Доступ до траси</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">Ski In / Ski Out, 5G</span></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Ключова інфраструктура</span>
+<ul data-hs="minfra" style="list-style:none;margin:0;padding:0"><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">прямий Ski In / Ski Out до траси 5G</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">конференц-зона</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">MICE-простори</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">медійний центр</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">streaming-ready інфраструктура</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">коворкінг</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">переговорні кімнати</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">padel-корт</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">rooftop</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">ресторани</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">фітнес-центр</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">простори для приватних і корпоративних подій</li></ul>
+</section>
+<section style="margin-top:clamp(48px,5vw,72px);background:#F2EAD8;border-radius:6px;padding:clamp(24px,3vw,40px)">
+<form data-hs="mform" data-w="1" onSubmit="{{ submitW1 }}" style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px"><h3 style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,24px);line-height:1.33">Отримайте матеріали по ROCK</h3><p style="margin:0;font-size:17px;line-height:27px;max-width:560px;text-wrap:pretty">Актуальні планування, доступні апартаменти, умови придбання та персональний розрахунок прогнозованої дохідності.</p></div>
+<div data-hs="mfields">
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Ім’я</span><input data-hs="minput" name="name" autocomplete="name" required></label>
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Телефон</span><input data-hs="minput" name="phone" type="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></label>
+</div>
+<fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:8px"><legend style="padding:0;margin-bottom:8px;font-size:13px;line-height:18px;font-weight:600">Зручний спосіб зв’язку</legend>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><label data-hs="mchip"><input type="radio" name="contact-rock" value="Telegram" checked><span>Telegram</span></label><label data-hs="mchip"><input type="radio" name="contact-rock" value="Viber"><span>Viber</span></label><label data-hs="mchip"><input type="radio" name="contact-rock" value="WhatsApp"><span>WhatsApp</span></label><label data-hs="mchip"><input type="radio" name="contact-rock" value="Дзвінок"><span>Дзвінок</span></label></div>
+</fieldset>
+<div style="display:flex;flex-direction:column;gap:12px"><button data-hs="msubmit" type="submit" style="height:56px;border:0;border-radius:4px;font-weight:600;font-size:16px;line-height:20px;cursor:pointer">Отримати матеріали та розрахунок</button><span style="font-size:14px;line-height:20px">Натискаючи кнопку, ви погоджуєтесь з політикою конфіденційності.</span></div>
+</form>
+<div data-hs="msuccess" data-w="1" role="status"><h3 style="margin:0 0 12px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:24px;line-height:1.33">Дякуємо</h3><p style="margin:0;font-size:17px;line-height:27px">Ми надішлемо матеріали по ROCK та зв’яжемося з вами найближчим часом.</p></div>
+</section>
+</div>
+<div data-hs="mw" data-w="2" style="max-width:760px">
+<section style="display:flex;flex-direction:column;gap:20px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Про секцію</span><p style="margin:0;font-size:clamp(18px,1.4vw,21px);line-height:1.6;text-wrap:pretty">Сімейний формат для відпочинку кількох поколінь, розрахований на довші заїзди та повторні візити. Для інвестора це сегмент із потенціалом стабільного family-попиту протягом року завдяки канікулам, святковим періодам і звичці родин повертатися у комфортні для них місця.</p></section>
+<div data-hs="mfacts" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 32px;margin:clamp(40px,4vw,56px) 0;padding:28px 0;border-top:1px solid #E1D4CB;border-bottom:1px solid #E1D4CB">
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Введення в експлуатацію</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">2030 рік</span></div>
+<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Доступ до траси</span><span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.25">Ski In / Ski Out, 5G</span></div>
+</div>
+<section style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Ключова інфраструктура</span>
+<ul data-hs="minfra" style="list-style:none;margin:0;padding:0"><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">прямий Ski In / Ski Out до траси 5G</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">сімейні апартаменти</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">multi-room формати</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">дитячий центр</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">SPA на два поверхи</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">басейни</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">скалодром</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">мотузковий майданчик</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">family-активності</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">дитячі програми</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">сімейний ресторан</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">rooftop</li><li style="padding:14px 0;border-bottom:1px solid #E1D4CB;font-size:17px;line-height:26px">паркінг і сімейна логістика</li></ul>
+</section>
+<section style="margin-top:clamp(48px,5vw,72px);background:#F2EAD8;border-radius:6px;padding:clamp(24px,3vw,40px)">
+<form data-hs="mform" data-w="2" onSubmit="{{ submitW2 }}" style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px"><h3 style="margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,24px);line-height:1.33">Отримайте матеріали по SUN</h3><p style="margin:0;font-size:17px;line-height:27px;max-width:560px;text-wrap:pretty">Актуальні планування, доступні апартаменти, умови придбання та персональний розрахунок прогнозованої дохідності.</p></div>
+<div data-hs="mfields">
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Ім’я</span><input data-hs="minput" name="name" autocomplete="name" required></label>
+<label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;line-height:18px;font-weight:600">Телефон</span><input data-hs="minput" name="phone" type="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></label>
+</div>
+<fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:8px"><legend style="padding:0;margin-bottom:8px;font-size:13px;line-height:18px;font-weight:600">Зручний спосіб зв’язку</legend>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><label data-hs="mchip"><input type="radio" name="contact-sun" value="Telegram" checked><span>Telegram</span></label><label data-hs="mchip"><input type="radio" name="contact-sun" value="Viber"><span>Viber</span></label><label data-hs="mchip"><input type="radio" name="contact-sun" value="WhatsApp"><span>WhatsApp</span></label><label data-hs="mchip"><input type="radio" name="contact-sun" value="Дзвінок"><span>Дзвінок</span></label></div>
+</fieldset>
+<div style="display:flex;flex-direction:column;gap:12px"><button data-hs="msubmit" type="submit" style="height:56px;border:0;border-radius:4px;font-weight:600;font-size:16px;line-height:20px;cursor:pointer">Отримати матеріали та розрахунок</button><span style="font-size:14px;line-height:20px">Натискаючи кнопку, ви погоджуєтесь з політикою конфіденційності.</span></div>
+</form>
+<div data-hs="msuccess" data-w="2" role="status"><h3 style="margin:0 0 12px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:24px;line-height:1.33">Дякуємо</h3><p style="margin:0;font-size:17px;line-height:27px">Ми надішлемо матеріали по SUN та зв’яжемося з вами найближчим часом.</p></div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div data-hs="pview" role="dialog" aria-modal="true" aria-label="Планування" aria-hidden="{{ pHidden }}">
+<div data-hs="pback" style="position:absolute;inset:0;background:#FFFFFF"></div>
+<div data-hs="pgridv" style="position:absolute;inset:8px;color:#0C0C0C">
+<div data-hs="pframe" style="position:relative;background:#FFFFFF;padding:clamp(16px,4vw,72px)"><img data-hs="pframeimg" src="assets/photos/plan-room.jpg" alt="{{ pAlt }}" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+<div data-hs="pinfo" style="display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding:clamp(20px,3vw,48px);border-left:1px solid #E1D4CB;overflow-y:auto">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Планування</span><button data-hs="mx" aria-label="Закрити планування" onClick="{{ closePlan }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;border-radius:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div style="display:flex;flex-direction:column;gap:20px">
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:17px;line-height:24px;letter-spacing:0.04em">{{ pName }}</span>
+<span style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(56px,7vw,120px);line-height:.9;letter-spacing:-0.03em">{{ pArea }}<span style="font-family:'Mulish',sans-serif;font-weight:400;font-size:clamp(20px,1.8vw,28px);letter-spacing:0;margin-left:8px">м²</span></span>
+<p style="margin:0;font-size:clamp(18px,1.4vw,21px);line-height:1.5;max-width:420px">{{ pDesc }}</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Інші планування {{ pName }}</span>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+<sc-for list="{{ pSiblings }}" as="sb" hint-placeholder-count="3"><button data-hs="psib" aria-pressed="{{ sb.on }}" onClick="{{ sb.pick }}" style="height:56px;border:0;border-radius:4px;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:17px;cursor:pointer">{{ sb.area }} м²</button></sc-for>
+</div></div>
+<button data-hs="msubmit" onClick="{{ planCta }}" style="height:56px;border:0;border-radius:4px;font-weight:600;font-size:16px;line-height:20px;cursor:pointer">Отримати планування та розрахунок</button>
+</div>
+</div>
+</div>
+</div>
+<div data-hs="pfly" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:76;overflow:hidden;border-radius:8px;background:#FFFFFF;display:none"><img data-hs="pflyimg" src="assets/photos/plan-room.jpg" alt="" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+<div data-hs="vplayer" role="dialog" aria-modal="true" aria-label="Відео" aria-hidden="{{ vHidden }}" style="position:fixed;inset:0;z-index:80;background:#0C0C0C;display:flex;align-items:center;justify-content:center">
+<video data-hs="vfull" controls playsinline preload="none" style="width:100%;height:100%;object-fit:contain;display:block"></video>
+<button data-hs="vclose" aria-label="Закрити відео" onClick="{{ closeVideo }}" style="position:absolute;top:16px;right:16px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:0;border-radius:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div data-hs="menu" data-mimg="{{ menuImg }}" role="dialog" aria-modal="true" aria-label="Меню" aria-hidden="{{ menuHidden }}" style="position:fixed;inset:8px;z-index:60;border-radius:8px;background:#FFFFFF;color:#0C0C0C;overflow-y:auto;display:flex;flex-direction:column">
+<div data-hs="mbar" style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:clamp(12px,1.6vw,24px) clamp(12px,1.8vw,32px) 0">
+<div><button data-hs="mclose" aria-label="Закрити меню" onClick="{{ closeMenu }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;border-radius:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<a href="#" onClick="{{ closeMenu }}" aria-label="FORREST Trinity Resort — на головну" style="display:block;line-height:0"><img src="assets/logo-forrest.svg" alt="FORREST" style="width:clamp(120px,12vw,176px);height:auto"></a>
+<div role="group" aria-label="Мова" style="display:flex;justify-content:flex-end;gap:4px;font-weight:600;font-size:14px;line-height:20px">
+<button data-hs="mlang" aria-pressed="{{ uaOn }}" onClick="{{ pickUA }}" style="height:44px;min-width:44px;border:0;border-radius:4px">UA</button>
+<button data-hs="mlang" aria-pressed="{{ enOn }}" onClick="{{ pickEN }}" style="height:44px;min-width:44px;border:0;border-radius:4px">EN</button>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,5vh,64px);padding:clamp(40px,7vh,88px) clamp(20px,4.4vw,88px) clamp(24px,3vw,48px)">
+<div data-hs="mmain">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-width:0">
+<nav data-hs="pnav" aria-label="Основні розділи" style="display:flex;flex-direction:column;align-items:flex-start">
+<div data-hs="pitem"><a data-hs="plink" href="#worlds" onClick="{{ closeMenu }}" onMouseEnter="{{ hov0 }}" onFocus="{{ hov0 }}" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,76px);line-height:1.12;letter-spacing:-0.02em">Три світи</a></div>
+<div data-hs="pitem"><a data-hs="plink" href="#apartments" onClick="{{ closeMenu }}" onMouseEnter="{{ hov1 }}" onFocus="{{ hov1 }}" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,76px);line-height:1.12;letter-spacing:-0.02em">Апартаменти</a></div>
+<div data-hs="pitem"><a data-hs="plink" href="#invest" onClick="{{ closeMenu }}" onMouseEnter="{{ hov2 }}" onFocus="{{ hov2 }}" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,76px);line-height:1.12;letter-spacing:-0.02em">Інвестору</a></div>
+<div data-hs="pitem"><a data-hs="plink" href="#location" onClick="{{ closeMenu }}" onMouseEnter="{{ hov3 }}" onFocus="{{ hov3 }}" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,76px);line-height:1.12;letter-spacing:-0.02em">Локація</a></div>
+<div data-hs="pitem"><a data-hs="plink" href="#progress" onClick="{{ closeMenu }}" onMouseEnter="{{ hov4 }}" onFocus="{{ hov4 }}" style="font-family:'Unbounded','Arial Black',sans-serif;font-weight:500;font-size:clamp(30px,4.6vw,76px);line-height:1.12;letter-spacing:-0.02em">Хід будівництва</a></div>
+</nav>
+<nav data-hs="mfade" aria-label="Інші розділи" style="display:flex;flex-direction:column;gap:16px">
+<span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Також про проєкт</span>
+<div style="display:flex;flex-wrap:wrap;gap:12px 32px;font-size:17px;line-height:26px">
+<a data-hs="slink" href="#advantages" onClick="{{ closeMenu }}">Переваги</a><a data-hs="slink" href="#infrastructure" onClick="{{ closeMenu }}">Інфраструктура</a><a data-hs="slink" href="#finmodel" onClick="{{ closeMenu }}">Фінмодель</a><a data-hs="slink" href="#team" onClick="{{ closeMenu }}">Команда проєкту</a><a data-hs="slink" href="#contact" onClick="{{ closeMenu }}">Контакти</a>
+</div>
+</nav>
+</div>
+<div data-hs="mmedia" style="display:flex;flex-direction:column;gap:16px;min-height:0">
+<div data-hs="mfade" style="position:relative;flex:1;min-height:320px;overflow:hidden;background:#F2EAD8">
+<img data-hs="mimg" data-i="0" src="assets/photos/hero-summer.jpg" alt="Комплекс FORREST Trinity Resort серед карпатського лісу" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimg" data-i="1" src="assets/photos/wind-interior-reading.jpg" alt="Інтер’єр апартаментів з видом на ліс" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimg" data-i="2" src="assets/photos/rock-terrace-evening.jpg" alt="Вечірня тераса комплексу" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimg" data-i="3" src="assets/photos/sun-carpathian-slope.jpg" alt="Карпатський схил біля комплексу" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<img data-hs="mimg" data-i="4" src="assets/photos/wind-architecture.jpg" alt="Архітектура корпусу WIND" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+</div>
+<div data-hs="mfade" style="display:grid;font-size:14px;line-height:20px">
+<span data-hs="mcap" data-i="0" style="grid-area:1/1;color:#0C0C0C">Три корпуси — WIND, ROCK, SUN</span><span data-hs="mcap" data-i="1" style="grid-area:1/1;color:#0C0C0C">Інтер’єри апартаментів</span><span data-hs="mcap" data-i="2" style="grid-area:1/1;color:#0C0C0C">Фінмодель та умови інвестування</span><span data-hs="mcap" data-i="3" style="grid-area:1/1;color:#0C0C0C">Буковель, Івано-Франківська область</span><span data-hs="mcap" data-i="4" style="grid-area:1/1;color:#0C0C0C">Хід будівництва</span>
+</div>
+</div>
+</div>
+<div data-hs="mfade2" style="border-top:1px solid #E1D4CB;padding-top:clamp(24px,3vw,40px)">
+<div data-hs="mcontacts">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Відділ продажу</span><a data-hs="slink" href="tel:+380777999999" style="align-self:flex-start;font-family:'Unbounded','Arial Black',sans-serif;font-weight:400;font-size:20px;line-height:28px">+380 (777) 999-999</a></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Месенджери</span><div style="display:flex;flex-wrap:wrap;gap:8px 24px;font-size:17px;line-height:26px"><a data-hs="slink" href="#">Telegram</a><a data-hs="slink" href="#">Viber</a><a data-hs="slink" href="#">WhatsApp</a></div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Адреса</span><span style="font-size:17px;line-height:26px;max-width:260px">Буковель, Івано-Франківська область</span></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;line-height:18px;font-weight:600;color:#928C8E">Соцмережі</span><div style="display:flex;flex-wrap:wrap;gap:8px 24px;font-size:17px;line-height:26px"><a data-hs="slink" href="#">Instagram</a><a data-hs="slink" href="#">Facebook</a></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;revealStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;circle&quot;,&quot;wipe&quot;,&quot;fade&quot;],&quot;default&quot;:&quot;circle&quot;,&quot;tsType&quot;:&quot;'circle'|'wipe'|'fade'&quot;,&quot;section&quot;:&quot;Зміна сезону&quot;},&quot;headlineCase&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;uppercase&quot;,&quot;sentence&quot;],&quot;default&quot;:&quot;uppercase&quot;,&quot;tsType&quot;:&quot;'uppercase'|'sentence'&quot;,&quot;section&quot;:&quot;Заголовок&quot;}}">
+class Component extends DCLogic {
+  openVideo = () => { const f = document.querySelector('[data-hs=vfull]'); if (f) { if (!f.src) f.src = this.vurl || 'assets/video/video-rest.mp4'; f.currentTime = 0; f.muted = false; f.play().catch(() => {}); } document.body.style.overflow = 'hidden'; this.setState({ vopen: true }); };
+  closeVideo = () => { const f = document.querySelector('[data-hs=vfull]'); if (f) f.pause(); document.body.style.overflow = ''; this.setState({ vopen: false }); };
+  state = { fopen: -1, vopen: false, winter: false, loaded: false, menu: false, lang: 'UA', mopen: false, mw: 0, sent: [], pt: 0, pi: 0, popen: false, pready: false };
+  plans = [["WIND","32","Студія для соло-перезавантаження."],["WIND","46","Апартаменти з видом на ліс."],["WIND","58","Простір для пари."],["ROCK","40","Кабінет і спальня разом."],["ROCK","64","Формат для команди."],["ROCK","82","Резиденція з переговорною."],["SUN","54","Дві спальні для родини."],["SUN","72","Простір для трьох поколінь."],["SUN","96","Апартаменти з терасою."]];
+  openPlan = e => {
+    const el = e.currentTarget, i = +el.dataset.idx;
+    const r = el.querySelector('[data-hs=pimg]').getBoundingClientRect();
+    this.cardEl = el; document.body.style.overflow = 'hidden';
+    const sec = document.querySelector('[data-hs=plans]'); const sr = sec.getBoundingClientRect();
+    sec.style.transformOrigin = (r.left + r.width / 2 - sr.left) + 'px ' + (r.top + r.height / 2 - sr.top) + 'px';
+    sec.style.transform = 'scale(1.18)'; sec.style.filter = 'blur(8px)';
+    this.setState({ pi: i, popen: true, pready: false }, () => requestAnimationFrame(() => this.fly(r, true)));
+  };
+  fly = (r, inward) => {
+    const f = document.querySelector('[data-hs=pframeimg]').getBoundingClientRect();
+    const fly = document.querySelector('[data-hs=pfly]'), img = fly.querySelector('img');
+    const vw = innerWidth, vh = innerHeight;
+    const A = { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' };
+    const B = { left: '-6vw', top: '-6vh', width: (vw * 1.12) + 'px', height: (vh * 1.12) + 'px' };
+    const C = { left: f.left + 'px', top: f.top + 'px', width: f.width + 'px', height: f.height + 'px' };
+    fly.style.display = 'block';
+    if (this.fa) this.fa.cancel(); if (this.ia) this.ia.cancel();
+    const ease = 'cubic-bezier(.7,0,.2,1)';
+    if (inward) {
+      this.fa = fly.animate([{ ...A, borderRadius: '8px' }, { ...B, borderRadius: '0px', offset: .58 }, { ...C, borderRadius: '0px' }], { duration: 1300, easing: ease, fill: 'forwards' });
+      this.ia = img.animate([{ transform: 'scale(1)', filter: 'blur(0px)' }, { transform: 'scale(1.9)', filter: 'blur(5px)', offset: .5 }, { transform: 'scale(1)', filter: 'blur(0px)' }], { duration: 1300, easing: ease, fill: 'forwards' });
+      this.fa.onfinish = () => { this.setState({ pready: true }); setTimeout(() => { fly.style.display = 'none'; }, 220); };
+    } else {
+      this.fa = fly.animate([{ ...C, borderRadius: '0px' }, { ...A, borderRadius: '8px' }], { duration: 850, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
+      this.ia = img.animate([{ transform: 'scale(1)' }, { transform: 'scale(.96)', offset: .5 }, { transform: 'scale(1)' }], { duration: 850, easing: 'ease-in-out', fill: 'forwards' });
+      this.fa.onfinish = () => { fly.style.display = 'none'; };
+    }
+  };
+  closePlan = () => {
+    const el = this.cardEl; const sec = document.querySelector('[data-hs=plans]');
+    sec.style.transform = ''; sec.style.filter = '';
+    document.body.style.overflow = '';
+    this.setState({ pready: false, popen: false });
+    if (el && el.offsetParent) this.fly(el.querySelector('[data-hs=pimg]').getBoundingClientRect(), false);
+  };
+  openW = i => { document.body.style.overflow = 'hidden'; this.setState({ mopen: true, mw: i }); };
+  closeModal = () => { document.body.style.overflow = ''; this.setState({ mopen: false }); };
+  submitW = i => e => { e.preventDefault(); this.setState(s => ({ sent: s.sent.includes(i) ? s.sent : [...s.sent, i] })); };
+  worldsRef = el => { this.sec = el; };
+  frame = () => {
+    this.raf = 0; const sec = this.sec; if (!sec) return;
+    const st = sec.querySelector('[data-hs=wstage]'); const sr = st.getBoundingClientRect();
+    const W = st.clientWidth, H = st.clientHeight;
+    const total = Math.max(1, sec.offsetHeight - H);
+    const target = Math.min(1, Math.max(0, (0 - sec.getBoundingClientRect().top) / total));
+    if (this.ps == null || Math.abs(target - this.ps) > .25) this.ps = target; else this.ps += (target - this.ps) * .055;
+    const p = this.ps; if (Math.abs(target - this.ps) > .0002) this.raf = requestAnimationFrame(this.frame);
+    const m = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+    const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const e = ease(m(0.03, 0.3));
+    const rect = k => { const r = st.querySelector('[data-ph=' + k + ']').getBoundingClientRect(); return { x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height }; };
+    const lerp = (a, b, t) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, w: a.w + (b.w - a.w) * t, h: a.h + (b.h - a.h) * t });
+    const put = (el, r, o) => { el.style.transform = 'translate(' + r.x + 'px,' + r.y + 'px)'; el.style.width = r.w + 'px'; el.style.height = r.h + 'px'; if (o != null) el.style.opacity = o; };
+    const C = lerp(rect('c'), { x: 0, y: 0, w: W, h: H }, e);
+    const under = { x: C.x + C.w * .1, y: C.y + C.h * .1, w: C.w * .8, h: C.h * .8 };
+    const side = 1 - m(0.22, 0.3);
+    put(st.querySelector('[data-card=c]'), C); st.querySelector('[data-card=c]').style.borderRadius = (8 * (1 - e)) + 'px';
+    put(st.querySelector('[data-card=l]'), lerp(rect('l'), under, e), side);
+    put(st.querySelector('[data-card=r]'), lerp(rect('r'), under, e), side);
+    const hd = st.querySelector('[data-hs=whead]'); hd.style.opacity = 1 - m(0, 0.16); hd.style.transform = 'translateY(' + (-e * 64) + 'px)';
+    st.querySelector('[data-hs=wtext]').style.opacity = m(0.26, 0.33);
+    const sm = t => t * t * t * (t * (t * 6 - 15) + 10);
+    const r1 = sm(m(0.36, 0.62)), r2 = sm(m(0.68, 0.94));
+    const wave = (el, r, seed) => {
+      if (r <= 0) { el.style.clipPath = 'inset(100% 0 0 0)'; return; }
+      if (r >= 1) { el.style.clipPath = 'none'; el.style.transform = 'none'; el.style.filter = 'none'; return; }
+      const A = 5 * Math.pow(Math.sin(Math.PI * r), 1.4), pts = [];
+      for (let i = 0; i <= 64; i++) { const x = i / 64; const y = (1 - r) * 110 - 5 + A * Math.sin(x * Math.PI * 1.6 + r * 3.2 + seed) + A * .22 * Math.sin(x * Math.PI * 3.4 - r * 4 + seed); pts.push((x * 100).toFixed(2) + '% ' + y.toFixed(2) + '%'); }
+      el.style.clipPath = 'polygon(' + pts.join(',') + ',100% 100%,0% 100%)';
+      el.style.transform = 'scale(' + (1.08 - .08 * r) + ') translateY(' + ((1 - r) * 3) + '%)';
+      el.style.filter = 'brightness(' + (0.82 + .18 * r) + ')';
+    };
+    wave(st.querySelector('[data-wreveal="1"]'), r1, 0);
+    wave(st.querySelector('[data-wreveal="2"]'), r2, 1.7);
+    st.dataset.active = r2 > .5 ? '2' : r1 > .5 ? '1' : '0';
+  };
+  statsRef = el => { this.ssec = el; };
+  sframe = () => {
+    this.sraf = 0; const sec = this.ssec; if (!sec) return;
+    const st = sec.querySelector('[data-hs=sstage]'); const W = st.clientWidth, H = st.clientHeight;
+    const total = Math.max(1, sec.offsetHeight - H);
+    const target = Math.min(1, Math.max(0, (0 - sec.getBoundingClientRect().top) / total));
+    if (this.sp == null || Math.abs(target - this.sp) > .3) this.sp = target; else this.sp += (target - this.sp) * .08;
+    if (Math.abs(target - this.sp) > .0003) this.sraf = requestAnimationFrame(this.sframe);
+    const p = this.sp, m = (a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
+    const sm = t => t * t * t * (t * (t * 6 - 15) + 10);
+    const mob = W < 768, pad = mob ? 20 : Math.min(88, Math.max(20, W * .044)), padY = mob ? 20 : Math.min(72, Math.max(20, W * .044));
+    const L = mob ? { x: pad, y: padY + 56, w: W - pad * 2, h: Math.min(H * .4, (W - pad * 2) * 1.05) } : (() => { const w = (W - pad * 2) * .42, h = Math.min(H - padY * 2, w * 1.22); return { x: pad, y: (H - h) / 2, w, h }; })();
+    const t1e = st.querySelector('[data-hs=st1]'), t2e = st.querySelector('[data-hs=st2]');
+    const cw = Math.min(W - pad * 2, 1640), cx = (W - cw) / 2;
+    const tx0 = st.querySelector('[data-hs=stext]'); tx0.style.width = cw + 'px'; tx0.style.left = cx + 'px';
+    const textH = mob ? t1e.offsetHeight + 16 + t2e.offsetHeight : Math.max(t1e.offsetHeight, t2e.offsetHeight);
+    const gap = mob ? 24 : Math.min(56, Math.max(32, H * .05));
+    const h2 = Math.max(120, Math.min(cw * 7 / 16, H - padY * 2 - textH - gap));
+    const C = { x: cx, y: H - padY - h2, w: cw, h: h2 };
+    tx0.style.top = Math.max(padY, C.y - gap - textH) + 'px';
+    const e = sm(m(.12, .6)), lp = (a, b) => a + (b - a) * e;
+    const v = st.querySelector('[data-hs=svid]');
+    v.style.transform = 'translate(' + lp(L.x, C.x) + 'px,' + lp(L.y, C.y) + 'px)'; v.style.width = lp(L.w, C.w) + 'px'; v.style.height = lp(L.h, C.h) + 'px';
+    const so = st.querySelector('[data-hs=sstats]'), sx = sm(m(.06, .32));
+    so.style.opacity = 1 - sx; so.style.transform = 'translate' + (mob ? 'Y(' + (sx * 40) + 'px)' : 'X(' + (sx * 80) + 'px)');
+    const tx = tx0;
+    const a1 = sm(m(.6, .74)), a2 = sm(m(.66, .8));
+    const t1 = st.querySelector('[data-hs=st1]'), t2 = st.querySelector('[data-hs=st2]');
+    t1.style.opacity = a1; t1.style.transform = 'translateY(' + ((1 - a1) * 32) + 'px)';
+    t2.style.opacity = a2; t2.style.transform = 'translateY(' + ((1 - a2) * 32) + 'px)';
+    tx.style.pointerEvents = a2 > .5 ? 'auto' : 'none';
+    const pl = st.querySelector('[data-hs=splay]'), a3 = sm(m(.72, .84)); pl.style.opacity = a3; pl.style.pointerEvents = a3 > .5 ? 'auto' : 'none';
+    const vid = st.querySelector('[data-hs=svideo]');
+    if (vid && vid.duration) { const t = Math.min(vid.duration - .05, m(0, .8) * vid.duration); if (Math.abs(vid.currentTime - t) > .03 && !vid.seeking) vid.currentTime = t; }
+  };
+  onScroll = () => { if (!this.raf) this.raf = requestAnimationFrame(this.frame); if (!this.sraf) this.sraf = requestAnimationFrame(this.sframe); };
+  componentDidMount() {
+    this.onKey = e => { if (e.key === 'Escape') { if (this.state.vopen) this.closeVideo(); else if (this.state.popen) this.closePlan(); else if (this.state.mopen) this.closeModal(); else if (this.state.menu) this.setState({ menu: false }); } };
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('scroll', this.onScroll, { passive: true }); window.addEventListener('resize', this.onScroll); this.onScroll(); setTimeout(this.onScroll, 300);
+    setTimeout(() => { const v = document.querySelector('[data-hs=svideo]'); if (v) { const src = v.getAttribute('src'); fetch(src).then(r => r.blob()).then(b => { this.vurl = URL.createObjectURL(b); v.src = this.vurl; v.load(); }).catch(() => {}); const ready = () => { if (v.dataset.ready === 'yes') return; v.dataset.ready = 'yes'; this.sp = null; this.onScroll(); };
+      v.muted = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+      ['loadeddata', 'canplay', 'seeked'].forEach(ev => v.addEventListener(ev, ready));
+      if (v.readyState >= 2) ready(); v.pause(); v.addEventListener('loadedmetadata', this.onScroll); v.addEventListener('seeked', () => { if (!this.sraf) this.sraf = requestAnimationFrame(this.sframe); }); } }, 0);
+    requestAnimationFrame(() => setTimeout(() => this.setState({ loaded: true }), 60));
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); }
+  renderVals() {
+    const { winter, loaded, menu, lang } = this.state;
+    return {
+      season: winter ? 'winter' : 'summer',
+      reveal: this.props.revealStyle ?? 'circle',
+      headCase: this.props.headlineCase ?? 'uppercase',
+      menuState: menu ? 'open' : 'closed',
+      loadedAttr: loaded ? 'yes' : 'no',
+      winterHidden: !winter,
+      uaOn: lang === 'UA', enOn: lang === 'EN',
+      pickUA: () => this.setState({ lang: 'UA' }),
+      pickEN: () => this.setState({ lang: 'EN' }),
+      toggleSeason: () => this.setState(s => ({ winter: !s.winter })),
+      winterOn: winter, summerOn: !winter,
+      setSummer: () => this.setState({ winter: false }),
+      setWinter: () => this.setState({ winter: true }),
+      toggleLabel: winter ? 'Подивитись вид влітку' : 'Подивитись вид взимку',
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuHidden: !menu, worldsRef: this.worldsRef, statsRef: this.statsRef,
+      vOpenAttr: this.state.vopen ? 'yes' : 'no',
+      fexp0: this.state.fopen === 0, fexp1: this.state.fopen === 1, fexp2: this.state.fopen === 2, fexp3: this.state.fopen === 3,
+      ftog0: () => this.setState(s => ({ fopen: s.fopen === 0 ? -1 : 0 })), ftog1: () => this.setState(s => ({ fopen: s.fopen === 1 ? -1 : 1 })), ftog2: () => this.setState(s => ({ fopen: s.fopen === 2 ? -1 : 2 })), ftog3: () => this.setState(s => ({ fopen: s.fopen === 3 ? -1 : 3 })), vHidden: !this.state.vopen, openVideo: this.openVideo, closeVideo: this.closeVideo,
+      mOpenAttr: this.state.mopen ? 'yes' : 'no',
+      pOpenAttr: this.state.popen ? 'yes' : 'no', pReadyAttr: this.state.pready ? 'yes' : 'no', ptAttr: String(this.state.pt), pHidden: !this.state.popen,
+      ptab0: this.state.pt === 0, ptab1: this.state.pt === 1, ptab2: this.state.pt === 2,
+      pickP0: () => this.setState({ pt: 0 }), pickP1: () => this.setState({ pt: 1 }), pickP2: () => this.setState({ pt: 2 }),
+      openPlan: this.openPlan, closePlan: this.closePlan,
+      pName: this.plans[this.state.pi][0], pArea: this.plans[this.state.pi][1], pDesc: this.plans[this.state.pi][2],
+      pAlt: 'Планування апартаментів ' + this.plans[this.state.pi][0] + ', ' + this.plans[this.state.pi][1] + ' м²',
+      pSiblings: [0, 1, 2].map(j => { const idx = Math.floor(this.state.pi / 3) * 3 + j; return { area: this.plans[idx][1], on: idx === this.state.pi, pick: () => { this.cardEl = document.querySelector('[data-hs=pcard][data-idx="' + idx + '"]'); this.setState({ pi: idx }); } }; }),
+      planCta: () => { const w = Math.floor(this.state.pi / 3); this.closePlan(); setTimeout(() => this.openW(w), 700); }, mwAttr: String(this.state.mw), mSentAttr: this.state.sent.map(i => 'w' + i).join(' '),
+      modalHidden: !this.state.mopen, modalLabel: ['WIND', 'ROCK', 'SUN'][this.state.mw],
+      closeModal: this.closeModal,
+      openW0: () => this.openW(0), openW1: () => this.openW(1), openW2: () => this.openW(2),
+      mtab0: this.state.mw === 0, mtab1: this.state.mw === 1, mtab2: this.state.mw === 2,
+      submitW0: this.submitW(0), submitW1: this.submitW(1), submitW2: this.submitW(2),
+      menuImg: String(this.state.mi ?? 0),
+      hov0: () => this.setState({ mi: 0 }), hov1: () => this.setState({ mi: 1 }), hov2: () => this.setState({ mi: 2 }), hov3: () => this.setState({ mi: 3 }), hov4: () => this.setState({ mi: 4 })
+    };
+  }
+}
+</script>
+</body>
+</html>
