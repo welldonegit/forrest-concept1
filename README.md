@@ -1,3 +1,3 @@
-# FORREST — Hero seasons
+# FORREST Trinity Resort — сайт
 
-Статичний сайт для Vercel. Розгортання: `vercel deploy` з цієї папки або перетягнути папку у vercel.com/new. Збірка не потрібна (Framework: Other, Output: `.`).
+Статичний сайт для Vercel. Розгортання: перетягнути цю папку у vercel.com/new або `vercel deploy` з цієї папки. Збірка не потрібна (Framework: Other, Output directory: `.`).
