@@ -5,6 +5,9 @@
 <title>FORREST Trinity Resort</title>
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="./vendor/react.production.min.js"></script>
+<script src="./vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -892,7 +895,7 @@
 <sc-if value="{{ ytOpen }}" hint-placeholder-val="{{ false }}">
 <div role="dialog" aria-modal="true" aria-label="Відео FORREST" onClick="{{ ytClose }}" style="position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,64px);background:rgba(12,12,12,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)">
 <button type="button" onClick="{{ ytClose }}" aria-label="Закрити відео" style="position:absolute;top:clamp(14px,2vw,28px);right:clamp(14px,2vw,28px);width:52px;height:52px;border-radius:999px;border:0;background:#F2EAD8;color:#182820;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
-<div style="position:relative;width:min(100%,calc((100vh - 120px) * 16 / 9),1600px);aspect-ratio:16/9;border-radius:clamp(16px,2vw,28px);overflow:hidden;background:#0C0C0C;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)"><iframe src="https://www.youtube-nocookie.com/embed/d9ZbEgt5lhQ?autoplay=1&amp;rel=0&amp;playsinline=1" title="FORREST Trinity Resort — відео" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></div>
+<div style="position:relative;width:min(100%,calc((100vh - 120px) * 16 / 9),1600px);aspect-ratio:16/9;border-radius:clamp(16px,2vw,28px);overflow:hidden;background:#0C0C0C;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)"><iframe src="{{ ytSrc }}" title="FORREST Trinity Resort — відео" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></div>
 </div>
 </sc-if>
 <sc-if value="{{ qOpen }}" hint-placeholder-val="{{ false }}">
@@ -1377,7 +1380,7 @@ infraRef = React.createRef(); formRef = React.createRef(); fformRef = React.crea
       pSubmit: e => { e.preventDefault(); this.setState({ psent: true }); }, pSent: this.state.psent, pBtn: this.state.psent ? 'Дякуємо, передзвонимо' : 'Дізнатись ціну', pPrev: () => this.pStep(-1), pNext: () => this.pStep(1),
       pTs: e => { this.ptx = e.touches[0].clientX; }, pTe: e => { const dx = e.changedTouches[0].clientX - (this.ptx || 0); if (Math.abs(dx) > 40) this.pStep(dx < 0 ? 1 : -1); },
       pSiblings: this.plans.map((pl, idx) => ({ name: pl.name, on: idx === this.state.pi, pick: () => { const bt = document.querySelector('[data-hs=aplan][data-idx="' + idx + '"]'); this.cardEl = bt ? bt.closest('article').querySelector('div') : this.cardEl; this.setState({ pi: idx, ps: 0 }); } })), worldsRef: this.worldsRef, worlds2Ref: this.worlds2Ref, seasonSecRef: this.seasonSecRef, videoRef: this.videoRef, overlayRef: this.overlayRef,
-      playVideo: () => { document.body.style.overflow = 'hidden'; this.setState({ ytOpen: true }); }, ytOpen: !!this.state.ytOpen, ytClose: e => { if (e && e.target !== e.currentTarget && !e.currentTarget.matches('button')) return; document.body.style.overflow = ''; this.setState({ ytOpen: false }); }, leadRef: this.leadRef, seasonRef: this.seasonRef, irisA: this.irisA, irisB: this.irisB, fgA: this.fgA, fgB: this.fgB, star: this.star,
+      playVideo: () => { document.body.style.overflow = 'hidden'; this.setState({ ytOpen: true }); }, ytOpen: !!this.state.ytOpen, ytSrc: this.state.ytOpen ? 'https://www.youtube-nocookie.com/embed/d9ZbEgt5lhQ?autoplay=1&rel=0&playsinline=1' : 'about:blank', ytClose: e => { if (e && e.target !== e.currentTarget && !e.currentTarget.matches('button')) return; document.body.style.overflow = ''; this.setState({ ytOpen: false }); }, leadRef: this.leadRef, seasonRef: this.seasonRef, irisA: this.irisA, irisB: this.irisB, fgA: this.fgA, fgB: this.fgB, star: this.star,
       ...this.qVals(),
       desktop: w >= 900,
       locF: this.state.locF || 'all', locOn_all: (this.state.locF || 'all') === 'all' ? 'yes' : 'no', locOn_resort: this.state.locF === 'resort' ? 'yes' : 'no', locOn_hotel: this.state.locF === 'hotel' ? 'yes' : 'no', locOn_food: this.state.locF === 'food' ? 'yes' : 'no',
