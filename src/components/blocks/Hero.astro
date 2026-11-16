@@ -1,0 +1,127 @@
+---
+/**
+ * Hero (4.1): первый экран в скруглённой рамке. Заголовок поднимается из-за зданий
+ * (передний план — то же фото, обрезанное по контуру зданий), сезонный iris-переключатель
+ * лето/зима. Все тексты, фото и контур — из Sanity (блок hero документа landing).
+ * Стартовое состояние — зима (как в выгрузке: state.winter = true), кнопка предлагает «вид влітку».
+ * Поведение: src/scripts/ui/hero.js (контур, сезон, позиция кнопки на мобильном),
+ * появление и параллакс заголовка — src/scripts/anim/blocks/hero.js и hero.css.
+ */
+import { getImage } from 'astro:assets';
+import { resolveImage, type HeroBlock } from '../../lib/content';
+
+interface Props {
+  block: HeroBlock;
+}
+
+const { block } = Astro.props;
+const summer = await resolveImage(block.imageSummer);
+const winter = await resolveImage(block.imageWinter);
+
+// Одно и то же фото лежит в двух слоях (фон и передний план) — одинаковые адреса, один запрос.
+const widths = [640, 960, 1280, 1672];
+// Фото заполняет кадр по высоте, когда окно уже 16:9: ширина картинки = 178vh.
+const sizes = '(max-aspect-ratio: 16/9) 178vh, 100vw';
+const summerImg = await getImage({ src: summer.src, widths, format: 'avif' });
+const winterImg = await getImage({ src: winter.src, widths, format: 'avif' });
+// Стартовый кадр — зима: зимнее фото грузится сразу (главное фото первого экрана).
+const winterAttrs = {
+  src: winterImg.src,
+  srcset: winterImg.srcSet.attribute,
+  sizes,
+  width: winter.src.width,
+  height: winter.src.height,
+};
+// Летнее фото полностью закрыто зимним до первого переключения: адреса лежат в data-*,
+// hero.js подставляет их при наведении, фокусе или касании кнопки сезона.
+const summerAttrs = {
+  'data-src': summerImg.src,
+  'data-srcset': summerImg.srcSet.attribute,
+  sizes,
+  width: summer.src.width,
+  height: summer.src.height,
+};
+const skyline = JSON.stringify(block.skyline);
+const [line1, line2] = block.title;
+const leadLines = block.lead.split('\n');
+---
+<div class="hero" id="top">
+  <section
+    class="hero__frame"
+    aria-labelledby="hero-title"
+    data-hero
+    data-season="winter"
+    data-skyline={skyline}
+    data-anim-block="hero"
+    data-anim-eager
+  >
+    <div class="hero__media">
+      <img class="hero__img" {...summerAttrs} alt={summer.alt} decoding="async" data-hero-deferred style={`--focus:${summer.position}`} />
+      <div class="hero__iris" data-hero-iris>
+        <img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} />
+      </div>
+
+      <h1 class="hero__title text-hero-h1" id="hero-title" data-hero-title>
+        <span class="hero__line hero__line--dark">{line1}</span>
+        <span class="hero__line hero__line--light">{line2}</span>
+      </h1>
+
+      <div class="hero__fg" data-hero-fg>
+        <img class="hero__img" {...summerAttrs} alt="" decoding="async" data-hero-deferred style={`--focus:${summer.position}`} />
+      </div>
+      <div class="hero__iris" data-hero-iris>
+        <div class="hero__fg" data-hero-fg>
+          <img class="hero__img" {...winterAttrs} alt="" decoding="async" style={`--focus:${winter.position}`} />
+        </div>
+      </div>
+
+      <!-- Копия заголовка над передним планом: проявляется, когда подъём закончен. -->
+      <div class="hero__title hero__title--front text-hero-h1" aria-hidden="true" data-hero-title>
+        <span class="hero__line hero__line--dark">{line1}</span>
+        <span class="hero__line hero__line--light">{line2}</span>
+      </div>
+    </div>
+
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <div class="hero__content" data-hero-content>
+      <p class="hero__lead text-hero-lead">
+        {leadLines.map((line, i) => (
+          <>{i > 0 && <br class="hero__br" />}{line}</>
+        ))}
+      </p>
+      <div class="hero__buttons">
+        <a class="hero__cta text-hero-button-lg" href={block.cta.href}>
+          {block.cta.label}
+          <span class="hero__cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+        </a>
+        <!-- TODO(4.17): видео-попап презентации. В выгрузке кнопка без действия. -->
+        <button class="hero__play text-hero-button-lg" type="button">
+          <span class="hero__play-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M7 4.5v15l13-7.5z" /></svg>
+          </span>
+          <span class="hero__play-label">{block.presentationLabel}</span>
+        </button>
+      </div>
+    </div>
+
+    <button
+      class="hero__season text-hero-caption"
+      type="button"
+      data-hero-season
+      data-to-winter={block.season.toWinter}
+      data-to-summer={block.season.toSummer}
+    >
+      <!-- Стекло (backdrop-filter) неподвижно; масштабируются только обводка и содержимое. -->
+      <span class="hero__season-glass" aria-hidden="true"></span>
+      <span class="hero__season-face">
+      <span class="hero__ring" aria-hidden="true"></span>
+      <span class="hero__ring hero__ring--late" aria-hidden="true"></span>
+      <svg class="hero__star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" /></svg>
+      <span>{block.season.prefix}<br /><span data-hero-season-label>{block.season.toSummer}</span></span>
+      </span>
+    </button>
+  </section>
+</div>

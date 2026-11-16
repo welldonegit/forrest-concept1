@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
+import Hero from '../../components/blocks/Hero.astro';
 import { languages } from '../../lib/languages';
-import { getSiteSettings } from '../../lib/content';
+import { getSiteSettings, getLanding } from '../../lib/content';
 
 export function getStaticPaths() {
   return languages.map((l) => ({ params: { lang: l.id } }));
@@ -10,10 +11,17 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: string };
 const settings = await getSiteSettings(lang);
+const landing = await getLanding(lang);
 ---
 <Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink}>
   <Header lang={lang} settings={settings} />
   <main id="main" tabindex="-1">
-    <!-- TODO(4.1 и далее): блоки из документа landing -->
+    {landing.blocks.map((block) => {
+      switch (block._type) {
+        case 'hero': return <Hero block={block} />;
+        default: return null;
+      }
+    })}
+    <!-- TODO(4.3 и далее): остальные блоки документа landing -->
   </main>
 </Base>

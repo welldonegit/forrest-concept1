@@ -5,3 +5,7 @@
 .text-header-menu-link{font-family:var(--type-header-menu-link-ff);font-size:var(--type-header-menu-link-size);line-height:var(--type-header-menu-link-lh);letter-spacing:var(--type-header-menu-link-ls);font-weight:600}
 .text-header-menu-sub{font-family:var(--type-header-menu-sub-ff);font-size:var(--type-header-menu-sub-size);line-height:var(--type-header-menu-sub-lh);font-weight:600}
 .text-header-menu-phone{font-family:var(--type-header-menu-phone-ff);font-size:var(--type-header-menu-phone-size);line-height:var(--type-header-menu-phone-lh);letter-spacing:var(--type-header-menu-phone-ls);font-weight:600}
+.text-hero-h1{font-family:var(--type-hero-h1-ff);font-size:var(--type-hero-h1-size);line-height:var(--type-hero-h1-lh);letter-spacing:var(--type-hero-h1-ls);font-weight:600;text-transform:uppercase}
+.text-hero-lead{font-family:var(--type-hero-lead-ff);font-size:var(--type-hero-lead-size);line-height:var(--type-hero-lead-lh);letter-spacing:var(--type-hero-lead-ls);font-weight:600}
+.text-hero-button-lg{font-family:var(--type-hero-button-lg-ff);font-size:var(--type-hero-button-lg-size);line-height:var(--type-hero-button-lg-lh);font-weight:600}
+.text-hero-caption{font-family:var(--type-hero-caption-ff);font-size:var(--type-hero-caption-size);line-height:var(--type-hero-caption-lh);font-weight:600}

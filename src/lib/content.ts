@@ -11,6 +11,7 @@
 import type { ImageMetadata } from 'astro';
 import { defaultLanguage, languageIds } from './languages';
 import siteSettingsFixture from '../content-fixtures/siteSettings.json';
+import landingFixture from '../content-fixtures/landing.json';
 
 type I18nItem = { _key?: string; language?: string; value: unknown };
 
@@ -59,7 +60,10 @@ export function localize<T = unknown>(value: unknown, lang: string, path = ''): 
 // Только фото, на которые ссылаются фикстуры: всё, что попало в glob, Vite кладёт в сборку.
 // Новый блок с фото до подключения Sanity — добавить файл в этот список.
 const fixturePhotos = import.meta.glob<ImageMetadata>(
-  ['/design-export/assets/photos/hero-summer.jpg'],
+  [
+    '/design-export/assets/photos/hero-summer.jpg',
+    '/design-export/assets/photos/hero-winter.jpg',
+  ],
   { import: 'default' },
 );
 
@@ -80,8 +84,8 @@ export async function resolveImage(img: SanityImage): Promise<ResolvedImage> {
   const ref = img.asset._ref;
   if (!ref.startsWith('fixture:')) throw new Error(`Фото из Sanity ещё не подключены: ${ref}`);
   const file = ref.slice('fixture:'.length);
-  const load = fixturePhotos[`/design-export/assets/photos/${file}`];
-  if (!load) throw new Error(`Нет фото в design-export/assets/photos: ${file}`);
+  const load = fixturePhotos[`/design-export/assets/photos/${file}`] ?? fixturePhotos[`/design-export/${file}`];
+  if (!load) throw new Error(`Фото нет в списке fixturePhotos (content.ts): ${file}`);
   const x = Math.round((img.hotspot?.x ?? 0.5) * 100);
   const y = Math.round((img.hotspot?.y ?? 0.5) * 100);
   return { src: await load(), alt: img.alt, position: `${x}% ${y}%` };
@@ -124,7 +128,30 @@ export interface SiteSettings {
     socials: SocialLink[];
   };
 }
+/* ---------- Блоки лендинга ---------- */
+
+export interface HeroBlock {
+  _type: 'hero';
+  _key: string;
+  /** Строки заголовка: первая — тёмная слева, вторая — белая справа. */
+  title: string[];
+  /** Лид; перенос строки в тексте — перенос на десктопе (как в выгрузке). */
+  lead: string;
+  imageSummer: SanityImage;
+  imageWinter: SanityImage;
+  /** Контур зданий на фото (в пикселях фото): из-за него выходит заголовок. */
+  skyline: { width: number; height: number; points: [number, number][] };
+  cta: { label: string; href: string };
+  presentationLabel: string;
+  season: { prefix: string; toWinter: string; toSummer: string };
+}
+
+export type LandingBlock = HeroBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');
+}
+
+export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
+  return localize<{ blocks: LandingBlock[] }>(landingFixture, lang, 'landing');
 }

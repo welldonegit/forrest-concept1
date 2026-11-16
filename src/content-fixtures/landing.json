@@ -1,0 +1,254 @@
+{
+  "_type": "landing",
+  "blocks": [
+    {
+      "_type": "hero",
+      "_key": "hero",
+      "title": [
+        [
+          {
+            "_key": "uk",
+            "value": "Три світи —"
+          },
+          {
+            "_key": "en",
+            "value": "Three worlds —"
+          }
+        ],
+        [
+          {
+            "_key": "uk",
+            "value": "один актив"
+          },
+          {
+            "_key": "en",
+            "value": "one asset"
+          }
+        ]
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "Інвестиційні апартаменти у першому в Буковелі\nкурортному комплексі формату Trinity Resort."
+        },
+        {
+          "_key": "en",
+          "value": "Investment apartments in Bukovel's first\nTrinity Resort format resort complex."
+        }
+      ],
+      "imageSummer": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-summer.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Курортний комплекс FORREST Trinity Resort серед карпатського лісу"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST Trinity Resort complex in the Carpathian forest"
+          }
+        ]
+      },
+      "imageWinter": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-winter.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": ""
+      },
+      "skyline": {
+        "_comment": "Контур будівель на фото hero-summer/hero-winter (координати в пікселях фото 1672×941): з-за нього виходить заголовок. Прив'язаний до фото — при заміні фото потрібен новий контур.",
+        "width": 1672,
+        "height": 941,
+        "points": [
+          [
+            0,
+            941
+          ],
+          [
+            0,
+            372
+          ],
+          [
+            90,
+            366
+          ],
+          [
+            180,
+            372
+          ],
+          [
+            248,
+            350
+          ],
+          [
+            250,
+            296
+          ],
+          [
+            300,
+            288
+          ],
+          [
+            400,
+            276
+          ],
+          [
+            470,
+            282
+          ],
+          [
+            556,
+            302
+          ],
+          [
+            560,
+            352
+          ],
+          [
+            620,
+            350
+          ],
+          [
+            700,
+            352
+          ],
+          [
+            808,
+            352
+          ],
+          [
+            812,
+            382
+          ],
+          [
+            860,
+            386
+          ],
+          [
+            866,
+            432
+          ],
+          [
+            905,
+            408
+          ],
+          [
+            985,
+            400
+          ],
+          [
+            1060,
+            418
+          ],
+          [
+            1130,
+            428
+          ],
+          [
+            1220,
+            436
+          ],
+          [
+            1330,
+            440
+          ],
+          [
+            1385,
+            450
+          ],
+          [
+            1400,
+            470
+          ],
+          [
+            1470,
+            478
+          ],
+          [
+            1560,
+            496
+          ],
+          [
+            1620,
+            470
+          ],
+          [
+            1672,
+            462
+          ],
+          [
+            1672,
+            941
+          ]
+        ]
+      },
+      "cta": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Отримати фінмодель"
+          },
+          {
+            "_key": "en",
+            "value": "Get the financial model"
+          }
+        ],
+        "href": "#forma"
+      },
+      "presentationLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися презентацію"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the presentation"
+        }
+      ],
+      "season": {
+        "prefix": [
+          {
+            "_key": "uk",
+            "value": "Подивитись"
+          },
+          {
+            "_key": "en",
+            "value": "See"
+          }
+        ],
+        "toWinter": [
+          {
+            "_key": "uk",
+            "value": "вид взимку"
+          },
+          {
+            "_key": "en",
+            "value": "winter view"
+          }
+        ],
+        "toSummer": [
+          {
+            "_key": "uk",
+            "value": "вид влітку"
+          },
+          {
+            "_key": "en",
+            "value": "summer view"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -15,10 +15,8 @@ export default {
     exp: `section[data-screen-label="Hero"]{background:${BG}!important}
       section[data-screen-label="Hero"]>*:not(header){visibility:hidden!important}
       a[href="#kvyz"],a[aria-label*="квіз"]{visibility:hidden!important}`,
-    // Пока Hero не свёрстан, рамку первого экрана рисуем подложкой с размерами из выгрузки.
-    // После Hero подложку убрать и нейтрализовать фото так же, как в выгрузке.
-    ours: `body::before{content:"";position:absolute;z-index:0;left:clamp(8px,1vw,12px);right:clamp(8px,1vw,12px);
-      top:clamp(8px,1vw,12px);height:calc(max(100vh,620px) - 2*clamp(8px,1vw,12px));border-radius:clamp(24px,3vw,40px);background:${BG}}`,
+    ours: `.hero__frame{background:${BG}!important}
+      .hero__frame>*{visibility:hidden!important}`,
   },
   states: {
     normal: {

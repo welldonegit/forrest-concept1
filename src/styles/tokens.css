@@ -56,6 +56,16 @@
 --menu-caption-bg:color-mix(in srgb, var(--spruce) 34%, transparent);       /* rgba(24,40,32,.34) */
 --menu-caption-border:color-mix(in srgb, var(--air) 28%, transparent);      /* rgba(255,255,255,.28) */
 
+/* -- Hero (рендер) -- */
+--hero-season-bg:color-mix(in srgb, var(--spruce) 38%, transparent);       /* rgba(24,40,32,.38) */
+--hero-season-border:color-mix(in srgb, var(--air) 35%, transparent);      /* rgba(255,255,255,.35) */
+--hero-season-ring:color-mix(in srgb, var(--air) 70%, transparent);        /* rgba(255,255,255,.7) */
+--hero-play-border:color-mix(in srgb, var(--air) 75%, transparent);        /* rgba(255,255,255,.75) */
+--hero-text-shadow:0 2px 18px rgba(0,0,0,.35);                             /* чёрный, как в рендере (п.16) */
+/* вуаль под текстом: радиальная на десктопе, линейная на мобильном (градиент — один токен, п.13) */
+--hero-shade:radial-gradient(ellipse 100% 100% at 0% 100%,rgba(6,8,7,.94) 0%,rgba(6,8,7,.86) 25%,rgba(6,8,7,.68) 45%,rgba(6,8,7,.4) 65%,rgba(6,8,7,.14) 84%,rgba(6,8,7,0) 100%);
+--hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.9) 0%,rgba(6,8,7,.74) 28%,rgba(6,8,7,.42) 58%,rgba(6,8,7,.12) 84%,rgba(6,8,7,0) 100%);
+
 /* ===== Тени и размытие (рендер) ===== */
 --shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
                  0 2px 8px color-mix(in srgb, var(--night-bark) 6%, transparent);
@@ -63,10 +73,10 @@
 --blur-control:blur(10px);
 --blur-caption:blur(14px);
 
-/* ===== Радиусы (решения Р2 + п.14) ===== */
+/* ===== Радиусы (решения Р2 + п.14; 40 — рамка Hero, приёмка 4.1) ===== */
 --radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
 --radius-20:20px;  --radius-24:24px; --radius-28:28px; --radius-32:32px;
---radius-pill:999px;
+--radius-40:40px;   --radius-pill:999px;
 
 /* ===== Отступы (решения Р4 + п.11) ===== */
 --space-2:2px;   --space-4:4px;   --space-6:6px;   --space-8:8px;   --space-10:10px;
@@ -78,6 +88,7 @@
 /* ===== Контролы, иконки, границы (п.9) ===== */
 --control-h-24:24px; --control-h-32:32px; --control-h-40:40px;
 --control-h-44:44px; --control-h-48:48px; --control-h-56:56px;
+--control-h-60:60px; --control-h-64:64px;   /* 60, 64 — CTA Hero (приёмка 4.1) */
 --tap-target:44px;
 --icon-12:12px; --icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
 --border-1:1px; --border-2:2px;
@@ -102,6 +113,29 @@
 --header-chev:var(--icon-12);         /* шеврон переключателя языка */
 --header-langlist-max:min(360px, 60vh);
 --menu-item-pad:.06em;               /* запас под выносные элементы букв в строке меню */
+
+/* ===== Hero (рендер; база = ≥1600, ступени ниже) ===== */
+--hero-frame-pad:var(--space-12);
+--hero-frame-radius:var(--radius-40);      /* рендер 40 (приёмка 4.1; прежнее «→ 32» отменено) */
+--hero-min-h:620px;                         /* min-height первого экрана, как в выгрузке */
+--hero-inset:var(--space-96);               /* поля заголовка и текста справа (рендер 5vw ≤96) */
+--hero-title-top:calc(max(104px, 15%) - 20px);  /* формула выгрузки: от высоты кадра */
+--hero-content-start:var(--space-44);       /* рендер 43 (14 + 29) */
+--hero-content-bottom:var(--space-36);      /* рендер 38: 36 — кнопки и текст ближе к рендеру (−0.5…+1.5) */
+--hero-content-gap:var(--space-28);
+--hero-buttons-gap:var(--space-28);
+--hero-cta-h:var(--control-h-64);           /* рендер 64 */
+--hero-cta-pad-start:var(--space-28);
+--hero-cta-pad-end:var(--space-6);
+--hero-cta-gap:var(--space-28);
+--hero-cta-icon:52px;                       /* круг со стрелкой: собственный размер, рендер 52 */
+--hero-play-gap:var(--space-12);            /* рендер 14; подпись после круга — как в рендере (±1) */
+--hero-season-size:120px;                   /* круглая кнопка сезона: иконочный размер (рендер 120/117/84) */
+--hero-season-offset:var(--space-40);
+--hero-season-gap:var(--space-6);
+--hero-season-icon:var(--icon-24);          /* рендер 26 */
+--hero-shade-w:72%; --hero-shade-h:62%;
+
 
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
@@ -144,6 +178,21 @@
 --menu-img-scale:1.25; --menu-link-dim:.28;
 --langpanel-shift:-8px; --langpanel-scale:.96;
 
+/* -- Hero: появление, сезон (рендер) -- */
+--ease-out-back:cubic-bezier(.34,1.4,.64,1);      /* hsPop */
+--ease-in-out-cubic:cubic-bezier(.65,0,.35,1);    /* iris, звезда */
+--hero-img-dur:2.2s;
+--hero-rise-dur:2s;  --hero-rise1-delay:.5s; --hero-rise2-delay:.7s;
+--hero-rise1-from:62vh; --hero-rise2-from:58vh;
+--hero-fade-dur:.9s; --hero-fade1-delay:2.9s; --hero-fade2-delay:3.05s;
+--hero-up-dur:1.2s;  --hero-up1-delay:1.05s; --hero-up2-delay:1.25s; --hero-up-shift:28px;
+--hero-pop-dur:1.1s; --hero-pop-delay:1.45s;
+--hero-pulse-dur:2.8s; --hero-pulse1-delay:2.6s; --hero-pulse2-delay:4s;
+--hero-breath-dur:2.8s; --hero-breath-delay:2.6s; --hero-breath-scale:1.04;
+--hero-iris-dur:1.2s;
+--hero-hover-dur:.3s;
+--hero-img-scale:1.08; --hero-pop-scale:.6; --hero-pulse-scale:1.55; --hero-pulse-opacity:.55;
+
 /* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
@@ -160,6 +209,7 @@
 --type-stats-stat-sm-ff:var(--font-display); --type-stats-stat-sm-size:0.42em; --type-stats-stat-sm-lh:1; /* Stats единицы «років/$/міс» — em от stats-stat-lg (как в выгрузке) */
 --type-header-menu-link-ff:var(--font-display); --type-header-menu-link-size:clamp(32px,4.4vw,74px); --type-header-menu-link-lh:1.12; --type-header-menu-link-ls:-.045em; /* Меню, пункты «Три світи…» (74/63/45/32); потолок = рендер 1920 */
 --type-header-menu-phone-ff:var(--font-display); --type-header-menu-phone-size:clamp(18px,1.5vw,24px); --type-header-menu-phone-lh:1.25; --type-header-menu-phone-ls:-.02em; /* Меню, телефон (24/21.6/18/18); потолок = рендер 1920 */
+--type-hero-h1-ls:-.035em; --type-hero-lead-ls:-.01em; --type-stats-stat-lg-ls:-.045em; --type-stats-stat-sm-ls:-.02em; --type-stats-stat-sm-gap:.2em; /* межбуквенные и отступ единиц — из выгрузки */
 
 /* -- дискретные роли: база = ≥1600 -- */
 --type-header-body-sm-ff:var(--font-text); --type-header-body-sm-size:15px; --type-header-body-sm-lh:22px;
@@ -189,6 +239,11 @@
 --menu-pad-block-end:var(--space-44);/* рендер 43.2 */
 --menu-main-gap:var(--space-56);     /* рендер 57.6 */
 --menu-foot-col-gap:var(--space-44); /* рендер 43.2 */
+--hero-inset:var(--space-72);
+--hero-cta-h:var(--control-h-60);           /* рендер 59 (приёмка 4.1) */
+--hero-cta-icon:var(--space-48);            /* круг = высота CTA − 2×6, как на 1920 (рендер 46 при CTA 59) */
+--hero-content-bottom:var(--space-36);      /* рендер 38; с CTA 60 текст и кнопки стоят как в рендере */
+--hero-season-size:116px;                   /* рендер 116.6 */
 --type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
@@ -210,6 +265,18 @@
 --menu-pad-block-end:var(--space-32);/* рендер 30.7 */
 --menu-main-gap:var(--space-40);     /* рендер 41 */
 --menu-foot-col-gap:var(--space-32); /* рендер 30.7 */
+--hero-frame-pad:var(--space-10);
+--hero-inset:var(--space-48);               /* рендер 51.2 */
+--hero-content-start:var(--space-40);       /* рендер 40.3 */
+--hero-content-bottom:var(--space-28);      /* рендер 28.8 */
+--hero-content-gap:var(--space-24);         /* рендер 22.5 */
+--hero-buttons-gap:var(--space-24);
+--hero-cta-h:var(--control-h-48);
+--hero-cta-icon:var(--space-40);            /* рендер 38 */
+--hero-cta-pad-start:var(--space-20);
+--hero-cta-gap:var(--space-20);             /* рендер 20.5 */
+--hero-season-size:84px;
+--hero-season-offset:var(--space-32);       /* справа 32.8, снизу 40 */
 --type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
@@ -225,6 +292,17 @@
 
 @media (max-width:767px){:root{
 /* <768 (рендер 390) */
+--hero-frame-pad:var(--space-8);
+--hero-frame-radius:var(--radius-24);
+--hero-inset:var(--space-20);
+--hero-title-top:calc(max(104px, 15%) + 20px);
+--hero-content-start:var(--space-36);       /* рендер 37 */
+--hero-content-bottom:var(--space-12);      /* рендер 14 (см. --hero-content-gap) */
+--hero-content-gap:var(--space-20);         /* рендер 18; вместе с низом 12 лид и кнопки стоят как в рендере */
+--hero-buttons-gap:var(--space-12);         /* рендер 14; CTA на 2 шире (круг 40) */
+--hero-cta-gap:var(--space-16);
+--hero-season-icon:var(--icon-20);
+--hero-shade-w:100%; --hero-shade-h:64%;
 --type-hero-h1-size:34px;
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;

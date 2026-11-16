@@ -2,7 +2,8 @@
  * Ядро анимаций блоков.
  * Блок помечается data-anim-block="<имя>"; модуль src/scripts/anim/blocks/<имя>.js
  * экспортирует init(root, { gsap, ScrollTrigger }) и возвращает функцию очистки.
- * GSAP и ScrollTrigger загружаются один раз, когда первый блок подходит к экрану.
+ * GSAP и ScrollTrigger загружаются один раз — когда к экрану подходит первый блок,
+ * модуль которого объявил export const usesGsap = true. Блоки на CSS-переходах GSAP не тянут.
  * data-anim-eager — первый экран: запуск сразу, без ожидания.
  * prefers-reduced-motion: reduce — ничего не запускается, контент в конечном виде.
  */
@@ -23,7 +24,8 @@ export function loadGsap() {
 async function start(el) {
   const load = modules[`./blocks/${el.dataset.animBlock}.js`];
   if (!load) return;
-  const [mod, lib] = await Promise.all([load(), loadGsap()]);
+  const mod = await load();
+  const lib = mod.usesGsap ? await loadGsap() : {};
   mod.init?.(el, lib);
 }
 
