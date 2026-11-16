@@ -1,0 +1,58 @@
+---
+/**
+ * Season (4.3): «Дохідність 365 днів на рік» — заголовок, текст и кадр видео с кнопкой.
+ * Тексты, кадр и подписи — из Sanity (блок season документа landing).
+ * Кнопка открывает видео в попапе — задача 4.17 (TODO). В выгрузке под кадром лежит
+ * <video> (15 МБ), но он целиком закрыт кадром и не воспроизводится — не переносим.
+ * Появление: src/scripts/anim/blocks/season.js + season.css.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type SeasonBlock } from '../../lib/content';
+
+interface Props {
+  block: SeasonBlock;
+}
+
+const { block } = Astro.props;
+const poster = await resolveImage(block.poster);
+const titleId = `${block.anchor}-title`;
+const [firstLine, ...restLines] = block.title;
+---
+<section class="season" id={block.anchor} aria-labelledby={titleId} data-anim-block="season">
+  <div class="season__head">
+    <h2 class="season__title text-season-stat" id={titleId}>
+      <span class="season__line season__line--muted" data-season-line>{firstLine}</span>
+      {restLines.map((line) => <span class="season__line" data-season-line>{line}</span>)}
+    </h2>
+    <p class="season__text text-season-h4" data-season-text>{block.text}</p>
+  </div>
+
+  <div class="season__media" data-season-media>
+    <Image
+      class="season__poster"
+      src={poster.src}
+      alt={poster.alt}
+      widths={[640, 960, 1280, 1677]}
+      sizes="100vw"
+      format="avif"
+      loading="lazy"
+      decoding="async"
+      style={`--focus:${poster.position}`}
+    />
+    <div class="season__scrim" aria-hidden="true"></div>
+    <!-- Стекло (backdrop-filter) неподвижно; при появлении движутся только обводка и подпись. -->
+    <span class="season__chip text-season-button">
+      <span class="season__chip-glass" aria-hidden="true"></span>
+      <span class="season__chip-face" data-season-chip>
+        <svg class="season__chip-icon" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 0v12l10-6z" /></svg>
+        {block.durationLabel}
+      </span>
+    </span>
+    <!-- TODO(4.17): видео-попап (block.videoUrl). В выгрузке кнопка открывает YouTube в модальном окне. -->
+    <button class="season__play" type="button" aria-label={block.playLabel} data-season-play>
+      <span class="season__ring season__ring--pulse" aria-hidden="true"></span>
+      <span class="season__ring" aria-hidden="true"></span>
+      <svg class="season__play-icon" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 0v12l10-6z" /></svg>
+    </button>
+  </div>
+</section>

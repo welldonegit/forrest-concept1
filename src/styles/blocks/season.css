@@ -1,0 +1,127 @@
+/* ===== Season (4.3) — «Дохідність 365 днів на рік» =====
+   Значения — из рендера design-export, только через tokens.css. */
+
+.season{
+  display:flex; flex-direction:column; gap:var(--season-head-mb);
+  padding-block:var(--season-pad-block-start) var(--season-pad-block-end);
+  padding-inline:var(--season-pad-inline);
+  max-inline-size:var(--page-max); margin-inline:auto;
+  background:var(--bg-surface-warm);
+}
+.season__head{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:var(--season-head-gap);
+}
+.season__title{flex:1 1 var(--season-col-basis); min-inline-size:0; margin:0; color:var(--text-primary)}
+.season__line{display:block}
+.season__line--muted{color:var(--text-muted)}
+.season__text{
+  flex:1 1 var(--season-col-basis); max-inline-size:var(--season-text-max); margin:0;
+  color:var(--text-primary); text-wrap:pretty;
+}
+
+/* ---------- Кадр ---------- */
+.season__media{
+  position:relative; overflow:hidden;
+  inline-size:100%; aspect-ratio:16/9;
+  max-block-size:max(var(--season-video-min), calc(100vh - var(--season-video-offset)));
+  border-radius:var(--season-video-radius);
+  background:var(--bg-inverse);
+}
+.season__poster{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+}
+.season__scrim{position:absolute; inset:0; background:var(--season-scrim); pointer-events:none}
+
+.season__chip{
+  position:absolute; inset-inline-start:var(--season-chip-inset); inset-block-start:var(--season-chip-inset);
+  color:var(--air);
+}
+.season__chip-glass{
+  position:absolute; inset:0;
+  border-radius:var(--radius-pill);
+  background:var(--season-chip-bg);
+  -webkit-backdrop-filter:var(--blur-chip); backdrop-filter:var(--blur-chip);
+}
+.season__chip-face{
+  position:relative;
+  display:flex; align-items:center; gap:var(--season-chip-gap);
+  /* в выгрузке рамка снаружи высоты (content-box) */
+  min-block-size:calc(var(--season-chip-h) + 2 * var(--border-1));
+  padding-inline:var(--season-chip-pad-start) var(--season-chip-pad-end);
+  border:var(--border-1) solid var(--season-chip-border);
+  border-radius:var(--radius-pill);
+  white-space:nowrap;
+}
+.season__chip-icon{flex:none; inline-size:var(--season-chip-icon-w); block-size:var(--season-chip-icon-h)}
+
+.season__play{
+  position:absolute; inset-inline-start:50%; inset-block-start:50%;
+  inline-size:var(--season-play-size); block-size:var(--season-play-size);
+  margin-block-start:calc(var(--season-play-size) / -2);
+  margin-inline-start:calc(var(--season-play-size) / -2);
+  display:flex; align-items:center; justify-content:center;
+  padding:0; border:0; border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.season__ring{
+  position:absolute; inset:calc(-1 * var(--season-play-ring));
+  border-radius:var(--radius-pill);
+  background:var(--season-ring-static);
+  pointer-events:none;
+}
+.season__ring--pulse{background:var(--season-ring)}
+.season__play-icon{
+  position:relative;
+  inline-size:var(--season-play-icon-w); block-size:var(--season-play-icon-h);
+  margin-inline-start:var(--season-play-icon-shift);
+}
+
+/* ---------- Появление (старт ставит JS: data-reveal="pre") ---------- */
+/* Слова заголовка: season.js оборачивает каждое в маску .season__mask > .season__word. */
+.season__mask{
+  display:inline-block; overflow:hidden; vertical-align:top;
+  padding-block-end:var(--season-word-pad); margin-block-end:calc(-1 * var(--season-word-pad));
+}
+.season__word{display:inline-block; transform-origin:0 100%}
+
+.season[data-reveal] .season__word{
+  transition:transform var(--season-word-dur) var(--ease-out-quint)
+    calc(var(--season-word-delay) + var(--w) * var(--season-word-step));
+}
+.season[data-reveal] .season__text{
+  transition:
+    opacity var(--season-text-fade-dur) ease var(--season-text-delay),
+    transform var(--season-text-move-dur) var(--ease-out-quint) var(--season-text-delay);
+}
+.season[data-reveal] .season__media{
+  transition:clip-path var(--season-clip-dur) var(--ease-in-out-quart) var(--season-clip-delay);
+}
+.season[data-reveal] .season__chip-glass{
+  transition:opacity var(--season-chip-fade-dur) ease var(--season-chip-delay);
+}
+.season[data-reveal] .season__chip-face{
+  transition:
+    opacity var(--season-chip-fade-dur) ease var(--season-chip-delay),
+    transform var(--season-chip-move-dur) var(--ease-out-quint) var(--season-chip-delay);
+}
+.season[data-reveal] .season__play{
+  transition:
+    opacity var(--season-play-fade-dur) ease var(--season-play-delay),
+    transform var(--season-play-pop-dur) var(--ease-out-back-strong) var(--season-play-delay);
+}
+
+.season[data-reveal="pre"] .season__word{transform:translateY(var(--season-word-shift)) rotate(var(--season-word-turn))}
+.season[data-reveal="pre"] .season__text{opacity:0; transform:translateY(var(--season-text-shift))}
+.season[data-reveal="pre"] .season__media{clip-path:inset(var(--season-clip-from) round var(--season-video-radius))}
+.season[data-reveal="in"] .season__media{clip-path:inset(0 round var(--season-video-radius))}
+.season[data-reveal="pre"] .season__chip-glass{opacity:0}
+.season[data-reveal="pre"] .season__chip-face{opacity:0; transform:translateY(var(--season-chip-shift))}
+.season[data-reveal="pre"] .season__play{opacity:0; transform:scale(var(--season-play-scale))}
+
+/* Пульс кольца — после появления; вне экрана — на паузе (season.js ставит data-offscreen). */
+.season[data-reveal="in"] .season__ring--pulse{
+  animation:hero-pulse var(--season-pulse-dur) var(--ease-out-quint) var(--season-pulse-delay) infinite both;
+}
+.season[data-offscreen] .season__ring--pulse{animation-play-state:paused}

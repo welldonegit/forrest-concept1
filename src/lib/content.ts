@@ -66,6 +66,7 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
     '/design-export/assets/photos/footer-bridge.jpg',
+    '/design-export/video-poster-forest.jpg',
     '/design-export/card-apartments-new.jpg',
     '/design-export/card-okupnist.jpg',
     '/design-export/card-income.jpg',
@@ -76,7 +77,10 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
 export interface SanityImage {
   asset: { _ref: string };
   hotspot?: { x: number; y: number };
-  alt: string;
+  /** «Декоративне фото»: alt не нужен, выводится пустым (CLAUDE.md). */
+  decorative?: boolean;
+  /** Обязателен, если фото не декоративное. */
+  alt?: string;
 }
 
 export interface ResolvedImage {
@@ -94,7 +98,8 @@ export async function resolveImage(img: SanityImage): Promise<ResolvedImage> {
   if (!load) throw new Error(`Фото нет в списке fixturePhotos (content.ts): ${file}`);
   const x = Math.round((img.hotspot?.x ?? 0.5) * 100);
   const y = Math.round((img.hotspot?.y ?? 0.5) * 100);
-  return { src: await load(), alt: img.alt, position: `${x}% ${y}%` };
+  if (!img.decorative && !img.alt) throw new Error(`Нет alt у фото ${file}: заполни alt или отметь «декоративне фото»`);
+  return { src: await load(), alt: img.decorative ? '' : (img.alt ?? ''), position: `${x}% ${y}%` };
 }
 
 /* ---------- Документы ---------- */
@@ -179,7 +184,23 @@ export interface StatsBlock {
   cards: StatsCard[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock;
+export interface SeasonBlock {
+  _type: 'season';
+  _key: string;
+  /** id секции: на него ссылаются пункты меню и футера (#season). */
+  anchor: string;
+  /** Строки заголовка: первая — приглушённая, остальные — основным цветом. */
+  title: string[];
+  text: string;
+  /** Кадр видео; само видео открывается в попапе (4.17). */
+  poster: SanityImage;
+  durationLabel: string;
+  playLabel: string;
+  /** TODO(4.17): видео-попап. Адрес из выгрузки (YouTube, без cookies). */
+  videoUrl: string;
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');

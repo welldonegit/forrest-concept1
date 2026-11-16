@@ -79,12 +79,24 @@
 --footer-overlay:color-mix(in srgb, var(--night-bark) 78%, transparent);   /* rgba(12,12,12,.78) */
 --footer-divider:color-mix(in srgb, var(--air) 28%, transparent);          /* rgba(255,255,255,.28) */
 
+/* -- Season (рендер) -- */
+--season-scrim:linear-gradient(180deg,
+  color-mix(in srgb, var(--night-bark) 28%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 30%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 70%,
+  color-mix(in srgb, var(--night-bark) 25%, transparent) 100%);           /* rgba(12,12,12,…) */
+--season-chip-bg:color-mix(in srgb, var(--spruce) 45%, transparent);       /* rgba(24,40,32,.45) */
+--season-chip-border:color-mix(in srgb, var(--air) 30%, transparent);      /* rgba(255,255,255,.3) */
+--season-ring:color-mix(in srgb, var(--white-sand) 22%, transparent);      /* rgba(242,234,216,.22) */
+--season-ring-static:color-mix(in srgb, var(--white-sand) 18%, transparent); /* rgba(242,234,216,.18) */
+
 /* ===== Тени и размытие (рендер) ===== */
 --shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
                  0 2px 8px color-mix(in srgb, var(--night-bark) 6%, transparent);
 --blur-header:blur(18px) saturate(1.2);
 --blur-control:blur(10px);
 --blur-caption:blur(14px);
+--blur-chip:blur(12px);          /* плашка «60 сек» в Season */
 
 /* ===== Радиусы (решения Р2 + п.14; 40 — рамка Hero, приёмка 4.1) ===== */
 --radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
@@ -177,6 +189,30 @@
 --footer-credit-gap:var(--space-12);
 --footer-credit-logo:96px;                  /* ширина логотипа студии, как в выгрузке */
 
+/* ===== Season (рендер; база = ≥1600) ===== */
+--season-pad-block-start:var(--space-96);
+--season-pad-block-end:var(--space-72);
+--season-pad-inline:var(--space-28);        /* рендер 26, как у Stats: края блоков совпадают */
+--season-head-gap:var(--space-48);
+--season-head-mb:var(--space-40);
+--season-col-basis:420px;                   /* flex-basis колонок шапки, как в выгрузке */
+--season-text-max:720px;
+--season-video-radius:var(--radius-28);
+--season-video-min:420px;                   /* max-height кадра = max(420px, 100vh − отступ), как в выгрузке */
+--season-video-offset:280px;                /* 380 − 100 */
+--season-chip-inset:var(--space-24);
+--season-chip-h:var(--control-h-44);
+--season-chip-pad-start:var(--space-12);    /* рендер 14/16: 12/16 — плашка уже на 2 */
+--season-chip-pad-end:var(--space-16);
+--season-chip-gap:var(--space-10);
+--season-chip-icon-w:10px; --season-chip-icon-h:12px;   /* треугольник, как в выгрузке */
+--season-play-size:104px;
+--season-play-ring:18px;                    /* кольца выходят за кнопку на 18 */
+--season-play-icon-w:22px; --season-play-icon-h:26px;
+--season-play-icon-shift:var(--space-4);
+--season-word-pad:.06em;                    /* запас маски слова под выносные элементы, как в выгрузке */
+
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -245,6 +281,16 @@
 --footer-acc-dur:.5s; --footer-acc-fade-in:.5s; --footer-acc-fade-delay:.12s; --footer-acc-fade-out:.3s;
 --footer-chev-dur:.4s;
 
+/* -- Season: появление (рендер) -- */
+--season-word-dur:1.3s; --season-word-delay:.25s; --season-word-step:.08s;
+--season-word-shift:110%; --season-word-turn:4deg;
+--season-text-fade-dur:1.2s; --season-text-move-dur:1.4s; --season-text-delay:.55s; --season-text-shift:24px;
+--season-clip-dur:1.8s; --season-clip-delay:.35s; --season-clip-from:18% 10% 18% 10%;
+--season-chip-fade-dur:.9s; --season-chip-move-dur:1.1s; --season-chip-delay:1.4s; --season-chip-shift:-10px;
+--season-play-fade-dur:.8s; --season-play-pop-dur:1.2s; --season-play-delay:1.2s; --season-play-scale:.4;
+--ease-out-back-strong:cubic-bezier(.34,1.5,.64,1);
+--season-pulse-dur:2.8s; --season-pulse-delay:2.4s;
+
 /* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
@@ -304,6 +350,11 @@
 --footer-pad-inline:var(--space-36);        /* рендер 37.4 */
 --footer-pad-block-end:var(--space-36);     /* рендер 34.6 */
 --footer-logo-gap:var(--space-128);         /* рендер 129.6 */
+--season-pad-block-start:88px;              /* рендер 86.4: между ступенями 80 и 96 (сдвиг больше 2) — вне шкалы, см. отчёт */
+--season-head-gap:var(--space-44);          /* рендер 43.2 */
+--season-video-offset:246px;                /* 345.6 − 100 */
+--season-chip-h:36px;                       /* рендер 36 (+рамка), собственный размер */
+--season-play-size:94px;                    /* рендер 93.6 */
 --type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
@@ -349,6 +400,14 @@
 --footer-pad-inline:var(--space-28);        /* рендер 26.6 */
 --footer-pad-block-end:var(--space-24);
 --footer-logo-gap:92px;                     /* рендер 92.2 (п.13, крупный): вне шкалы, см. отчёт */
+--season-pad-block-start:var(--space-64);   /* рендер 61.4 */
+--season-pad-block-end:var(--space-48);     /* рендер 51.2 */
+--season-pad-inline:var(--space-20);
+--season-head-gap:var(--space-32);          /* рендер 30.7 */
+--season-head-mb:var(--space-28);           /* рендер 28.7 */
+--season-video-offset:160px;                /* 260 − 100 */
+--season-chip-inset:var(--space-20);        /* рендер 18.4 */
+--season-play-size:72px;
 --type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
@@ -381,6 +440,11 @@
 --footer-pad-block-start:var(--space-56);
 --footer-pad-inline:var(--space-20);
 --footer-logo-gap:var(--space-64);
+--season-pad-block-start:var(--space-48);
+--season-pad-block-end:var(--space-40);
+--season-head-gap:var(--space-20);
+--season-head-mb:var(--space-24);
+--season-chip-inset:var(--space-16);
 --type-hero-h1-size:34px;
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;

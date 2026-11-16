@@ -65,7 +65,7 @@
           "x": 0.5,
           "y": 0.5
         },
-        "alt": ""
+        "decorative": true
       },
       "skyline": {
         "_comment": "Контур будівель на фото hero-summer/hero-winter (координати в пікселях фото 1672×941): з-за нього виходить заголовок. Прив'язаний до фото — при заміні фото потрібен новий контур.",
@@ -287,7 +287,7 @@
               "x": 0.5,
               "y": 0.5
             },
-            "alt": ""
+            "decorative": true
           }
         },
         {
@@ -332,7 +332,7 @@
               "x": 0.5,
               "y": 0.5
             },
-            "alt": ""
+            "decorative": true
           }
         },
         {
@@ -368,7 +368,7 @@
               "x": 0.5,
               "y": 0.5
             },
-            "alt": ""
+            "decorative": true
           }
         },
         {
@@ -413,10 +413,88 @@
               "x": 0.5,
               "y": 0.5
             },
-            "alt": ""
+            "decorative": true
           }
         }
       ]
+    },
+    {
+      "_type": "season",
+      "_key": "season",
+      "anchor": "season",
+      "title": [
+        [
+          {
+            "_key": "uk",
+            "value": "Дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Returns"
+          }
+        ],
+        [
+          {
+            "_key": "uk",
+            "value": "365 днів на рік"
+          },
+          {
+            "_key": "en",
+            "value": "365 days a year"
+          }
+        ]
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Сезонність Буковеля ми перетворили на перевагу. FORREST складається з трьох секцій, кожна з яких працює зі своєю аудиторією та власним сценарієм попиту в різні періоди року. Завдяки цьому курорт залишається затребуваним протягом усього року, а інвестор отримує актив, що працює 365 днів."
+        },
+        {
+          "_key": "en",
+          "value": "We turned Bukovel's seasonality into an advantage. FORREST consists of three sections, each working with its own audience and its own demand scenario at different times of the year. As a result, the resort stays in demand all year round, and the investor gets an asset that works 365 days."
+        }
+      ],
+      "poster": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:video-poster-forest.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Карпатський ліс навколо FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "Carpathian forest around FORREST Trinity Resort"
+          }
+        ]
+      },
+      "durationLabel": [
+        {
+          "_key": "uk",
+          "value": "60 сек"
+        },
+        {
+          "_key": "en",
+          "value": "60 sec"
+        }
+      ],
+      "playLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися відео"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the video"
+        }
+      ],
+      "videoUrl": "https://www.youtube-nocookie.com/embed/d9ZbEgt5lhQ"
     }
   ]
 }
