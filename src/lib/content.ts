@@ -65,6 +65,7 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/assets/photos/hero-summer.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
+    '/design-export/assets/photos/footer-bridge.jpg',
     '/design-export/card-apartments-new.jpg',
     '/design-export/card-okupnist.jpg',
     '/design-export/card-income.jpg',
@@ -101,6 +102,8 @@ export async function resolveImage(img: SanityImage): Promise<ResolvedImage> {
 export interface Link { _key: string; href: string; label: string }
 export interface SocialLink { _key: string; network: string; label: string; url: string }
 
+export interface FooterGroup { _key: string; title: string; links: Link[] }
+
 export interface SiteSettings {
   seo: { title: string; description: string };
   ui: { skipLink: string; swipeHint: string };
@@ -132,7 +135,17 @@ export interface SiteSettings {
     messengers: SocialLink[];
     socials: SocialLink[];
   };
+  footer: {
+    address: string;
+    groups: FooterGroup[];
+    image: SanityImage;
+    wordmarkLabel: string;
+    copyright: string;
+    legalLinks: Link[];
+    credit: { label: string; logoLabel: string; href: string };
+  };
 }
+
 /* ---------- Блоки лендинга ---------- */
 
 export interface HeroBlock {

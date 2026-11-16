@@ -75,6 +75,9 @@
 --stats-chip-bg:color-mix(in srgb, var(--air) 14%, transparent);           /* rgba(255,255,255,.14) */
 --stats-chip-border:color-mix(in srgb, var(--air) 22%, transparent);       /* rgba(255,255,255,.22) */
 
+/* -- Footer (рендер) -- */
+--footer-overlay:color-mix(in srgb, var(--night-bark) 78%, transparent);   /* rgba(12,12,12,.78) */
+--footer-divider:color-mix(in srgb, var(--air) 28%, transparent);          /* rgba(255,255,255,.28) */
 
 /* ===== Тени и размытие (рендер) ===== */
 --shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
@@ -159,6 +162,20 @@
 --stats-chip-pad-end:var(--space-24);
 --stats-mobile-card:74%;                    /* ширина карточки в карусели <768 */
 
+/* ===== Footer (рендер) ===== */
+--footer-pad-block-start:var(--space-128);
+--footer-pad-inline:var(--space-48);
+--footer-pad-block-end:var(--space-40);
+--footer-logo-gap:160px;                    /* промежуток до логотипа (п.13, крупный, поблочно): рендер 160 */
+--footer-grid-gap:var(--space-32) var(--space-24);
+--footer-addr-gap:var(--space-16);
+--footer-addr-max:340px;                    /* max-width адреса, как в выгрузке */
+--footer-list-gap:var(--space-16);
+--footer-list-pad:var(--space-24);
+--footer-link-pad:var(--space-4);
+--footer-legal-gap:var(--space-16) var(--space-32);
+--footer-credit-gap:var(--space-12);
+--footer-credit-logo:96px;                  /* ширина логотипа студии, как в выгрузке */
 
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
@@ -223,6 +240,11 @@
 --swipe-hand-dur:2.4s; --swipe-hand-ease:cubic-bezier(.45,0,.55,1); --swipe-fade-dur:.5s;
 --swipe-hand-shift:9px; --swipe-hand-turn:6deg;
 
+/* -- Footer (рендер) -- */
+--footer-underline-dur:.7s;
+--footer-acc-dur:.5s; --footer-acc-fade-in:.5s; --footer-acc-fade-delay:.12s; --footer-acc-fade-out:.3s;
+--footer-chev-dur:.4s;
+
 /* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
@@ -247,7 +269,7 @@
 --type-header-label-xs-ff:var(--font-text); --type-header-label-xs-size:12px; --type-header-label-xs-lh:16px;
 --type-header-label-2xs-ff:var(--font-text); --type-header-label-2xs-size:11px; --type-header-label-2xs-lh:14px;
 --type-header-menu-sub-ff:var(--font-text); --type-header-menu-sub-size:17px; --type-header-menu-sub-lh:26px; /* Меню: второстепенные пункты, адрес, подпись фото (рендер 17/25.5 на всех ступенях) */
---type-footer-contact-ff:var(--font-display); --type-footer-contact-size:28px; --type-footer-contact-lh:36px;
+--type-footer-contact-ff:var(--font-display); --type-footer-contact-size:28px; --type-footer-contact-lh:36px; /* рендер lh 1.3 → 36.4 */
 --type-footer-h5-ff:var(--font-display); --type-footer-h5-size:18px; --type-footer-h5-lh:26px;
 --type-footer-body-ff:var(--font-text); --type-footer-body-size:17px; --type-footer-body-lh:26px;
 --type-footer-small-ff:var(--font-text); --type-footer-small-size:14px; --type-footer-small-lh:20px;
@@ -278,6 +300,10 @@
 --stats-chip-h:var(--control-h-44);         /* рендер 43.2 */
 --stats-num-gap:var(--space-16);            /* рендер 17.3 */
 --stats-chip-pad-start:var(--space-20); --stats-chip-pad-end:var(--space-20); /* рендер 20.2 */
+--footer-pad-block-start:100px;             /* рендер 100.8 (п.13, крупный): вне шкалы, см. отчёт */
+--footer-pad-inline:var(--space-36);        /* рендер 37.4 */
+--footer-pad-block-end:var(--space-36);     /* рендер 34.6 */
+--footer-logo-gap:var(--space-128);         /* рендер 129.6 */
 --type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
@@ -319,6 +345,10 @@
 --stats-num-gap:var(--space-12);
 --stats-chip-h:var(--control-h-40);
 --stats-chip-pad-start:var(--space-16); --stats-chip-pad-end:var(--space-16);
+--footer-pad-block-start:var(--space-72);   /* рендер 71.7 */
+--footer-pad-inline:var(--space-28);        /* рендер 26.6 */
+--footer-pad-block-end:var(--space-24);
+--footer-logo-gap:92px;                     /* рендер 92.2 (п.13, крупный): вне шкалы, см. отчёт */
 --type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
@@ -348,6 +378,9 @@
 --stats-pad-block-start:var(--space-24);
 --stats-pad-block-end:var(--space-40);
 --stats-gap:var(--space-12);
+--footer-pad-block-start:var(--space-56);
+--footer-pad-inline:var(--space-20);
+--footer-logo-gap:var(--space-64);
 --type-hero-h1-size:34px;
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;

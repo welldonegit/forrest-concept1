@@ -387,5 +387,406 @@
         "url": "https://instagram.com/"
       }
     ]
+  },
+  "footer": {
+    "address": [
+      {
+        "_key": "uk",
+        "value": "Буковель, Івано-Франківська область"
+      },
+      {
+        "_key": "en",
+        "value": "Bukovel, Ivano-Frankivsk region"
+      }
+    ],
+    "groups": [
+      {
+        "_key": "g0",
+        "title": [
+          {
+            "_key": "uk",
+            "value": "FORREST"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST"
+          }
+        ],
+        "links": [
+          {
+            "_key": "l1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Про FORREST"
+              },
+              {
+                "_key": "en",
+                "value": "About FORREST"
+              }
+            ],
+            "href": "#season"
+          },
+          {
+            "_key": "l2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Секції"
+              },
+              {
+                "_key": "en",
+                "value": "Sections"
+              }
+            ],
+            "href": "#worlds"
+          },
+          {
+            "_key": "l3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Інфраструктура"
+              },
+              {
+                "_key": "en",
+                "value": "Infrastructure"
+              }
+            ],
+            "href": "#infrastruktura"
+          },
+          {
+            "_key": "l4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Локація"
+              },
+              {
+                "_key": "en",
+                "value": "Location"
+              }
+            ],
+            "href": "#lokatsiya-google"
+          }
+        ]
+      },
+      {
+        "_key": "g1",
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Інвестору"
+          },
+          {
+            "_key": "en",
+            "value": "For investors"
+          }
+        ],
+        "links": [
+          {
+            "_key": "l1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Апартаменти"
+              },
+              {
+                "_key": "en",
+                "value": "Apartments"
+              }
+            ],
+            "href": "#apartamenty"
+          },
+          {
+            "_key": "l2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Інвестиційна модель"
+              },
+              {
+                "_key": "en",
+                "value": "Investment model"
+              }
+            ],
+            "href": "#model"
+          },
+          {
+            "_key": "l3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Інвестиція в цифрах"
+              },
+              {
+                "_key": "en",
+                "value": "Investment in numbers"
+              }
+            ],
+            "href": "#cyfry-2"
+          },
+          {
+            "_key": "l4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Розрахувати дохід"
+              },
+              {
+                "_key": "en",
+                "value": "Calculate income"
+              }
+            ],
+            "href": "#cyfry-2"
+          },
+          {
+            "_key": "l5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Сервіс для інвестора"
+              },
+              {
+                "_key": "en",
+                "value": "Investor service"
+              }
+            ],
+            "href": "#servis"
+          },
+          {
+            "_key": "l6",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "FAQ"
+              },
+              {
+                "_key": "en",
+                "value": "FAQ"
+              }
+            ],
+            "href": "#faq"
+          }
+        ]
+      },
+      {
+        "_key": "g2",
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Проєкт"
+          },
+          {
+            "_key": "en",
+            "value": "Project"
+          }
+        ],
+        "links": [
+          {
+            "_key": "l1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Команда"
+              },
+              {
+                "_key": "en",
+                "value": "Team"
+              }
+            ],
+            "href": "#komanda"
+          },
+          {
+            "_key": "l2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Забудовник"
+              },
+              {
+                "_key": "en",
+                "value": "Developer"
+              }
+            ],
+            "href": "#komanda"
+          },
+          {
+            "_key": "l3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Готельний оператор"
+              },
+              {
+                "_key": "en",
+                "value": "Hotel operator"
+              }
+            ],
+            "href": "#komanda"
+          },
+          {
+            "_key": "l4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Архітектура та дизайн"
+              },
+              {
+                "_key": "en",
+                "value": "Architecture and design"
+              }
+            ],
+            "href": "#komanda"
+          },
+          {
+            "_key": "l5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Хід будівництва"
+              },
+              {
+                "_key": "en",
+                "value": "Construction progress"
+              }
+            ],
+            "href": "#budivnytstvo"
+          }
+        ]
+      },
+      {
+        "_key": "g3",
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Контакти"
+          },
+          {
+            "_key": "en",
+            "value": "Contacts"
+          }
+        ],
+        "links": [
+          {
+            "_key": "l1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Telegram"
+              },
+              {
+                "_key": "en",
+                "value": "Telegram"
+              }
+            ],
+            "href": "#"
+          },
+          {
+            "_key": "l2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Instagram"
+              },
+              {
+                "_key": "en",
+                "value": "Instagram"
+              }
+            ],
+            "href": "#"
+          },
+          {
+            "_key": "l3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Телефон"
+              },
+              {
+                "_key": "en",
+                "value": "Phone"
+              }
+            ],
+            "href": "tel:+380777999999"
+          }
+        ]
+      }
+    ],
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:footer-bridge.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.78
+      },
+      "alt": ""
+    },
+    "wordmarkLabel": [
+      {
+        "_key": "uk",
+        "value": "FORREST"
+      },
+      {
+        "_key": "en",
+        "value": "FORREST"
+      }
+    ],
+    "copyright": [
+      {
+        "_key": "uk",
+        "value": "© 2026 FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "© 2026 FORREST Trinity Resort"
+      }
+    ],
+    "legalLinks": [
+      {
+        "_key": "p",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Політика конфіденційності"
+          },
+          {
+            "_key": "en",
+            "value": "Privacy policy"
+          }
+        ],
+        "href": "#privacy"
+      },
+      {
+        "_key": "t",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Умови використання"
+          },
+          {
+            "_key": "en",
+            "value": "Terms of use"
+          }
+        ],
+        "href": "#terms"
+      }
+    ],
+    "credit": {
+      "label": [
+        {
+          "_key": "uk",
+          "value": "Створено з душею"
+        },
+        {
+          "_key": "en",
+          "value": "Made with soul"
+        }
+      ],
+      "logoLabel": "welldone",
+      "href": "#"
+    }
   }
 }

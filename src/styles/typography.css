@@ -15,3 +15,7 @@
 .text-stats-h4{font-family:var(--type-stats-h4-ff);font-size:var(--type-stats-h4-size);line-height:var(--type-stats-h4-lh);font-weight:400}
 .text-stats-body{font-family:var(--type-stats-body-ff);font-size:var(--type-stats-body-size);line-height:var(--type-stats-body-lh);font-weight:400}
 .text-stats-label{font-family:var(--type-stats-label-ff);font-size:var(--type-stats-label-size);line-height:var(--type-stats-label-lh);letter-spacing:var(--ls-caps-md);font-weight:600;text-transform:uppercase}
+.text-footer-contact{font-family:var(--type-footer-contact-ff);font-size:var(--type-footer-contact-size);line-height:var(--type-footer-contact-lh);font-weight:400}
+.text-footer-h5{font-family:var(--type-footer-h5-ff);font-size:var(--type-footer-h5-size);line-height:var(--type-footer-h5-lh);letter-spacing:var(--ls-caps-sm);font-weight:600;text-transform:uppercase}
+.text-footer-body{font-family:var(--type-footer-body-ff);font-size:var(--type-footer-body-size);line-height:var(--type-footer-body-lh);font-weight:400}
+.text-footer-small{font-family:var(--type-footer-small-ff);font-size:var(--type-footer-small-size);line-height:var(--type-footer-small-lh);font-weight:400}
