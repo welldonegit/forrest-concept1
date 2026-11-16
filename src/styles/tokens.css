@@ -1,0 +1,151 @@
+/* FORREST Trinity Resort — токены проекта.
+   Источник значений — реальный рендер design-export/index.html (решение Р1).
+   Из Системы А (design-export/tokens/*.css) — имена ролей, структура, палитра примитивов.
+   Правила: docs/LAYOUT_RULES.md. Не редактировать «сырыми» значениями в компонентах — только var().
+*/
+:root{
+/* ===== Примитивы (бренд-палитра; из рендера, п.12) ===== */
+--bark:#322512;        --spruce:#182820;     --forest:#5B756A;     --stone:#928C8E;
+--path-sand:#E1D4CB;   --white-sand:#F2EAD8; --sea-wave:#7ABFB2;   --sea-fog:#DDEBE6;
+--air:#FFFFFF;         --night-bark:#0C0C0C;
+/* новые примитивы из рендера */
+--sage:#9DBAAA;        /* обводка SVG-линий/иконок */
+--clay:#C9BBAE;        /* заливка декоративных точек */
+--pine:#2F5A48;        /* тёмно-зелёный: фон :disabled, стопы градиентов */
+--moss:#3A4A3C;        /* тёмная приглушённая поверхность секций */
+--linen:#F7F2E8;       /* тёплая светлая поверхность полей (#f4f1ea слит сюда, ΔE 1.74) */
+--ash:#2B2E2D;         /* тёмный нейтральный фон (панели форм; для будущих блоков) */
+
+/* ===== Семантика цвета (светлая тема — единственная) ===== */
+--bg-page:var(--air);
+--bg-surface-warm:var(--white-sand);
+--bg-surface-mist:var(--sea-fog);
+--bg-surface-sand:var(--path-sand);
+--bg-surface-moss:var(--moss);
+--bg-inverse:var(--spruce);
+--bg-inverse-warm:var(--bark);
+--bg-field:var(--linen);
+--bg-disabled:var(--pine);
+
+--text-primary:var(--spruce);
+--text-secondary:var(--forest);
+--text-on-inverse:var(--white-sand);
+--text-on-inverse-2:var(--sea-fog);
+
+--accent:var(--sea-wave);
+--accent-deep:var(--forest);
+--accent-earth:var(--stone);
+
+--border-hairline:var(--path-sand);
+--border-strong:var(--stone);
+--border-on-inverse:rgba(242,234,216,.24);
+
+--stroke-illustration:var(--sage);   /* stroke SVG-иллюстраций/иконок */
+--dot-fill:var(--clay);              /* fill декоративных точек */
+
+/* Скримы/вуали над фото добавляются по блокам (значения α — из рендера, п.16). */
+
+/* ===== Радиусы (решения Р2 + п.14) ===== */
+--radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
+--radius-20:20px;  --radius-24:24px; --radius-28:28px; --radius-32:32px;
+--radius-pill:999px;
+
+/* ===== Отступы (решения Р4 + п.11) ===== */
+--space-2:2px;   --space-4:4px;   --space-6:6px;   --space-8:8px;   --space-10:10px;
+--space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-28:28px;
+--space-32:32px; --space-36:36px; --space-40:40px; --space-44:44px; --space-48:48px;
+--space-56:56px; --space-64:64px; --space-72:72px; --space-80:80px; --space-96:96px;
+--space-128:128px;
+
+/* ===== Контролы, иконки, границы (п.9) ===== */
+--control-h-24:24px; --control-h-32:32px; --control-h-40:40px;
+--control-h-44:44px; --control-h-48:48px; --control-h-56:56px;
+--tap-target:44px;
+--icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
+--border-1:1px; --border-2:2px;
+--stroke-icon:1.5px;
+--focus-width:2px; --focus-offset:2px;
+
+/* ===== Семейства ===== */
+--font-display:"Unbounded","Arial Black",sans-serif;
+--font-text:"Mulish","Segoe UI",Arial,sans-serif;
+
+/* ===== Движение (Р6; длительности/кривые из Системы А) ===== */
+--dur-hover:150ms; --dur-accordion:200ms; --dur-menu:250ms; --dur-entrance:400ms;
+--ease-out:cubic-bezier(.2,.6,.3,1);
+
+/* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
+   База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
+   1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
+
+/* -- плавные роли (clamp из выгрузки, десктоп ≥768; мобильное — фикс с 390) -- */
+--type-hero-h1-ff:var(--font-display); --type-hero-h1-size:clamp(30px,5.6vw,144px); --type-hero-h1-lh:1.08; /* Hero «Три світи» (ренд. 108/81/57/34) */
+--type-hero-lead-ff:var(--font-display); --type-hero-lead-size:clamp(14px,1.38vw,28px); --type-hero-lead-lh:1.5; /* Hero лид «Інвестиційні апартаменти» (27/20/14/14) */
+--type-worlds-display-ff:var(--font-display); --type-worlds-display-size:clamp(24px,5.4vw,96px); --type-worlds-display-lh:1.08; /* Worlds «Три аудиторії» (96/78/55/24) */
+--type-worlds-decor-ff:var(--font-display); --type-worlds-decor-size:clamp(56px,11vw,200px); --type-worlds-decor-lh:0.9; /* Worlds «WIND/ROCK/SUN», декоративный (200/158/113/56) */
+--type-stats-stat-lg-ff:var(--font-display); --type-stats-stat-lg-size:clamp(40px,4vw,72px); --type-stats-stat-lg-lh:1; /* Stats число «460+» (72/58/41/40) */
+--type-season-stat-ff:var(--font-display); --type-season-stat-size:clamp(28px,3.4vw,56px); --type-season-stat-lh:1.1; /* Season «Дохідність/365/днів» (56/49/35/28) */
+--type-stats-stat-sm-ff:var(--font-display); --type-stats-stat-sm-size:0.42em; --type-stats-stat-sm-lh:1; /* Stats единицы «років/$/міс» — em от stats-stat-lg (как в выгрузке) */
+
+/* -- дискретные роли: база = ≥1600 -- */
+--type-header-body-sm-ff:var(--font-text); --type-header-body-sm-size:15px; --type-header-body-sm-lh:22px;
+--type-header-label-xs-ff:var(--font-text); --type-header-label-xs-size:12px; --type-header-label-xs-lh:16px;
+--type-header-label-2xs-ff:var(--font-text); --type-header-label-2xs-size:11px; --type-header-label-2xs-lh:14px;
+--type-footer-contact-ff:var(--font-display); --type-footer-contact-size:28px; --type-footer-contact-lh:36px;
+--type-footer-h5-ff:var(--font-display); --type-footer-h5-size:18px; --type-footer-h5-lh:26px;
+--type-footer-body-ff:var(--font-text); --type-footer-body-size:17px; --type-footer-body-lh:26px;
+--type-footer-small-ff:var(--font-text); --type-footer-small-size:14px; --type-footer-small-lh:20px;
+--type-hero-button-lg-ff:var(--font-text); --type-hero-button-lg-size:20px; --type-hero-button-lg-lh:28px;
+--type-hero-caption-ff:var(--font-text); --type-hero-caption-size:14px; --type-hero-caption-lh:17px;
+--type-stats-h4-ff:var(--font-text); --type-stats-h4-size:18px; --type-stats-h4-lh:26px;
+--type-stats-body-ff:var(--font-text); --type-stats-body-size:17px; --type-stats-body-lh:26px;
+--type-stats-label-ff:var(--font-text); --type-stats-label-size:13px; --type-stats-label-lh:16px;
+--type-season-h4-ff:var(--font-text); --type-season-h4-size:18px; --type-season-h4-lh:28px;
+--type-season-button-ff:var(--font-text); --type-season-button-size:16px; --type-season-button-lh:20px;
+--type-worlds-subtitle-ff:var(--font-display); --type-worlds-subtitle-size:28px; --type-worlds-subtitle-lh:36px;
+--type-worlds-h5-ff:var(--font-display); --type-worlds-h5-size:18px; --type-worlds-h5-lh:26px;
+--type-worlds-overline-ff:var(--font-display); --type-worlds-overline-size:17px; --type-worlds-overline-lh:24px;
+--type-worlds-body-ff:var(--font-display); --type-worlds-body-size:17px; --type-worlds-body-lh:24px;
+}
+
+@media (max-width:1599px){:root{
+/* 1280–1599 (рендер 1440) */
+--type-footer-contact-size:27px; /* footer-contact */
+--type-footer-h5-size:17px; /* footer-h5 */
+--type-hero-button-lg-size:19px; /* hero-button-lg */
+--type-stats-h4-size:17px; --type-stats-h4-lh:25px; /* stats-h4 */
+--type-stats-body-size:16px; --type-stats-body-lh:24px; /* stats-body */
+--type-season-h4-size:16px; --type-season-h4-lh:25px; /* season-h4 */
+--type-worlds-subtitle-size:26px; --type-worlds-subtitle-lh:34px; /* worlds-subtitle */
+--type-worlds-overline-size:16px; /* worlds-overline */
+}}
+
+@media (max-width:1279px){:root{
+/* 768–1279 (рендер 1024) */
+--type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
+--type-footer-h5-size:15px; /* footer-h5 */
+--type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
+--type-hero-caption-size:11px; --type-hero-caption-lh:14px; /* hero-caption */
+--type-stats-h4-size:15px; --type-stats-h4-lh:22px; /* stats-h4 */
+--type-stats-body-size:14px; --type-stats-body-lh:20px; /* stats-body */
+--type-season-h4-size:15px; --type-season-h4-lh:23px; /* season-h4 */
+--type-season-button-size:14px; /* season-button */
+--type-worlds-subtitle-size:20px; --type-worlds-subtitle-lh:26px; /* worlds-subtitle */
+--type-worlds-h5-size:15px; --type-worlds-h5-lh:22px; /* worlds-h5 */
+--type-worlds-overline-size:13px; --type-worlds-overline-lh:20px; /* worlds-overline */
+}}
+
+@media (max-width:767px){:root{
+/* <768 (рендер 390) */
+--type-hero-h1-size:34px;
+--type-hero-lead-size:14px;
+--type-worlds-display-size:24px;
+--type-worlds-decor-size:56px;
+--type-stats-stat-lg-size:40px;
+--type-season-stat-size:28px;
+--type-hero-caption-lh:13px; /* hero-caption */
+}}
+
+@media (prefers-reduced-motion:reduce){:root{
+--dur-hover:0ms; --dur-accordion:0ms; --dur-menu:0ms; --dur-entrance:0ms;
+}}
