@@ -1,0 +1,345 @@
+/* ===== Header (4.0) — бар поверх первого экрана + полноэкранное меню =====
+   Значения — из рендера design-export (см. отчёт 4.0), только через tokens.css. */
+
+/* ---------- Бар ---------- */
+.site-header{
+  position:absolute; z-index:6;
+  inset-block-start:0; inset-inline:0;
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block-start:var(--header-offset-block);
+  /* Поле асимметричное (≥1280: 28 слева, 24 справа) намеренно: в рендере оно 26 с обеих сторон,
+     вне шкалы. Симметричные 28 сужают бар на 4px и сдвигают правые кнопки; 28/24 сохраняют
+     ширину бара и положение кнопок в пределах 2px. Утверждено при приёмке 4.0. */
+  padding-inline:var(--header-offset-inline-start) var(--header-offset-inline-end);
+  pointer-events:none;
+}
+.site-header__bar{
+  pointer-events:auto;
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  block-size:var(--header-bar-h);
+  /* поля симметричны, чтобы логотип стоял по центру бара, как в рендере; бургер сдвинут на 12 → итого 16 */
+  padding-inline:var(--space-4);
+  border:var(--border-1) solid var(--header-glass-border);
+  border-radius:var(--radius-pill);
+  background:var(--header-glass-bg);
+  -webkit-backdrop-filter:var(--blur-header); backdrop-filter:var(--blur-header);
+}
+@media (prefers-reduced-motion:no-preference){
+  .site-header__bar{animation:header-enter var(--header-enter-dur) var(--ease-out-quint) var(--header-enter-delay) both}
+}
+@keyframes header-enter{from{opacity:0;transform:translateY(var(--header-enter-shift))}}
+
+/* Невидимое расширение зоны нажатия до 44px (п.10), вид не меняется. */
+.site-header__burger::before,
+.site-header__logo::before{
+  content:""; position:absolute; inset-inline:0;
+  inset-block:calc((100% - var(--tap-target)) / 2);
+}
+
+.site-header__burger{
+  position:relative; justify-self:start;
+  margin-inline-start:var(--space-12);
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-40); block-size:var(--control-h-40);
+  padding:0; border:0; background:none; color:var(--text-primary);
+}
+.site-header__burger svg{inline-size:var(--icon-24); block-size:var(--icon-24)}
+
+.site-header__logo{position:relative; justify-self:center; display:flex}
+.site-header__logo-img,
+.site-menu__logo-img{block-size:var(--header-logo-h); inline-size:auto}
+
+.site-header__actions{justify-self:end; display:flex; align-items:center; gap:var(--space-10)}
+
+/* ---------- Переключатель языка ---------- */
+.lang-switch{position:relative}
+.lang-switch__toggle{
+  display:flex; align-items:center; gap:var(--space-10);
+  min-block-size:var(--control-h-44);
+  padding-block:0; padding-inline:var(--space-6) var(--space-12); /* рендер 6/14 */
+  border:var(--border-1) solid var(--header-control-border);
+  border-radius:var(--radius-pill);
+  background:var(--header-control-bg);
+  -webkit-backdrop-filter:var(--blur-control); backdrop-filter:var(--blur-control);
+  color:var(--text-primary);
+  transition:background-color var(--header-control-dur) ease;
+}
+.lang-switch__toggle:hover{background:var(--header-control-bg-hover)}
+.lang-switch__current{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-32); block-size:var(--control-h-32);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+  letter-spacing:var(--ls-chip);
+}
+.lang-switch__chev{
+  inline-size:var(--header-chev); block-size:var(--header-chev);
+  transition:transform var(--header-chev-dur) var(--ease-out-quint);
+}
+.lang-switch[data-open] .lang-switch__chev{transform:rotate(180deg)}
+
+.lang-switch__panel{
+  position:absolute; z-index:2;
+  inset-inline-end:0; inset-block-start:calc(100% + var(--space-10));
+  inline-size:var(--header-langpanel-w);
+  padding:var(--space-8);
+  border-radius:var(--radius-24);
+  background:var(--air);
+  box-shadow:var(--shadow-popover);
+  transform-origin:top right;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transform:translateY(var(--langpanel-shift)) scale(var(--langpanel-scale));
+  transition:
+    opacity var(--langpanel-fade-dur) ease,
+    transform var(--langpanel-move-dur) var(--ease-out-quint),
+    visibility 0s linear var(--langpanel-move-dur);
+}
+.lang-switch[data-open] .lang-switch__panel{
+  opacity:1; visibility:visible; pointer-events:auto; transform:none;
+  transition:
+    opacity var(--langpanel-fade-dur) ease,
+    transform var(--langpanel-move-dur) var(--ease-out-quint),
+    visibility 0s;
+}
+.lang-switch__list{
+  display:flex; flex-direction:column; gap:var(--space-2);
+  max-block-size:var(--header-langlist-max);
+  overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin;
+}
+.lang-switch__option{
+  display:flex; align-items:center; gap:var(--space-12);
+  inline-size:100%; min-block-size:var(--control-h-44);
+  padding-inline:var(--space-8) var(--space-12);
+  border-radius:var(--radius-16);
+  color:var(--text-primary); text-decoration:none;
+  background:transparent;
+  transition:background-color var(--langopt-dur) ease;
+}
+.lang-switch__option:hover,
+.lang-switch__option[aria-current="true"]{background:var(--bg-surface-warm)}
+.lang-switch__chip{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--space-32); block-size:var(--space-28);
+  border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm);
+  letter-spacing:var(--ls-chip-wide);
+}
+.lang-switch__option[aria-current="true"] .lang-switch__chip{background:var(--air)}
+.lang-switch__name{flex:1}
+.lang-switch__check{flex:none; inline-size:var(--icon-16); block-size:var(--icon-16)}
+
+/* ---------- Кнопка «Зв'язатися» ---------- */
+.site-header__cta{
+  display:flex; align-items:center; gap:var(--space-16);
+  min-block-size:var(--control-h-48); /* рендер 46 (44 + рамка) */
+  padding-inline:var(--space-4);
+  border:var(--border-1) solid var(--header-control-border);
+  border-radius:var(--radius-pill);
+  color:var(--text-primary); text-decoration:none;
+}
+.site-header__cta-label{padding-inline-start:var(--space-16); white-space:nowrap}
+.site-header__cta-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--space-36); block-size:var(--space-36);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+}
+.site-header__cta-icon svg{inline-size:var(--icon-16); block-size:var(--icon-16)}
+
+/* Узкий экран (<900, как в выгрузке): без переключателя языка, у кнопки остаётся только стрелка.
+   Подпись кнопки остаётся для скринридера. */
+@media (max-width:899px){
+  .lang-switch{display:none}
+  .site-header__cta-label{position:absolute; inline-size:1px; block-size:1px; overflow:hidden; clip-path:inset(50%); padding:0}
+}
+
+/* ---------- Меню ---------- */
+.site-menu{
+  position:fixed; inset:0; z-index:90;
+  visibility:hidden; pointer-events:none;
+  transition:visibility 0s linear var(--menu-hide-delay);
+}
+.site-menu[data-open]{visibility:visible; pointer-events:auto; transition:none}
+
+.site-menu__panel{
+  position:absolute; inset:0;
+  overflow-y:auto; overscroll-behavior:contain;
+  background:var(--bg-surface-warm); color:var(--text-primary);
+  clip-path:circle(0px at var(--menu-x, var(--space-44)) var(--menu-y, var(--space-40)));
+  transition:clip-path var(--menu-panel-close-dur) var(--ease-in-out-quart) var(--menu-panel-close-delay);
+}
+.site-menu[data-open] .site-menu__panel{
+  clip-path:circle(150vmax at var(--menu-x, var(--space-44)) var(--menu-y, var(--space-40)));
+  transition:clip-path var(--menu-panel-open-dur) var(--ease-in-out-quart);
+}
+
+.site-menu__inner{
+  min-block-size:100%;
+  display:flex; flex-direction:column; gap:var(--menu-gap);
+  padding-block:var(--menu-pad-block-start) var(--menu-pad-block-end);
+  padding-inline:var(--menu-pad-inline);
+}
+
+.site-menu__top{
+  display:flex; align-items:center; justify-content:space-between;
+  min-block-size:var(--control-h-56);
+}
+.site-menu__logo{display:flex}
+.site-menu__close{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-56); block-size:var(--control-h-56);
+  padding:0; border:0; border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary);
+  transition:transform var(--menu-close-rotate-dur) var(--ease-out-expo);
+}
+.site-menu__close:hover{transform:rotate(90deg)}
+.site-menu__close svg{inline-size:var(--icon-24); block-size:var(--icon-24)}
+
+.site-menu__main{
+  flex:1;
+  display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  align-items:center; gap:var(--menu-main-gap);
+}
+.site-menu__nav{display:flex; flex-direction:column; gap:var(--menu-nav-gap)}
+.site-menu__list{display:flex; flex-direction:column}
+.site-menu__item{overflow:hidden; padding-block-end:var(--menu-item-pad)}
+
+.site-menu__link{
+  position:relative; display:inline-flex; align-items:center;
+  color:var(--text-primary); text-decoration:none;
+  transform:translateY(115%) rotate(4deg); transform-origin:0 100%;
+  transition:
+    transform var(--menu-link-close-dur) var(--ease-in-quart) calc(var(--i) * var(--menu-link-close-step)),
+    opacity var(--menu-link-fade-dur);
+}
+.site-menu[data-open] .site-menu__link{
+  transform:none;
+  transition:
+    transform var(--menu-link-open-dur) var(--ease-out-expo) calc(var(--menu-link-open-delay) + var(--i) * var(--menu-link-open-step)),
+    opacity var(--menu-link-fade-dur);
+}
+.site-menu[data-open] .site-menu__list:hover .site-menu__link{opacity:var(--menu-link-dim)}
+.site-menu[data-open] .site-menu__list .site-menu__link:hover{opacity:1}
+
+/* Стрелка при наведении. В выгрузке анимировалась ширина (0 → .6em); по Р6 —
+   только transform/opacity: стрелка вынесена за конец строки и не занимает места. */
+.site-menu__arrow{
+  position:absolute; inset-inline-start:calc(100% + .3em); inset-block:0; margin-block:auto;
+  inline-size:.6em; block-size:.6em;
+  opacity:0; transform:translate(-.2em,.2em);
+  transition:opacity var(--menu-arrow-fade-dur), transform var(--menu-arrow-dur) var(--ease-out-expo);
+}
+.site-menu__link:hover .site-menu__arrow,
+.site-menu__link:focus-visible .site-menu__arrow{opacity:1; transform:none}
+
+.site-menu__sublist{display:flex; flex-wrap:wrap; gap:var(--space-10) var(--space-28)}
+.site-menu__sublink{display:block; color:var(--text-muted); text-decoration:none}
+.site-menu__sublink:hover{color:var(--text-primary)}
+
+/* Появление второстепенных элементов */
+.site-menu__sublink,
+.site-menu__col,
+.site-menu__top{
+  opacity:0; transform:translateY(var(--menu-shift));
+  transition:opacity var(--menu-out-fade-dur), transform var(--menu-out-move-dur);
+}
+.site-menu[data-open] .site-menu__sublink{
+  opacity:1; transform:none;
+  transition:
+    opacity var(--menu-sub-fade-dur) ease calc(var(--menu-sub-delay) + var(--i) * var(--menu-sub-step)),
+    transform var(--menu-sub-move-dur) var(--ease-out-expo) calc(var(--menu-sub-delay) + var(--i) * var(--menu-sub-step)),
+    color var(--menu-hover-dur);
+}
+.site-menu[data-open] .site-menu__col{
+  opacity:1; transform:none;
+  transition:
+    opacity var(--menu-sub-fade-dur) ease calc(var(--menu-col-delay) + var(--i) * var(--menu-col-step)),
+    transform var(--menu-sub-move-dur) var(--ease-out-expo) calc(var(--menu-col-delay) + var(--i) * var(--menu-col-step));
+}
+.site-menu[data-open] .site-menu__top{
+  opacity:1; transform:none;
+  transition:
+    opacity var(--menu-top-fade-dur) ease var(--menu-top-delay),
+    transform var(--menu-top-move-dur) var(--ease-out-expo) var(--menu-top-delay);
+}
+
+/* Фото */
+.site-menu__figure{
+  position:relative; aspect-ratio:4/3;
+  border-radius:var(--radius-32); overflow:hidden;
+  background:var(--bg-surface-sand);
+  clip-path:inset(100% 0 0 0 round var(--radius-32));
+  transition:clip-path var(--menu-img-close-dur) var(--ease-in-out-quart);
+}
+.site-menu[data-open] .site-menu__figure{
+  clip-path:inset(0 0 0 0 round var(--radius-32));
+  transition:clip-path var(--menu-img-open-dur) var(--ease-in-out-quart) var(--menu-img-delay);
+}
+.site-menu__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+  transform:scale(var(--menu-img-scale));
+  transition:transform var(--menu-img-close-dur) var(--ease-in-out-quart);
+}
+.site-menu[data-open] .site-menu__img{
+  transform:none;
+  transition:transform var(--menu-img-zoom-dur) var(--ease-out-expo) var(--menu-img-delay);
+}
+.site-menu__caption{
+  position:absolute; inset-inline:var(--space-16); inset-block-end:var(--space-16);
+  display:flex; align-items:center;
+  min-block-size:var(--control-h-56);
+  padding-block:var(--space-8); padding-inline:var(--space-24);
+  border:var(--border-1) solid var(--menu-caption-border);
+  border-radius:var(--radius-pill);
+  background:var(--menu-caption-bg);
+  -webkit-backdrop-filter:var(--blur-caption); backdrop-filter:var(--blur-caption);
+  color:var(--air);
+  opacity:0; transform:translateY(var(--menu-cap-shift));
+  transition:opacity var(--menu-cap-close-dur);
+}
+.site-menu[data-open] .site-menu__caption{
+  opacity:1; transform:none;
+  transition:
+    opacity var(--menu-sub-fade-dur) ease var(--menu-cap-delay),
+    transform var(--menu-sub-move-dur) var(--ease-out-expo) var(--menu-cap-delay);
+}
+
+/* Низ: контакты */
+.site-menu__foot{
+  display:grid; grid-template-columns:repeat(4, minmax(0,1fr));
+  gap:var(--menu-foot-row-gap) var(--menu-foot-col-gap);
+}
+.site-menu__col{display:flex; flex-direction:column; gap:var(--space-12); min-inline-size:0}
+.site-menu__label{text-transform:uppercase; letter-spacing:var(--ls-caps); color:var(--text-muted)}
+.site-menu__phone{color:var(--text-primary); text-decoration:none; white-space:nowrap}
+.site-menu__address{white-space:pre-line}
+.site-menu__socials{display:flex; gap:var(--space-8)}
+.site-menu__social{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-48); block-size:var(--control-h-48);
+  border:var(--border-1) solid var(--menu-social-border);
+  border-radius:var(--radius-pill);
+  color:var(--text-primary);
+  transition:background-color var(--menu-hover-dur), color var(--menu-hover-dur), border-color var(--menu-hover-dur);
+}
+.site-menu__social:hover{background:var(--bg-inverse); color:var(--air); border-color:var(--bg-inverse)}
+.site-menu__social svg{inline-size:var(--icon-20); block-size:var(--icon-20)}
+
+@media (max-width:900px){
+  .site-menu__main{grid-template-columns:minmax(0,1fr); align-items:start}
+  .site-menu__figure{display:none}
+  .site-menu__foot{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+@media (max-width:600px){
+  .site-menu__foot{grid-template-columns:minmax(0,1fr); row-gap:var(--space-24)} /* рендер 22 */
+}
+
+@media (prefers-reduced-motion:reduce){
+  .site-menu *{transition-duration:1ms !important; transition-delay:0s !important}
+}
+
+/* Фото меню не грузится вместе со страницей: закрытое меню лежит в окне (fixed, visibility:hidden),
+   и ленивая загрузка его бы не отложила. Фото появляется в раскладке, когда JS «подготовил» меню
+   (наведение/фокус на кнопку меню) — до начала его анимации. */
+.site-menu:not([data-primed]) .site-menu__figure{display:none}
