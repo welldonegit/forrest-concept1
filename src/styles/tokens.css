@@ -127,7 +127,7 @@
 /* ===== Контролы, иконки, границы (п.9) ===== */
 --control-h-24:24px; --control-h-32:32px; --control-h-40:40px;
 --control-h-44:44px; --control-h-48:48px; --control-h-56:56px;
---control-h-60:60px; --control-h-64:64px;   /* 60, 64 — CTA Hero (приёмка 4.1) */
+--control-h-60:60px; --control-h-64:64px;   /* 64 — CTA Hero ≥1600, 60 — кнопка Worlds (приёмка 4.1) */
 --tap-target:44px;
 --icon-12:12px; --icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
 --border-1:1px; --border-2:2px;
@@ -157,6 +157,7 @@
 --hero-frame-pad:var(--space-12);
 --hero-frame-radius:var(--radius-40);      /* рендер 40 (приёмка 4.1; прежнее «→ 32» отменено) */
 --hero-min-h:620px;                         /* min-height первого экрана, как в выгрузке */
+--hero-min-h-mobile:520px;                  /* <768: меньше любого реального окна телефона, контент первого экрана помещается */
 --hero-inset:var(--space-96);               /* поля заголовка и текста справа (рендер 5vw ≤96) */
 --hero-title-top:calc(max(104px, 15%) - 20px);  /* формула выгрузки: от высоты кадра */
 --hero-content-start:var(--space-44);       /* рендер 43 (14 + 29) */
@@ -382,8 +383,8 @@
 --menu-main-gap:var(--space-56);     /* рендер 57.6 */
 --menu-foot-col-gap:var(--space-44); /* рендер 43.2 */
 --hero-inset:var(--space-72);
---hero-cta-h:var(--control-h-60);           /* рендер 59 (приёмка 4.1) */
---hero-cta-icon:var(--space-48);            /* круг = высота CTA − 2×6, как на 1920 (рендер 46 при CTA 59) */
+--hero-cta-h:59px;                          /* рендер 59: собственный размер (решение 2026-11-16, «кнопка 60» отменена) */
+--hero-cta-icon:46px;                       /* круг со стрелкой: рендер 46, собственный размер */
 --hero-content-bottom:var(--space-36);      /* рендер 38; с CTA 60 текст и кнопки стоят как в рендере */
 --hero-season-size:116px;                   /* рендер 116.6 */
 --stats-chip-h:var(--control-h-44);         /* рендер 43.2 */
@@ -481,6 +482,7 @@
 --hero-frame-radius:var(--radius-24);
 --hero-inset:var(--space-20);
 --hero-title-top:calc(max(104px, 15%) + 20px);
+--hero-min-h:var(--hero-min-h-mobile);      /* первый экран целиком в окне телефона (решение 2026-11-16) */
 --hero-content-start:var(--space-36);       /* рендер 37 */
 --hero-content-bottom:var(--space-12);      /* рендер 14 (см. --hero-content-gap) */
 --hero-content-gap:var(--space-20);         /* рендер 18; вместе с низом 12 лид и кнопки стоят как в рендере */
@@ -505,7 +507,10 @@
 --worlds-slide-gap:var(--space-16);
 --worlds-name-gap:var(--space-12);
 --worlds-btn-gap:var(--space-16);
---type-hero-h1-size:34px;
+/* решение 2026-11-16: h1 40 во всю ширину кадра, строки друг под другом (было 34 по рендеру).
+   Уже 390 кегль уменьшается вместе с шириной, чтобы «ОДИН АКТИВ» оставался в одну строку:
+   ширина строки ≈ 8.3 × кегль, доступно 100vw − 2 × (поле кадра + поле заголовка). */
+--type-hero-h1-size:min(40px, calc((100vw - 2 * (var(--hero-frame-pad) + var(--hero-inset))) / 8.3));
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;
 --type-worlds-decor-size:56px;

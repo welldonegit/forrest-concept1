@@ -5,7 +5,8 @@
 
 .hero{
   position:relative;
-  block-size:100vh; min-block-size:var(--hero-min-h);
+  /* svh: высота окна с панелями браузера — на телефоне низ первого экрана не уходит под панель */
+  block-size:100vh; block-size:100svh; min-block-size:var(--hero-min-h);
   padding:var(--hero-frame-pad);
   background:var(--bg-surface-warm);
 }
@@ -140,6 +141,8 @@
 }
 @media (max-width:767px){
   .hero__shade{background:var(--hero-shade-mobile)}
+  /* h1 во всю ширину кадра, строки друг под другом от начала (решение 2026-11-16) */
+  .hero__line--light{text-align:start}
   /* Кнопка сезона над текстом, слева. Высоту считает hero.js (--hero-season-bottom). */
   .hero__season{
     inset-inline:var(--hero-content-start) auto;

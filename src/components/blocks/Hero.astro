@@ -41,7 +41,34 @@ const summerAttrs = {
   width: summer.src.width,
   height: summer.src.height,
 };
+
+// Портретный кадр (точка A, 2026-11-16): на окнах уже 3:5 видна узкая полоса фото, а браузер
+// выбирал вариант 1672 px по ширине всего фото. Для таких окон — кадр 3:5 из того же фото:
+// вид тот же (cover + тот же object-position), вес в ~3 раза меньше. Контур зданий hero.js
+// сдвигает на левый край кадра (data-skyline-crop).
+// TODO(этап 3): кадр строится только при фокусе по центру — сервис картинок Astro режет
+// по центру или краю. С фото из Sanity кадрировать по hotspot через rect.
+const portraitQuery = '(max-aspect-ratio: 3/5)';
+async function portrait(photo: Awaited<ReturnType<typeof resolveImage>>) {
+  const fx = parseFloat(photo.position);
+  if (Math.abs(fx - 50) > 0.5) return null;
+  const H = photo.src.height;
+  const W = Math.round((H * 3) / 5);
+  const ws = [400, W].filter((w) => w <= W);
+  const imgs = await Promise.all(
+    ws.map((w) => getImage({ src: photo.src, width: w, height: Math.round((w * H) / W), fit: 'cover', position: 'centre', format: 'avif' })),
+  );
+  return {
+    srcset: imgs.map((im, i) => `${im.src} ${ws[i]}w`).join(', '),
+    // фото в кадре по высоте: ширина картинки = высота кадра × 3/5
+    sizes: '60vh',
+    crop: { x: Math.round((photo.src.width - W) / 2), width: W, query: portraitQuery },
+  };
+}
+const winterP = await portrait(winter);
+const summerP = await portrait(summer);
 const skyline = JSON.stringify(block.skyline);
+const skylineCrop = winterP && summerP && JSON.stringify(winterP.crop);
 const [line1, line2] = block.title;
 const leadLines = block.lead.split('\n');
 ---
@@ -52,13 +79,14 @@ const leadLines = block.lead.split('\n');
     data-hero
     data-season="winter"
     data-skyline={skyline}
+    data-skyline-crop={skylineCrop || undefined}
     data-anim-block="hero"
     data-anim-eager
   >
     <div class="hero__media">
-      <img class="hero__img" {...summerAttrs} alt={summer.alt} decoding="async" data-hero-deferred style={`--focus:${summer.position}`} />
+      <picture>{summerP && <source media={portraitQuery} data-srcset={summerP.srcset} sizes={summerP.sizes} />}<img class="hero__img" {...summerAttrs} alt={summer.alt} decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
       <div class="hero__iris" data-hero-iris>
-        <img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} />
+        <picture>{winterP && <source media={portraitQuery} srcset={winterP.srcset} sizes={winterP.sizes} />}<img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} /></picture>
       </div>
 
       <h1 class="hero__title text-hero-h1" id="hero-title" data-hero-title>
@@ -67,11 +95,11 @@ const leadLines = block.lead.split('\n');
       </h1>
 
       <div class="hero__fg" data-hero-fg>
-        <img class="hero__img" {...summerAttrs} alt="" decoding="async" data-hero-deferred style={`--focus:${summer.position}`} />
+        <picture>{summerP && <source media={portraitQuery} data-srcset={summerP.srcset} sizes={summerP.sizes} />}<img class="hero__img" {...summerAttrs} alt="" decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
       </div>
       <div class="hero__iris" data-hero-iris>
         <div class="hero__fg" data-hero-fg>
-          <img class="hero__img" {...winterAttrs} alt="" decoding="async" style={`--focus:${winter.position}`} />
+          <picture>{winterP && <source media={portraitQuery} srcset={winterP.srcset} sizes={winterP.sizes} />}<img class="hero__img" {...winterAttrs} alt="" decoding="async" style={`--focus:${winter.position}`} /></picture>
         </div>
       </div>
 
@@ -87,7 +115,7 @@ const leadLines = block.lead.split('\n');
     <div class="hero__content" data-hero-content>
       <p class="hero__lead text-hero-lead">
         {leadLines.map((line, i) => (
-          <>{i > 0 && <br class="hero__br" />}{line}</>
+          <>{i > 0 && <>{" "}<br class="hero__br" /></>}{line}</>
         ))}
       </p>
       <div class="hero__buttons">
