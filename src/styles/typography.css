@@ -1,0 +1,7 @@
+/* Классы ролей текста. Значения — только из tokens.css. */
+.text-header-body-sm{font-family:var(--type-header-body-sm-ff);font-size:var(--type-header-body-sm-size);line-height:var(--type-header-body-sm-lh);font-weight:600}
+.text-header-label-xs{font-family:var(--type-header-label-xs-ff);font-size:var(--type-header-label-xs-size);line-height:var(--type-header-label-xs-lh);font-weight:700}
+.text-header-label-2xs{font-family:var(--type-header-label-2xs-ff);font-size:var(--type-header-label-2xs-size);line-height:var(--type-header-label-2xs-lh);font-weight:700}
+.text-header-menu-link{font-family:var(--type-header-menu-link-ff);font-size:var(--type-header-menu-link-size);line-height:var(--type-header-menu-link-lh);letter-spacing:var(--type-header-menu-link-ls);font-weight:600}
+.text-header-menu-sub{font-family:var(--type-header-menu-sub-ff);font-size:var(--type-header-menu-sub-size);line-height:var(--type-header-menu-sub-lh);font-weight:600}
+.text-header-menu-phone{font-family:var(--type-header-menu-phone-ff);font-size:var(--type-header-menu-phone-size);line-height:var(--type-header-menu-phone-lh);letter-spacing:var(--type-header-menu-phone-ls);font-weight:600}

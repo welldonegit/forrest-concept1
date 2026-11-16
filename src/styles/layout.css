@@ -1,0 +1,5 @@
+/* Пропуск к содержимому: виден только при фокусе. */
+.skip-link{position:absolute;z-index:100;inset-block-start:var(--space-8);inset-inline-start:var(--space-8);
+  padding:var(--space-12) var(--space-16);border-radius:var(--radius-pill);background:var(--bg-inverse);color:var(--air);
+  font-family:var(--font-text);font-weight:600;text-decoration:none;opacity:0;pointer-events:none}
+.skip-link:focus-visible{opacity:1;pointer-events:auto}

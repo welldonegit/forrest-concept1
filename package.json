@@ -1,0 +1,16 @@
+{
+  "name": "forrest-trinity-resort",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.3.3",
+    "astro": "7.3.8",
+    "gsap": "3.15.0"
+  }
+}

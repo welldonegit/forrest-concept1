@@ -1,0 +1,5 @@
+---
+/** Корень «/» → основной язык. На Cloudflare работает 301 из public/_redirects; эта страница — запасной вариант (meta refresh). */
+import { defaultLanguage } from '../lib/languages';
+return Astro.redirect(`/${defaultLanguage}/`, 301);
+---

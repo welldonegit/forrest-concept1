@@ -1,0 +1,381 @@
+{
+  "_type": "siteSettings",
+  "seo": {
+    "title": [
+      {
+        "_key": "uk",
+        "value": "FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "FORREST Trinity Resort"
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "TODO: SEO-опис (немає у вигрузці)"
+      },
+      {
+        "_key": "en",
+        "value": "TODO: SEO description (not in the export)"
+      }
+    ]
+  },
+  "ui": {
+    "skipLink": [
+      {
+        "_key": "uk",
+        "value": "Перейти до змісту"
+      },
+      {
+        "_key": "en",
+        "value": "Skip to content"
+      }
+    ]
+  },
+  "header": {
+    "homeHref": "#top",
+    "logoAlt": [
+      {
+        "_key": "uk",
+        "value": "FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "FORREST Trinity Resort"
+      }
+    ],
+    "menuOpenLabel": [
+      {
+        "_key": "uk",
+        "value": "Відкрити меню"
+      },
+      {
+        "_key": "en",
+        "value": "Open menu"
+      }
+    ],
+    "menuCloseLabel": [
+      {
+        "_key": "uk",
+        "value": "Закрити меню"
+      },
+      {
+        "_key": "en",
+        "value": "Close menu"
+      }
+    ],
+    "menuDialogLabel": [
+      {
+        "_key": "uk",
+        "value": "Меню"
+      },
+      {
+        "_key": "en",
+        "value": "Menu"
+      }
+    ],
+    "languageButtonLabel": [
+      {
+        "_key": "uk",
+        "value": "Мова сайту"
+      },
+      {
+        "_key": "en",
+        "value": "Site language"
+      }
+    ],
+    "languageListLabel": [
+      {
+        "_key": "uk",
+        "value": "Оберіть мову"
+      },
+      {
+        "_key": "en",
+        "value": "Choose language"
+      }
+    ],
+    "cta": {
+      "label": [
+        {
+          "_key": "uk",
+          "value": "Зв'язатися"
+        },
+        {
+          "_key": "en",
+          "value": "Contact us"
+        }
+      ],
+      "href": "#forma"
+    }
+  },
+  "menu": {
+    "navLabel": [
+      {
+        "_key": "uk",
+        "value": "Основні розділи"
+      },
+      {
+        "_key": "en",
+        "value": "Main sections"
+      }
+    ],
+    "primary": [
+      {
+        "_key": "p1",
+        "href": "#worlds",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Три світи"
+          },
+          {
+            "_key": "en",
+            "value": "Three worlds"
+          }
+        ]
+      },
+      {
+        "_key": "p2",
+        "href": "#apartamenty",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Апартаменти"
+          },
+          {
+            "_key": "en",
+            "value": "Apartments"
+          }
+        ]
+      },
+      {
+        "_key": "p3",
+        "href": "#model",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Інвестору"
+          },
+          {
+            "_key": "en",
+            "value": "For investors"
+          }
+        ]
+      },
+      {
+        "_key": "p4",
+        "href": "#lokatsiya-google",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Локація"
+          },
+          {
+            "_key": "en",
+            "value": "Location"
+          }
+        ]
+      },
+      {
+        "_key": "p5",
+        "href": "#budivnytstvo",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Хід будівництва"
+          },
+          {
+            "_key": "en",
+            "value": "Construction"
+          }
+        ]
+      }
+    ],
+    "secondary": [
+      {
+        "_key": "s1",
+        "href": "#season",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Переваги"
+          },
+          {
+            "_key": "en",
+            "value": "Advantages"
+          }
+        ]
+      },
+      {
+        "_key": "s2",
+        "href": "#infrastruktura",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Інфраструктура"
+          },
+          {
+            "_key": "en",
+            "value": "Infrastructure"
+          }
+        ]
+      },
+      {
+        "_key": "s3",
+        "href": "#forma-final",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Фінмодель"
+          },
+          {
+            "_key": "en",
+            "value": "Financial model"
+          }
+        ]
+      },
+      {
+        "_key": "s4",
+        "href": "#komanda",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Команда проєкту"
+          },
+          {
+            "_key": "en",
+            "value": "Project team"
+          }
+        ]
+      },
+      {
+        "_key": "s5",
+        "href": "#kontakty",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Контакти"
+          },
+          {
+            "_key": "en",
+            "value": "Contacts"
+          }
+        ]
+      }
+    ],
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:hero-summer.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "FORREST Trinity Resort серед карпатського лісу"
+        },
+        {
+          "_key": "en",
+          "value": "FORREST Trinity Resort in the Carpathian forest"
+        }
+      ]
+    },
+    "imageCaption": [
+      {
+        "_key": "uk",
+        "value": "Три корпуси — WIND, ROCK, SUN"
+      },
+      {
+        "_key": "en",
+        "value": "Three buildings — WIND, ROCK, SUN"
+      }
+    ],
+    "salesLabel": [
+      {
+        "_key": "uk",
+        "value": "Відділ продажу"
+      },
+      {
+        "_key": "en",
+        "value": "Sales department"
+      }
+    ],
+    "messengersLabel": [
+      {
+        "_key": "uk",
+        "value": "Месенджери"
+      },
+      {
+        "_key": "en",
+        "value": "Messengers"
+      }
+    ],
+    "addressLabel": [
+      {
+        "_key": "uk",
+        "value": "Адреса"
+      },
+      {
+        "_key": "en",
+        "value": "Address"
+      }
+    ],
+    "socialsLabel": [
+      {
+        "_key": "uk",
+        "value": "Соцмережі"
+      },
+      {
+        "_key": "en",
+        "value": "Social media"
+      }
+    ]
+  },
+  "contacts": {
+    "phone": "+380 (777) 999-999",
+    "phoneHref": "tel:+380777999999",
+    "address": [
+      {
+        "_key": "uk",
+        "value": "Буковель,\nІвано-Франківська обл."
+      },
+      {
+        "_key": "en",
+        "value": "Bukovel,\nIvano-Frankivsk region"
+      }
+    ],
+    "messengers": [
+      {
+        "_key": "m1",
+        "network": "telegram",
+        "label": "Telegram",
+        "url": "https://t.me/"
+      },
+      {
+        "_key": "m2",
+        "network": "viber",
+        "label": "Viber",
+        "url": "viber://chat?number=%2B380777999999"
+      },
+      {
+        "_key": "m3",
+        "network": "whatsapp",
+        "label": "WhatsApp",
+        "url": "https://wa.me/380777999999"
+      }
+    ],
+    "socials": [
+      {
+        "_key": "so1",
+        "network": "instagram",
+        "label": "Instagram",
+        "url": "https://instagram.com/"
+      }
+    ]
+  }
+}

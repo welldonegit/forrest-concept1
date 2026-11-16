@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { languages } from '../../lib/languages';
+import { getSiteSettings } from '../../lib/content';
+
+export function getStaticPaths() {
+  return languages.map((l) => ({ params: { lang: l.id } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const settings = await getSiteSettings(lang);
+---
+<Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink}>
+  <main id="main" tabindex="-1">
+    <!-- TODO(4.1 и далее): блоки из документа landing -->
+  </main>
+</Base>

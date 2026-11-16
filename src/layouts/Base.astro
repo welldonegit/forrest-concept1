@@ -1,0 +1,38 @@
+---
+/**
+ * Базовый шаблон страницы: язык и направление письма, мета-теги, предзагрузка
+ * шрифтов первого экрана, место под GTM, пропуск к содержимому.
+ */
+import '../styles/main.css';
+import { getLanguage } from '../lib/languages';
+
+interface Props {
+  lang: string;
+  title: string;
+  description: string;
+  skipLink: string;
+}
+
+const { lang, title, description, skipLink } = Astro.props;
+const language = getLanguage(lang);
+const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${language.subset}.woff2`];
+---
+<!doctype html>
+<html lang={language.id} dir={language.dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {fonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- TODO(6.x): canonical, hreflang, og — после выбора домена. TODO(7.2): GTM, отложенная загрузка. -->
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{skipLink}</a>
+    <slot />
+    <script>
+      import '../scripts/main.js';
+    </script>
+  </body>
+</html>

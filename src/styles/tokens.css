@@ -31,6 +31,7 @@
 --text-secondary:var(--forest);
 --text-on-inverse:var(--white-sand);
 --text-on-inverse-2:var(--sea-fog);
+--text-muted:var(--stone);
 
 --accent:var(--sea-wave);
 --accent-deep:var(--forest);
@@ -44,6 +45,23 @@
 --dot-fill:var(--clay);              /* fill декоративных точек */
 
 /* Скримы/вуали над фото добавляются по блокам (значения α — из рендера, п.16). */
+
+/* -- подложки Header и меню (рендер; база — примитив, α как в рендере) -- */
+--header-glass-bg:color-mix(in srgb, var(--air) 32%, transparent);          /* rgba(255,255,255,.32) */
+--header-glass-border:color-mix(in srgb, var(--air) 55%, transparent);      /* rgba(255,255,255,.55) */
+--header-control-bg:color-mix(in srgb, var(--air) 35%, transparent);        /* rgba(255,255,255,.35) */
+--header-control-bg-hover:color-mix(in srgb, var(--air) 70%, transparent);  /* rgba(255,255,255,.7) */
+--header-control-border:color-mix(in srgb, var(--spruce) 18%, transparent); /* rgba(24,40,32,.18) */
+--menu-social-border:color-mix(in srgb, var(--spruce) 20%, transparent);    /* rgba(24,40,32,.2) */
+--menu-caption-bg:color-mix(in srgb, var(--spruce) 34%, transparent);       /* rgba(24,40,32,.34) */
+--menu-caption-border:color-mix(in srgb, var(--air) 28%, transparent);      /* rgba(255,255,255,.28) */
+
+/* ===== Тени и размытие (рендер) ===== */
+--shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
+                 0 2px 8px color-mix(in srgb, var(--night-bark) 6%, transparent);
+--blur-header:blur(18px) saturate(1.2);
+--blur-control:blur(10px);
+--blur-caption:blur(14px);
 
 /* ===== Радиусы (решения Р2 + п.14) ===== */
 --radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
@@ -61,36 +79,93 @@
 --control-h-24:24px; --control-h-32:32px; --control-h-40:40px;
 --control-h-44:44px; --control-h-48:48px; --control-h-56:56px;
 --tap-target:44px;
---icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
+--icon-12:12px; --icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
 --border-1:1px; --border-2:2px;
 --stroke-icon:1.5px;
 --focus-width:2px; --focus-offset:2px;
+--ls-chip:.04em; --ls-chip-wide:.06em; --ls-caps:.16em;
 
 /* ===== Семейства ===== */
 --font-display:"Unbounded","Arial Black",sans-serif;
 --font-text:"Mulish","Segoe UI",Arial,sans-serif;
 
+/* ===== Страница ===== */
+--page-max:1920px;   /* ширина страницы вместе с полями (п.1) */
+
+/* ===== Header (рендер; база = ≥1600, ступени ниже) ===== */
+--header-bar-h:54px;                 /* 52 + рамка 1+1; п.13 — промежуток блока, не ступень шкалы */
+--header-offset-block:var(--space-24);        /* рендер 22 (поле кадра 12 + 10) */
+--header-offset-inline-start:var(--space-28); /* рендер 26 (12 + 14): 28/24 — ширина бара не меняется, */
+--header-offset-inline-end:var(--space-24);   /* правые контролы совпадают с рендером с учётом их округления */
+--header-logo-h:var(--space-36);
+--header-langpanel-w:236px;          /* ширина выпадающего списка языков, как в рендере */
+--header-chev:var(--icon-12);         /* шеврон переключателя языка */
+--header-langlist-max:min(360px, 60vh);
+--menu-item-pad:.06em;               /* запас под выносные элементы букв в строке меню */
+
+/* ===== Меню (рендер) ===== */
+--menu-pad-block-start:var(--space-24);
+--menu-pad-inline:var(--space-48);
+--menu-pad-block-end:var(--space-48);
+--menu-gap:clamp(var(--space-32), 5vh, var(--space-64));   /* зависит от высоты окна, как в выгрузке */
+--menu-nav-gap:clamp(var(--space-24), 3vh, var(--space-40));
+--menu-main-gap:var(--space-80);     /* рендер 76.8 */
+--menu-foot-col-gap:var(--space-48);
+--menu-foot-row-gap:var(--space-28);
+
 /* ===== Движение (Р6; длительности/кривые из Системы А) ===== */
 --dur-hover:150ms; --dur-accordion:200ms; --dur-menu:250ms; --dur-entrance:400ms;
 --ease-out:cubic-bezier(.2,.6,.3,1);
+
+/* -- кривые из рендера -- */
+--ease-out-quint:cubic-bezier(.22,1,.36,1);
+--ease-out-expo:cubic-bezier(.16,1,.3,1);
+--ease-in-out-quart:cubic-bezier(.76,0,.24,1);
+--ease-in-quart:cubic-bezier(.5,0,.75,0);
+
+/* -- Header и меню: длительности и задержки из рендера -- */
+--header-enter-dur:1.1s;  --header-enter-delay:.25s;  --header-enter-shift:-24px;
+--header-control-dur:.3s; --header-chev-dur:.45s;
+--langpanel-fade-dur:.35s; --langpanel-move-dur:.5s; --langopt-dur:.25s;
+--menu-hide-delay:1.15s;
+--menu-panel-open-dur:1.05s; --menu-panel-close-dur:.85s; --menu-panel-close-delay:.3s;
+--menu-link-open-dur:1.1s;   --menu-link-open-delay:.42s; --menu-link-open-step:.07s;
+--menu-link-close-dur:.45s;  --menu-link-close-step:.03s; --menu-link-fade-dur:.3s;
+--menu-sub-fade-dur:.8s;     --menu-sub-move-dur:1s;      --menu-sub-delay:.8s;  --menu-sub-step:.05s;
+--menu-col-delay:.95s;       --menu-col-step:.07s;
+--menu-top-fade-dur:.6s;     --menu-top-move-dur:.8s;     --menu-top-delay:.35s;
+--menu-out-fade-dur:.25s;    --menu-out-move-dur:.35s;
+--menu-img-open-dur:1.3s;    --menu-img-close-dur:.5s;    --menu-img-delay:.5s;
+--menu-img-zoom-dur:2s;
+--menu-cap-delay:1.3s;       --menu-cap-close-dur:.2s;
+--menu-arrow-dur:.5s;        --menu-arrow-fade-dur:.35s;
+--menu-close-rotate-dur:.5s; --menu-hover-dur:.25s;
+--menu-shift:16px; --menu-cap-shift:12px;
+--menu-img-scale:1.25; --menu-link-dim:.28;
+--langpanel-shift:-8px; --langpanel-scale:.96;
 
 /* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
 
-/* -- плавные роли (clamp из выгрузки, десктоп ≥768; мобильное — фикс с 390) -- */
---type-hero-h1-ff:var(--font-display); --type-hero-h1-size:clamp(30px,5.6vw,144px); --type-hero-h1-lh:1.08; /* Hero «Три світи» (ренд. 108/81/57/34) */
---type-hero-lead-ff:var(--font-display); --type-hero-lead-size:clamp(14px,1.38vw,28px); --type-hero-lead-lh:1.5; /* Hero лид «Інвестиційні апартаменти» (27/20/14/14) */
+/* -- плавные роли (clamp из выгрузки, десктоп ≥768; мобильное — фикс с 390) --
+   Верхняя граница clamp = значение рендера на 1920 (страница ограничена 1920,
+   шире текст не растёт). Нижняя граница и наклон vw — как в выгрузке. */
+--type-hero-h1-ff:var(--font-display); --type-hero-h1-size:clamp(30px,5.6vw,108px); --type-hero-h1-lh:1.08; /* Hero «Три світи» (ренд. 108/81/57/34); потолок выгрузки 144 → 108 */
+--type-hero-lead-ff:var(--font-display); --type-hero-lead-size:clamp(14px,1.38vw,27px); --type-hero-lead-lh:1.5; /* Hero лид «Інвестиційні апартаменти» (27/20/14/14); потолок 28 → 27 */
 --type-worlds-display-ff:var(--font-display); --type-worlds-display-size:clamp(24px,5.4vw,96px); --type-worlds-display-lh:1.08; /* Worlds «Три аудиторії» (96/78/55/24) */
 --type-worlds-decor-ff:var(--font-display); --type-worlds-decor-size:clamp(56px,11vw,200px); --type-worlds-decor-lh:0.9; /* Worlds «WIND/ROCK/SUN», декоративный (200/158/113/56) */
 --type-stats-stat-lg-ff:var(--font-display); --type-stats-stat-lg-size:clamp(40px,4vw,72px); --type-stats-stat-lg-lh:1; /* Stats число «460+» (72/58/41/40) */
 --type-season-stat-ff:var(--font-display); --type-season-stat-size:clamp(28px,3.4vw,56px); --type-season-stat-lh:1.1; /* Season «Дохідність/365/днів» (56/49/35/28) */
 --type-stats-stat-sm-ff:var(--font-display); --type-stats-stat-sm-size:0.42em; --type-stats-stat-sm-lh:1; /* Stats единицы «років/$/міс» — em от stats-stat-lg (как в выгрузке) */
+--type-header-menu-link-ff:var(--font-display); --type-header-menu-link-size:clamp(32px,4.4vw,74px); --type-header-menu-link-lh:1.12; --type-header-menu-link-ls:-.045em; /* Меню, пункты «Три світи…» (74/63/45/32); потолок = рендер 1920 */
+--type-header-menu-phone-ff:var(--font-display); --type-header-menu-phone-size:clamp(18px,1.5vw,24px); --type-header-menu-phone-lh:1.25; --type-header-menu-phone-ls:-.02em; /* Меню, телефон (24/21.6/18/18); потолок = рендер 1920 */
 
 /* -- дискретные роли: база = ≥1600 -- */
 --type-header-body-sm-ff:var(--font-text); --type-header-body-sm-size:15px; --type-header-body-sm-lh:22px;
 --type-header-label-xs-ff:var(--font-text); --type-header-label-xs-size:12px; --type-header-label-xs-lh:16px;
 --type-header-label-2xs-ff:var(--font-text); --type-header-label-2xs-size:11px; --type-header-label-2xs-lh:14px;
+--type-header-menu-sub-ff:var(--font-text); --type-header-menu-sub-size:17px; --type-header-menu-sub-lh:26px; /* Меню: второстепенные пункты, адрес, подпись фото (рендер 17/25.5 на всех ступенях) */
 --type-footer-contact-ff:var(--font-display); --type-footer-contact-size:28px; --type-footer-contact-lh:36px;
 --type-footer-h5-ff:var(--font-display); --type-footer-h5-size:18px; --type-footer-h5-lh:26px;
 --type-footer-body-ff:var(--font-text); --type-footer-body-size:17px; --type-footer-body-lh:26px;
@@ -110,6 +185,10 @@
 
 @media (max-width:1599px){:root{
 /* 1280–1599 (рендер 1440) */
+--menu-pad-inline:var(--space-36);   /* рендер 37.4: видимые элементы сдвигаются ≤1.4px */
+--menu-pad-block-end:var(--space-44);/* рендер 43.2 */
+--menu-main-gap:var(--space-56);     /* рендер 57.6 */
+--menu-foot-col-gap:var(--space-44); /* рендер 43.2 */
 --type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
@@ -122,6 +201,15 @@
 
 @media (max-width:1279px){:root{
 /* 768–1279 (рендер 1024) */
+--header-offset-block:var(--space-20);        /* рендер 18.4 */
+--header-offset-inline-start:var(--space-20); /* рендер 21.5 */
+--header-offset-inline-end:var(--space-20);
+--header-logo-h:var(--space-28);
+--menu-pad-block-start:var(--space-16);
+--menu-pad-inline:var(--space-28);   /* рендер 26.6 */
+--menu-pad-block-end:var(--space-32);/* рендер 30.7 */
+--menu-main-gap:var(--space-40);     /* рендер 41 */
+--menu-foot-col-gap:var(--space-32); /* рендер 30.7 */
 --type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
@@ -144,6 +232,14 @@
 --type-stats-stat-lg-size:40px;
 --type-season-stat-size:28px;
 --type-hero-caption-lh:13px; /* hero-caption */
+--type-header-menu-link-size:32px;
+--type-header-menu-phone-size:18px;
+--header-offset-block:var(--space-16);        /* рендер 16 (8 + 8) */
+--header-offset-inline-start:var(--space-16);
+--header-offset-inline-end:var(--space-16);
+--menu-pad-inline:var(--space-20);
+--menu-pad-block-end:var(--space-24);
+--menu-main-gap:var(--space-24);
 }}
 
 @media (prefers-reduced-motion:reduce){:root{
