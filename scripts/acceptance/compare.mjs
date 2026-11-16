@@ -207,6 +207,16 @@ try {
             if (/(auto|scroll)/.test(getComputedStyle(p).overflowX)) { inScroller = true; break; }
           }
           if (inScroller) continue;
+          // обрезано предком (overflow: hidden/clip или clip-path), который сам в окне
+          let clipped = false;
+          for (p = el.parentElement; p && p !== root.parentElement; p = p.parentElement) {
+            const cs = getComputedStyle(p);
+            if (/(hidden|clip)/.test(cs.overflowX) || cs.clipPath !== 'none') {
+              const pr = p.getBoundingClientRect();
+              if (pr.left >= -1 && pr.right <= w + 1) { clipped = true; break; }
+            }
+          }
+          if (clipped) continue;
           if (r.right > w + 1 || r.left < -1) out.push(`${el.tagName.toLowerCase()}.${[...el.classList].join('.')} [${Math.round(r.left)}…${Math.round(r.right)}]`);
         }
         return [...new Set(out)].slice(0, 12);

@@ -4,6 +4,7 @@ import { initAnchorNav } from './ui/anchor-nav.js';
 import { initHero } from './ui/hero.js';
 import { initSwipeHints } from './ui/swipe-hint.js';
 import { initFooter } from './ui/footer.js';
+import { initWorlds } from './ui/worlds.js';
 import { initAnimations } from './anim/core.js';
 
 initMenu();
@@ -12,4 +13,5 @@ initAnchorNav();
 initHero();
 initSwipeHints();
 initFooter();
+initWorlds();
 initAnimations();

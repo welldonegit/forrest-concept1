@@ -90,6 +90,20 @@
 --season-ring:color-mix(in srgb, var(--white-sand) 22%, transparent);      /* rgba(242,234,216,.22) */
 --season-ring-static:color-mix(in srgb, var(--white-sand) 18%, transparent); /* rgba(242,234,216,.18) */
 
+/* -- Worlds (рендер) -- */
+--worlds-scrim:radial-gradient(ellipse 85% 95% at 0% 100%,
+  color-mix(in srgb, var(--night-bark) 90%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 80%, transparent) 20%,
+  color-mix(in srgb, var(--night-bark) 62%, transparent) 38%,
+  color-mix(in srgb, var(--night-bark) 38%, transparent) 56%,
+  color-mix(in srgb, var(--night-bark) 16%, transparent) 74%,
+  color-mix(in srgb, var(--night-bark) 4%, transparent) 88%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 100%),
+  linear-gradient(to top,
+  color-mix(in srgb, var(--night-bark) 35%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 40%);             /* rgba(12,12,12,…) */
+--worlds-dim:var(--night-bark);   /* вуаль вместо filter: brightness() в волне (чёрный с α = 1 − яркость) */
+
 /* ===== Тени и размытие (рендер) ===== */
 --shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
                  0 2px 8px color-mix(in srgb, var(--night-bark) 6%, transparent);
@@ -212,6 +226,31 @@
 --season-play-icon-shift:var(--space-4);
 --season-word-pad:.06em;                    /* запас маски слова под выносные элементы, как в выгрузке */
 
+/* ===== Worlds (рендер; база = ≥1600) ===== */
+--worlds-scroll-h:440vh;                    /* длина сцены, как в выгрузке */
+--worlds-stage-min:560px;
+--worlds-pad-inline:84px;                   /* рендер 84.48 (п.13, крупный, поблочно): вне шкалы, см. отчёт */
+--worlds-gap:clamp(var(--space-32), 6vh, var(--space-72));   /* зависит от высоты окна, как в выгрузке */
+--worlds-grid-max:1640px;
+--worlds-grid-gap:var(--space-24);
+--worlds-ph-ratio:2.16 / 1;
+--worlds-pill-w:1.9em; --worlds-pill-h:.92em; --worlds-pill-gap:.22em; --worlds-pill-shift:-.06em; /* фото в строке заголовка */
+--worlds-card-inset:var(--space-12);        /* поле развёрнутой карточки */
+--worlds-card-radius-start:var(--radius-28);
+--worlds-card-radius-end:var(--radius-40);
+--worlds-text-pad-bottom:var(--space-72);
+--worlds-slide-max:760px;
+--worlds-slide-gap:var(--space-24);
+--worlds-name-gap:var(--space-20);
+--worlds-btn-h:var(--control-h-60);
+--worlds-btn-pad-start:var(--space-28);
+--worlds-btn-pad-end:var(--space-6);
+--worlds-btn-gap:var(--space-28);
+--worlds-btn-mt:var(--space-8);
+--worlds-btn-icon:var(--space-48);
+--worlds-btn-svg:18px;
+--worlds-dots-gap:var(--space-32);
+--worlds-dot-pad:var(--space-6);
 
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
@@ -291,6 +330,10 @@
 --ease-out-back-strong:cubic-bezier(.34,1.5,.64,1);
 --season-pulse-dur:2.8s; --season-pulse-delay:2.4s;
 
+/* -- Worlds: сцена прокрутки (рендер) -- */
+--worlds-slide-fade-dur:700ms; --worlds-slide-move-dur:900ms; --worlds-slide-shift:8px;
+--worlds-dot-dur:400ms; --worlds-btn-dur:150ms;
+
 /* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
@@ -327,9 +370,9 @@
 --type-season-h4-ff:var(--font-text); --type-season-h4-size:18px; --type-season-h4-lh:28px;
 --type-season-button-ff:var(--font-text); --type-season-button-size:16px; --type-season-button-lh:20px;
 --type-worlds-subtitle-ff:var(--font-display); --type-worlds-subtitle-size:28px; --type-worlds-subtitle-lh:36px;
---type-worlds-h5-ff:var(--font-display); --type-worlds-h5-size:18px; --type-worlds-h5-lh:26px;
+--type-worlds-button-ff:var(--font-text); --type-worlds-button-size:18px; --type-worlds-button-lh:24px; /* кнопка «Детальніше про…» (была worlds-h5: в рендере Mulish 18) */
 --type-worlds-overline-ff:var(--font-display); --type-worlds-overline-size:17px; --type-worlds-overline-lh:24px;
---type-worlds-body-ff:var(--font-display); --type-worlds-body-size:17px; --type-worlds-body-lh:24px;
+--type-worlds-body-ff:var(--font-display); --type-worlds-body-size:17px; --type-worlds-body-lh:24px; /* метки WIND/ROCK/SUN справа внизу */
 }
 
 @media (max-width:1599px){:root{
@@ -355,6 +398,8 @@
 --season-video-offset:246px;                /* 345.6 − 100 */
 --season-chip-h:36px;                       /* рендер 36 (+рамка), собственный размер */
 --season-play-size:94px;                    /* рендер 93.6 */
+--worlds-pad-inline:var(--space-64);        /* рендер 63.4 */
+--worlds-text-pad-bottom:var(--space-64);
 --type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
@@ -408,17 +453,26 @@
 --season-video-offset:160px;                /* 260 − 100 */
 --season-chip-inset:var(--space-20);        /* рендер 18.4 */
 --season-play-size:72px;
+--worlds-pad-inline:var(--space-44);        /* рендер 45.1 */
+--worlds-grid-gap:var(--space-16);          /* рендер 16.4 */
+--worlds-text-pad-bottom:var(--space-44);
+--worlds-slide-gap:var(--space-20);         /* рендер 20.5 */
+--worlds-name-gap:var(--space-16);          /* рендер 14.3 */
+--worlds-btn-h:52px;                        /* рендер 52, собственный размер */
+--worlds-btn-pad-start:var(--space-24);     /* рендер 22 */
+--worlds-btn-gap:var(--space-20);           /* рендер 20.5 */
+--worlds-btn-icon:var(--space-40);
 --type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
 --type-hero-caption-size:11px; --type-hero-caption-lh:14px; /* hero-caption */
+--type-worlds-button-size:15px; --type-worlds-button-lh:20px; /* worlds-button */
+--type-worlds-overline-size:13px; /* worlds-overline; lh 24 на всех ступенях, как в рендере */
 --type-stats-h4-size:15px; --type-stats-h4-lh:22px; /* stats-h4 */
 --type-stats-body-size:14px; --type-stats-body-lh:20px; /* stats-body */
 --type-season-h4-size:15px; --type-season-h4-lh:23px; /* season-h4 */
 --type-season-button-size:14px; /* season-button */
 --type-worlds-subtitle-size:20px; --type-worlds-subtitle-lh:26px; /* worlds-subtitle */
---type-worlds-h5-size:15px; --type-worlds-h5-lh:22px; /* worlds-h5 */
---type-worlds-overline-size:13px; --type-worlds-overline-lh:20px; /* worlds-overline */
 }}
 
 @media (max-width:767px){:root{
@@ -445,6 +499,12 @@
 --season-head-gap:var(--space-20);
 --season-head-mb:var(--space-24);
 --season-chip-inset:var(--space-16);
+--worlds-pad-inline:var(--space-20);
+--worlds-grid-gap:var(--space-8);
+--worlds-text-pad-bottom:var(--space-24);
+--worlds-slide-gap:var(--space-16);
+--worlds-name-gap:var(--space-12);
+--worlds-btn-gap:var(--space-16);
 --type-hero-h1-size:34px;
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;
@@ -460,6 +520,13 @@
 --menu-pad-inline:var(--space-20);
 --menu-pad-block-end:var(--space-24);
 --menu-main-gap:var(--space-24);
+}}
+
+/* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */
+@media (max-width:599px){:root{
+--worlds-card-inset:var(--space-8);
+--worlds-card-radius-start:var(--radius-20);
+--worlds-card-radius-end:var(--radius-24);
 }}
 
 @media (prefers-reduced-motion:reduce){:root{

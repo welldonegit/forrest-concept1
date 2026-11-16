@@ -66,6 +66,9 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
     '/design-export/assets/photos/footer-bridge.jpg',
+    '/design-export/assets/photos/wind-section-winter.jpg',
+    '/design-export/assets/photos/rock-section-winter.jpg',
+    '/design-export/assets/photos/sun-section-winter.jpg',
     '/design-export/video-poster-forest.jpg',
     '/design-export/card-apartments-new.jpg',
     '/design-export/card-okupnist.jpg',
@@ -200,7 +203,35 @@ export interface SeasonBlock {
   videoUrl: string;
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock;
+export interface WorldsTitleLine {
+  _key: string;
+  before: string;
+  /** Фото-«пилюля» внутри строки (декор). */
+  image?: SanityImage;
+  after?: string;
+  /** Приглушённый цвет строки. */
+  muted?: boolean;
+}
+
+export interface World {
+  _key: string;
+  overline: string;
+  name: string;
+  subtitle: string;
+  cta: { label: string; href: string };
+  image: SanityImage;
+}
+
+export interface WorldsBlock {
+  _type: 'worlds';
+  _key: string;
+  anchor: string;
+  title: WorldsTitleLine[];
+  /** Ровно три мира: центральная карточка и две боковые. */
+  worlds: World[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');

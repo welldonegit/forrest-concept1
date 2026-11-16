@@ -18,7 +18,14 @@
 .text-footer-contact{font-family:var(--type-footer-contact-ff);font-size:var(--type-footer-contact-size);line-height:var(--type-footer-contact-lh);font-weight:400}
 .text-footer-h5{font-family:var(--type-footer-h5-ff);font-size:var(--type-footer-h5-size);line-height:var(--type-footer-h5-lh);letter-spacing:var(--ls-caps-sm);font-weight:600;text-transform:uppercase}
 .text-footer-body{font-family:var(--type-footer-body-ff);font-size:var(--type-footer-body-size);line-height:var(--type-footer-body-lh);font-weight:400}
-.text-footer-small{font-family:var(--type-footer-small-ff);font-size:var(--type-footer-small-size);line-height:var(--type-footer-small-lh);font-weight:400}
 .text-season-stat{font-family:var(--type-season-stat-ff);font-size:var(--type-season-stat-size);line-height:var(--type-season-stat-lh);letter-spacing:var(--type-season-stat-ls);font-weight:600;text-transform:uppercase}
 .text-season-h4{font-family:var(--type-season-h4-ff);font-size:var(--type-season-h4-size);line-height:var(--type-season-h4-lh);font-weight:400}
 .text-season-button{font-family:var(--type-season-button-ff);font-size:var(--type-season-button-size);line-height:var(--type-season-button-lh);font-weight:600}
+.text-worlds-display{font-family:var(--type-worlds-display-ff);font-size:var(--type-worlds-display-size);line-height:var(--type-worlds-display-lh);letter-spacing:var(--type-worlds-display-ls);font-weight:600;text-transform:uppercase}
+.text-worlds-decor{font-family:var(--type-worlds-decor-ff);font-size:var(--type-worlds-decor-size);line-height:var(--type-worlds-decor-lh);letter-spacing:var(--type-worlds-decor-ls);font-weight:600}
+.text-worlds-subtitle{font-family:var(--type-worlds-subtitle-ff);font-size:var(--type-worlds-subtitle-size);line-height:var(--type-worlds-subtitle-lh);font-weight:500}
+.text-worlds-overline{font-family:var(--type-worlds-overline-ff);font-size:var(--type-worlds-overline-size);line-height:var(--type-worlds-overline-lh);letter-spacing:var(--ls-caps);font-weight:600;text-transform:uppercase}
+.text-worlds-body{font-family:var(--type-worlds-body-ff);font-size:var(--type-worlds-body-size);line-height:var(--type-worlds-body-lh);font-weight:500}
+
+.text-footer-small{font-family:var(--type-footer-small-ff);font-size:var(--type-footer-small-size);line-height:var(--type-footer-small-lh);font-weight:400}
+.text-worlds-button{font-family:var(--type-worlds-button-ff);font-size:var(--type-worlds-button-size);line-height:var(--type-worlds-button-lh);font-weight:600}

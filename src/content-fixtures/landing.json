@@ -495,6 +495,270 @@
         }
       ],
       "videoUrl": "https://www.youtube-nocookie.com/embed/d9ZbEgt5lhQ"
+    },
+    {
+      "_type": "worlds",
+      "_key": "worlds",
+      "anchor": "worlds",
+      "title": [
+        {
+          "_key": "t1",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "Три"
+            },
+            {
+              "_key": "en",
+              "value": "Three"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments.jpg"
+            },
+            "hotspot": {
+              "x": 0.6,
+              "y": 0.45
+            },
+            "decorative": true
+          },
+          "after": [
+            {
+              "_key": "uk",
+              "value": "аудиторії"
+            },
+            {
+              "_key": "en",
+              "value": "audiences"
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t2",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "три сценарії"
+            },
+            {
+              "_key": "en",
+              "value": "three demand"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:hero-summer.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "after": [
+            {
+              "_key": "uk",
+              "value": "попиту"
+            },
+            {
+              "_key": "en",
+              "value": "scenarios"
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t3",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "один актив"
+            },
+            {
+              "_key": "en",
+              "value": "one asset"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "worlds": [
+        {
+          "_key": "wind",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 1"
+            },
+            {
+              "_key": "en",
+              "value": "Section 1"
+            }
+          ],
+          "name": "WIND",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Світ тиші та відновлення"
+            },
+            {
+              "_key": "en",
+              "value": "A world of quiet and renewal"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про WIND"
+              },
+              {
+                "_key": "en",
+                "value": "More about WIND"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція WIND — апартаменти для тиші та відновлення"
+              },
+              {
+                "_key": "en",
+                "value": "WIND section — apartments for quiet and renewal"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "rock",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 2"
+            },
+            {
+              "_key": "en",
+              "value": "Section 2"
+            }
+          ],
+          "name": "ROCK",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Простір рішень і масштабування"
+            },
+            {
+              "_key": "en",
+              "value": "A space for decisions and growth"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про ROCK"
+              },
+              {
+                "_key": "en",
+                "value": "More about ROCK"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція ROCK — апартаменти для бізнесу та масштабування"
+              },
+              {
+                "_key": "en",
+                "value": "ROCK section — apartments for business and growth"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "sun",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 3"
+            },
+            {
+              "_key": "en",
+              "value": "Section 3"
+            }
+          ],
+          "name": "SUN",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Світ дому, тепла та спільного відпочинку"
+            },
+            {
+              "_key": "en",
+              "value": "A world of home, warmth and time together"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про SUN"
+              },
+              {
+                "_key": "en",
+                "value": "More about SUN"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція SUN — апартаменти для родинного відпочинку"
+              },
+              {
+                "_key": "en",
+                "value": "SUN section — apartments for family holidays"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

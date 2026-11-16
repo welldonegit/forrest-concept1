@@ -1,0 +1,135 @@
+/* ===== Worlds (4.4) — сцена прокрутки «Три аудиторії…» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Сцена (.js): секция высотой --worlds-scroll-h, кадр прилипает к верху окна;
+   положение карточек, clip-path, прозрачность и активный слайд ставит src/scripts/ui/worlds.js.
+   Без JS — статичный вариант внизу файла: заголовок, затем одна карточка со всеми тремя мирами. */
+
+.worlds{position:relative; background:var(--bg-surface-warm)}
+.worlds__stage{position:relative; overflow:hidden; background:var(--bg-surface-warm)}
+
+/* ---------- Стартовый кадр: заголовок и места карточек ---------- */
+.worlds__intro{
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  gap:var(--worlds-gap);
+  padding-inline:var(--worlds-pad-inline);
+}
+.worlds__title{margin:0; text-align:center; color:var(--text-primary)}
+.worlds__line{display:block}
+.worlds__line--muted{color:var(--text-muted)}
+.worlds__pill{
+  display:inline-block; overflow:hidden;
+  inline-size:var(--worlds-pill-w); block-size:var(--worlds-pill-h);
+  margin-inline:var(--worlds-pill-gap); vertical-align:var(--worlds-pill-shift);
+  border-radius:var(--radius-pill);
+}
+.worlds__pill-img{display:block; inline-size:100%; block-size:100%; object-fit:cover; object-position:var(--focus, 50% 50%)}
+.worlds__grid{
+  display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--worlds-grid-gap);
+  inline-size:100%; max-inline-size:var(--worlds-grid-max);
+}
+.worlds__slot{aspect-ratio:var(--worlds-ph-ratio)}
+
+/* ---------- Карточки ---------- */
+.worlds__card{position:relative; overflow:hidden; background:var(--night-bark)}
+.worlds__media{position:absolute; inset:0}
+.worlds__img{display:block; inline-size:100%; block-size:100%; object-fit:cover}
+.worlds__reveal{position:absolute; inset:0}
+.worlds__dim{position:absolute; inset:0; background:var(--worlds-dim); opacity:0; pointer-events:none}
+
+/* ---------- Текст поверх центральной карточки ---------- */
+.worlds__text{position:absolute; inset:0; z-index:1}
+.worlds__scrim{position:absolute; inset:0; background:var(--worlds-scrim); pointer-events:none}
+.worlds__slides{
+  position:absolute; inset-inline:0; inset-block-end:0;
+  display:grid;
+  padding-inline:var(--worlds-pad-inline); padding-block-end:var(--worlds-text-pad-bottom);
+}
+.worlds__slide{
+  grid-area:1/1;
+  display:flex; flex-direction:column; align-items:flex-start; gap:var(--worlds-slide-gap);
+  max-inline-size:var(--worlds-slide-max);
+  color:var(--air);
+}
+.worlds__name{margin:0; display:flex; flex-direction:column; gap:var(--worlds-name-gap)}
+.worlds__btn{
+  display:flex; align-items:center; gap:var(--worlds-btn-gap);
+  min-block-size:var(--worlds-btn-h);
+  margin-block-start:var(--worlds-btn-mt);
+  padding-inline:var(--worlds-btn-pad-start) var(--worlds-btn-pad-end);
+  border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm); color:var(--text-primary); text-decoration:none;
+  transition:background-color var(--worlds-btn-dur);
+}
+.worlds__btn:hover{background:var(--air)}
+.worlds__btn-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--worlds-btn-icon); block-size:var(--worlds-btn-icon);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+}
+.worlds__btn-icon svg{inline-size:var(--worlds-btn-svg); block-size:var(--worlds-btn-svg)}
+
+.worlds__dots{
+  position:absolute; inset-inline-end:var(--worlds-pad-inline); inset-block-end:var(--worlds-text-pad-bottom);
+  display:flex; gap:var(--worlds-dots-gap);
+  color:var(--air);
+}
+/* Подчёркивание активного мира: в выгрузке растёт background-size, здесь — scaleX (тот же вид). */
+.worlds__dot{position:relative; padding-block-end:var(--worlds-dot-pad)}
+.worlds__dot::after{
+  content:""; position:absolute; inset-inline:0; inset-block-end:0;
+  block-size:var(--border-2); background:currentColor;
+  transform:scaleX(0); transform-origin:0 50%;
+  transition:transform var(--worlds-dot-dur) var(--ease-out-quint);
+}
+.worlds__stage[data-active="0"] [data-dot="0"]::after,
+.worlds__stage[data-active="1"] [data-dot="1"]::after,
+.worlds__stage[data-active="2"] [data-dot="2"]::after{transform:scaleX(1)}
+@media (max-width:767px){
+  .worlds__dots{display:none}
+}
+
+/* ---------- Сцена (с JS) ---------- */
+.js .worlds{block-size:var(--worlds-scroll-h)}
+.js .worlds__stage{
+  position:sticky; inset-block-start:0;
+  block-size:100svh; min-block-size:var(--worlds-stage-min);
+}
+.js .worlds__intro{position:absolute; inset:0}
+.js .worlds__card{
+  position:absolute; inset:var(--worlds-card-inset);
+  /* до первого расчёта сцены карточки скрыты; worlds.js ставит clip-path сразу при загрузке */
+  clip-path:inset(50%);
+}
+.js .worlds__card--side{z-index:1}
+.js .worlds__card--c{z-index:2}
+/* Геометрия фото считается в пикселях кадра (getBoundingClientRect), поэтому left/top физические. */
+.js .worlds[data-ready] .worlds__media{inset:auto; transform-origin:0 0}
+.js .worlds__reveal{clip-path:inset(100% 0 0 0)}
+.js .worlds__text{opacity:0}
+.js .worlds__slide{
+  opacity:0; transform:translateY(var(--worlds-slide-shift));
+  transition:
+    opacity var(--worlds-slide-fade-dur) var(--ease-out-quint),
+    transform var(--worlds-slide-move-dur) var(--ease-out-quint);
+}
+.js .worlds__stage[data-active="0"] [data-slide="0"],
+.js .worlds__stage[data-active="1"] [data-slide="1"],
+.js .worlds__stage[data-active="2"] [data-slide="2"]{opacity:1; transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .worlds__slide,.worlds__dot::after{transition:none!important}
+}
+
+/* ---------- Без JS: статичный вариант ---------- */
+html:not(.js) .worlds__intro{padding-block:var(--worlds-gap)}
+html:not(.js) .worlds__grid,
+html:not(.js) .worlds__card--side,
+html:not(.js) .worlds__reveal,
+html:not(.js) .worlds__dots{display:none}
+html:not(.js) .worlds__card--c{
+  margin:0 var(--worlds-card-inset) var(--worlds-card-inset);
+  border-radius:var(--worlds-card-radius-end);
+}
+html:not(.js) .worlds__text{position:relative}
+html:not(.js) .worlds__slides{position:relative; display:flex; flex-direction:column; gap:var(--worlds-gap); padding-block-start:var(--worlds-gap)}
