@@ -32,6 +32,16 @@
         "_key": "en",
         "value": "Skip to content"
       }
+    ],
+    "swipeHint": [
+      {
+        "_key": "uk",
+        "value": "Гортайте"
+      },
+      {
+        "_key": "en",
+        "value": "Swipe"
+      }
     ]
   },
   "header": {

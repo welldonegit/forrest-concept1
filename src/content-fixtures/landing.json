@@ -249,6 +249,174 @@
           }
         ]
       }
+    },
+    {
+      "_type": "stats",
+      "_key": "stats",
+      "cards": [
+        {
+          "_key": "s1",
+          "value": "460+",
+          "unit": "",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "апартаментів в 5 форматах"
+            },
+            {
+              "_key": "en",
+              "value": "apartments in 5 formats"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "від 29,5 до 111,5 м²"
+            },
+            {
+              "_key": "en",
+              "value": "from 29.5 to 111.5 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments-new.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": ""
+          }
+        },
+        {
+          "_key": "s2",
+          "value": "10",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "років"
+            },
+            {
+              "_key": "en",
+              "value": "years"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "до повної окупності"
+            },
+            {
+              "_key": "en",
+              "value": "to full payback"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "капіталізація 20%"
+            },
+            {
+              "_key": "en",
+              "value": "20% capitalisation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-okupnist.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": ""
+          }
+        },
+        {
+          "_key": "s3",
+          "value": "10 750",
+          "unit": "$",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "мінімальний\nщорічний прибуток"
+            },
+            {
+              "_key": "en",
+              "value": "minimum\nannual profit"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "12% річних"
+            },
+            {
+              "_key": "en",
+              "value": "12% per annum"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": ""
+          }
+        },
+        {
+          "_key": "s4",
+          "value": "24",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "міс"
+            },
+            {
+              "_key": "en",
+              "value": "mo"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "instalment plan"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "перший внесок від 5533$"
+            },
+            {
+              "_key": "en",
+              "value": "down payment from $5,533"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": ""
+          }
+        }
+      ]
     }
   ]
 }

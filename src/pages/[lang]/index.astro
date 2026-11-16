@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
 import Hero from '../../components/blocks/Hero.astro';
+import Stats from '../../components/blocks/Stats.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
 
@@ -19,6 +20,7 @@ const landing = await getLanding(lang);
     {landing.blocks.map((block) => {
       switch (block._type) {
         case 'hero': return <Hero block={block} />;
+        case 'stats': return <Stats block={block} swipeHint={settings.ui.swipeHint} />;
         default: return null;
       }
     })}

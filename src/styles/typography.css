@@ -9,3 +9,9 @@
 .text-hero-lead{font-family:var(--type-hero-lead-ff);font-size:var(--type-hero-lead-size);line-height:var(--type-hero-lead-lh);letter-spacing:var(--type-hero-lead-ls);font-weight:600}
 .text-hero-button-lg{font-family:var(--type-hero-button-lg-ff);font-size:var(--type-hero-button-lg-size);line-height:var(--type-hero-button-lg-lh);font-weight:600}
 .text-hero-caption{font-family:var(--type-hero-caption-ff);font-size:var(--type-hero-caption-size);line-height:var(--type-hero-caption-lh);font-weight:600}
+.text-stats-stat-lg{font-family:var(--type-stats-stat-lg-ff);font-size:var(--type-stats-stat-lg-size);line-height:var(--type-stats-stat-lg-lh);letter-spacing:var(--type-stats-stat-lg-ls);font-weight:600}
+.text-stats-stat-sm{font-size:var(--type-stats-stat-sm-size);line-height:var(--type-stats-stat-sm-lh);letter-spacing:var(--type-stats-stat-sm-ls)}
+/* Stats h4/body: в выгрузке задан вес 500, но у Mulish там объявлены только 400/600/700 — рендер рисует 400. */
+.text-stats-h4{font-family:var(--type-stats-h4-ff);font-size:var(--type-stats-h4-size);line-height:var(--type-stats-h4-lh);font-weight:400}
+.text-stats-body{font-family:var(--type-stats-body-ff);font-size:var(--type-stats-body-size);line-height:var(--type-stats-body-lh);font-weight:400}
+.text-stats-label{font-family:var(--type-stats-label-ff);font-size:var(--type-stats-label-size);line-height:var(--type-stats-label-lh);letter-spacing:var(--ls-caps-md);font-weight:600;text-transform:uppercase}

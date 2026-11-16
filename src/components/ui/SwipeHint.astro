@@ -1,0 +1,20 @@
+---
+/**
+ * Подсказка «Гортайте» под горизонтальной лентой (только <768).
+ * Гаснет, когда ленту прокрутили больше чем на 24px (src/scripts/ui/swipe-hint.js).
+ * Декоративная: aria-hidden, как в выгрузке.
+ */
+interface Props {
+  /** id прокручиваемой ленты */
+  track: string;
+  label: string;
+}
+
+const { track, label } = Astro.props;
+---
+<div class="swipe-hint text-stats-label" aria-hidden="true" data-swipe-hint={track}>
+  <span class="swipe-hint__hand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 11.5V5.2a1.6 1.6 0 0 1 3.2 0v5.3" /><path d="M12.2 10.2V8.9a1.6 1.6 0 0 1 3.2 0v2" /><path d="M15.4 10.4a1.6 1.6 0 0 1 3.2 0v3.8c0 3.7-2.6 6.3-6.2 6.3h-.8c-2.2 0-3.6-.9-4.8-2.6l-2.4-3.6a1.55 1.55 0 0 1 2.5-1.8L9 14" /><path d="M3.5 4.5h3M17.5 4.5h3" opacity=".55" /></svg>
+  </span>
+  <span>{label}</span>
+</div>

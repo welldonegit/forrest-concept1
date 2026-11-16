@@ -59,10 +59,15 @@ export function localize<T = unknown>(value: unknown, lang: string, path = ''): 
 
 // Только фото, на которые ссылаются фикстуры: всё, что попало в glob, Vite кладёт в сборку.
 // Новый блок с фото до подключения Sanity — добавить файл в этот список.
+// Источник — design-export/assets/photos (Р8); фото карточек Stats есть только в корне выгрузки.
 const fixturePhotos = import.meta.glob<ImageMetadata>(
   [
     '/design-export/assets/photos/hero-summer.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
+    '/design-export/assets/photos/card-apartments.jpg',
+    '/design-export/card-apartments-new.jpg',
+    '/design-export/card-okupnist.jpg',
+    '/design-export/card-income.jpg',
   ],
   { import: 'default' },
 );
@@ -98,7 +103,7 @@ export interface SocialLink { _key: string; network: string; label: string; url:
 
 export interface SiteSettings {
   seo: { title: string; description: string };
-  ui: { skipLink: string };
+  ui: { skipLink: string; swipeHint: string };
   header: {
     homeHref: string;
     logoAlt: string;
@@ -146,7 +151,22 @@ export interface HeroBlock {
   season: { prefix: string; toWinter: string; toSummer: string };
 }
 
-export type LandingBlock = HeroBlock;
+export interface StatsCard {
+  _key: string;
+  value: string;
+  unit: string;
+  text: string;
+  chip: string;
+  image: SanityImage;
+}
+
+export interface StatsBlock {
+  _type: 'stats';
+  _key: string;
+  cards: StatsCard[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');
