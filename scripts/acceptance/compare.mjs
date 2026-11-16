@@ -3,21 +3,23 @@
  * Приёмка блока по скриншотам: вёрстка против design-export/index.html.
  *
  *   npm run acceptance -- --block header
- *   npm run acceptance -- --block header --widths 1920,1440,390 --states normal,menu --lang en
+ *   npm run acceptance -- --block header --widths 1440,390 --smoke none --states menu --lang en
  *
  * Параметры:
  *   --block   имя конфига из scripts/acceptance/blocks/<имя>.mjs (обязательно)
- *   --widths  ширины через запятую, «base» (1920,1440,1280,390) или «all» (+1680,1600,1024,360);
- *             по умолчанию all — для первых шести блоков (LAYOUT_RULES, «Приёмка блоков»)
+ *   --widths  ширины попиксельной сверки через запятую; по умолчанию 1920,1440,390
+ *   --smoke   ширины «ничего не сломалось»: только скриншот вёрстки, без диффа;
+ *             по умолчанию 1280,1024,360; none — пропустить (LAYOUT_RULES, «Приёмка блоков»)
  *   --states  состояния из конфига через запятую; по умолчанию все
  *   --lang    язык вёрстки: uk (по умолчанию), en, …
  *   --url     адрес вёрстки (например, http://localhost:4321 при запущенном dev-сервере);
  *             по умолчанию скрипт сам раздаёт dist/client — сначала npm run build
  *   --out     папка результатов; по умолчанию .acceptance/<блок>/ (в .gitignore)
  *
- * Результат: <ширина>-<состояние>-{exp,ours,diff}.png и report.json; в консоль —
- * процент несовпавших пикселей и элементы, у которых позиция или размер разошлись больше 2px
- * или изменилось число строк.
+ * Результат: <ширина>-<состояние>-{exp,ours,diff}.png, <ширина>-<состояние>-smoke.png и report.json;
+ * в консоль — процент несовпавших пикселей и только элементы, у которых позиция или размер
+ * разошлись больше 2px или изменилось число строк; на проверочных ширинах — элементы,
+ * вылезающие за окно по горизонтали.
  */
 import { chromium } from 'playwright';
 import fs from 'node:fs';
@@ -26,11 +28,11 @@ import http from 'node:http';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const EXPORT_URL = pathToFileURL(path.join(ROOT, 'design-export/index.html')).href;
 
 /** Высоты окна для ширин приёмки. */
 const VIEWPORTS = { 1920: 1080, 1680: 1050, 1600: 900, 1440: 900, 1280: 800, 1024: 768, 390: 844, 360: 780 };
-const WIDTH_SETS = { base: [1920, 1440, 1280, 390], all: [1920, 1680, 1600, 1440, 1280, 1024, 390, 360] };
+const DEFAULT_WIDTHS = '1920,1440,390';
+const DEFAULT_SMOKE = '1280,1024,360';
 const TOLERANCE = 2;
 
 function parseArgs(argv) {
@@ -51,32 +53,36 @@ if (!args.block) {
   process.exit(1);
 }
 const config = (await import(pathToFileURL(path.join(ROOT, 'scripts/acceptance/blocks', `${args.block}.mjs`)).href)).default;
-const widths = (WIDTH_SETS[args.widths ?? 'all'] ?? args.widths.split(',').map(Number)).map((w) => [w, VIEWPORTS[w] ?? 900]);
+const toViewports = (list) => (list === 'none' ? [] : list.split(',').map(Number).map((w) => [w, VIEWPORTS[w] ?? 900]));
+const widths = toViewports(args.widths ?? DEFAULT_WIDTHS);
+const smokeWidths = toViewports(args.smoke ?? DEFAULT_SMOKE);
 const stateNames = args.states ? args.states.split(',') : Object.keys(config.states);
 for (const s of stateNames) if (!config.states[s]) throw new Error(`Нет состояния «${s}» в конфиге ${args.block}`);
 const lang = args.lang ?? 'uk';
 const outDir = path.resolve(ROOT, args.out ?? `.acceptance/${args.block}${lang === 'uk' ? '' : `-${lang}`}`);
 fs.mkdirSync(outDir, { recursive: true });
 
-/* ---------- Раздача dist/client, если --url не указан ---------- */
+/* ---------- Раздача: /design-export/ — выгрузка, остальное — dist/client ---------- */
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.avif': 'image/avif', '.webp': 'image/webp', '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.png': 'image/png', '.json': 'application/json' };
-let server;
-let base = args.url?.replace(/\/$/, '');
-if (!base) {
-  const dist = path.join(ROOT, 'dist/client');
-  if (!fs.existsSync(dist)) { console.error('Нет dist/client: сначала npm run build или передай --url'); process.exit(1); }
-  server = http.createServer((req, res) => {
-    let f = path.join(dist, decodeURIComponent(new URL(req.url, 'http://x').pathname));
-    if (!f.startsWith(dist)) { res.writeHead(403); return res.end(); }
+const dist = path.join(ROOT, 'dist/client');
+const exportDir = path.join(ROOT, 'design-export');
+if (!args.url && !fs.existsSync(dist)) { console.error('Нет dist/client: сначала npm run build или передай --url'); process.exit(1); }
+const server = http.createServer((req, res) => {
+    const pathname = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    const fromExport = pathname.startsWith('/design-export/');
+    const rootDir = fromExport ? exportDir : dist;
+    let f = path.join(rootDir, fromExport ? pathname.slice('/design-export'.length) : pathname);
+    if (!f.startsWith(rootDir)) { res.writeHead(403); return res.end(); }
     if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
     if (!fs.existsSync(f)) { res.writeHead(404); return res.end('404'); }
     res.writeHead(200, { 'content-type': TYPES[path.extname(f)] ?? 'application/octet-stream' });
     fs.createReadStream(f).pipe(res);
-  });
-  await new Promise((r) => server.listen(0, '127.0.0.1', r));
-  base = `http://127.0.0.1:${server.address().port}`;
-}
+});
+await new Promise((r) => server.listen(0, '127.0.0.1', r));
+const local = `http://127.0.0.1:${server.address().port}`;
+const base = args.url?.replace(/\/$/, '') ?? local;
+const EXPORT_URL = `${local}/design-export/index.html`;
 const oursUrl = `${base}/${lang}/${config.hash ?? ''}`;
 
 /* ---------- Замеры ---------- */
@@ -135,22 +141,29 @@ async function pixelDiff(page, expFile, oursFile, diffFile) {
 
 /* ---------- Прогон ---------- */
 const browser = await chromium.launch();
-const report = { block: args.block, lang, ours: oursUrl, export: EXPORT_URL, widths: {} };
+const report = { block: args.block, lang, ours: oursUrl, export: EXPORT_URL, widths: {}, smoke: {} };
+
+/** Открыть страницу и довести до состояния. */
+async function openState(side, state, w, h) {
+  const page = await browser.newPage({ viewport: { width: w, height: h } });
+  await page.goto(side === 'exp' ? EXPORT_URL : oursUrl, { waitUntil: 'networkidle' });
+  // панель dev-сервера Astro (при --url на astro dev) перекрывает низ окна
+  const css = (config.neutralize?.[side] ?? '') + (side === 'ours' ? 'astro-dev-toolbar{display:none!important}' : '');
+  if (css) await page.addStyleTag({ content: css });
+  await page.waitForTimeout(config.settle ?? 2600);
+  await state.prepare?.(page, side, { w, h });
+  return page;
+}
+const applies = (state, w) => !(state.minWidth && w < state.minWidth) && !(state.maxWidth && w > state.maxWidth);
 try {
   for (const [w, h] of widths) {
     report.widths[w] = {};
     for (const name of stateNames) {
       const state = config.states[name];
-      if (state.minWidth && w < state.minWidth) continue;
-      if (state.maxWidth && w > state.maxWidth) continue;
+      if (!applies(state, w)) continue;
       const shots = {}, meas = {};
       for (const side of ['exp', 'ours']) {
-        const page = await browser.newPage({ viewport: { width: w, height: h } });
-        await page.goto(side === 'exp' ? EXPORT_URL : oursUrl, { waitUntil: 'networkidle' });
-        const css = config.neutralize?.[side];
-        if (css) await page.addStyleTag({ content: css });
-        await page.waitForTimeout(config.settle ?? 2600);
-        await state.prepare?.(page, side, { w, h });
+        const page = await openState(side, state, w, h);
         const file = path.join(outDir, `${w}-${name}-${side}.png`);
         await page.screenshot({ path: file, clip: state.clip?.({ w, h }) });
         shots[side] = file;
@@ -168,6 +181,39 @@ try {
     }
   }
 
+  // Проверочные ширины: только вёрстка, без выгрузки и диффа.
+  for (const [w, h] of smokeWidths) {
+    report.smoke[w] = {};
+    for (const name of stateNames) {
+      const state = config.states[name];
+      if (!applies(state, w)) continue;
+      const page = await openState('ours', state, w, h);
+      const file = path.join(outDir, `${w}-${name}-smoke.png`);
+      await page.screenshot({ path: file, clip: state.clip?.({ w, h }), fullPage: !state.clip && Boolean(state.fullPage) });
+      const sel = config.root ?? 'body';
+      const overflow = await page.evaluate(({ sel, w }) => {
+        const root = document.querySelector(sel);
+        if (!root) return [`нет ${sel}`];
+        const out = [];
+        for (const el of root.querySelectorAll('*')) {
+          const r = el.getBoundingClientRect();
+          if (!r.width || getComputedStyle(el).visibility === 'hidden') continue;
+          if (el.closest('[aria-hidden="true"], [hidden]')) continue;
+          // элементы горизонтальных лент (overflow-x: auto) законно уходят за окно
+          let p = el.parentElement, inScroller = false;
+          for (; p && p !== root.parentElement; p = p.parentElement) {
+            if (/(auto|scroll)/.test(getComputedStyle(p).overflowX)) { inScroller = true; break; }
+          }
+          if (inScroller) continue;
+          if (r.right > w + 1 || r.left < -1) out.push(`${el.tagName.toLowerCase()}.${[...el.classList].join('.')} [${Math.round(r.left)}…${Math.round(r.right)}]`);
+        }
+        return [...new Set(out)].slice(0, 12);
+      }, { sel, w });
+      report.smoke[w][name] = { file, overflow };
+      await page.close();
+    }
+  }
+
   const page = await browser.newPage();
   for (const w of Object.keys(report.widths)) {
     for (const [name, r] of Object.entries(report.widths[w])) {
@@ -179,9 +225,14 @@ try {
       console.log(`${w} ${name}: дифф ${r.pct}% · >${TOLERANCE}px: ${txt.length ? txt.join('; ') : '—'}`);
     }
   }
+  for (const [w, states] of Object.entries(report.smoke)) {
+    for (const [name, r] of Object.entries(states)) {
+      console.log(`${w} ${name} (скриншот): ${r.overflow.length ? `за окном: ${r.overflow.join('; ')}` : 'ничего не вылезает'}`);
+    }
+  }
   fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 1));
   console.log(`\nРезультаты: ${path.relative(ROOT, outDir)}/`);
 } finally {
   await browser.close();
-  server?.close();
+  server.close();
 }
