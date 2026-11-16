@@ -239,6 +239,7 @@
 /* Появление второстепенных элементов */
 .site-menu__sublink,
 .site-menu__col,
+.site-menu__langs,
 .site-menu__top{
   opacity:0; transform:translateY(var(--menu-shift));
   transition:opacity var(--menu-out-fade-dur), transform var(--menu-out-move-dur);
@@ -250,7 +251,8 @@
     transform var(--menu-sub-move-dur) var(--ease-out-expo) calc(var(--menu-sub-delay) + var(--i) * var(--menu-sub-step)),
     color var(--menu-hover-dur);
 }
-.site-menu[data-open] .site-menu__col{
+.site-menu[data-open] .site-menu__col,
+.site-menu[data-open] .site-menu__langs{
   opacity:1; transform:none;
   transition:
     opacity var(--menu-sub-fade-dur) ease calc(var(--menu-col-delay) + var(--i) * var(--menu-col-step)),
@@ -303,6 +305,20 @@
   transition:
     opacity var(--menu-sub-fade-dur) ease var(--menu-cap-delay),
     transform var(--menu-sub-move-dur) var(--ease-out-expo) var(--menu-cap-delay);
+}
+
+/* Язык в меню (4.0a): только <900, где в баре переключателя нет.
+   Плашка списка — как панель бара (фон, радиус, поле, ширина), без тени: она не всплывает.
+   Белая подложка нужна, чтобы был виден фон текущего языка (он того же цвета, что фон меню). */
+.site-menu__langs{--i:0; display:flex; flex-direction:column; gap:var(--space-12)}
+.site-menu__langpanel{
+  inline-size:var(--header-langpanel-w); max-inline-size:100%;
+  padding:var(--space-8);
+  border-radius:var(--radius-24);
+  background:var(--air);
+}
+@media (min-width:900px){
+  .site-menu__langs{display:none}
 }
 
 /* Низ: контакты */

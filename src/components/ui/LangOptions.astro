@@ -1,0 +1,36 @@
+---
+/**
+ * Список языков: плашка-код, самоназвание, галочка у текущего.
+ * Один и тот же список — в выпадающей панели бара и в мобильном меню.
+ */
+import { languages } from '../../lib/languages';
+
+interface Props {
+  lang: string;
+  /** Подпись списка для экранного диктора: aria-label… */
+  label?: string;
+  /** …или id видимой подписи. */
+  labelledby?: string;
+}
+
+const { lang, label, labelledby } = Astro.props;
+---
+<ul class="lang-switch__list" role="list" aria-label={label} aria-labelledby={labelledby}>
+  {languages.map((l) => (
+    <li>
+      <a
+        class="lang-switch__option"
+        href={`/${l.id}/`}
+        hreflang={l.id}
+        lang={l.id}
+        aria-current={l.id === lang ? 'true' : undefined}
+      >
+        <span class="lang-switch__chip text-header-label-2xs">{l.label}</span>
+        <span class="lang-switch__name text-header-body-sm">{l.name}</span>
+        {l.id === lang && (
+          <svg class="lang-switch__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg>
+        )}
+      </a>
+    </li>
+  ))}
+</ul>

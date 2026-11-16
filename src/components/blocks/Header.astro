@@ -7,7 +7,8 @@
 import { Image } from 'astro:assets';
 import logo from '../../assets/brand/logo-forrest-full.svg';
 import SocialIcon from '../ui/SocialIcon.astro';
-import { languages, getLanguage } from '../../lib/languages';
+import LangOptions from '../ui/LangOptions.astro';
+import { getLanguage } from '../../lib/languages';
 import { resolveImage, type SiteSettings } from '../../lib/content';
 
 interface Props {
@@ -54,25 +55,7 @@ const logoH = logo.height;
           <svg class="lang-switch__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
         </button>
         <div class="lang-switch__panel" id="lang-switch-panel">
-          <ul class="lang-switch__list" role="list" aria-label={header.languageListLabel}>
-            {languages.map((l) => (
-              <li>
-                <a
-                  class="lang-switch__option"
-                  href={`/${l.id}/`}
-                  hreflang={l.id}
-                  lang={l.id}
-                  aria-current={l.id === lang ? 'true' : undefined}
-                >
-                  <span class="lang-switch__chip text-header-label-2xs">{l.label}</span>
-                  <span class="lang-switch__name text-header-body-sm">{l.name}</span>
-                  {l.id === lang && (
-                    <svg class="lang-switch__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" /></svg>
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <LangOptions lang={lang} label={header.languageListLabel} />
         </div>
       </div>
 
@@ -141,6 +124,15 @@ const logoH = logo.height;
           />
           <figcaption class="site-menu__caption text-header-menu-sub">{menu.imageCaption}</figcaption>
         </figure>
+      </div>
+
+      <!-- Язык на ширине <900: в баре переключателя нет, список — в меню перед контактами (4.0a).
+           Плашки и состояния — те же, что в списке языков бара. -->
+      <div class="site-menu__langs">
+        <span class="site-menu__label text-header-label-xs" id="site-menu-langs-label">{header.languageButtonLabel}</span>
+        <div class="site-menu__langpanel">
+          <LangOptions lang={lang} labelledby="site-menu-langs-label" />
+        </div>
       </div>
 
       <div class="site-menu__foot">
