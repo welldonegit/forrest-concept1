@@ -20,11 +20,11 @@ const [firstLine, ...restLines] = block.title;
 ---
 <section class="season" id={block.anchor} aria-labelledby={titleId} data-anim-block="season">
   <div class="season__head">
-    <h2 class="season__title text-season-stat" id={titleId}>
+    <h2 class="season__title text-display-sm" id={titleId}>
       <span class="season__line season__line--muted" data-season-line>{firstLine}</span>
       {restLines.map((line) => <span class="season__line" data-season-line>{line}</span>)}
     </h2>
-    <p class="season__text text-season-h4" data-season-text>{block.text}</p>
+    <p class="season__text text-body" data-season-text>{block.text}</p>
   </div>
 
   <div class="season__media" data-season-media>
@@ -41,7 +41,7 @@ const [firstLine, ...restLines] = block.title;
     />
     <div class="season__scrim" aria-hidden="true"></div>
     <!-- Стекло (backdrop-filter) неподвижно; при появлении движутся только обводка и подпись. -->
-    <span class="season__chip text-season-button">
+    <span class="season__chip text-caption text-w-600">
       <span class="season__chip-glass" aria-hidden="true"></span>
       <span class="season__chip-face" data-season-chip>
         <svg class="season__chip-icon" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 0v12l10-6z" /></svg>

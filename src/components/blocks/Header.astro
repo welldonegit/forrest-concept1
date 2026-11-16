@@ -51,7 +51,7 @@ const logoH = logo.height;
           aria-controls="lang-switch-panel"
           data-lang-toggle
         >
-          <span class="lang-switch__current text-header-label-xs">{current.label}</span>
+          <span class="lang-switch__current text-label">{current.label}</span>
           <svg class="lang-switch__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
         </button>
         <div class="lang-switch__panel" id="lang-switch-panel">
@@ -129,7 +129,7 @@ const logoH = logo.height;
       <!-- Язык на ширине <900: в баре переключателя нет, список — в меню перед контактами (4.0a).
            Плашки и состояния — те же, что в списке языков бара. -->
       <div class="site-menu__langs">
-        <span class="site-menu__label text-header-label-xs" id="site-menu-langs-label">{header.languageButtonLabel}</span>
+        <span class="site-menu__label text-label" id="site-menu-langs-label">{header.languageButtonLabel}</span>
         <div class="site-menu__langpanel">
           <LangOptions lang={lang} labelledby="site-menu-langs-label" />
         </div>
@@ -137,11 +137,11 @@ const logoH = logo.height;
 
       <div class="site-menu__foot">
         <div class="site-menu__col" style="--i:0">
-          <span class="site-menu__label text-header-label-xs">{menu.salesLabel}</span>
+          <span class="site-menu__label text-label">{menu.salesLabel}</span>
           <a class="site-menu__phone text-header-menu-phone" href={contacts.phoneHref}>{contacts.phone}</a>
         </div>
         <div class="site-menu__col" style="--i:1">
-          <span class="site-menu__label text-header-label-xs">{menu.messengersLabel}</span>
+          <span class="site-menu__label text-label">{menu.messengersLabel}</span>
           <ul class="site-menu__socials" role="list">
             {contacts.messengers.map((m) => (
               <li>
@@ -153,11 +153,11 @@ const logoH = logo.height;
           </ul>
         </div>
         <div class="site-menu__col" style="--i:2">
-          <span class="site-menu__label text-header-label-xs">{menu.addressLabel}</span>
+          <span class="site-menu__label text-label">{menu.addressLabel}</span>
           <p class="site-menu__address text-header-menu-sub">{contacts.address}</p>
         </div>
         <div class="site-menu__col" style="--i:3">
-          <span class="site-menu__label text-header-label-xs">{menu.socialsLabel}</span>
+          <span class="site-menu__label text-label">{menu.socialsLabel}</span>
           <ul class="site-menu__socials" role="list">
             {contacts.socials.map((m) => (
               <li>

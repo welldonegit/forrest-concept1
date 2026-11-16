@@ -335,7 +335,10 @@
 --worlds-slide-fade-dur:700ms; --worlds-slide-move-dur:900ms; --worlds-slide-shift:8px;
 --worlds-dot-dur:400ms; --worlds-btn-dur:150ms;
 
-/* ===== Типографика — ВРЕМЕННЫЕ токены, до прогона унификации 4.U =====
+/* ===== Типографика — набор ролей утверждён в 4.U (2026-11-16), эталон для следующих блоков =====
+   Новый блок берёт существующую роль, если рендер совпадает в пределах 2px на всех ступенях;
+   иначе заводит временную роль и предлагает сведение в отчёте (LAYOUT_RULES.md, «Шрифтовые роли»).
+   Роль задаёт шрифт, кегль и межстрочный; вес и заглавные — у элемента (классы .text-w-*, .text-caps-*).
    База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
    1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
 
@@ -347,31 +350,29 @@
 --type-worlds-display-ff:var(--font-display); --type-worlds-display-size:clamp(24px,5.4vw,96px); --type-worlds-display-lh:1.08; /* Worlds «Три аудиторії» (96/78/55/24) */
 --type-worlds-decor-ff:var(--font-display); --type-worlds-decor-size:clamp(56px,11vw,200px); --type-worlds-decor-lh:0.9; /* Worlds «WIND/ROCK/SUN», декоративный (200/158/113/56) */
 --type-stats-stat-lg-ff:var(--font-display); --type-stats-stat-lg-size:clamp(40px,4vw,72px); --type-stats-stat-lg-lh:1; /* Stats число «460+» (72/58/41/40) */
---type-season-stat-ff:var(--font-display); --type-season-stat-size:clamp(28px,3.4vw,56px); --type-season-stat-lh:1.1; /* Season «Дохідність/365/днів» (56/49/35/28) */
+--type-display-sm-ff:var(--font-display); --type-display-sm-size:clamp(28px,3.4vw,56px); --type-display-sm-lh:1.1; /* Season «Дохідність/365/днів» (56/49/35/28) */
 --type-stats-stat-sm-ff:var(--font-display); --type-stats-stat-sm-size:0.42em; --type-stats-stat-sm-lh:1; /* Stats единицы «років/$/міс» — em от stats-stat-lg (как в выгрузке) */
 --type-header-menu-link-ff:var(--font-display); --type-header-menu-link-size:clamp(32px,4.4vw,74px); --type-header-menu-link-lh:1.12; --type-header-menu-link-ls:-.045em; /* Меню, пункты «Три світи…» (74/63/45/32); потолок = рендер 1920 */
 --type-header-menu-phone-ff:var(--font-display); --type-header-menu-phone-size:clamp(18px,1.5vw,24px); --type-header-menu-phone-lh:1.25; --type-header-menu-phone-ls:-.02em; /* Меню, телефон (24/21.6/18/18); потолок = рендер 1920 */
 --type-hero-h1-ls:-.035em; --type-hero-lead-ls:-.01em; --type-stats-stat-lg-ls:-.045em; --type-stats-stat-sm-ls:-.02em; --type-stats-stat-sm-gap:.2em; /* межбуквенные и отступ единиц — из выгрузки */
 --ls-caps-sm:.06em; --ls-caps-md:.08em;     /* заглавные: заголовки колонок Footer (.06), «Гортайте» (.08) */
+--type-display-sm-ls:-.03em; --type-worlds-display-ls:-.03em; --type-worlds-decor-ls:-.04em; /* из выгрузки */
 
 /* -- дискретные роли: база = ≥1600 -- */
+/* общие роли (4.U) */
+--type-body-ff:var(--font-text); --type-body-size:17px; --type-body-lh:26px;          /* текст Stats (плашки), абзац Season */
+--type-body-lg-ff:var(--font-text); --type-body-lg-size:18px; --type-body-lg-lh:26px;  /* текст карточек Stats, кнопка Worlds */
+--type-caption-ff:var(--font-text); --type-caption-size:14px; --type-caption-lh:20px;  /* юридическая строка Footer, плашка «60 сек» */
+--type-label-ff:var(--font-text); --type-label-size:12px; --type-label-lh:16px;        /* подписи меню, язык, «Гортайте» */
+--type-title-sm-ff:var(--font-display); --type-title-sm-size:28px; --type-title-sm-lh:36px; /* контакты Footer, подпись мира Worlds */
+/* роли отдельных блоков */
 --type-header-body-sm-ff:var(--font-text); --type-header-body-sm-size:15px; --type-header-body-sm-lh:22px;
---type-header-label-xs-ff:var(--font-text); --type-header-label-xs-size:12px; --type-header-label-xs-lh:16px;
 --type-header-label-2xs-ff:var(--font-text); --type-header-label-2xs-size:11px; --type-header-label-2xs-lh:14px;
 --type-header-menu-sub-ff:var(--font-text); --type-header-menu-sub-size:17px; --type-header-menu-sub-lh:26px; /* Меню: второстепенные пункты, адрес, подпись фото (рендер 17/25.5 на всех ступенях) */
---type-footer-contact-ff:var(--font-display); --type-footer-contact-size:28px; --type-footer-contact-lh:36px; /* рендер lh 1.3 → 36.4 */
 --type-footer-h5-ff:var(--font-display); --type-footer-h5-size:18px; --type-footer-h5-lh:26px;
 --type-footer-body-ff:var(--font-text); --type-footer-body-size:17px; --type-footer-body-lh:26px;
---type-footer-small-ff:var(--font-text); --type-footer-small-size:14px; --type-footer-small-lh:20px;
 --type-hero-button-lg-ff:var(--font-text); --type-hero-button-lg-size:20px; --type-hero-button-lg-lh:28px;
 --type-hero-caption-ff:var(--font-text); --type-hero-caption-size:14px; --type-hero-caption-lh:17px;
---type-stats-h4-ff:var(--font-text); --type-stats-h4-size:18px; --type-stats-h4-lh:26px;
---type-stats-body-ff:var(--font-text); --type-stats-body-size:17px; --type-stats-body-lh:26px;
---type-stats-label-ff:var(--font-text); --type-stats-label-size:13px; --type-stats-label-lh:16px; /* «Гортайте»; рендер lh 1 (13) */
---type-season-h4-ff:var(--font-text); --type-season-h4-size:18px; --type-season-h4-lh:28px;
---type-season-button-ff:var(--font-text); --type-season-button-size:16px; --type-season-button-lh:20px;
---type-worlds-subtitle-ff:var(--font-display); --type-worlds-subtitle-size:28px; --type-worlds-subtitle-lh:36px;
---type-worlds-button-ff:var(--font-text); --type-worlds-button-size:18px; --type-worlds-button-lh:24px; /* кнопка «Детальніше про…» (была worlds-h5: в рендере Mulish 18) */
 --type-worlds-overline-ff:var(--font-display); --type-worlds-overline-size:17px; --type-worlds-overline-lh:24px;
 --type-worlds-body-ff:var(--font-display); --type-worlds-body-size:17px; --type-worlds-body-lh:24px; /* метки WIND/ROCK/SUN справа внизу */
 }
@@ -401,13 +402,11 @@
 --season-play-size:94px;                    /* рендер 93.6 */
 --worlds-pad-inline:var(--space-64);        /* рендер 63.4 */
 --worlds-text-pad-bottom:var(--space-64);
---type-footer-contact-size:27px; /* footer-contact */
 --type-footer-h5-size:17px; /* footer-h5 */
 --type-hero-button-lg-size:19px; /* hero-button-lg */
---type-stats-h4-size:17px; --type-stats-h4-lh:25px; /* stats-h4 */
---type-stats-body-size:16px; --type-stats-body-lh:24px; /* stats-body */
---type-season-h4-size:16px; --type-season-h4-lh:25px; /* season-h4 */
---type-worlds-subtitle-size:26px; --type-worlds-subtitle-lh:34px; /* worlds-subtitle */
+--type-body-size:16px; --type-body-lh:24px;
+--type-body-lg-size:17px; --type-body-lg-lh:25px;
+--type-title-sm-size:27px; --type-title-sm-lh:35px;
 --type-worlds-overline-size:16px; /* worlds-overline */
 }}
 
@@ -463,17 +462,13 @@
 --worlds-btn-pad-start:var(--space-24);     /* рендер 22 */
 --worlds-btn-gap:var(--space-20);           /* рендер 20.5 */
 --worlds-btn-icon:var(--space-40);
---type-footer-contact-size:20px; --type-footer-contact-lh:26px; /* footer-contact */
 --type-footer-h5-size:15px; /* footer-h5 */
 --type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
 --type-hero-caption-size:11px; --type-hero-caption-lh:14px; /* hero-caption */
---type-worlds-button-size:15px; --type-worlds-button-lh:20px; /* worlds-button */
+--type-body-size:14px; --type-body-lh:20px;
+--type-body-lg-size:15px; --type-body-lg-lh:22px;
+--type-title-sm-size:20px; --type-title-sm-lh:26px;
 --type-worlds-overline-size:13px; /* worlds-overline; lh 24 на всех ступенях, как в рендере */
---type-stats-h4-size:15px; --type-stats-h4-lh:22px; /* stats-h4 */
---type-stats-body-size:14px; --type-stats-body-lh:20px; /* stats-body */
---type-season-h4-size:15px; --type-season-h4-lh:23px; /* season-h4 */
---type-season-button-size:14px; /* season-button */
---type-worlds-subtitle-size:20px; --type-worlds-subtitle-lh:26px; /* worlds-subtitle */
 }}
 
 @media (max-width:767px){:root{
@@ -515,7 +510,7 @@
 --type-worlds-display-size:24px;
 --type-worlds-decor-size:56px;
 --type-stats-stat-lg-size:40px;
---type-season-stat-size:28px;
+--type-display-sm-size:28px;
 --type-hero-caption-lh:13px; /* hero-caption */
 --type-header-menu-link-size:32px;
 --type-header-menu-phone-size:18px;

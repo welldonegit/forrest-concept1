@@ -1,6 +1,5 @@
 /* Классы ролей текста. Значения — только из tokens.css. */
 .text-header-body-sm{font-family:var(--type-header-body-sm-ff);font-size:var(--type-header-body-sm-size);line-height:var(--type-header-body-sm-lh);font-weight:600}
-.text-header-label-xs{font-family:var(--type-header-label-xs-ff);font-size:var(--type-header-label-xs-size);line-height:var(--type-header-label-xs-lh);font-weight:700}
 .text-header-label-2xs{font-family:var(--type-header-label-2xs-ff);font-size:var(--type-header-label-2xs-size);line-height:var(--type-header-label-2xs-lh);font-weight:700}
 .text-header-menu-link{font-family:var(--type-header-menu-link-ff);font-size:var(--type-header-menu-link-size);line-height:var(--type-header-menu-link-lh);letter-spacing:var(--type-header-menu-link-ls);font-weight:600}
 .text-header-menu-sub{font-family:var(--type-header-menu-sub-ff);font-size:var(--type-header-menu-sub-size);line-height:var(--type-header-menu-sub-lh);font-weight:600}
@@ -11,21 +10,24 @@
 .text-hero-caption{font-family:var(--type-hero-caption-ff);font-size:var(--type-hero-caption-size);line-height:var(--type-hero-caption-lh);font-weight:600}
 .text-stats-stat-lg{font-family:var(--type-stats-stat-lg-ff);font-size:var(--type-stats-stat-lg-size);line-height:var(--type-stats-stat-lg-lh);letter-spacing:var(--type-stats-stat-lg-ls);font-weight:600}
 .text-stats-stat-sm{font-size:var(--type-stats-stat-sm-size);line-height:var(--type-stats-stat-sm-lh);letter-spacing:var(--type-stats-stat-sm-ls)}
-/* Stats h4/body: в выгрузке задан вес 500, но у Mulish там объявлены только 400/600/700 — рендер рисует 400. */
-.text-stats-h4{font-family:var(--type-stats-h4-ff);font-size:var(--type-stats-h4-size);line-height:var(--type-stats-h4-lh);font-weight:400}
-.text-stats-body{font-family:var(--type-stats-body-ff);font-size:var(--type-stats-body-size);line-height:var(--type-stats-body-lh);font-weight:400}
-.text-stats-label{font-family:var(--type-stats-label-ff);font-size:var(--type-stats-label-size);line-height:var(--type-stats-label-lh);letter-spacing:var(--ls-caps-md);font-weight:600;text-transform:uppercase}
-.text-footer-contact{font-family:var(--type-footer-contact-ff);font-size:var(--type-footer-contact-size);line-height:var(--type-footer-contact-lh);font-weight:400}
 .text-footer-h5{font-family:var(--type-footer-h5-ff);font-size:var(--type-footer-h5-size);line-height:var(--type-footer-h5-lh);letter-spacing:var(--ls-caps-sm);font-weight:600;text-transform:uppercase}
 .text-footer-body{font-family:var(--type-footer-body-ff);font-size:var(--type-footer-body-size);line-height:var(--type-footer-body-lh);font-weight:400}
-.text-season-stat{font-family:var(--type-season-stat-ff);font-size:var(--type-season-stat-size);line-height:var(--type-season-stat-lh);letter-spacing:var(--type-season-stat-ls);font-weight:600;text-transform:uppercase}
-.text-season-h4{font-family:var(--type-season-h4-ff);font-size:var(--type-season-h4-size);line-height:var(--type-season-h4-lh);font-weight:400}
-.text-season-button{font-family:var(--type-season-button-ff);font-size:var(--type-season-button-size);line-height:var(--type-season-button-lh);font-weight:600}
 .text-worlds-display{font-family:var(--type-worlds-display-ff);font-size:var(--type-worlds-display-size);line-height:var(--type-worlds-display-lh);letter-spacing:var(--type-worlds-display-ls);font-weight:600;text-transform:uppercase}
 .text-worlds-decor{font-family:var(--type-worlds-decor-ff);font-size:var(--type-worlds-decor-size);line-height:var(--type-worlds-decor-lh);letter-spacing:var(--type-worlds-decor-ls);font-weight:600}
-.text-worlds-subtitle{font-family:var(--type-worlds-subtitle-ff);font-size:var(--type-worlds-subtitle-size);line-height:var(--type-worlds-subtitle-lh);font-weight:500}
 .text-worlds-overline{font-family:var(--type-worlds-overline-ff);font-size:var(--type-worlds-overline-size);line-height:var(--type-worlds-overline-lh);letter-spacing:var(--ls-caps);font-weight:600;text-transform:uppercase}
 .text-worlds-body{font-family:var(--type-worlds-body-ff);font-size:var(--type-worlds-body-size);line-height:var(--type-worlds-body-lh);font-weight:500}
 
-.text-footer-small{font-family:var(--type-footer-small-ff);font-size:var(--type-footer-small-size);line-height:var(--type-footer-small-lh);font-weight:400}
-.text-worlds-button{font-family:var(--type-worlds-button-ff);font-size:var(--type-worlds-button-size);line-height:var(--type-worlds-button-lh);font-weight:600}
+/* Общие роли (4.U): шрифт, кегль, межстрочный. Вес по умолчанию — самый частый у роли. */
+.text-body{font-family:var(--type-body-ff);font-size:var(--type-body-size);line-height:var(--type-body-lh);font-weight:400}
+.text-body-lg{font-family:var(--type-body-lg-ff);font-size:var(--type-body-lg-size);line-height:var(--type-body-lg-lh);font-weight:400}
+.text-caption{font-family:var(--type-caption-ff);font-size:var(--type-caption-size);line-height:var(--type-caption-lh);font-weight:400}
+.text-label{font-family:var(--type-label-ff);font-size:var(--type-label-size);line-height:var(--type-label-lh);font-weight:700}
+.text-title-sm{font-family:var(--type-title-sm-ff);font-size:var(--type-title-sm-size);line-height:var(--type-title-sm-lh);font-weight:400}
+.text-display-sm{font-family:var(--type-display-sm-ff);font-size:var(--type-display-sm-size);line-height:var(--type-display-sm-lh);letter-spacing:var(--type-display-sm-ls);font-weight:600;text-transform:uppercase}
+
+/* Модификаторы: вес и заглавные (стоят после ролей — перекрывают их вес). */
+.text-w-400{font-weight:400}
+.text-w-500{font-weight:500}
+.text-w-600{font-weight:600}
+.text-w-700{font-weight:700}
+.text-caps-md{text-transform:uppercase;letter-spacing:var(--ls-caps-md)}
