@@ -782,6 +782,138 @@
           }
         }
       ]
+    },
+    {
+      "_type": "model",
+      "_key": "model",
+      "anchor": "model",
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Інвестуючи в один апартамент ви отримуєте дохід від усіх 3 секцій. WIND, ROCK та SUN працюють, як єдина інвестиційна модель: різні аудиторії та сезони створюють спільний потік бронювань протягом року. Операційне управління бере на себе Maestro, а ви отримуєте дохід з будь-якої точки світу."
+        },
+        {
+          "_key": "en",
+          "value": "By investing in one apartment you earn income from all 3 sections. WIND, ROCK and SUN work as a single investment model: different audiences and seasons create a shared flow of bookings throughout the year. Maestro takes over operations, and you earn income from anywhere in the world."
+        }
+      ],
+      "steps": [
+        {
+          "_key": "s1",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ОБИРАЄТЕ СВІЙ АПАРТАМЕНТ"
+            },
+            {
+              "_key": "en",
+              "value": "You choose your apartment"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "WIND, ROCK або SUN відповідно до вашого бюджету, формату та інвестиційної стратегії."
+            },
+            {
+              "_key": "en",
+              "value": "WIND, ROCK or SUN to match your budget, format and investment strategy."
+            }
+          ]
+        },
+        {
+          "_key": "s2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "СТАЄТЕ ЧАСТИНОЮ ЄДИНОЇ МОДЕЛІ TRINITY RESORT"
+            },
+            {
+              "_key": "en",
+              "value": "You become part of the single Trinity Resort model"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Ваш актив працює в системі всього FORREST і не залежить лише від попиту на окрему секцію."
+            },
+            {
+              "_key": "en",
+              "value": "Your asset works within the whole FORREST system and does not depend on demand for a single section."
+            }
+          ]
+        },
+        {
+          "_key": "s3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "MAESTRO БЕРЕ УПРАВЛІННЯ НА СЕБЕ"
+            },
+            {
+              "_key": "en",
+              "value": "Maestro takes over management"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Професійний оператор забезпечує бронювання, сервіс, операційне управління та фінансову звітність."
+            },
+            {
+              "_key": "en",
+              "value": "A professional operator handles bookings, service, operations and financial reporting."
+            }
+          ]
+        },
+        {
+          "_key": "s4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST ФОРМУЄ ПОПИТ ПРОТЯГОМ РОКУ"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST generates demand all year round"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Три секції залучають різні аудиторії у різні сезони та підтримують цілорічну роботу курорту."
+            },
+            {
+              "_key": "en",
+              "value": "Three sections attract different audiences in different seasons and keep the resort running all year."
+            }
+          ]
+        },
+        {
+          "_key": "s5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ВИ ОТРИМУЄТЕ ДОХІД І КОНТРОЛЮЄТЕ АКТИВ"
+            },
+            {
+              "_key": "en",
+              "value": "You earn income and control your asset"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Стежите за ключовими показниками онлайн з будь-якої точки світу, а за бажанням можете особисто відпочивати у своїх апартаментах."
+            },
+            {
+              "_key": "en",
+              "value": "You track key figures online from anywhere in the world and can stay in your apartment whenever you like."
+            }
+          ]
+        }
+      ]
     }
   ]
 }

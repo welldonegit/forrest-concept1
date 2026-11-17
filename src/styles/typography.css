@@ -19,6 +19,10 @@
 .text-worlds-overline{font-family:var(--type-worlds-overline-ff);font-size:var(--type-worlds-overline-size);line-height:var(--type-worlds-overline-lh);letter-spacing:var(--ls-caps);font-weight:600;text-transform:uppercase}
 .text-worlds-body{font-family:var(--type-worlds-body-ff);font-size:var(--type-worlds-body-size);line-height:var(--type-worlds-body-lh);font-weight:500}
 .text-season-text{font-family:var(--type-season-text-ff);font-size:var(--type-season-text-size);line-height:var(--type-season-text-lh);font-weight:400}
+.text-model-lead{font-family:var(--type-model-lead-ff);font-size:var(--type-model-lead-size);line-height:var(--type-model-lead-lh);letter-spacing:var(--type-model-lead-ls);font-weight:500}
+.text-model-num{font-family:var(--type-model-num-ff);font-size:var(--type-model-num-size);line-height:var(--type-model-num-lh);letter-spacing:var(--type-model-num-ls);font-weight:600}
+.text-model-title{font-family:var(--type-model-title-ff);font-size:var(--type-model-title-size);line-height:var(--type-model-title-lh);letter-spacing:var(--ls-chip);font-weight:600;text-transform:uppercase}
+.text-model-text{font-family:var(--type-model-text-ff);font-size:var(--type-model-text-size);line-height:var(--type-model-text-lh);font-weight:400}
 
 /* Общие роли (4.U): шрифт, кегль, межстрочный. Вес по умолчанию — самый частый у роли. */
 .text-body{font-family:var(--type-body-ff);font-size:var(--type-body-size);line-height:var(--type-body-lh);font-weight:400}

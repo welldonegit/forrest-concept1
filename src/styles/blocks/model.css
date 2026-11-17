@@ -1,0 +1,180 @@
+/* ===== Model (4.5) — абзац по словам и пять шагов =====
+   Значения — из рендера design-export, только через tokens.css.
+   Конечное состояние — в базовых правилах (без JS и при reduced motion всё видно).
+   Стартовые состояния и переходы — только при [data-motion] (ставит model.js). */
+
+.model{
+  padding-block:var(--model-pad-block-start) var(--model-pad-block-end);
+  padding-inline:var(--model-pad-inline);
+  max-inline-size:var(--page-max); margin-inline:auto;
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.model__lead{
+  margin:0 0 var(--model-lead-mb);
+  max-inline-size:80%;
+  text-wrap:pretty;
+}
+.model__word{opacity:1}
+
+/* ---------- Линия прогресса ---------- */
+.model__deck{position:relative}
+.model__line{
+  position:absolute; inset-inline:0; inset-block-start:var(--model-line-top);
+  block-size:var(--border-1);
+  background:var(--model-line-bg);
+}
+.model__fill{
+  position:absolute; inset:0;
+  background:var(--text-primary);
+  transform-origin:0 50%;
+}
+.model__head{display:none}
+
+/* ---------- Шаги ---------- */
+.model__steps{
+  display:grid; grid-template-columns:repeat(var(--model-cols), minmax(0, 1fr));
+  gap:var(--model-steps-gap);
+  margin:0; padding:0;
+}
+.model__step{
+  position:relative; min-inline-size:0;
+  display:flex; flex-direction:column; gap:var(--model-step-gap);
+}
+.model__step:nth-child(5n+1){--model-tilt:var(--model-tilt-1)}
+.model__step:nth-child(5n+2){--model-tilt:var(--model-tilt-2)}
+.model__step:nth-child(5n+3){--model-tilt:var(--model-tilt-3)}
+.model__step:nth-child(5n+4){--model-tilt:var(--model-tilt-4)}
+.model__step:nth-child(5n+5){--model-tilt:var(--model-tilt-5)}
+
+.model__dot{
+  position:relative; display:block;
+  inline-size:var(--model-dot); block-size:var(--model-dot);
+  margin-block-end:var(--model-dot-mb);
+  border:var(--border-1) solid var(--text-primary);
+  border-radius:var(--radius-pill);
+  background:var(--text-primary);
+  transform:scale(var(--model-dot-on-scale));
+}
+.model__dot::after{
+  content:""; position:absolute; inset:calc(-1 * var(--border-1));
+  border:var(--border-1) solid var(--text-primary); border-radius:var(--radius-pill);
+  opacity:0;
+}
+.model__num-wrap{display:block; overflow:hidden; padding-block-end:.04em}
+.model__num{display:block; transform-origin:0 100%}
+
+.model__card{
+  flex:1;
+  display:flex; flex-direction:column; justify-content:flex-end; gap:var(--model-card-gap);
+  min-block-size:var(--model-card-min);
+  padding:var(--model-card-pad);
+  border-radius:var(--radius-24);
+  background:var(--bg-inverse); color:var(--air);
+  transform:rotate(var(--model-tilt));
+  box-shadow:var(--model-card-shadow);
+}
+.model__title{margin:0; overflow:hidden; text-wrap:balance}
+.model__title-inner{display:block}
+.model__text{margin:0; text-wrap:pretty}
+
+/* Наведение на «включённую» карточку: выпрямляется и приподнимается (как в выгрузке). */
+.model__card:hover{
+  transform:rotate(0deg) translateY(var(--model-card-lift));
+  transition:transform var(--model-hover-dur) var(--ease-out-expo);
+}
+
+/* ---------- 768–900 (и <768 без сцены): столбец, вертикальная линия ---------- */
+@media (max-width:900px){
+  /* .model впереди: сброс списков ol[role=list] в base.css сильнее одного класса */
+  .model .model__steps{grid-template-columns:minmax(0, 1fr); gap:var(--model-steps-gap-col); padding-inline-start:var(--model-col-indent)}
+  .model__line{
+    inset-inline:var(--model-col-line-x) auto; inset-block:var(--model-col-line-inset);
+    inline-size:var(--border-1); block-size:auto;
+    background:var(--model-line-color);
+  }
+  .model__fill{transform-origin:50% 0}
+  .model__dot{
+    position:absolute; inset-inline-start:calc(-1 * var(--model-col-indent)); inset-block-start:var(--model-col-dot-top);
+    margin:0;
+  }
+  .model .model__step:nth-child(n){--model-tilt:0deg}
+}
+
+/* ---------- Сцена (model.js ставит data-motion) ---------- */
+.model[data-motion] .model__word{opacity:var(--o, .14)}
+.model[data-motion] .model__head{
+  display:block;
+  position:absolute; inset-block-start:50%; inset-inline-start:calc(-1 * var(--model-head-w));
+  inline-size:var(--model-head-w); block-size:var(--border-1); margin-block-start:-.5px;
+  background:var(--model-head-bg);
+  opacity:0;
+  transition:opacity var(--model-head-dur) ease;
+}
+.model[data-motion] .model__head::after{
+  content:""; position:absolute; inset-inline-end:calc(-1 * var(--space-4)); inset-block-start:calc(-1 * var(--space-4));
+  inline-size:var(--model-head-dot); block-size:var(--model-head-dot);
+  border-radius:var(--radius-pill);
+  background:var(--text-primary);
+  box-shadow:var(--model-head-glow);
+}
+.model[data-motion] .model__dot{transition:transform var(--model-dot-dur) var(--ease-out-expo)}
+.model[data-motion] .model__num{transition:transform var(--model-num-dur) var(--ease-out-expo)}
+.model[data-motion] .model__title-inner{transition:transform var(--model-title-dur) var(--ease-out-expo) var(--model-title-delay)}
+.model[data-motion] .model__text{
+  transition:
+    opacity var(--model-text-fade-dur) ease var(--model-text-delay),
+    transform var(--model-text-move-dur) var(--ease-out-expo) var(--model-text-delay);
+}
+.model[data-motion] .model__card{
+  transition:
+    opacity var(--model-card-fade-dur) ease var(--model-card-delay),
+    transform var(--model-card-move-dur) var(--ease-out-expo) var(--model-card-delay);
+}
+/* Шаг ещё не «включён» линией */
+.model[data-motion] .model__step:not([data-on]) .model__dot{
+  background:var(--bg-surface-warm); border-color:var(--model-dot-border);
+  transform:none;
+}
+.model[data-motion] .model__step[data-on] .model__dot::after{animation:model-ring var(--model-ring-dur) var(--ease-out-expo) both}
+.model[data-motion] .model__step:not([data-on]) .model__num{transform:translateY(105%) skewY(6deg)}
+.model[data-motion] .model__step:not([data-on]) .model__title-inner{transform:translateY(110%)}
+.model[data-motion] .model__step:not([data-on]) .model__text{opacity:0; transform:translateY(var(--model-text-shift))}
+.model[data-motion] .model__step:not([data-on]) .model__card{
+  opacity:0; transform:translateY(var(--model-card-shift)) rotate(calc(var(--model-tilt) * -2.5));
+  box-shadow:none;
+}
+@keyframes model-ring{
+  0%{opacity:.6; transform:scale(1)}
+  100%{opacity:0; transform:scale(var(--model-ring-scale))}
+}
+
+/* ---------- <768: колода (выгрузка 2026-11-17) ---------- */
+@media (max-width:767px){
+  .model{overflow-x:clip}
+  .model__lead{margin-block-end:var(--model-lead-mb)}
+  .model[data-deck] .model__wrap{
+    block-size:calc(var(--model-stick-h, 100svh) + var(--model-deck-moves, 4) * var(--model-deck-step));
+  }
+  .model[data-deck] .model__stick{
+    position:sticky; inset-block-start:var(--model-stick-top, 0px);
+    display:flex; flex-direction:column;
+    padding-block:var(--space-16);
+  }
+  .model[data-deck] .model__deck{overflow-x:clip}
+  .model[data-deck] .model__line,
+  .model[data-deck] .model__dot{display:none}
+  .model[data-deck] .model__steps{
+    position:relative; display:block;
+    block-size:var(--model-deck-h);
+    padding:0; overflow:visible;
+  }
+  .model[data-deck] .model__step{
+    position:absolute; inset-inline:0; inset-block-start:0;
+    transform-origin:50% 30%;
+  }
+  .model[data-deck] .model__card{
+    min-block-size:var(--model-deck-card-min);
+    transform:none;
+    transition:opacity var(--model-deck-fade-dur) ease;
+  }
+}

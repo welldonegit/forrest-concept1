@@ -236,7 +236,24 @@ export interface WorldsBlock {
   worlds: World[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock;
+export interface ModelStep {
+  _key: string;
+  title: string;
+  text: string;
+}
+
+export interface ModelBlock {
+  _type: 'model';
+  _key: string;
+  /** id секции (#model): на него ссылаются меню и футер. */
+  anchor: string;
+  /** Абзац над шагами: при прокрутке проявляется по словам. */
+  text: string;
+  /** Шаги модели; номер (01, 02…) ставится по порядку. */
+  steps: ModelStep[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');

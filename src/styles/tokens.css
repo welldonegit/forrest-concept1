@@ -89,6 +89,12 @@
 --season-chip-border:color-mix(in srgb, var(--air) 30%, transparent);      /* rgba(255,255,255,.3) */
 --season-ring:color-mix(in srgb, var(--white-sand) 22%, transparent);      /* rgba(242,234,216,.22) */
 --season-ring-static:color-mix(in srgb, var(--white-sand) 18%, transparent); /* rgba(242,234,216,.18) */
+--model-line-bg:linear-gradient(90deg,rgba(24,40,32,.14),rgba(24,40,32,.14) 60%,rgba(24,40,32,0));
+--model-line-color:color-mix(in srgb, var(--spruce) 14%, transparent);     /* rgba(24,40,32,.14) */
+--model-dot-border:color-mix(in srgb, var(--spruce) 28%, transparent);     /* rgba(24,40,32,.28) */
+--model-head-bg:linear-gradient(90deg,rgba(24,40,32,0),#182820);
+--model-head-glow:0 0 0 6px rgba(24,40,32,.08),0 0 24px 6px rgba(24,40,32,.18);
+--model-card-shadow:0 30px 50px -30px rgba(24,40,32,.55),0 2px 8px rgba(24,40,32,.08);
 
 /* -- Worlds (рендер) -- */
 --worlds-scrim:radial-gradient(ellipse 85% 95% at 0% 100%,
@@ -256,6 +262,31 @@
 --worlds-dots-gap:var(--space-32);
 --worlds-dot-pad:var(--space-6);
 
+/* Model (4.5): рендер 1920 */
+--model-pad-block-start:var(--space-96);
+--model-pad-block-end:var(--space-72);
+--model-pad-inline:var(--space-32);         /* рендер 34 */
+--model-lead-mb:140px;                      /* >80, кратно 4 */
+--model-cols:5;
+--model-steps-gap:var(--space-40);
+--model-step-gap:var(--space-20);           /* рендер 18 */
+--model-dot:13px; --model-dot-on-scale:1.2;  /* 11 + рамка (content-box в выгрузке) */
+--model-dot-mb:var(--space-48);
+--model-line-top:5px;                       /* как в выгрузке */
+--model-card-min:300px;
+--model-card-pad:var(--space-32);
+--model-card-gap:var(--space-12);           /* рендер 14 */
+--model-card-lift:-6px;
+--model-tilt-1:-2.4deg; --model-tilt-2:1.6deg; --model-tilt-3:-1.1deg; --model-tilt-4:2.2deg; --model-tilt-5:-1.7deg;
+--model-head-w:120px; --model-head-dot:9px;
+--model-steps-gap-col:var(--space-48);      /* 768–900: столбец */
+--model-col-indent:var(--space-36);
+--model-col-line-x:5px; --model-col-line-inset:6px;
+--model-col-dot-top:var(--space-16);        /* рендер clamp(14px,2vw,26px): 15–18 на 768–900 */
+--model-deck-step:62svh;                    /* <768: прокрутка на один шаг колоды */
+--model-deck-h:360px;
+--model-deck-card-min:260px;
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -330,6 +361,10 @@
 --season-text-fade-dur:1.2s; --season-text-move-dur:1.4s; --season-text-delay:.55s; --season-text-shift:24px;
 --season-clip-dur:1.8s; --season-clip-delay:.35s; --season-clip-from:18% 10% 18% 10%;
 --season-chip-fade-dur:.9s; --season-chip-move-dur:1.1s; --season-chip-delay:1.4s; --season-chip-shift:-10px;
+--model-head-dur:.6s; --model-dot-dur:1.1s; --model-num-dur:1.4s; --model-title-dur:1.2s; --model-title-delay:.14s;
+--model-text-fade-dur:1.2s; --model-text-move-dur:1.4s; --model-text-delay:.28s; --model-text-shift:18px;
+--model-card-fade-dur:.9s; --model-card-move-dur:1.4s; --model-card-delay:.25s; --model-card-shift:48px;
+--model-hover-dur:.8s; --model-ring-dur:1.6s; --model-ring-scale:4.2; --model-deck-fade-dur:.6s;
 --season-play-fade-dur:.8s; --season-play-pop-dur:1.2s; --season-play-delay:1.2s; --season-play-scale:.4;
 --ease-out-back-strong:cubic-bezier(.34,1.5,.64,1);
 --season-pulse-dur:2.8s; --season-pulse-delay:2.4s;
@@ -369,6 +404,10 @@
 --type-stats-text-ff:var(--type-body-lg-ff); --type-stats-text-size:var(--type-body-lg-size); --type-stats-text-lh:var(--type-body-lg-lh);
 --type-stats-chip-ff:var(--type-body-ff); --type-stats-chip-size:var(--type-body-size); --type-stats-chip-lh:var(--type-body-lh);
 --type-season-text-ff:var(--font-text); --type-season-text-size:18px; --type-season-text-lh:28px; /* абзац Season (решение 2026-11-17: отдельная роль, значения рендера) */
+--type-model-lead-ff:var(--font-display); --type-model-lead-size:32px; --type-model-lead-lh:42px; --type-model-lead-ls:-.025em; /* временная, до сведения: абзац Model (рендер 32/41.6) */
+--type-model-num-ff:var(--font-display); --type-model-num-size:clamp(44px,4.6vw,80px); --type-model-num-lh:1; --type-model-num-ls:-.05em; /* временная: номер шага, плавная (80/66/47/44) */
+--type-model-title-ff:var(--font-display); --type-model-title-size:16px; --type-model-title-lh:22px; /* временная: заголовок шага (рендер 16/21.6) */
+--type-model-text-ff:var(--font-text); --type-model-text-size:17px; --type-model-text-lh:26px; /* временная: текст шага (рендер 17/26.35); body-lg в пределах 2px, но даёт +1 строку */
 --type-caption-ff:var(--font-text); --type-caption-size:14px; --type-caption-lh:20px;  /* юридическая строка Footer, плашка «60 сек» */
 --type-label-ff:var(--font-text); --type-label-size:12px; --type-label-lh:16px;        /* подписи меню, язык, «Гортайте» */
 --type-title-sm-ff:var(--font-display); --type-title-sm-size:28px; --type-title-sm-lh:36px; /* контакты Footer, подпись мира Worlds */
@@ -416,6 +455,15 @@
 --type-season-text-size:16px; --type-season-text-lh:25px;
 --type-title-sm-size:27px; --type-title-sm-lh:35px;
 --type-worlds-overline-size:16px; /* worlds-overline */
+--model-pad-block-start:88px;               /* рендер 86.4: >80, кратно 4 */
+--model-lead-mb:116px;                      /* рендер 115.2 */
+--model-steps-gap:var(--space-36);          /* рендер 34.6 */
+--model-step-gap:var(--space-16);           /* рендер 17.3 */
+--model-dot-mb:var(--space-44);             /* рендер 43.2 */
+--model-card-min:259px;                     /* рендер 259.2 (18vw) */
+--model-card-pad:var(--space-28);           /* рендер 28.8 */
+--type-model-title-size:14px; --type-model-title-lh:20px;   /* рендер 14.4/19.4 */
+--type-model-text-size:15px; --type-model-text-lh:23px;     /* рендер 15.1/23.4 */
 }}
 
 @media (max-width:1279px){:root{
@@ -478,6 +526,17 @@
 --type-season-text-size:15px; --type-season-text-lh:23px;
 --type-title-sm-size:20px; --type-title-sm-lh:26px;
 --type-worlds-overline-size:13px; /* worlds-overline; lh 24 на всех ступенях, как в рендере */
+--model-pad-block-start:var(--space-64);    /* рендер 61.4 */
+--model-pad-block-end:var(--space-48);      /* рендер 51.2 */
+--model-pad-inline:var(--space-28);         /* рендер 26.6 */
+--model-lead-mb:var(--space-80);            /* рендер 81.9 */
+--model-steps-gap:var(--space-24);          /* рендер 24.6 */
+--model-step-gap:var(--space-12);
+--model-dot-mb:var(--space-32);             /* рендер 30.7 */
+--model-card-min:220px;
+--model-card-pad:var(--space-24);           /* рендер 22 */
+--model-card-gap:var(--space-10);           /* рендер 10.2 */
+--type-model-title-size:13px; --type-model-title-lh:18px;   /* рендер 13/17.55 */
 }}
 
 @media (max-width:767px){:root{
@@ -541,6 +600,12 @@
 --menu-pad-inline:var(--space-20);
 --menu-pad-block-end:var(--space-24);
 --menu-main-gap:var(--space-24);
+--model-pad-block-start:var(--space-48);
+--model-pad-block-end:var(--space-40);
+--model-pad-inline:var(--space-16);
+--model-lead-mb:var(--space-28);
+--type-model-lead-size:22px; --type-model-lead-lh:28px;     /* рендер 22/28.6 */
+--type-model-num-size:44px;
 }}
 
 /* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */

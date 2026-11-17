@@ -5,6 +5,7 @@ import Hero from '../../components/blocks/Hero.astro';
 import Stats from '../../components/blocks/Stats.astro';
 import Season from '../../components/blocks/Season.astro';
 import Worlds from '../../components/blocks/Worlds.astro';
+import Model from '../../components/blocks/Model.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
@@ -26,10 +27,11 @@ const landing = await getLanding(lang);
         case 'stats': return <Stats block={block} />;
         case 'season': return <Season block={block} />;
         case 'worlds': return <Worlds block={block} />;
+        case 'model': return <Model block={block} />;
         default: return null;
       }
     })}
-    <!-- TODO(4.5 и далее): остальные блоки документа landing -->
+    <!-- TODO(4.8 и далее): остальные блоки документа landing -->
   </main>
   <Footer settings={settings} />
 </Base>
