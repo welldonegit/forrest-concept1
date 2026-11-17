@@ -3114,6 +3114,647 @@
           "href": "#forma"
         }
       }
+    },
+    {
+      "_type": "investorService",
+      "_key": "investorService",
+      "anchor": "servis",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Сервіс та контроль"
+            },
+            {
+              "_key": "en",
+              "value": "Service and control"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "для інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "for the investor"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "FORREST передбачає окрему екосистему сервісів для власників — від контролю фінансових показників до персонального супроводу та закритої інвесторської спільноти."
+        },
+        {
+          "_key": "en",
+          "value": "FORREST provides a dedicated ecosystem of services for owners — from monitoring financial performance to personal support and a closed investor community."
+        }
+      ],
+      "feature": {
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard"
+          }
+        ],
+        "text": [
+          {
+            "_key": "uk",
+            "value": "Завантаженість, бронювання, чиста дохідність, фінансові звіти та аналітика активу в одному кабінеті."
+          },
+          {
+            "_key": "en",
+            "value": "Occupancy, bookings, net yield, financial reports and asset analytics in one account."
+          }
+        ]
+      },
+      "services": [
+        {
+          "_key": "s2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Investor Concierge"
+            },
+            {
+              "_key": "en",
+              "value": "Investor Concierge"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Персональний менеджер з питань документів, звітності, візитів, бронювань та спеціальних запитів."
+            },
+            {
+              "_key": "en",
+              "value": "A personal manager for documents, reporting, visits, bookings and special requests."
+            }
+          ]
+        },
+        {
+          "_key": "s3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Онлайн-будівництво"
+            },
+            {
+              "_key": "en",
+              "value": "Construction online"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Можливість слідкувати за динамікою будівництва та прогресом своєї черги."
+            },
+            {
+              "_key": "en",
+              "value": "Follow the construction progress and the status of your phase."
+            }
+          ]
+        },
+        {
+          "_key": "s4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "VR-тур інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "Investor VR tour"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Доступ до майбутнього апартаменту, планування, інтер’єру та ключових зон ще до завершення будівництва."
+            },
+            {
+              "_key": "en",
+              "value": "Access to your future apartment, its layout, interior and key areas before construction is complete."
+            }
+          ]
+        },
+        {
+          "_key": "s5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Owner's Night"
+            },
+            {
+              "_key": "en",
+              "value": "Owner's Night"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Закриті події для власників із презентацією результатів та нових сервісів курорту."
+            },
+            {
+              "_key": "en",
+              "value": "Private events for owners presenting results and new resort services."
+            }
+          ]
+        },
+        {
+          "_key": "s6",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Forrest Syndicate"
+            },
+            {
+              "_key": "en",
+              "value": "Forrest Syndicate"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Закрита інвесторська спільнота, бізнес-нетворкінг, клубні події та доступ до спеціальних форматів."
+            },
+            {
+              "_key": "en",
+              "value": "A closed investor community, business networking, club events and access to special formats."
+            }
+          ]
+        },
+        {
+          "_key": "s7",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Бізнес-сервіс для інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "Business service for investors"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Можливість використовувати бізнес-інфраструктуру FORREST для власної команди та партнерів."
+            },
+            {
+              "_key": "en",
+              "value": "Use the FORREST business infrastructure for your own team and partners."
+            }
+          ]
+        }
+      ],
+      "dashboard": {
+        "ariaLabel": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard: завантаженість, бронювання, чиста дохідність і фінансові звіти"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard: occupancy, bookings, net yield and financial reports"
+          }
+        ],
+        "brand": "FORREST",
+        "nav": [
+          {
+            "_key": "n1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Огляд"
+              },
+              {
+                "_key": "en",
+                "value": "Overview"
+              }
+            ]
+          },
+          {
+            "_key": "n2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Бронювання"
+              },
+              {
+                "_key": "en",
+                "value": "Bookings"
+              }
+            ]
+          },
+          {
+            "_key": "n3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Фінанси"
+              },
+              {
+                "_key": "en",
+                "value": "Finance"
+              }
+            ]
+          },
+          {
+            "_key": "n4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Звіти"
+              },
+              {
+                "_key": "en",
+                "value": "Reports"
+              }
+            ]
+          },
+          {
+            "_key": "n5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Будівництво"
+              },
+              {
+                "_key": "en",
+                "value": "Construction"
+              }
+            ]
+          }
+        ],
+        "unit": [
+          {
+            "_key": "uk",
+            "value": "Апартамент W-214"
+          },
+          {
+            "_key": "en",
+            "value": "Apartment W-214"
+          }
+        ],
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard"
+          }
+        ],
+        "status": [
+          {
+            "_key": "uk",
+            "value": "Онлайн"
+          },
+          {
+            "_key": "en",
+            "value": "Online"
+          }
+        ],
+        "kpis": [
+          {
+            "_key": "k1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Завантаженість"
+              },
+              {
+                "_key": "en",
+                "value": "Occupancy"
+              }
+            ],
+            "value": 87,
+            "suffix": "%",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "за сезон"
+              },
+              {
+                "_key": "en",
+                "value": "per season"
+              }
+            ]
+          },
+          {
+            "_key": "k2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Бронювання"
+              },
+              {
+                "_key": "en",
+                "value": "Bookings"
+              }
+            ],
+            "value": 42,
+            "note": [
+              {
+                "_key": "uk",
+                "value": "за квартал"
+              },
+              {
+                "_key": "en",
+                "value": "per quarter"
+              }
+            ]
+          },
+          {
+            "_key": "k3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Чиста дохідність"
+              },
+              {
+                "_key": "en",
+                "value": "Net yield"
+              }
+            ],
+            "value": 12,
+            "suffix": "%",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "річних"
+              },
+              {
+                "_key": "en",
+                "value": "per year"
+              }
+            ]
+          },
+          {
+            "_key": "k4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Виплата"
+              },
+              {
+                "_key": "en",
+                "value": "Payout"
+              }
+            ],
+            "value": 1248,
+            "prefix": "$",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "жовтень"
+              },
+              {
+                "_key": "en",
+                "value": "October"
+              }
+            ]
+          }
+        ],
+        "chartTitle": [
+          {
+            "_key": "uk",
+            "value": "Дохід активу, 2026"
+          },
+          {
+            "_key": "en",
+            "value": "Asset income, 2026"
+          }
+        ],
+        "chartPeriod": [
+          {
+            "_key": "uk",
+            "value": "12 міс"
+          },
+          {
+            "_key": "en",
+            "value": "12 mo"
+          }
+        ],
+        "chartPoints": [
+          62,
+          58,
+          60,
+          45,
+          38,
+          30,
+          22,
+          26,
+          34,
+          42,
+          36,
+          28
+        ],
+        "chartAxis": [
+          {
+            "_key": "a1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Січ"
+              },
+              {
+                "_key": "en",
+                "value": "Jan"
+              }
+            ]
+          },
+          {
+            "_key": "a2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Квіт"
+              },
+              {
+                "_key": "en",
+                "value": "Apr"
+              }
+            ]
+          },
+          {
+            "_key": "a3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Лип"
+              },
+              {
+                "_key": "en",
+                "value": "Jul"
+              }
+            ]
+          },
+          {
+            "_key": "a4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Жовт"
+              },
+              {
+                "_key": "en",
+                "value": "Oct"
+              }
+            ]
+          },
+          {
+            "_key": "a5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Гру"
+              },
+              {
+                "_key": "en",
+                "value": "Dec"
+              }
+            ]
+          }
+        ],
+        "reportsTitle": [
+          {
+            "_key": "uk",
+            "value": "Фінансові звіти"
+          },
+          {
+            "_key": "en",
+            "value": "Financial reports"
+          }
+        ],
+        "reports": [
+          {
+            "_key": "r1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Жовтень"
+              },
+              {
+                "_key": "en",
+                "value": "October"
+              }
+            ],
+            "tag": "PDF"
+          },
+          {
+            "_key": "r2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Вересень"
+              },
+              {
+                "_key": "en",
+                "value": "September"
+              }
+            ],
+            "tag": "PDF"
+          },
+          {
+            "_key": "r3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Серпень"
+              },
+              {
+                "_key": "en",
+                "value": "August"
+              }
+            ],
+            "tag": "PDF"
+          }
+        ],
+        "phone": {
+          "payoutLabel": [
+            {
+              "_key": "uk",
+              "value": "Виплата за жовтень"
+            },
+            {
+              "_key": "en",
+              "value": "October payout"
+            }
+          ],
+          "payout": 1248,
+          "payoutPrefix": "$",
+          "occupancy": 87,
+          "occupancyLabel": [
+            {
+              "_key": "uk",
+              "value": "завантаженість"
+            },
+            {
+              "_key": "en",
+              "value": "occupancy"
+            }
+          ],
+          "stays": [
+            {
+              "_key": "p1",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "12–15 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "12–15 Nov"
+                }
+              ],
+              "tag": "Rock"
+            },
+            {
+              "_key": "p2",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "18–21 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "18–21 Nov"
+                }
+              ],
+              "tag": "Sun"
+            },
+            {
+              "_key": "p3",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "22–24 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "22–24 Nov"
+                }
+              ],
+              "tag": "Wind"
+            }
+          ]
+        }
+      }
     }
   ]
 }

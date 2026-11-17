@@ -1,0 +1,25 @@
+---
+/** Колонка карточек сервисов Investor Service (4.11). c — номер колонки, half — карточек в первой. */
+import type { InvestorServiceItem } from '../../lib/content';
+
+interface Props {
+  items: InvestorServiceItem[];
+  c: number;
+  half: number;
+}
+const { items, c, half } = Astro.props;
+const two = (n: number) => String(n).padStart(2, '0');
+---
+<div class="svc__col">
+  {items.map((s, i) => (
+    <article class="svc__card" data-svc-card data-k={2 * i + c}>
+      <div class="svc__card-in">
+        <span class="svc__num text-svc-num">{two(c * half + i + 2)}</span>
+        <div class="svc__card-text">
+          <h3 class="svc__card-title text-svc-card-title">{s.title}</h3>
+          <p class="svc__card-p text-svc-card-text">{s.text}</p>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

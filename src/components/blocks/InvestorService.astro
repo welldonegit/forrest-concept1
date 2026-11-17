@@ -1,0 +1,169 @@
+---
+/**
+ * Investor Service (4.11): «Сервіс та контроль для інвестора» — заголовок и лид, затем сцена:
+ * в центре ноутбук и телефон с моком Investor Dashboard (сервис 01), по бокам шесть карточек
+ * сервисов 02–07. Выгрузка 2026-11-17, секция «Investor Service» (data-sv).
+ * Тексты, числа мока и график — из Sanity (блок investorService документа landing).
+ *
+ * ≥900 — сцена прокрутки с прилипанием (раскладка — investor-service.css с первой отрисовки,
+ * движение — anim/blocks/investor-service.js). <900 — столбец: мок сверху, под ним карточки.
+ * Без JS и при reduced motion — конечный вид.
+ *
+ * Мок — декоративная иллюстрация (role="img" с описанием): размеры внутри в em от ширины
+ * ноутбука, в шкалы не входят (LAYOUT_RULES.md, Р1).
+ */
+import type { InvestorServiceBlock } from '../../lib/content';
+import ServiceCol from '../ui/ServiceCol.astro';
+
+interface Props {
+  block: InvestorServiceBlock;
+}
+
+const { block } = Astro.props;
+const id = block.anchor;
+const d = block.dashboard;
+
+/** Число мока как в выгрузке: группы разрядов через узкий неразрывный пробел. */
+const num = (v: number, pre = '', suf = '') => `${pre}${String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}${suf}`;
+
+// График: точки с равным шагом по ширине 300, высота 0–100
+const pts = d.chartPoints;
+const line = pts.map((y, i) => `${i ? 'L' : 'M'}${((300 * i) / (pts.length - 1)).toFixed(1)},${y}`).join(' ');
+const area = `${line} L300,100 L0,100 Z`;
+
+// Колонки: первые три сервиса слева, остальные справа; порядок появления k — через одну
+const half = Math.ceil(block.services.length / 2);
+const cols = [block.services.slice(0, half), block.services.slice(half)];
+---
+<section class="svc" id={id} aria-labelledby={`${id}-title`} data-anim-block="investor-service">
+  <div class="svc__frame">
+    <div class="svc__head" data-svc-head>
+      <h2 class="svc__title text-display-sm" id={`${id}-title`}>
+        {block.title.map((l, i) => (
+          <span class="svc__mask"><span class:list={['svc__line', { 'svc__line--muted': l.muted }]} style={`--d:${(i * 0.12).toFixed(2)}s`}>{l.text}</span></span>
+        ))}
+      </h2>
+      <p class="svc__lead text-svc-lead">{block.lead}</p>
+    </div>
+
+    <div class="svc__track" data-svc-track>
+      <div class="svc__stick" data-svc-stick>
+        <div class="svc__grid" data-svc-grid>
+          <ServiceCol items={cols[0]} c={0} half={half} />
+
+          <div class="svc__center">
+            <div class="svc__par" data-svc-par>
+              <div class="svc__lap" data-svc-lap>
+                <div class="svc__glow" aria-hidden="true" data-svc-glow></div>
+                <div class="svc__lid" data-svc-lid>
+                  <div class="svc__bezel">
+                    <div class="svc__screen" role="img" aria-label={d.ariaLabel}>
+                      <div class="svc__ui">
+                        <div class="svc__side">
+                          <span class="svc__brand">{d.brand}</span>
+                          <div class="svc__nav">
+                            {d.nav.map((n, i) => <span class:list={['svc__nav-item', { 'svc__nav-item--on': i === 0 }]}><span class="svc__nav-ico"></span>{n.label}</span>)}
+                          </div>
+                        </div>
+                        <div class="svc__main">
+                          <div class="svc__top">
+                            <div class="svc__top-text">
+                              <span class="svc__unit">{d.unit}</span>
+                              <span class="svc__dash-title">{d.title}</span>
+                            </div>
+                            <div class="svc__top-right">
+                              <span class="svc__status"><span class="svc__live"></span>{d.status}</span>
+                              <span class="svc__avatar"></span>
+                            </div>
+                          </div>
+                          <div class="svc__kpis">
+                            {d.kpis.map((k) => (
+                              <div class="svc__tile svc__kpi">
+                                <span class="svc__kpi-label">{k.label}</span>
+                                <span class="svc__kpi-row">
+                                  <span class="svc__kpi-value" data-svc-num data-to={k.value} data-pre={k.prefix ?? ''} data-suf={k.suffix ?? ''}>{num(k.value, k.prefix, k.suffix)}</span>
+                                  <span class="svc__kpi-note">{k.note}</span>
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                          <div class="svc__bottom">
+                            <div class="svc__tile svc__chart">
+                              <div class="svc__chart-head">
+                                <span class="svc__chart-title">{d.chartTitle}</span>
+                                <span class="svc__chip">{d.chartPeriod}</span>
+                              </div>
+                              <svg class="svc__chart-svg" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                                <defs>
+                                  <linearGradient id={`${id}-grad`} x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0" class="svc__grad-top"></stop>
+                                    <stop offset="1" class="svc__grad-bottom"></stop>
+                                  </linearGradient>
+                                </defs>
+                                <path class="svc__area" d={area} fill={`url(#${id}-grad)`} data-svc-area></path>
+                                <path class="svc__path" d={line} pathLength="1" vector-effect="non-scaling-stroke" data-svc-path></path>
+                              </svg>
+                              <div class="svc__axis">{d.chartAxis.map((a) => <span>{a.label}</span>)}</div>
+                            </div>
+                            <div class="svc__tile svc__reports">
+                              <span class="svc__reports-title">{d.reportsTitle}</span>
+                              {d.reports.map((r) => (
+                                <div class="svc__row svc__report" data-svc-row>
+                                  <span>{r.label}</span>
+                                  <span class="svc__tag">{r.tag}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="svc__glare" aria-hidden="true"><div class="svc__glare-in" data-svc-glare></div></div>
+                  </div>
+                </div>
+                <div class="svc__base" aria-hidden="true"><span class="svc__notch"></span></div>
+                <div class="svc__phone" aria-hidden="true" data-svc-phone>
+                  <div class="svc__phone-body">
+                    <div class="svc__phone-screen">
+                      <span class="svc__island"></span>
+                      <div class="svc__payout">
+                        <span class="svc__payout-label">{d.phone.payoutLabel}</span>
+                        <span class="svc__payout-value" data-svc-num data-to={d.phone.payout} data-pre={d.phone.payoutPrefix ?? ''} data-suf="">{num(d.phone.payout, d.phone.payoutPrefix)}</span>
+                      </div>
+                      <div class="svc__ring">
+                        <svg viewBox="0 0 100 100" focusable="false">
+                          <circle class="svc__ring-bg" cx="50" cy="50" r="42"></circle>
+                          <circle class="svc__ring-fg" cx="50" cy="50" r="42" pathLength="1" style={`--ring:${(d.phone.occupancy / 100).toFixed(3)}`} data-svc-ring></circle>
+                        </svg>
+                        <div class="svc__ring-text">
+                          <span class="svc__ring-value" data-svc-num data-to={d.phone.occupancy} data-pre="" data-suf="%">{num(d.phone.occupancy, '', '%')}</span>
+                          <span class="svc__ring-label">{d.phone.occupancyLabel}</span>
+                        </div>
+                      </div>
+                      <div class="svc__stays">
+                        {d.phone.stays.map((s) => (
+                          <div class="svc__row svc__stay" data-svc-row>
+                            <span>{s.dates}</span>
+                            <span class="svc__stay-tag">{s.tag}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="svc__cap" data-svc-cap>
+              <div class="svc__cap-head">
+                <span class="svc__num text-svc-num">01</span>
+                <h3 class="svc__cap-title text-svc-cap-title">{block.feature.title}</h3>
+              </div>
+              <p class="svc__cap-text text-svc-cap-text">{block.feature.text}</p>
+            </div>
+          </div>
+          <ServiceCol items={cols[1]} c={1} half={half} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

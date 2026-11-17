@@ -59,6 +59,12 @@
 .text-calc-tile-label{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-tile-label-size);line-height:var(--type-calc-small-lh);font-weight:600}
 .text-calc-axis{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-axis-size);font-weight:400}
 .text-calc-cta{font-family:var(--type-calc-cta-ff);font-size:var(--type-calc-cta-size);font-weight:600}
+.text-svc-lead{font-family:var(--type-svc-lead-ff);font-size:var(--type-svc-lead-size);line-height:var(--type-svc-lead-lh);font-weight:400}
+.text-svc-num{font-family:var(--type-svc-num-ff);font-size:var(--type-svc-num-size);line-height:1;letter-spacing:var(--type-svc-num-ls);font-weight:700}
+.text-svc-card-title{font-family:var(--type-svc-card-title-ff);font-size:var(--type-svc-card-title-size);line-height:var(--type-svc-card-title-lh);letter-spacing:var(--type-svc-card-title-ls);font-weight:500;text-transform:uppercase}
+.text-svc-card-text{font-family:var(--type-svc-card-text-ff);font-size:var(--type-svc-card-text-size);line-height:var(--type-svc-card-text-lh);font-weight:400}
+.text-svc-cap-title{font-family:var(--type-svc-card-title-ff);font-size:var(--type-svc-cap-title-size);letter-spacing:var(--type-svc-card-title-ls);font-weight:500;text-transform:uppercase}
+.text-svc-cap-text{font-family:var(--type-svc-card-text-ff);font-size:var(--type-svc-cap-text-size);line-height:var(--type-svc-card-text-lh);font-weight:400}
 .text-loc-text{font-family:var(--type-loc-text-ff);font-size:var(--type-loc-text-size);line-height:var(--type-loc-text-lh);font-weight:400}
 .text-manager-name{font-family:var(--type-manager-name-ff);font-size:var(--type-manager-name-size);line-height:var(--type-manager-name-lh);letter-spacing:var(--type-manager-name-ls);font-weight:600}
 .text-manager-phone{font-family:var(--type-manager-phone-ff);font-size:var(--type-manager-phone-size);line-height:var(--type-manager-phone-lh);letter-spacing:var(--type-manager-phone-ls);font-weight:500}

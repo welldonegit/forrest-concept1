@@ -531,7 +531,50 @@ export interface NumbersBlock {
   calc: NumbersCalc;
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock;
+
+export interface InvestorServiceTitleLine { _key: string; text: string; muted?: boolean }
+export interface InvestorServiceItem { _key: string; title: string; text: string }
+/** Число мока дашборда: при появлении считается от 0. */
+export interface DashboardKpi { _key: string; label: string; value: number; prefix?: string; suffix?: string; note: string }
+export interface InvestorDashboard {
+  /** Описание мока для скринридеров (мок — role="img"). */
+  ariaLabel: string;
+  brand: string;
+  /** Пункты меню мока; первый — активный. */
+  nav: { _key: string; label: string }[];
+  unit: string;
+  title: string;
+  status: string;
+  kpis: DashboardKpi[];
+  chartTitle: string;
+  chartPeriod: string;
+  /** Точки графика: высота от верха, 0–100 (меньше — выше), равный шаг по месяцам. */
+  chartPoints: number[];
+  chartAxis: { _key: string; label: string }[];
+  reportsTitle: string;
+  reports: { _key: string; label: string; tag: string }[];
+  phone: {
+    payoutLabel: string; payout: number; payoutPrefix?: string;
+    /** Процент для кольца, 0–100. */
+    occupancy: number; occupancyLabel: string;
+    stays: { _key: string; dates: string; tag: string }[];
+  };
+}
+export interface InvestorServiceBlock {
+  _type: 'investorService';
+  _key: string;
+  /** id секции (#servis). */
+  anchor: string;
+  title: InvestorServiceTitleLine[];
+  lead: string;
+  /** Подпись под ноутбуком (сервис 01). */
+  feature: { title: string; text: string };
+  /** Сервисы 02–07: первые три — левая колонка, остальные — правая. */
+  services: InvestorServiceItem[];
+  dashboard: InvestorDashboard;
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

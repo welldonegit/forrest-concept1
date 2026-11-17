@@ -491,6 +491,46 @@
 --calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
 --calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms; --calc-tick-dur:.3s; --calc-tick-blur:1.5px;   /* пересчёт чисел (ui/numbers.js читает) */
 
+/* ---------- Investor Service (4.11): ≥1600 — рендер 1920 ---------- */
+--svc-pad-inline:var(--space-12);          /* поля секции вокруг тёмной рамки */
+--svc-radius:var(--radius-40);
+--svc-head-pad-start:140px;                /* рендер 140: промежуток >80, кратен 4 */
+--svc-head-pad-inline:var(--space-40);
+--svc-head-pad-end:var(--space-24);
+--svc-head-gap-row:var(--space-24); --svc-head-gap-col:var(--space-96);
+--svc-lead-max:460px;
+--svc-track-h:243vh;                       /* длина сцены, как в выгрузке */
+--svc-stick-min-h:640px;
+--svc-stick-pad-block:clamp(20px, 4vh, 48px); /* как в выгрузке: от высоты окна (исключение для vh) */
+--svc-stick-pad-inline:var(--space-40);
+--svc-lap-w:min(42vw, (88vh - 140px) * 1.5); /* ширина ноутбука ≥900, как в выгрузке */
+--svc-lap-w-mob:calc(100vw - 76px);       /* <900, как в выгрузке */
+--svc-card-min-h:168px;                    /* карточка в столбце <900 */
+--svc-grid-gap:var(--space-44);
+--svc-col-gap:var(--space-16);
+--svc-center-gap:clamp(28px, 4.5vh, 56px); /* как в выгрузке (vh) */
+--svc-card-pad:var(--space-28); --svc-card-pad-end:var(--svc-card-pad);
+--svc-card-radius:var(--radius-24);
+--svc-card-gap:var(--space-16); --svc-card-text-gap:var(--space-10);
+--svc-card-bg:color-mix(in srgb, var(--air) 3.5%, transparent);   /* rgba(255,255,255,.035) */
+--svc-card-border:color-mix(in srgb, var(--air) 8%, transparent); /* inset 1px rgba(255,255,255,.08) */
+--svc-num-h:28px; --svc-num-pad:var(--space-12);
+--svc-num-border:color-mix(in srgb, var(--air) 16%, transparent);
+--svc-cap-max:480px; --svc-cap-gap:var(--space-12); --svc-cap-head-gap:var(--space-10);
+/* мок дашборда: цвета корпуса и экрана вне палитры — декоративная иллюстрация (Р1) */
+--svc-device:#1C1C1E; --svc-device-edge:#2E2E30; --svc-screen:#0F1311; --svc-island:#000000;
+--svc-avatar:linear-gradient(135deg, #3A3F3C, #22272A);
+--svc-base:linear-gradient(#4A4A4D, #232325 60%, #161618); --svc-base-notch:#161618;
+--svc-accent:var(--sea-wave);
+--svc-glow:radial-gradient(closest-side, color-mix(in srgb, var(--sea-wave) 16%, transparent), transparent);
+--svc-glare:linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--air) 7%, transparent) 45%, transparent 60%);
+--svc-lid-shadow:inset 0 0 0 .12em var(--svc-device-edge), 0 4em 9em -2em rgba(0,0,0,.9);
+--svc-phone-shadow:drop-shadow(0 3em 4em rgba(0,0,0,.7));
+/* движение */
+--svc-line-dur:1.4s; --svc-lead-fade-dur:1.2s; --svc-lead-delay:.3s; --svc-lead-shift:24px;
+--svc-par-dur:1.2s; --svc-pulse-dur:2s;
+--svc-card-blur:14px;                      /* размытие карточек при появлении (≥1280, как Model) */
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -654,6 +694,11 @@
 --type-calc-yield-size:13px; --type-calc-yield-ls:-.02em;
 --type-calc-axis-size:12px;
 --type-calc-cta-ff:var(--font-text); --type-calc-cta-size:17px;
+--type-svc-lead-ff:var(--font-text); --type-svc-lead-size:18px; --type-svc-lead-lh:1.55;       /* Investor Service (18/16/15) */
+--type-svc-num-ff:var(--font-text); --type-svc-num-size:12px; --type-svc-num-ls:.08em;          /* номер сервиса, 12 на всех ширинах */
+--type-svc-card-title-ff:var(--font-display); --type-svc-card-title-size:18px; --type-svc-card-title-lh:1.2; --type-svc-card-title-ls:-.01em; /* (18/15/14) */
+--type-svc-card-text-ff:var(--font-text); --type-svc-card-text-size:15px; --type-svc-card-text-lh:1.5;  /* (15/13/13) */
+--type-svc-cap-title-size:20px; --type-svc-cap-text-size:15px;                                   /* подпись мока (20/17/15 · 15/14/13) */
 --type-loc-text-ff:var(--type-form-text-ff); --type-loc-text-size:var(--type-form-text-size); --type-loc-text-lh:var(--type-form-text-lh); /* временная: абзац Location = абзац Form (та же формула выгрузки) */
 --type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
 --type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
@@ -741,6 +786,15 @@
 --type-form-bullet-size:11px; --type-form-bullet-lh:15px;   /* рендер 11.2/15.2 */
 --type-manager-name-size:14px; --type-manager-name-lh:18px; /* рендер 14.4/18 */
 --type-manager-phone-size:14px; --type-manager-phone-lh:18px;
+/* Investor Service — рендер 1440 */
+--svc-head-pad-start:var(--space-128);     /* рендер 129.6 */
+--svc-head-pad-inline:var(--space-36);     /* 37.4 */
+--svc-head-gap-col:var(--space-72);
+--svc-stick-pad-inline:var(--space-36);
+--svc-grid-gap:var(--space-36);            /* 34.6 */
+--svc-card-pad:var(--space-24);            /* 23 */
+--type-svc-lead-size:16px; --type-svc-card-title-size:15px; --type-svc-card-text-size:13px;
+--type-svc-cap-title-size:17px; --type-svc-cap-text-size:14px;
 }}
 
 @media (max-width:1279px){:root{
@@ -851,6 +905,19 @@
 --form-mgr-gap:var(--space-16);             /* рендер 14.3 */
 --form-fields-gap:var(--space-20);
 --type-form-text-size:16px; --type-form-text-lh:26px;       /* рендер 16/25.6 */
+/* Investor Service — 768–1279 (читаемость, опорная 1024) */
+--svc-pad-inline:var(--space-10);
+--svc-radius:var(--radius-32);
+--svc-head-pad-start:92px;                 /* 9vw на 1024 */
+--svc-head-pad-inline:var(--space-28);
+--svc-head-pad-end:var(--space-20);
+--svc-head-gap-col:var(--space-48);
+--svc-stick-pad-inline:var(--space-28);
+--svc-grid-gap:var(--space-24);
+--svc-col-gap:var(--space-10);
+--svc-card-pad:var(--space-16);
+--type-svc-lead-size:15px; --type-svc-card-title-size:14px;
+--type-svc-cap-title-size:15px; --type-svc-cap-text-size:13px;
 }}
 
 @media (max-width:767px){:root{
@@ -941,6 +1008,14 @@
 --form-pad-inline:var(--space-16);
 --form-panel-pad:var(--space-24);
 --form-bullets-mt:var(--space-6);
+/* Investor Service — рендер 390 */
+--svc-pad-inline:var(--space-8);
+--svc-radius:var(--radius-24);
+--svc-head-pad-start:var(--space-56);
+--svc-head-pad-inline:var(--space-16);
+--svc-head-pad-end:var(--space-8);
+--svc-head-gap-col:var(--space-32);
+--svc-card-pad:var(--space-20); --svc-card-pad-end:var(--space-16); /* рендер 18: 20 в начале и 16 в конце — габарит как в рендере */
 }}
 
 /* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */
