@@ -5,7 +5,8 @@
  * - после выбора числа пересчитываются (src/lib/calc.ts) и «докручиваются» до новых значений
  *   (--calc-tween-fast-dur, замедление к концу), столбики графика перекрашиваются.
  * Начальные значения посчитаны при сборке; при prefers-reduced-motion числа меняются сразу.
- * Отличие от выгрузки: во время докрутки число не размывается (filter — LAYOUT_RULES.md).
+ * Пока число докручивается, оно слегка размыто ([data-tick], как в выгрузке; анимация по действию
+ * пользователя — LAYOUT_RULES.md, «Анимации вне правила»).
  */
 import { calc, fill, formatNumber } from '../../lib/calc';
 
@@ -37,12 +38,15 @@ function initCalc(el) {
     values.set(key, to);
     cancelAnimationFrame(node._raf);
     if (reduce.matches || from === to) { node.textContent = fmt(to); return; }
-    dur ||= parseFloat(getComputedStyle(el).getPropertyValue('--calc-tween-fast-dur')) || 900;
+    // сборка сжимает CSS: «900ms» приходит как «.9s» — единицы учитываем
+    dur ||= ((v) => parseFloat(v) * (/ms\s*$/.test(v) ? 1 : 1000))(getComputedStyle(el).getPropertyValue('--calc-tween-fast-dur')) || 900;
     const t0 = performance.now();
+    node.dataset.tick = '';
     const step = (t) => {
       const k = Math.min(1, (t - t0) / dur);
       node.textContent = fmt(from + (to - from) * ease(k));
       if (k < 1) node._raf = requestAnimationFrame(step);
+      else delete node.dataset.tick;
     };
     node._raf = requestAnimationFrame(step);
   };

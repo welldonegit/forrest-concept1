@@ -489,7 +489,7 @@
 --calc-bar-dur:1.6s; --calc-bar-step:70ms; --calc-bar-fast-dur:.9s; --calc-bar-fast-step:25ms;
 --calc-paid-dur:.6s; --calc-paid-delay:.4s;
 --calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
---calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms;   /* пересчёт чисел (ui/numbers.js читает) */
+--calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms; --calc-tick-dur:.3s; --calc-tick-blur:1.5px;   /* пересчёт чисел (ui/numbers.js читает) */
 
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);

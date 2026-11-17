@@ -177,7 +177,9 @@
 .calc__param{display:flex; flex-direction:column; gap:var(--calc-param-gap)}
 .calc__param dt{color:var(--text-muted); line-height:normal}
 .calc__param dd{margin:0}
-.calc__num{display:inline-block}
+.calc__num{display:inline-block; transition:filter var(--calc-tick-dur) ease}
+/* число докручивается после выбора — лёгкое размытие, как в выгрузке (действие пользователя) */
+.calc__num[data-tick]{filter:blur(var(--calc-tick-blur))}
 .calc__nowrap{white-space:nowrap}
 .calc__per{font-size:.6em; letter-spacing:-.01em; margin-inline-start:.15em}
 
