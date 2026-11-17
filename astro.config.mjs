@@ -20,5 +20,8 @@ export default defineConfig({
     layout: 'constrained',
   },
   build: { format: 'directory' },
+  // Дев-сервер в контейнере: слушать все адреса IPv4 — иначе Astro садится на [::1],
+  // и проброс порта VS Code (идёт на 127.0.0.1) страницу не открывает.
+  server: { host: '0.0.0.0', port: 4321 },
   trailingSlash: 'always',
 });
