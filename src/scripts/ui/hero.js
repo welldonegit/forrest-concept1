@@ -14,12 +14,8 @@ function irisCenter(w, h, vw) {
   return [w - R - D / 2, h - B - D / 2];
 }
 
-/** Контур зданий: точки в пикселях фото → координаты кадра при object-fit: cover.
- *  На портретных окнах показан кадр 3:5 из середины фото (Hero.astro): точки сдвигаются на его край. */
-function skylinePolygon(sky0, crop, w, h) {
-  const sky = crop && window.matchMedia(crop.query).matches
-    ? { width: crop.width, height: sky0.height, points: sky0.points.map(([x, y]) => [x - crop.x, y]) }
-    : sky0;
+/** Контур зданий: точки в пикселях фото → координаты кадра при object-fit: cover. */
+function skylinePolygon(sky, w, h) {
   const s = Math.max(w / sky.width, h / sky.height);
   const ox = (w - sky.width * s) / 2;
   const oy = (h - sky.height * s) / 2;
@@ -34,7 +30,6 @@ export function initHero(root = document) {
   const content = frame.querySelector('[data-hero-content]');
   const deferred = frame.querySelectorAll('[data-hero-deferred]');
   const sky = JSON.parse(frame.dataset.skyline || 'null');
-  const crop = JSON.parse(frame.dataset.skylineCrop || 'null');
   const mobile = window.matchMedia('(max-width: 767px)');
 
   // Летнее фото — только когда понадобится (наведение, фокус, касание, клик).
@@ -52,7 +47,8 @@ export function initHero(root = document) {
   function layout() {
     const w = frame.clientWidth;
     const h = frame.clientHeight;
-    if (sky) frame.style.setProperty('--skyline', skylinePolygon(sky, crop, w, h));
+    // На мобильном передний план скрыт (hero.css): контур задан для десктопного фото.
+    if (sky && !mobile.matches) frame.style.setProperty('--skyline', skylinePolygon(sky, w, h));
     const [x, y] = irisCenter(w, h, window.innerWidth);
     frame.style.setProperty('--iris-x', `${x}px`);
     frame.style.setProperty('--iris-y', `${y}px`);

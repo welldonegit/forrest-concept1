@@ -64,7 +64,7 @@
 --hero-text-shadow:0 2px 18px rgba(0,0,0,.35);                             /* чёрный, как в рендере (п.16) */
 /* вуаль под текстом: радиальная на десктопе, линейная на мобильном (градиент — один токен, п.13) */
 --hero-shade:radial-gradient(ellipse 100% 100% at 0% 100%,rgba(6,8,7,.94) 0%,rgba(6,8,7,.86) 25%,rgba(6,8,7,.68) 45%,rgba(6,8,7,.4) 65%,rgba(6,8,7,.14) 84%,rgba(6,8,7,0) 100%);
---hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.9) 0%,rgba(6,8,7,.74) 28%,rgba(6,8,7,.42) 58%,rgba(6,8,7,.12) 84%,rgba(6,8,7,0) 100%);
+--hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.62) 0%,rgba(6,8,7,.42) 30%,rgba(6,8,7,.16) 65%,rgba(6,8,7,0) 100%);
 
 /* -- Stats (рендер) -- */
 --stats-overlay:linear-gradient(180deg,
@@ -487,7 +487,7 @@
 --hero-buttons-gap:var(--space-12);         /* рендер 14; CTA на 2 шире (круг 40) */
 --hero-cta-gap:var(--space-16);
 --hero-season-icon:var(--icon-20);
---hero-shade-w:100%; --hero-shade-h:64%;
+--hero-shade-w:100%; --hero-shade-h:40%;
 --stats-pad-block-start:var(--space-24);
 --stats-pad-inline:var(--space-16);          /* рендер 16 (решение 2026-11-17: мобильные поля как в выгрузке) */
 --stats-pad-block-end:var(--space-40);
@@ -507,10 +507,9 @@
 --worlds-slide-gap:var(--space-16);
 --worlds-name-gap:var(--space-12);
 --worlds-btn-gap:var(--space-16);
-/* решение 2026-11-16: h1 40 во всю ширину кадра, строки друг под другом (было 34 по рендеру).
-   Уже 390 кегль уменьшается вместе с шириной, чтобы «ОДИН АКТИВ» оставался в одну строку:
-   ширина строки ≈ 8.3 × кегль, доступно 100vw − 2 × (поле кадра + поле заголовка). */
---type-hero-h1-size:min(40px, calc((100vw - 2 * (var(--hero-frame-pad) + var(--hero-inset))) / 8.3));
+/* h1 как в выгрузке (2026-11-17): по ширине окна, 38 на 390 */
+--type-hero-h1-size:calc((100vw - 40px) / 9.2);
+--type-hero-h1-lh:1.04;
 --type-hero-lead-size:14px;
 --type-worlds-display-size:24px;
 --type-worlds-decor-size:56px;

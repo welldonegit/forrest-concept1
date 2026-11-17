@@ -67,8 +67,31 @@
         },
         "decorative": true
       },
+      "imageSummerMobile": {
+        "_type": "image",
+        "_comment": "Мобільне фото (ширина < 768): окремий кадр 9:16. Alt береться з основного фото — це той самий знімок для іншого екрана.",
+        "asset": {
+          "_ref": "fixture:hero-summer-mob.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decorative": true
+      },
+      "imageWinterMobile": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-winter-mob.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decorative": true
+      },
       "skyline": {
-        "_comment": "Контур будівель на фото hero-summer/hero-winter (координати в пікселях фото 1672×941): з-за нього виходить заголовок. Прив'язаний до фото — при заміні фото потрібен новий контур.",
+        "_comment": "Контур будівель на фото hero-summer/hero-winter (координати в пікселях фото 1672×941): з-за нього виходить заголовок. Прив'язаний до фото — при заміні фото потрібен новий контур. На мобільному (< 768) контур не використовується.",
         "width": 1672,
         "height": 941,
         "points": [

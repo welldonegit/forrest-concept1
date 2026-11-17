@@ -4,6 +4,7 @@
  * (передний план — то же фото, обрезанное по контуру зданий), сезонный iris-переключатель
  * лето/зима. Все тексты, фото и контур — из Sanity (блок hero документа landing).
  * Стартовое состояние — зима (как в выгрузке: state.winter = true), кнопка предлагает «вид влітку».
+ * На < 768 — мобильные фото, передний план по контуру не показывается (решение 2026-11-17).
  * Поведение: src/scripts/ui/hero.js (контур, сезон, позиция кнопки на мобильном),
  * появление и параллакс заголовка — src/scripts/anim/blocks/hero.js и hero.css.
  */
@@ -42,33 +43,19 @@ const summerAttrs = {
   height: summer.src.height,
 };
 
-// Портретный кадр (точка A, 2026-11-16): на окнах уже 3:5 видна узкая полоса фото, а браузер
-// выбирал вариант 1672 px по ширине всего фото. Для таких окон — кадр 3:5 из того же фото:
-// вид тот же (cover + тот же object-position), вес в ~3 раза меньше. Контур зданий hero.js
-// сдвигает на левый край кадра (data-skyline-crop).
-// TODO(этап 3): кадр строится только при фокусе по центру — сервис картинок Astro режет
-// по центру или краю. С фото из Sanity кадрировать по hotspot через rect.
-const portraitQuery = '(max-aspect-ratio: 3/5)';
-async function portrait(photo: Awaited<ReturnType<typeof resolveImage>>) {
-  const fx = parseFloat(photo.position);
-  if (Math.abs(fx - 50) > 0.5) return null;
-  const H = photo.src.height;
-  const W = Math.round((H * 3) / 5);
-  const ws = [400, W].filter((w) => w <= W);
-  const imgs = await Promise.all(
-    ws.map((w) => getImage({ src: photo.src, width: w, height: Math.round((w * H) / W), fit: 'cover', position: 'centre', format: 'avif' })),
-  );
-  return {
-    srcset: imgs.map((im, i) => `${im.src} ${ws[i]}w`).join(', '),
-    // фото в кадре по высоте: ширина картинки = высота кадра × 3/5
-    sizes: '60vh',
-    crop: { x: Math.round((photo.src.width - W) / 2), width: W, query: portraitQuery },
-  };
+// Мобильные фото (< 768, выгрузка 2026-11-17): отдельный кадр 9:16 вместо десктопного.
+// Фото заполняет кадр по высоте (окно телефона уже 9:16): ширина картинки ≈ 57vh, не уже окна.
+const mobileQuery = '(max-width: 767px)';
+const mobileWidths = [480, 720, 941];
+const mobileSizes = 'max(100vw, 57vh)';
+async function mobileSource(image: HeroBlock['imageWinterMobile']) {
+  const photo = await resolveImage(image);
+  const img = await getImage({ src: photo.src, widths: mobileWidths.filter((w) => w <= photo.src.width), format: 'avif' });
+  return { srcset: img.srcSet.attribute, sizes: mobileSizes };
 }
-const winterP = await portrait(winter);
-const summerP = await portrait(summer);
+const winterM = await mobileSource(block.imageWinterMobile);
+const summerM = await mobileSource(block.imageSummerMobile);
 const skyline = JSON.stringify(block.skyline);
-const skylineCrop = winterP && summerP && JSON.stringify(winterP.crop);
 const [line1, line2] = block.title;
 const leadLines = block.lead.split('\n');
 ---
@@ -79,14 +66,13 @@ const leadLines = block.lead.split('\n');
     data-hero
     data-season="winter"
     data-skyline={skyline}
-    data-skyline-crop={skylineCrop || undefined}
     data-anim-block="hero"
     data-anim-eager
   >
     <div class="hero__media">
-      <picture>{summerP && <source media={portraitQuery} data-srcset={summerP.srcset} sizes={summerP.sizes} />}<img class="hero__img" {...summerAttrs} alt={summer.alt} decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
+      <picture><source media={mobileQuery} data-srcset={summerM.srcset} sizes={summerM.sizes} /><img class="hero__img" {...summerAttrs} alt={summer.alt} decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
       <div class="hero__iris" data-hero-iris>
-        <picture>{winterP && <source media={portraitQuery} srcset={winterP.srcset} sizes={winterP.sizes} />}<img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} /></picture>
+        <picture><source media={mobileQuery} srcset={winterM.srcset} sizes={winterM.sizes} /><img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} /></picture>
       </div>
 
       <h1 class="hero__title text-hero-h1" id="hero-title" data-hero-title>
@@ -95,11 +81,11 @@ const leadLines = block.lead.split('\n');
       </h1>
 
       <div class="hero__fg" data-hero-fg>
-        <picture>{summerP && <source media={portraitQuery} data-srcset={summerP.srcset} sizes={summerP.sizes} />}<img class="hero__img" {...summerAttrs} alt="" decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
+        <picture><source media={mobileQuery} data-srcset={summerM.srcset} sizes={summerM.sizes} /><img class="hero__img" {...summerAttrs} alt="" decoding="async" data-hero-deferred style={`--focus:${summer.position}`} /></picture>
       </div>
       <div class="hero__iris" data-hero-iris>
         <div class="hero__fg" data-hero-fg>
-          <picture>{winterP && <source media={portraitQuery} srcset={winterP.srcset} sizes={winterP.sizes} />}<img class="hero__img" {...winterAttrs} alt="" decoding="async" style={`--focus:${winter.position}`} /></picture>
+          <picture><source media={mobileQuery} srcset={winterM.srcset} sizes={winterM.sizes} /><img class="hero__img" {...winterAttrs} alt="" decoding="async" style={`--focus:${winter.position}`} /></picture>
         </div>
       </div>
 

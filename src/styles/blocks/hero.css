@@ -141,8 +141,11 @@
 }
 @media (max-width:767px){
   .hero__shade{background:var(--hero-shade-mobile)}
-  /* h1 во всю ширину кадра, строки друг под другом от начала (решение 2026-11-16) */
+  /* h1: обе строки от начала (как в выгрузке) */
   .hero__line--light{text-align:start}
+  /* Передний план по контуру и копия заголовка над ним не показываются: на мобильном фото
+     заголовок целиком на небе, контур задан для десктопного фото (решение 2026-11-17). */
+  .hero__fg,.hero__title--front{display:none}
   /* Кнопка сезона над текстом, слева. Высоту считает hero.js (--hero-season-bottom). */
   .hero__season{
     inset-inline:var(--hero-content-start) auto;

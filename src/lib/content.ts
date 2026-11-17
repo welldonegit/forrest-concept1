@@ -73,6 +73,8 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/card-apartments-new.jpg',
     '/design-export/card-okupnist.jpg',
     '/design-export/card-income.jpg',
+    '/design-export/hero-summer-mob.jpg',
+    '/design-export/hero-winter-mob.jpg',
   ],
   { import: 'default' },
 );
@@ -165,7 +167,10 @@ export interface HeroBlock {
   lead: string;
   imageSummer: SanityImage;
   imageWinter: SanityImage;
-  /** Контур зданий на фото (в пикселях фото): из-за него выходит заголовок. */
+  /** Мобильные фото (< 768): отдельный кадр того же вида; alt — у основного фото. */
+  imageSummerMobile: SanityImage;
+  imageWinterMobile: SanityImage;
+  /** Контур зданий на десктопном фото (в пикселях фото): из-за него выходит заголовок. На < 768 не используется. */
   skyline: { width: number; height: number; points: [number, number][] };
   cta: { label: string; href: string };
   presentationLabel: string;
