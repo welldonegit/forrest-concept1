@@ -14,8 +14,8 @@
 }
 .stats__card{
   position:relative; overflow:hidden;
-  aspect-ratio:2/3;
-  border-radius:var(--radius-28);
+  aspect-ratio:var(--stats-card-ratio);
+  border-radius:var(--stats-card-radius);
   background:var(--bg-inverse);
 }
 .stats__img{
@@ -38,7 +38,8 @@
   margin-block-start:auto;
   display:flex; align-items:center;
   /* в выгрузке рамка снаружи высоты (content-box) */
-  min-block-size:calc(var(--stats-chip-h) + 2 * var(--border-1));
+  min-block-size:calc(var(--stats-chip-h) + 2 * var(--stats-chip-pad-block) + 2 * var(--border-1));
+  padding-block:var(--stats-chip-pad-block);
   padding-inline:var(--stats-chip-pad-start) var(--stats-chip-pad-end);
   border:var(--border-1) solid var(--stats-chip-border);
   border-radius:var(--radius-pill);
@@ -47,39 +48,10 @@
   max-inline-size:100%;
 }
 
-/* ---------- Мобильный: горизонтальная лента ---------- */
+/* ---------- Мобильный: сетка 2×2 (выгрузка 2026-11-17) ---------- */
 @media (max-width:767px){
-  /* .stats внутри селектора — сильнее сброса ul[role="list"] из reset.css */
-  .stats .stats__grid{
-    display:flex; gap:var(--stats-gap);
-    overflow-x:auto; overscroll-behavior-x:contain;
-    scroll-snap-type:x mandatory; scroll-padding-inline:var(--stats-pad-inline);
-    margin-inline:calc(-1 * var(--stats-pad-inline)); padding-inline:var(--stats-pad-inline);
-    scrollbar-width:none;
-  }
-  .stats__grid::-webkit-scrollbar{display:none}
-  .stats__card{flex:0 0 var(--stats-mobile-card); scroll-snap-align:start}
-}
-
-/* ---------- Подсказка «Гортайте» (общий компонент) ---------- */
-.swipe-hint{
-  display:none; align-items:center; justify-content:center; gap:var(--space-10);
-  margin-block-start:var(--space-16);
-  color:var(--text-muted);
-  pointer-events:none;
-  transition:opacity var(--swipe-fade-dur) ease;
-}
-.swipe-hint[data-gone]{opacity:0}
-.swipe-hint__hand{display:flex; inline-size:var(--icon-24); block-size:var(--icon-24); color:var(--text-primary)}
-@media (max-width:767px){
-  .swipe-hint{display:flex}
-}
-@media (prefers-reduced-motion:no-preference){
-  .swipe-hint__hand{animation:swipe-hand var(--swipe-hand-dur) var(--swipe-hand-ease) infinite}
-}
-@keyframes swipe-hand{
-  0%,100%{transform:translateX(calc(-1 * var(--swipe-hand-shift))) rotate(calc(-1 * var(--swipe-hand-turn)))}
-  50%{transform:translateX(var(--swipe-hand-shift)) rotate(var(--swipe-hand-turn))}
+  .stats__grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .stats__text{text-wrap:balance}
 }
 
 /* ---------- Появление карточек (старт ставит JS: data-reveal="pre") ---------- */
@@ -94,7 +66,7 @@
     opacity var(--stats-txt-fade-dur) ease calc(var(--stats-txt-delay) + var(--i) * var(--stats-step)),
     transform var(--stats-txt-move-dur) var(--ease-out-quint) calc(var(--stats-txt-delay) + var(--i) * var(--stats-step));
 }
-.stats[data-reveal="pre"] .stats__card{clip-path:inset(0 0 100% 0 round var(--radius-28))}
+.stats[data-reveal="pre"] .stats__card{clip-path:inset(0 0 100% 0 round var(--stats-card-radius))}
 .stats[data-reveal="pre"] .stats__img{transform:translateY(var(--stats-img-shift)) scale(var(--stats-img-scale))}
 .stats[data-reveal="pre"] .stats__body{opacity:0; transform:translateY(var(--stats-txt-shift))}
-.stats[data-reveal="in"] .stats__card{clip-path:inset(0 0 0 0 round var(--radius-28))}
+.stats[data-reveal="in"] .stats__card{clip-path:inset(0 0 0 0 round var(--stats-card-radius))}

@@ -18,7 +18,7 @@ const card = (n) => [
 const elements = [
   ['section', SEC.exp, SEC.ours],
   ...card(1), ...card(2), ...card(3), ...card(4),
-  ['swipe hint', '[data-swipe]', '.swipe-hint'],
+  
 ];
 
 export default {

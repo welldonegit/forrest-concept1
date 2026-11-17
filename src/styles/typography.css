@@ -10,6 +10,8 @@
 .text-hero-caption{font-family:var(--type-hero-caption-ff);font-size:var(--type-hero-caption-size);line-height:var(--type-hero-caption-lh);font-weight:600}
 .text-stats-stat-lg{font-family:var(--type-stats-stat-lg-ff);font-size:var(--type-stats-stat-lg-size);line-height:var(--type-stats-stat-lg-lh);letter-spacing:var(--type-stats-stat-lg-ls);font-weight:600}
 .text-stats-stat-sm{font-size:var(--type-stats-stat-sm-size);line-height:var(--type-stats-stat-sm-lh);letter-spacing:var(--type-stats-stat-sm-ls)}
+.text-stats-text{font-family:var(--type-stats-text-ff);font-size:var(--type-stats-text-size);line-height:var(--type-stats-text-lh);font-weight:400}
+.text-stats-chip{font-family:var(--type-stats-chip-ff);font-size:var(--type-stats-chip-size);line-height:var(--type-stats-chip-lh);font-weight:400}
 .text-footer-h5{font-family:var(--type-footer-h5-ff);font-size:var(--type-footer-h5-size);line-height:var(--type-footer-h5-lh);letter-spacing:var(--ls-caps-sm);font-weight:600;text-transform:uppercase}
 .text-footer-body{font-family:var(--type-footer-body-ff);font-size:var(--type-footer-body-size);line-height:var(--type-footer-body-lh);font-weight:400}
 .text-worlds-display{font-family:var(--type-worlds-display-ff);font-size:var(--type-worlds-display-size);line-height:var(--type-worlds-display-lh);letter-spacing:var(--type-worlds-display-ls);font-weight:600;text-transform:uppercase}
