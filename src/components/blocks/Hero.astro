@@ -47,8 +47,9 @@ const summerAttrs = {
 // Фото заполняет кадр по высоте (окно телефона уже 9:16): ширина картинки ≈ 57vh, не уже окна.
 const mobileQuery = '(max-width: 767px)';
 // Набор до полной ширины исходника (941): телефоны с плотностью 3 получают его, а не растянутые 720.
+// 768 и 828 — промежуточные: профиль Lighthouse (412×823, DPR 1.75) просит ≈821 px и без них брал 941.
 // Выше исходника не увеличиваем. Качество и ширины фото первого экрана ради скорости не снижаем (LAYOUT_RULES.md).
-const mobileWidths = [480, 720];
+const mobileWidths = [480, 720, 768, 828];
 const mobileSizes = 'max(100vw, 57vh)';
 async function mobileSource(image: HeroBlock['imageWinterMobile']) {
   const photo = await resolveImage(image);
