@@ -16,6 +16,7 @@
 .text-worlds-decor{font-family:var(--type-worlds-decor-ff);font-size:var(--type-worlds-decor-size);line-height:var(--type-worlds-decor-lh);letter-spacing:var(--type-worlds-decor-ls);font-weight:600}
 .text-worlds-overline{font-family:var(--type-worlds-overline-ff);font-size:var(--type-worlds-overline-size);line-height:var(--type-worlds-overline-lh);letter-spacing:var(--ls-caps);font-weight:600;text-transform:uppercase}
 .text-worlds-body{font-family:var(--type-worlds-body-ff);font-size:var(--type-worlds-body-size);line-height:var(--type-worlds-body-lh);font-weight:500}
+.text-season-text{font-family:var(--type-season-text-ff);font-size:var(--type-season-text-size);line-height:var(--type-season-text-lh);font-weight:400}
 
 /* Общие роли (4.U): шрифт, кегль, межстрочный. Вес по умолчанию — самый частый у роли. */
 .text-body{font-family:var(--type-body-ff);font-size:var(--type-body-size);line-height:var(--type-body-lh);font-weight:400}

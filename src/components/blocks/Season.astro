@@ -24,7 +24,7 @@ const [firstLine, ...restLines] = block.title;
       <span class="season__line season__line--muted" data-season-line>{firstLine}</span>
       {restLines.map((line) => <span class="season__line" data-season-line>{line}</span>)}
     </h2>
-    <p class="season__text text-body" data-season-text>{block.text}</p>
+    <p class="season__text text-season-text" data-season-text>{block.text}</p>
   </div>
 
   <div class="season__media" data-season-media>

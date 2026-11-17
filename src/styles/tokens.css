@@ -360,8 +360,9 @@
 
 /* -- дискретные роли: база = ≥1600 -- */
 /* общие роли (4.U) */
---type-body-ff:var(--font-text); --type-body-size:17px; --type-body-lh:26px;          /* текст Stats (плашки), абзац Season */
+--type-body-ff:var(--font-text); --type-body-size:17px; --type-body-lh:26px;          /* текст Stats (плашки) */
 --type-body-lg-ff:var(--font-text); --type-body-lg-size:18px; --type-body-lg-lh:26px;  /* текст карточек Stats, кнопка Worlds */
+--type-season-text-ff:var(--font-text); --type-season-text-size:18px; --type-season-text-lh:28px; /* абзац Season (решение 2026-11-17: отдельная роль, значения рендера) */
 --type-caption-ff:var(--font-text); --type-caption-size:14px; --type-caption-lh:20px;  /* юридическая строка Footer, плашка «60 сек» */
 --type-label-ff:var(--font-text); --type-label-size:12px; --type-label-lh:16px;        /* подписи меню, язык, «Гортайте» */
 --type-title-sm-ff:var(--font-display); --type-title-sm-size:28px; --type-title-sm-lh:36px; /* контакты Footer, подпись мира Worlds */
@@ -406,6 +407,7 @@
 --type-hero-button-lg-size:19px; /* hero-button-lg */
 --type-body-size:16px; --type-body-lh:24px;
 --type-body-lg-size:17px; --type-body-lg-lh:25px;
+--type-season-text-size:16px; --type-season-text-lh:25px;
 --type-title-sm-size:27px; --type-title-sm-lh:35px;
 --type-worlds-overline-size:16px; /* worlds-overline */
 }}
@@ -467,6 +469,7 @@
 --type-hero-caption-size:11px; --type-hero-caption-lh:14px; /* hero-caption */
 --type-body-size:14px; --type-body-lh:20px;
 --type-body-lg-size:15px; --type-body-lg-lh:22px;
+--type-season-text-size:15px; --type-season-text-lh:23px;
 --type-title-sm-size:20px; --type-title-sm-lh:26px;
 --type-worlds-overline-size:13px; /* worlds-overline; lh 24 на всех ступенях, как в рендере */
 }}
