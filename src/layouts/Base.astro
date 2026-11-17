@@ -35,10 +35,10 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
     -->
     <script is:inline>(()=>{const d=document,H='data-hold-',held=[];let done=0;
 const hold=(e)=>{for(const a of['srcset','src'])if(e.hasAttribute(a)){e.setAttribute(H+a,e.getAttribute(a));e.removeAttribute(a)}held.push(e)};
-const mo=new MutationObserver((ms)=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;
-for(const i of n.matches('img[loading=lazy]')?[n]:n.querySelectorAll('img[loading=lazy]')){const p=i.parentElement;if(p&&p.tagName==='PICTURE')p.querySelectorAll('source[srcset]').forEach(hold);hold(i)}}});
+const mo=new MutationObserver((ms)=>{try{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;
+for(const i of n.matches('img[loading=lazy]')?[n]:n.querySelectorAll('img[loading=lazy]')){const p=i.parentElement;if(p&&p.tagName==='PICTURE')p.querySelectorAll('source[srcset]').forEach(hold);hold(i)}}}catch(_){}});
 mo.observe(d.documentElement,{childList:true,subtree:true});
-const go=()=>{if(done)return;done=1;mo.disconnect();for(const e of held)for(const a of['srcset','src']){const v=e.getAttribute(H+a);if(v!==null){e.setAttribute(a,v);e.removeAttribute(H+a)}}
+const go=()=>{if(done)return;done=1;mo.disconnect();for(const e of held)try{for(const a of['srcset','src']){const v=e.getAttribute(H+a);if(v!==null){e.setAttribute(a,v);e.removeAttribute(H+a)}}}catch(_){}
 for(const t of['scroll','keydown','pointerdown','touchstart'])removeEventListener(t,user,true)};
 const user=(e)=>{if(e.type!=='scroll'||e.target===d)go()};
 for(const t of['scroll','keydown','pointerdown','touchstart'])addEventListener(t,user,{capture:true,passive:true});
