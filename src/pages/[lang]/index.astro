@@ -8,6 +8,7 @@ import Worlds from '../../components/blocks/Worlds.astro';
 import Model from '../../components/blocks/Model.astro';
 import Apartments from '../../components/blocks/Apartments.astro';
 import Form from '../../components/blocks/Form.astro';
+import Location from '../../components/blocks/Location.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
@@ -32,10 +33,11 @@ const landing = await getLanding(lang);
         case 'model': return <Model block={block} />;
         case 'apartments': return <Apartments block={block} swipeHint={settings.ui.swipeHint} />;
         case 'form': return <Form block={block} settings={settings} />;
+        case 'location': return <Location block={block} />;
         default: return null;
       }
     })}
-    <!-- TODO(4.8 и далее): остальные блоки документа landing -->
+    <!-- TODO(4.11 и далее): остальные блоки документа landing -->
   </main>
   <Footer settings={settings} />
 </Base>

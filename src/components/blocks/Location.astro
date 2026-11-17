@@ -1,0 +1,96 @@
+---
+/**
+ * Location (4.8): «Природа навколо та Буковель поруч» — заголовок, текст, кнопка на Google-карту
+ * слева; справа карта-иллюстрация с метками и меткой курорта (точка с логотипом, подпись,
+ * карточка при наведении/фокусе/нажатии). Выгрузка 2026-11-17, секция «Location Google».
+ * Тексты, метки, ссылка, фото — из Sanity (блок location документа landing).
+ *
+ * Размеры внутри карты в выгрузке заданы в долях её ширины (cqw) — карта масштабируется как
+ * иллюстрация, это перенесено как есть (см. отчёт 4.8).
+ * Карточка курорта — src/scripts/ui/location.js; появление — anim/blocks/location.js + location.css.
+ */
+import { Image } from 'astro:assets';
+import mark from '../../assets/brand/logo-forrest-mark.svg';
+import { resolveImage, type LocationBlock } from '../../lib/content';
+
+interface Props {
+  block: LocationBlock;
+}
+
+const { block } = Astro.props;
+const id = block.anchor;
+const map = await resolveImage(block.map);
+const card = block.resort.card;
+const cardPhoto = await resolveImage(card.image);
+const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
+  parking: '<path d="M8 20V4h5.5a4.5 4.5 0 0 1 0 9H8"/>',
+  food: '<path d="M7 3.5v17"/><path d="M4.5 3.5v4.2a2.5 2.5 0 0 0 5 0V3.5"/><path d="M17.5 20.5v-17c-2 .8-3.3 3.2-3.3 6.4v4.1h3.3"/>',
+  leisure: '<path d="M2.8 19.2 9.4 8.3l3.9 6.3"/><path d="m11.4 11.6 2.4-3.8 7.4 11.4H2.8"/>',
+  hotel: '<path d="M3.5 18.5V6.5"/><path d="M3.5 14.5h17v4"/><path d="M20.5 14.5v-2a3 3 0 0 0-3-3h-6.5v5"/><circle cx="7.2" cy="11.6" r="1.7"/>',
+};
+---
+<section class="loc" id={id} aria-labelledby={`${id}-title`} data-anim-block="location">
+  <div class="loc__row">
+    <div class="loc__left" data-loc-left>
+      <h2 class="loc__title text-display-sm" id={`${id}-title`}>
+        {block.title.map((line, i) => (
+          <span class="loc__mask"><span class:list={['loc__line', line.muted && 'loc__line--muted']} style={`--d:${i * 0.12}s`}>{line.text}</span></span>
+        ))}
+      </h2>
+      <p class="loc__text text-loc-text loc__up" style="--d:.3s">{block.text}</p>
+      <div class="loc__up" style="--d:.44s">
+        <a class="loc__link text-hero-button-lg" href={block.mapLink.href} target="_blank" rel="noopener">
+          {block.mapLink.label}
+          <span class="loc__link-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="loc__frame" data-loc-frame>
+      <div class="loc__map" style={`--ratio:${map.src.width}/${map.src.height}`} data-loc-map>
+        <div class="loc__media" aria-hidden={map.alt ? undefined : 'true'}>
+          <Image class="loc__img" src={map.src} alt={map.alt} widths={[640, 960, 1409]} sizes="(max-width: 899px) 100vw, 63vw" format="avif" loading="lazy" decoding="async" />
+          <!-- Приглушённая копия: проявление карты без анимации filter (opacity слоя, LAYOUT_RULES.md) -->
+          <Image class="loc__img loc__img--dim" src={map.src} alt="" widths={[640, 960, 1409]} sizes="(max-width: 899px) 100vw, 63vw" format="avif" loading="lazy" decoding="async" />
+        </div>
+        <ul class="loc__pins" role="list">
+          {block.pins.map((p) => (
+            <li class="loc__pin" style={`--x:${p.x}%;--y:${p.y}%`} data-loc-pin>
+              <span class:list={['loc__pin-label', `loc__pin-label--${p.side}`]}>
+                <span class="loc__pin-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={icons[p.icon]} /></span>{p.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <div class="loc__resort" style={`--x:${block.resort.x}%;--y:${block.resort.y}%`} data-loc-resort>
+          <span class="loc__ring" aria-hidden="true"></span>
+          <span class="loc__ring loc__ring--late" aria-hidden="true"></span>
+          <button class="loc__dot" type="button" aria-expanded="false" aria-controls={`${id}-card`} aria-label={block.resort.label} data-loc-dot>
+            <img class="loc__mark" src={mark.src} width={mark.width} height={mark.height} alt="" />
+          </button>
+          <div class="loc__card" id={`${id}-card`} data-loc-card>
+            <span class="loc__card-media">
+              <Image class="loc__card-img" src={cardPhoto.src} alt={cardPhoto.alt} widths={[420, 600]} sizes="420px" format="avif" loading="lazy" decoding="async" />
+              <span class="loc__card-badge">{card.badge}</span>
+              <span class="loc__card-head">
+                <span class="loc__card-title">{card.title}</span>
+                <span class="loc__card-sub">{card.subtitle}</span>
+              </span>
+            </span>
+            <span class="loc__facts">
+              {card.facts.map((f) => (
+                <span class="loc__fact"><span class="loc__fact-value">{f.value}</span><span class="loc__fact-label">{f.label}</span></span>
+              ))}
+            </span>
+            <span class="loc__chips">
+              {card.chips.map((c) => <span class="loc__chip">{c.text}</span>)}
+            </span>
+          </div>
+          <span class="loc__tag" aria-hidden="true">{block.resort.label}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

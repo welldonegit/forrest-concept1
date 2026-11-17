@@ -7,6 +7,7 @@ import { initApartments } from './ui/apartments.js';
 import { initLeadForms } from './ui/lead-form.js';
 import { initFooter } from './ui/footer.js';
 import { initWorlds } from './ui/worlds.js';
+import { initLocation } from './ui/location.js';
 import { initAnimations } from './anim/core.js';
 
 initMenu();
@@ -18,4 +19,5 @@ initApartments();
 initLeadForms();
 initFooter();
 initWorlds();
+initLocation();
 initAnimations();

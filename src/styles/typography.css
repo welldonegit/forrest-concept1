@@ -35,6 +35,7 @@
 .text-form-submit{font-family:var(--type-form-submit-ff);font-size:var(--type-form-submit-size);line-height:var(--type-form-submit-lh);font-weight:600}
 .text-form-done-title{font-family:var(--type-form-done-title-ff);font-size:var(--type-form-done-title-size);line-height:var(--type-form-done-title-lh);letter-spacing:var(--type-form-done-title-ls);font-weight:600;text-transform:uppercase}
 .text-form-done-text{font-family:var(--type-form-done-text-ff);font-size:var(--type-form-done-text-size);line-height:var(--type-form-done-text-lh);font-weight:400}
+.text-loc-text{font-family:var(--type-loc-text-ff);font-size:var(--type-loc-text-size);line-height:var(--type-loc-text-lh);font-weight:400}
 .text-manager-name{font-family:var(--type-manager-name-ff);font-size:var(--type-manager-name-size);line-height:var(--type-manager-name-lh);letter-spacing:var(--type-manager-name-ls);font-weight:600}
 .text-manager-phone{font-family:var(--type-manager-phone-ff);font-size:var(--type-manager-phone-size);line-height:var(--type-manager-phone-lh);letter-spacing:var(--type-manager-phone-ls);font-weight:500}
 

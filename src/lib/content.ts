@@ -97,6 +97,8 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/card-apartments-new.jpg',
     '/design-export/card-okupnist.jpg',
     '/design-export/card-income.jpg',
+    '/design-export/assets/photos/bukovel-map.jpg',
+    '/design-export/tooltip.jpg',
     '/design-export/hero-summer-mob.jpg',
     '/design-export/hero-winter-mob.jpg',
     '/design-export/assets/photos/catalog-plans.jpg',
@@ -369,7 +371,53 @@ export interface FormBlock {
   bullets: FormBullet[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock;
+export interface LocationTitleLine {
+  _key: string;
+  text: string;
+  /** Приглушённый цвет строки. */
+  muted?: boolean;
+}
+
+/** Метка на карте: положение — в процентах от ширины и высоты карты. */
+export interface LocationPin {
+  _key: string;
+  label: string;
+  x: number;
+  y: number;
+  /** С какой стороны от точки подпись. */
+  side: 'left' | 'right';
+  /** Значок из набора: парковка, еда, отдых, отель. */
+  icon: 'parking' | 'food' | 'leisure' | 'hotel';
+}
+
+export interface LocationBlock {
+  _type: 'location';
+  _key: string;
+  /** id секции (#lokatsiya-google): на него ссылаются меню и футер. */
+  anchor: string;
+  title: LocationTitleLine[];
+  text: string;
+  mapLink: { label: string; href: string };
+  /** Карта-иллюстрация: по её размеру строится кадр и проценты меток. */
+  map: SanityImage;
+  pins: LocationPin[];
+  /** Метка курорта: точка с логотипом, подпись и карточка при наведении. */
+  resort: {
+    x: number;
+    y: number;
+    label: string;
+    card: {
+      image: SanityImage;
+      badge: string;
+      title: string;
+      subtitle: string;
+      facts: { _key: string; value: string; label: string }[];
+      chips: { _key: string; text: string }[];
+    };
+  };
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

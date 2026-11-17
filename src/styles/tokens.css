@@ -340,6 +340,39 @@
 --form-done-text-max:440px;
 --form-rise-shift:18px;
 
+/* ===== Location 4.8 (рендер; база = ≥1600). Поля секции и кнопка — те же формулы выгрузки, что у Model и CTA Hero ===== */
+--loc-pad-block-start:var(--model-pad-block-start);
+--loc-pad-block-end:var(--model-pad-block-end);
+--loc-pad-inline:var(--model-pad-inline);
+--loc-gap:var(--space-72);
+--loc-left-gap:var(--space-28);
+--loc-left-basis:340px;  --loc-map-basis:520px; --loc-map-grow:1.7;  /* flex: 1 1 340px / 1.7 1 520px — перенос колонок как в выгрузке */
+--loc-text-max:460px;
+--loc-map-dim:saturate(.55) brightness(.8);                                  /* стартовый вид карты (статичный слой) */
+--loc-pin-size:min(1.364cqw, 13px);                                          /* подписи меток: доля ширины карты, ≤13 */
+--loc-pin-shadow:0 6px 16px -8px rgba(0,0,0,.55);
+--loc-dot-shadow:0 10px 24px -10px rgba(0,0,0,.6);
+--loc-tag-shadow:0 12px 28px -14px rgba(0,0,0,.6);
+--loc-tag-ls:-.01em;
+--loc-ring-border:color-mix(in srgb, var(--white-sand) 90%, transparent);   /* rgba(242,234,216,.9) */
+--loc-ring-bg:color-mix(in srgb, var(--white-sand) 28%, transparent);       /* rgba(242,234,216,.28) */
+--loc-card-w:min(38cqw, 420px);
+--loc-card-shadow:0 40px 80px -30px rgba(12,12,12,.75),0 2px 6px rgba(12,12,12,.08);
+--loc-card-scrim:linear-gradient(180deg, rgba(12,12,12,0) 45%, rgba(12,12,12,.72) 100%);
+--loc-badge-bg:color-mix(in srgb, var(--air) 92%, transparent);             /* rgba(255,255,255,.92); backdrop-filter выгрузки не переносим */
+--loc-badge-h:28px; --loc-badge-size:11px; --loc-badge-ls:.08em;
+--loc-card-ls:-.02em;
+--loc-card-title-size:min(1.8cqw, 20px); --loc-card-sub-size:min(1.1cqw, 12.5px);
+--loc-fact-size:min(1.6cqw, 18px); --loc-card-small-size:min(1.05cqw, 12px);
+/* движение (выгрузка) */
+--loc-hover-dur:.3s;
+--loc-line-dur:1.35s; --loc-up-fade-dur:1.1s; --loc-up-shift:26px; --loc-up-blur:6px;
+--loc-map-dur:1.9s; --loc-map-ease:cubic-bezier(.77,0,.18,1);
+--loc-img-dur:2.8s; --loc-dim-dur:2.2s;
+--loc-pin-fade-dur:.9s; --loc-pin-move-dur:1.1s; --loc-pin-pop-ease:cubic-bezier(.34,1.45,.5,1); --loc-pin-blur:5px;
+--loc-pulse-dur:3.2s; --loc-pulse-gap:1.6s; --loc-pulse-ease:cubic-bezier(.22,.61,.36,1);
+--loc-card-fade-dur:.35s; --loc-card-move-dur:.5s;
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -477,6 +510,7 @@
 --type-apts-area-ff:var(--font-text); --type-apts-area-size:24px; --type-apts-area-lh:1.2; /* временная: площадь (24/22/18/18) */
 --type-apts-button-ff:var(--font-text); --type-apts-button-size:15px; --type-apts-button-lh:20px; /* временная: кнопка «Планування» (15 на всех ступенях) */
 --type-form-title-ff:var(--font-display); --type-form-title-size:clamp(20px,2.05vw,36px); --type-form-title-lh:1.1; --type-form-title-ls:-.03em; /* временная, плавная: заголовок Form (36/30/21/20) */
+--type-loc-text-ff:var(--type-form-text-ff); --type-loc-text-size:var(--type-form-text-size); --type-loc-text-lh:var(--type-form-text-lh); /* временная: абзац Location = абзац Form (та же формула выгрузки) */
 --type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
 --type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
 --type-form-label-ff:var(--font-text); --type-form-label-size:15px; --type-form-label-lh:20px; /* временная: подпись поля; совпадает с apts-button — кандидат на общую роль */
@@ -503,6 +537,7 @@
 }
 
 @media (max-width:1599px){:root{
+--loc-gap:var(--space-56);          /* рендер 57.6 */
 /* 1280–1599 (рендер 1440) */
 --menu-pad-inline:var(--space-36);   /* рендер 37.4: видимые элементы сдвигаются ≤1.4px */
 --menu-pad-block-end:var(--space-44);/* рендер 43.2 */
@@ -557,6 +592,8 @@
 }}
 
 @media (max-width:1279px){:root{
+--loc-gap:var(--space-40);          /* рендер 41 */
+--loc-left-gap:var(--space-20);     /* рендер 20.5 */
 /* 768–1279 (рендер 1024) */
 --header-offset-block:var(--space-20);        /* рендер 18.4 */
 --header-offset-inline-start:var(--space-20); /* рендер 21.5 */
@@ -652,6 +689,8 @@
 }}
 
 @media (max-width:767px){:root{
+--loc-gap:var(--space-28);
+--loc-left-gap:var(--space-20);     /* рендер 18: 20 (+2 на промежуток) */
 --type-form-title-size:18px; /* решение 2026-11-17: <768 — 18px, две строки (выгрузка 20px, три строки на 390) */
 /* <768 (рендер 390) */
 --hero-frame-pad:var(--space-8);

@@ -1252,6 +1252,577 @@
           }
         }
       ]
+    },
+    {
+      "_type": "location",
+      "_key": "location",
+      "anchor": "lokatsiya-google",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Природа навколо"
+            },
+            {
+              "_key": "en",
+              "value": "Nature all around"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "та Буковель поруч"
+            },
+            {
+              "_key": "en",
+              "value": "and Bukovel nearby"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Підйомники, ресторани, SPA та озеро Молодості в кількох хвилинах від FORREST. Відкрийте карту, щоб побудувати маршрут."
+        },
+        {
+          "_key": "en",
+          "value": "Lifts, restaurants, SPA and the Lake of Youth are minutes away from FORREST. Open the map to plan your route."
+        }
+      ],
+      "mapLink": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Переглянути на Google карті"
+          },
+          {
+            "_key": "en",
+            "value": "View on Google Maps"
+          }
+        ],
+        "href": "https://www.google.com/maps/d/u/0/viewer?mid=1B9_ge7bS7tqSZC_bSdOAcCAWerE8xUY&ll=48.35448751795114%2C24.399357499999972&z=17"
+      },
+      "map": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:bukovel-map.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Карта Буковеля з розташуванням FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "Map of Bukovel showing FORREST Trinity Resort"
+          }
+        ]
+      },
+      "pins": [
+        {
+          "_key": "p1",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Паркувальний майданчик"
+            },
+            {
+              "_key": "en",
+              "value": "Parking"
+            }
+          ],
+          "x": 24.9,
+          "y": 8.1,
+          "side": "left",
+          "icon": "parking"
+        },
+        {
+          "_key": "p2",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Бабин Бограч"
+            },
+            {
+              "_key": "en",
+              "value": "Babyn Bohrach"
+            }
+          ],
+          "x": 31.8,
+          "y": 5.5,
+          "side": "right",
+          "icon": "food"
+        },
+        {
+          "_key": "p3",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Гуцул Ленд"
+            },
+            {
+              "_key": "en",
+              "value": "Hutsul Land"
+            }
+          ],
+          "x": 30.4,
+          "y": 10.4,
+          "side": "right",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p4",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Озеро Молодості"
+            },
+            {
+              "_key": "en",
+              "value": "Lake of Youth"
+            }
+          ],
+          "x": 30,
+          "y": 17,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p5",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Margherita"
+            },
+            {
+              "_key": "en",
+              "value": "Margherita"
+            }
+          ],
+          "x": 36.3,
+          "y": 17.8,
+          "side": "right",
+          "icon": "food"
+        },
+        {
+          "_key": "p6",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Сноу Парк Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Snow Park Bukovel"
+            }
+          ],
+          "x": 12,
+          "y": 29.2,
+          "side": "right",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p7",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Batyarska Rebernya"
+            },
+            {
+              "_key": "en",
+              "value": "Batyarska Rebernya"
+            }
+          ],
+          "x": 63.9,
+          "y": 27.8,
+          "side": "left",
+          "icon": "food"
+        },
+        {
+          "_key": "p8",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Twins Hotel&Spa"
+            },
+            {
+              "_key": "en",
+              "value": "Twins Hotel&Spa"
+            }
+          ],
+          "x": 69.4,
+          "y": 35.8,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p9",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "GirskiDelux"
+            },
+            {
+              "_key": "en",
+              "value": "GirskiDelux"
+            }
+          ],
+          "x": 74.1,
+          "y": 34.3,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p10",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "VODA club"
+            },
+            {
+              "_key": "en",
+              "value": "VODA club"
+            }
+          ],
+          "x": 38.7,
+          "y": 40.3,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p11",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Radisson Blu Resort"
+            },
+            {
+              "_key": "en",
+              "value": "Radisson Blu Resort"
+            }
+          ],
+          "x": 59.9,
+          "y": 41.5,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p12",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Bukovel arthotel"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel arthotel"
+            }
+          ],
+          "x": 13.4,
+          "y": 59.1,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p13",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel"
+            }
+          ],
+          "x": 44.6,
+          "y": 61.8,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p14",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "HVOYA «Хвоя»"
+            },
+            {
+              "_key": "en",
+              "value": "HVOYA"
+            }
+          ],
+          "x": 51.7,
+          "y": 64.5,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p15",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Tbiliso"
+            },
+            {
+              "_key": "en",
+              "value": "Tbiliso"
+            }
+          ],
+          "x": 47,
+          "y": 70.3,
+          "side": "left",
+          "icon": "food"
+        },
+        {
+          "_key": "p16",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Підгір'я"
+            },
+            {
+              "_key": "en",
+              "value": "Pidhiria"
+            }
+          ],
+          "x": 88.5,
+          "y": 69.8,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p17",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Mountain Residence"
+            },
+            {
+              "_key": "en",
+              "value": "Mountain Residence"
+            }
+          ],
+          "x": 36.6,
+          "y": 75.8,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p18",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "F&B Spa Resort"
+            },
+            {
+              "_key": "en",
+              "value": "F&B Spa Resort"
+            }
+          ],
+          "x": 85.1,
+          "y": 77.7,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p19",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Піцерія Дон Япон"
+            },
+            {
+              "_key": "en",
+              "value": "Pizzeria Don Yapon"
+            }
+          ],
+          "x": 75.6,
+          "y": 83.3,
+          "side": "right",
+          "icon": "food"
+        }
+      ],
+      "resort": {
+        "x": 23.5,
+        "y": 79,
+        "label": [
+          {
+            "_key": "uk",
+            "value": "FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST Trinity Resort"
+          }
+        ],
+        "card": {
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:tooltip.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "badge": [
+            {
+              "_key": "uk",
+              "value": "Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST Trinity Resort"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST Trinity Resort"
+            }
+          ],
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Курорт серед лісу біля траси 5G"
+            },
+            {
+              "_key": "en",
+              "value": "A forest resort next to slope 5G"
+            }
+          ],
+          "facts": [
+            {
+              "_key": "f1",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "7 хв"
+                },
+                {
+                  "_key": "en",
+                  "value": "7 min"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "до центру Буковеля"
+                },
+                {
+                  "_key": "en",
+                  "value": "to Bukovel centre"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "Ski In/Out"
+                },
+                {
+                  "_key": "en",
+                  "value": "Ski In/Out"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий вихід на трасу 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct access to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "2 заїзди"
+                },
+                {
+                  "_key": "en",
+                  "value": "2 entrances"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "зручна логістика"
+                },
+                {
+                  "_key": "en",
+                  "value": "easy logistics"
+                }
+              ]
+            }
+          ],
+          "chips": [
+            {
+              "_key": "c1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Ліс з чотирьох сторін"
+                },
+                {
+                  "_key": "en",
+                  "value": "Forest on all four sides"
+                }
+              ]
+            },
+            {
+              "_key": "c2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Гірська річка"
+                },
+                {
+                  "_key": "en",
+                  "value": "Mountain river"
+                }
+              ]
+            },
+            {
+              "_key": "c3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Підземний паркінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "Underground parking"
+                }
+              ]
+            }
+          ]
+        }
+      }
     }
   ]
 }
