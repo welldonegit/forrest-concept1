@@ -489,6 +489,7 @@
 --hero-season-icon:var(--icon-20);
 --hero-shade-w:100%; --hero-shade-h:64%;
 --stats-pad-block-start:var(--space-24);
+--stats-pad-inline:var(--space-16);          /* рендер 16 (решение 2026-11-17: мобильные поля как в выгрузке) */
 --stats-pad-block-end:var(--space-40);
 --stats-gap:var(--space-12);
 --footer-pad-block-start:var(--space-56);
@@ -496,6 +497,7 @@
 --footer-logo-gap:var(--space-64);
 --season-pad-block-start:var(--space-48);
 --season-pad-block-end:var(--space-40);
+--season-pad-inline:var(--space-16);         /* рендер 16 (решение 2026-11-17) */
 --season-head-gap:var(--space-20);
 --season-head-mb:var(--space-24);
 --season-chip-inset:var(--space-16);
