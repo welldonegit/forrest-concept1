@@ -6,7 +6,7 @@
 
 /* Секции ниже первых экранов (Apartments, Form, Location, Infrastructure, Footer): браузер не считает их вёрстку, пока
    они далеко от окна (первая отрисовка мобильного — TBT, точка B). Правило применения —
-   LAYOUT_RULES.md, «content-visibility». Сцен прокрутки и прилипания здесь нет (Model, Hero, Worlds, Numbers).
+   LAYOUT_RULES.md, «content-visibility». Сцены с прилипанием — только на элементе с жёсткой высотой (дорожка Numbers); Hero, Worlds, Model — нет.
    Заглушка высоты --cv-h — измеренная высота блока вместе с полями (плотные замеры 2026-11-17, uk), по ступеням
    и внутренним точкам перестройки блоков; формула «px + vw», погрешность в комментарии.
    auto — после первого показа браузер помнит настоящую высоту. Изменил вёрстку блока —
@@ -18,7 +18,25 @@
 .loc{contain-intrinsic-size:auto calc(var(--cv-h) - var(--loc-pad-block-start) - var(--loc-pad-block-end))}
 .infra{contain-intrinsic-size:auto calc(var(--cv-h) - var(--infra-pad-block-start) - var(--infra-pad-block-end))}
 /* переход по якорю (anchor-nav.js): нужны точные высоты */
-:root[data-cv-off] :is(.apts,.form,.loc,.infra,.site-footer){content-visibility:visible}
+:root[data-cv-off] :is(.apts,.form,.loc,.infra,.nums__track,.site-footer){content-visibility:visible}
+
+/* Numbers — на дорожке сцены, а не на секции (заголовок остаётся снаружи).
+   ≥900 со сценой: высота дорожки задана жёстко (--nums-track-h), заглушка не нужна — она и есть высота.
+   Сцена с прилипанием разрешена с жёсткой высотой (решение 2026-11-17). Без JS и при reduced motion ≥900 — нет.
+   <900: прилипания нет, обычное правило — измеренная заглушка (высота дорожки ≈ 3.75 × ширина + ступени переносов). */
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){ .js .nums__track{content-visibility:auto} }
+@media (max-width:899px){
+  .nums__track{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h); --cv-h:calc(819px + 375vw)} /* ±0 */
+}
+@media (max-width:783px){ .nums__track{--cv-h:calc(897px + 375vw)} }  /* ±0 */
+@media (max-width:767px){ .nums__track{--cv-h:calc(855px + 375vw)} }  /* ±0 */
+@media (max-width:715px){ .nums__track{--cv-h:calc(933px + 375vw)} }  /* ±0 */
+@media (max-width:567px){ .nums__track{--cv-h:calc(961px + 375vw)} }  /* ±10 */
+@media (max-width:433px){ .nums__track{--cv-h:calc(1032px + 375vw)} } /* ±9 */
+@media (max-width:410px){ .nums__track{--cv-h:calc(1065px + 375vw)} } /* ±0 */
+@media (max-width:399px){ .nums__track{--cv-h:calc(1233px + 375vw)} } /* ±11 */
+@media (max-width:362px){ .nums__track{--cv-h:calc(1275px + 375vw)} } /* ±11 */
+@media (max-width:338px){ .nums__track{--cv-h:calc(1315px + 375vw)} } /* ±9 */
 
 .apts{--cv-h:calc(478px + 21.27vw)}          /* ±1 */
 .form{--cv-h:calc(715px + 5.08vw)}           /* ±7 */
