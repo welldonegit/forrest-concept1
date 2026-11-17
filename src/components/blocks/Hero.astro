@@ -46,7 +46,7 @@ const summerAttrs = {
 // Мобильные фото (< 768, выгрузка 2026-11-17): отдельный кадр 9:16 вместо десктопного.
 // Фото заполняет кадр по высоте (окно телефона уже 9:16): ширина картинки ≈ 57vh, не уже окна.
 const mobileQuery = '(max-width: 767px)';
-const mobileWidths = [480, 720, 941];
+const mobileWidths = [480, 720];
 const mobileSizes = 'max(100vw, 57vh)';
 async function mobileSource(image: HeroBlock['imageWinterMobile']) {
   const photo = await resolveImage(image);
