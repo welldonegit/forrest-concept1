@@ -15,7 +15,7 @@ function initCalc(el) {
   const d = el.dataset;
   const lang = d.lang;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const dur = parseFloat(getComputedStyle(el).getPropertyValue('--calc-tween-fast-dur')) || 900;
+  let dur = 0; // читается при первом пересчёте: getComputedStyle при загрузке — лишний расчёт стилей
   const sels = [...el.querySelectorAll('[data-calc-sel]')];
   const sel = (kind) => sels.find((s) => s.dataset.calcSel === kind);
   const picked = (kind) => sel(kind).querySelector('[data-calc-opt][aria-pressed="true"]');
@@ -37,6 +37,7 @@ function initCalc(el) {
     values.set(key, to);
     cancelAnimationFrame(node._raf);
     if (reduce.matches || from === to) { node.textContent = fmt(to); return; }
+    dur ||= parseFloat(getComputedStyle(el).getPropertyValue('--calc-tween-fast-dur')) || 900;
     const t0 = performance.now();
     const step = (t) => {
       const k = Math.min(1, (t - t0) / dur);

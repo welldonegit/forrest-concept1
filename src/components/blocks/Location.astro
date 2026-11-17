@@ -68,7 +68,7 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
           <span class="loc__ring" aria-hidden="true"></span>
           <span class="loc__ring loc__ring--late" aria-hidden="true"></span>
           <button class="loc__dot" type="button" aria-expanded="false" aria-controls={`${id}-card`} aria-label={block.resort.label} data-loc-dot>
-            <img class="loc__mark" src={mark.src} width={mark.width} height={mark.height} alt="" />
+            <img class="loc__mark" src={mark.src} width={mark.width} height={mark.height} alt="" loading="lazy" decoding="async" />
           </button>
           <div class="loc__card" id={`${id}-card`} data-loc-card>
             <span class="loc__card-media">

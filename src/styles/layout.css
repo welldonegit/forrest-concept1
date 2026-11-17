@@ -4,33 +4,41 @@
   font-family:var(--font-text);font-weight:600;text-decoration:none;opacity:0;pointer-events:none}
 .skip-link:focus-visible{opacity:1;pointer-events:auto}
 
-/* Секции ниже первых экранов (Apartments, Form, Footer): браузер не считает их вёрстку, пока
+/* Секции ниже первых экранов (Apartments, Form, Location, Infrastructure, Footer): браузер не считает их вёрстку, пока
    они далеко от окна (первая отрисовка мобильного — TBT, точка B). Правило применения —
-   LAYOUT_RULES.md, «content-visibility». Сцен прокрутки и прилипания здесь нет (Model, Hero, Worlds).
+   LAYOUT_RULES.md, «content-visibility». Сцен прокрутки и прилипания здесь нет (Model, Hero, Worlds, Numbers).
    Заглушка высоты --cv-h — измеренная высота блока вместе с полями (плотные замеры 2026-11-17, uk), по ступеням
    и внутренним точкам перестройки блоков; формула «px + vw», погрешность в комментарии.
    auto — после первого показа браузер помнит настоящую высоту. Изменил вёрстку блока —
    перемерь (scripts: замер высот в отчёте по 4.x). */
-.apts,.form,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h)}
+.apts,.form,.loc,.infra,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h)}
 /* заглушка задаёт высоту содержимого — вертикальные поля секции браузер прибавляет сам */
 .apts{contain-intrinsic-size:auto calc(var(--cv-h) - var(--apts-pad-block-start) - var(--apts-pad-block-end))}
 .form{contain-intrinsic-size:auto calc(var(--cv-h) - var(--form-pad-block-start) - var(--form-pad-block-end))}
+.loc{contain-intrinsic-size:auto calc(var(--cv-h) - var(--loc-pad-block-start) - var(--loc-pad-block-end))}
+.infra{contain-intrinsic-size:auto calc(var(--cv-h) - var(--infra-pad-block-start) - var(--infra-pad-block-end))}
 /* переход по якорю (anchor-nav.js): нужны точные высоты */
-:root[data-cv-off] :is(.apts,.form,.site-footer){content-visibility:visible}
+:root[data-cv-off] :is(.apts,.form,.loc,.infra,.site-footer){content-visibility:visible}
 
 .apts{--cv-h:calc(478px + 21.27vw)}          /* ±1 */
 .form{--cv-h:calc(715px + 5.08vw)}           /* ±7 */
 .site-footer{--cv-h:calc(686px + 16.77vw)}   /* ±0 */
+.loc{--cv-h:calc(83px + 49.87vw)}            /* ±0 (Location и Infrastructure — замеры 2026-11-17) */
+.infra{--cv-h:891px}                         /* ±3 */
 @media (max-width:1599px){
   .apts{--cv-h:calc(361px + 28.11vw)}        /* ±0 */
   .form{--cv-h:738px}                        /* ±0 */
   .site-footer{--cv-h:calc(622px + 16.78vw)} /* ±0 */
+  .infra{--cv-h:calc(661px + 7.48vw)}        /* ±0 */
 }
 @media (max-width:1279px){
   .apts{--cv-h:calc(322px + 25.34vw)}        /* ±16 */
   .form{--cv-h:calc(1221px - 45.94vw)}       /* ±24 */
   .site-footer{--cv-h:calc(857px - 9.28vw)}  /* ±30 */
+  .loc{--cv-h:calc(47px + 49.87vw)}          /* ±0 */
+  .infra{--cv-h:calc(545px + 7.21vw)}        /* ±3 */
 }
+@media (max-width:959px){ .loc{--cv-h:calc(286px + 85.34vw)} }           /* ±2: колонки Location друг под другом */
 @media (max-width:1100px){ .form{--cv-h:calc(759px + 2.92vw)} }          /* ±1 */
 @media (max-width:1023px){ .site-footer{--cv-h:calc(1200px - 7.04vw)} }  /* ±17 */
 @media (max-width:900px){
@@ -42,7 +50,13 @@
   .apts{--cv-h:calc(751px + 6.77vw)}         /* ±33 */
   .form{--cv-h:calc(1133px - 1.05vw)}        /* ±18 */
   .site-footer{--cv-h:calc(696px + 16.78vw)} /* ±0 */
+  .loc{--cv-h:calc(318px + 79.2vw)}          /* ±0 */
+  .infra{--cv-h:612px}                       /* ±0 */
 }
+@media (max-width:499px){ .infra{--cv-h:642px} }                         /* ±0: заголовок в 3 строки */
+@media (max-width:409px){ .loc{--cv-h:calc(1549px - 228.5vw)} }       /* ±0: перенос заголовка Location */
+@media (max-width:399px){ .infra{--cv-h:673px} }                         /* ±0: заголовок в 4 строки */
+@media (max-width:379px){ .loc{--cv-h:calc(407px + 79vw)} }               /* ±0 */
 @media (max-width:560px){
   .apts{--cv-h:calc(656px + 19.72vw)}        /* ±21 */
   .form{--cv-h:calc(1797px - 92.64vw)}       /* ±33 */

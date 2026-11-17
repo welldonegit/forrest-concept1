@@ -116,9 +116,16 @@ function initInfo(section) {
   });
 }
 
+// Лента запускается, когда секция подходит к экрану: чтение раскладки (scrollLeft, offsetLeft)
+// при загрузке заставило бы браузер сразу считать всю страницу (TBT).
 export function initInfra(root = document) {
   root.querySelectorAll('.infra').forEach((section) => {
-    initRibbon(section);
     initInfo(section);
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      initRibbon(section);
+    }, { rootMargin: '0px 0px 50% 0px' });
+    io.observe(section);
   });
 }

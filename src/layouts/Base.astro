@@ -29,7 +29,8 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
     <!--
       Картинки ниже первого экрана (loading="lazy") не делят канал с главным фото первого экрана:
       по мере разбора страницы их адреса придерживаются и возвращаются, когда главное фото
-      (img[fetchpriority=high]) загрузилось, страница загрузилась или посетитель начал прокрутку/ввод.
+      (img[fetchpriority=high]) загрузилось, страница загрузилась или посетитель начал прокрутку страницы/ввод
+      (прокрутка элементов — например, автопрокрутка ленты Infrastructure — не считается).
       Дальше — обычная ленивая загрузка браузера. Без JS картинки грузятся как обычно. LAYOUT_RULES.md, «Скорость».
     -->
     <script is:inline>(()=>{const d=document,H='data-hold-',held=[];let done=0;
@@ -38,8 +39,9 @@ const mo=new MutationObserver((ms)=>{for(const m of ms)for(const n of m.addedNod
 for(const i of n.matches('img[loading=lazy]')?[n]:n.querySelectorAll('img[loading=lazy]')){const p=i.parentElement;if(p&&p.tagName==='PICTURE')p.querySelectorAll('source[srcset]').forEach(hold);hold(i)}}});
 mo.observe(d.documentElement,{childList:true,subtree:true});
 const go=()=>{if(done)return;done=1;mo.disconnect();for(const e of held)for(const a of['srcset','src']){const v=e.getAttribute(H+a);if(v!==null){e.setAttribute(a,v);e.removeAttribute(H+a)}}
-for(const t of['scroll','keydown','pointerdown','touchstart'])removeEventListener(t,go,true)};
-for(const t of['scroll','keydown','pointerdown','touchstart'])addEventListener(t,go,{capture:true,passive:true});
+for(const t of['scroll','keydown','pointerdown','touchstart'])removeEventListener(t,user,true)};
+const user=(e)=>{if(e.type!=='scroll'||e.target===d)go()};
+for(const t of['scroll','keydown','pointerdown','touchstart'])addEventListener(t,user,{capture:true,passive:true});
 addEventListener('load',go);
 d.addEventListener('DOMContentLoaded',()=>{const m=d.querySelector('img[fetchpriority=high]');if(!m||m.complete)return go();m.addEventListener('load',go);m.addEventListener('error',go)})})();</script>
     <!-- TODO(6.x): canonical, hreflang, og — после выбора домена. TODO(7.2): GTM, отложенная загрузка. -->
