@@ -1,7 +1,7 @@
 /**
  * Конфиг приёмки Worlds (4.4): кадры сцены прокрутки при фиксированном прогрессе p
  * (доля прокрутки секции). После прокрутки ждём, пока сглаживание догонит цель.
- *   intro p=0 — заголовок и три карточки; card p=0.3 — карточка развёрнута, слайд WIND;
+ *   intro p=0 — заголовок и три карточки; expand-start p=0.06 и expand p=0.12 — раскрытие; card p=0.3 — карточка развёрнута, слайд WIND;
  *   wave p=0.5 — середина волны ROCK; rock p=0.66; sun p=1.
  * Шапка сайта и вкладка квиза скрыты с обеих сторон.
  */
@@ -45,6 +45,9 @@ export default {
   root: '.worlds',
   states: {
     intro: { prepare: at(0), elements: intro },
+    // раскрытие центральной карточки из стартовой раскладки (на <768 — сетка с фото на всю ширину)
+    'expand-start': { prepare: at(0.06), elements: [] },
+    expand: { prepare: at(0.12), elements: [] },
     card: { prepare: at(0.3), elements: [...slide(0), ...dots] },
     wave: { prepare: at(0.5), elements: [] },
     rock: { prepare: at(0.66), elements: [...slide(1), ...dots] },

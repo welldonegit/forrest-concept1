@@ -237,6 +237,7 @@
 --worlds-grid-max:1640px;
 --worlds-grid-gap:var(--space-24);
 --worlds-ph-ratio:2.16 / 1;
+--worlds-ph-ratio-c:var(--worlds-ph-ratio); --worlds-ph-ratio-side:var(--worlds-ph-ratio);
 --worlds-pill-w:1.9em; --worlds-pill-h:.92em; --worlds-pill-gap:.22em; --worlds-pill-shift:-.06em; /* фото в строке заголовка */
 --worlds-card-inset:var(--space-12);        /* поле развёрнутой карточки */
 --worlds-card-radius-start:var(--radius-28);
@@ -518,6 +519,7 @@
 --season-chip-inset:var(--space-16);
 --worlds-pad-inline:var(--space-20);
 --worlds-grid-gap:var(--space-8);
+--worlds-ph-ratio-c:1.5 / 1; --worlds-ph-ratio-side:1.3 / 1;   /* центральное фото первым на всю ширину, боковые в два столбца (2026-11-17) */
 --worlds-text-pad-bottom:var(--space-24);
 --worlds-slide-gap:var(--space-16);
 --worlds-name-gap:var(--space-12);
@@ -526,7 +528,7 @@
 --type-hero-h1-size:calc((100vw - 40px) / 9.2);
 --type-hero-h1-lh:1.04;
 --type-hero-lead-size:14px;
---type-worlds-display-size:24px;
+--type-worlds-display-size:9.2vw; --type-worlds-display-lh:1.06; /* плавная, как в выгрузке (2026-11-17): 36 на 390 */
 --type-worlds-decor-size:56px;
 --type-stats-stat-lg-size:clamp(28px,8.4vw,40px); /* плавная, как в выгрузке (2026-11-17): 33 на 390 */
 --type-display-sm-size:28px;

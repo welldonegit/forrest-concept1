@@ -27,7 +27,13 @@
   display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--worlds-grid-gap);
   inline-size:100%; max-inline-size:var(--worlds-grid-max);
 }
-.worlds__slot{aspect-ratio:var(--worlds-ph-ratio)}
+.worlds__slot{aspect-ratio:var(--worlds-ph-ratio-side)}
+.worlds__slot[data-slot="c"]{aspect-ratio:var(--worlds-ph-ratio-c)}
+/* Мобильный (выгрузка 2026-11-17): центральное фото первым на всю ширину, боковые — в два столбца. */
+@media (max-width:767px){
+  .worlds__grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .worlds__slot[data-slot="c"]{grid-column:1 / -1; order:-1}
+}
 
 /* ---------- Карточки ---------- */
 .worlds__card{position:relative; overflow:hidden; background:var(--night-bark)}
