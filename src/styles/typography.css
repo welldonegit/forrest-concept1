@@ -23,6 +23,9 @@
 .text-model-num{font-family:var(--type-model-num-ff);font-size:var(--type-model-num-size);line-height:var(--type-model-num-lh);letter-spacing:var(--type-model-num-ls);font-weight:600}
 .text-model-title{font-family:var(--type-model-title-ff);font-size:var(--type-model-title-size);line-height:var(--type-model-title-lh);letter-spacing:var(--ls-chip);font-weight:600;text-transform:uppercase}
 .text-model-text{font-family:var(--type-model-text-ff);font-size:var(--type-model-text-size);line-height:var(--type-model-text-lh);font-weight:400}
+.text-apts-name{font-family:var(--type-apts-name-ff);font-size:var(--type-apts-name-size);line-height:var(--type-apts-name-lh);letter-spacing:var(--type-apts-name-ls);font-weight:600;text-transform:uppercase}
+.text-apts-area{font-family:var(--type-apts-area-ff);font-size:var(--type-apts-area-size);line-height:var(--type-apts-area-lh);font-weight:600}
+.text-apts-button{font-family:var(--type-apts-button-ff);font-size:var(--type-apts-button-size);line-height:var(--type-apts-button-lh);font-weight:600}
 
 /* Общие роли (4.U): шрифт, кегль, межстрочный. Вес по умолчанию — самый частый у роли. */
 .text-body{font-family:var(--type-body-ff);font-size:var(--type-body-size);line-height:var(--type-body-lh);font-weight:400}

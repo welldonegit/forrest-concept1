@@ -3,6 +3,7 @@ import { initLangSwitch } from './ui/lang-switch.js';
 import { initAnchorNav } from './ui/anchor-nav.js';
 import { initHero } from './ui/hero.js';
 import { initSwipeHints } from './ui/swipe-hint.js';
+import { initApartments } from './ui/apartments.js';
 import { initFooter } from './ui/footer.js';
 import { initWorlds } from './ui/worlds.js';
 import { initAnimations } from './anim/core.js';
@@ -11,6 +12,7 @@ initMenu();
 initLangSwitch();
 initAnchorNav();
 initHero();
+initApartments(); // до подсказок: лента сдвигается к среднему набору копий
 initSwipeHints();
 initFooter();
 initWorlds();

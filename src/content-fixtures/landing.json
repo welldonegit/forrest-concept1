@@ -914,6 +914,242 @@
           ]
         }
       ]
+    },
+    {
+      "_type": "apartments",
+      "_key": "apartments",
+      "anchor": "apartamenty",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Оберіть апартаменти під"
+            },
+            {
+              "_key": "en",
+              "value": "Choose an apartment for"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "свій бюджет і стратегію"
+            },
+            {
+              "_key": "en",
+              "value": "your budget and strategy"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "prevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попередні апартаменти"
+        },
+        {
+          "_key": "en",
+          "value": "Previous apartments"
+        }
+      ],
+      "nextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступні апартаменти"
+        },
+        {
+          "_key": "en",
+          "value": "Next apartments"
+        }
+      ],
+      "planLabel": [
+        {
+          "_key": "uk",
+          "value": "Планування"
+        },
+        {
+          "_key": "en",
+          "value": "Floor plan"
+        }
+      ],
+      "items": [
+        {
+          "_key": "superior",
+          "name": "Superior",
+          "area": [
+            {
+              "_key": "uk",
+              "value": "29,5–34,5 м²"
+            },
+            {
+              "_key": "en",
+              "value": "29.5–34.5 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:superior-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Superior"
+              },
+              {
+                "_key": "en",
+                "value": "Superior apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "deluxe",
+          "name": "Deluxe",
+          "area": [
+            {
+              "_key": "uk",
+              "value": "43,0–50,9 м²"
+            },
+            {
+              "_key": "en",
+              "value": "43.0–50.9 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:deluxe-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Deluxe"
+              },
+              {
+                "_key": "en",
+                "value": "Deluxe apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "family",
+          "name": "Family Suite",
+          "area": [
+            {
+              "_key": "uk",
+              "value": "57,5–60,5 м²"
+            },
+            {
+              "_key": "en",
+              "value": "57.5–60.5 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:family-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Family Suite"
+              },
+              {
+                "_key": "en",
+                "value": "Family Suite apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "junior",
+          "name": "Junior Suite",
+          "area": [
+            {
+              "_key": "uk",
+              "value": "77,3–91,6 м²"
+            },
+            {
+              "_key": "en",
+              "value": "77.3–91.6 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:junior-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Junior Suite"
+              },
+              {
+                "_key": "en",
+                "value": "Junior Suite apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "presidential",
+          "name": "Presidential",
+          "area": [
+            {
+              "_key": "uk",
+              "value": "111,0–111,5 м²"
+            },
+            {
+              "_key": "en",
+              "value": "111.0–111.5 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:presidential-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Presidential"
+              },
+              {
+                "_key": "en",
+                "value": "Presidential apartment visualisation"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

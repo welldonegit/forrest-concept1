@@ -75,6 +75,11 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/card-income.jpg',
     '/design-export/hero-summer-mob.jpg',
     '/design-export/hero-winter-mob.jpg',
+    '/design-export/superior-room.jpg',
+    '/design-export/deluxe-room.jpg',
+    '/design-export/family-room.jpg',
+    '/design-export/junior-room.jpg',
+    '/design-export/presidential-room.jpg',
   ],
   { import: 'default' },
 );
@@ -253,7 +258,37 @@ export interface ModelBlock {
   steps: ModelStep[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock;
+export interface ApartmentsTitleLine {
+  _key: string;
+  text: string;
+  /** Приглушённый цвет строки. */
+  muted?: boolean;
+}
+
+export interface ApartmentItem {
+  _key: string;
+  /** Название формата (Superior, Deluxe…) — не переводится. */
+  name: string;
+  /** Площадь, например «29,5–34,5 м²». */
+  area: string;
+  image: SanityImage;
+}
+
+export interface ApartmentsBlock {
+  _type: 'apartments';
+  _key: string;
+  /** id секции (#apartamenty): на него ссылаются меню и футер. */
+  anchor: string;
+  title: ApartmentsTitleLine[];
+  /** Подписи кнопок-стрелок для экранных дикторов. */
+  prevLabel: string;
+  nextLabel: string;
+  /** Кнопка «Планування». TODO(4.17): открывает попап планировок. */
+  planLabel: string;
+  items: ApartmentItem[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');
