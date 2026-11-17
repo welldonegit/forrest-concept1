@@ -57,7 +57,7 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
         </div>
         <ul class="loc__pins" role="list">
           {block.pins.map((p) => (
-            <li class="loc__pin" style={`--x:${p.x}%;--y:${p.y}%`} data-loc-pin>
+            <li class="loc__pin" style={`--x:${p.x}%;--y:${p.y}%;--xn:${p.x}`} data-loc-pin>
               <span class:list={['loc__pin-label', `loc__pin-label--${p.side}`]}>
                 <span class="loc__pin-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={icons[p.icon]} /></span>{p.label}
               </span>

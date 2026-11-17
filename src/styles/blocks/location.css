@@ -61,12 +61,16 @@
   border-radius:var(--radius-pill);
   background:var(--air); box-shadow:var(--loc-pin-shadow);
   font-family:var(--font-text); font-weight:600; font-size:var(--loc-pin-size); line-height:1;
-  color:var(--text-primary); white-space:nowrap;
+  color:var(--text-primary);
+  /* Ширина — по тексту, но не дальше края карты (длинный перевод переносится внутри метки);
+     --xn — положение точки в % ширины карты без единиц, cqw — доля ширины карты */
+  inline-size:max-content; min-block-size:1.9em; block-size:auto; padding-block:.2em;
+  max-inline-size:calc(var(--loc-pin-room) * 1cqw + .95em - var(--loc-pin-edge));
 }
 /* подпись справа от точки: точка — круг значка слева */
-.loc__pin-label--right{inset-inline-start:-.95em; padding-inline:.2em .75em}
+.loc__pin-label--right{--loc-pin-room:calc(100 - var(--xn)); inset-inline-start:-.95em; padding-inline:.2em .75em}
 /* подпись слева: круг значка справа */
-.loc__pin-label--left{inset-inline-end:-.95em; flex-direction:row-reverse; padding-inline:.75em .2em}
+.loc__pin-label--left{--loc-pin-room:var(--xn); inset-inline-end:-.95em; flex-direction:row-reverse; padding-inline:.75em .2em}
 .loc__pin-icon{
   flex:none; inline-size:1.5em; block-size:1.5em; border-radius:var(--radius-pill);
   background:var(--bg-inverse); color:var(--air);

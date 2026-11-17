@@ -351,6 +351,7 @@
 --loc-text-max:460px;
 --loc-map-dim:saturate(.55) brightness(.8);                                  /* стартовый вид карты (статичный слой) */
 --loc-pin-size:min(1.364cqw, 13px);                                          /* подписи меток: доля ширины карты, ≤13 */
+--loc-pin-edge:var(--space-4);             /* подпись метки не ближе 4px к краю карты */
 --loc-pin-shadow:0 6px 16px -8px rgba(0,0,0,.55);
 --loc-dot-shadow:0 10px 24px -10px rgba(0,0,0,.6);
 --loc-tag-shadow:0 12px 28px -14px rgba(0,0,0,.6);
