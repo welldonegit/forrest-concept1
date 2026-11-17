@@ -12,6 +12,7 @@ import type { ImageMetadata } from 'astro';
 import { defaultLanguage, languageIds } from './languages';
 import siteSettingsFixture from '../content-fixtures/siteSettings.json';
 import landingFixture from '../content-fixtures/landing.json';
+import apartmentFormatsFixture from '../content-fixtures/apartmentFormats.json';
 
 type I18nItem = { _key?: string; language?: string; value: unknown };
 
@@ -39,6 +40,29 @@ function pick(items: I18nItem[], lang: string, path: string): unknown {
     console.warn(`[i18n] нет перевода «${lang}»: ${path} → подставлен «${defaultLanguage}»`);
   }
   return byLang(defaultLanguage);
+}
+
+/* ---------- Ссылки на документы ---------- */
+
+// Документы, на которые ссылаются другие (как reference в Sanity): форматы апартаментов
+// — одни данные для карточек Apartments и списка в форме.
+const documents = new Map<string, unknown>(
+  (apartmentFormatsFixture as { _id: string }[]).map((d) => [d._id, d]),
+);
+
+/** Подставляет документы вместо ссылок { _type: 'reference', _ref }. */
+function deref(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(deref);
+  if (value && typeof value === 'object') {
+    const v = value as Record<string, unknown>;
+    if (v._type === 'reference' && typeof v._ref === 'string') {
+      const doc = documents.get(v._ref);
+      if (!doc) throw new Error(`Нет документа для ссылки ${v._ref}`);
+      return deref(doc);
+    }
+    return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, deref(x)]));
+  }
+  return value;
 }
 
 /** Рекурсивно заменяет переводимые поля значениями на языке lang. */
@@ -162,14 +186,18 @@ export interface SiteSettings {
     phoneLabel: string;
     phonePlaceholder: string;
     formatLabel: string;
-    formatOptions: { _key: string; label: string }[];
+    /** Первый пункт списка «ещё не определился». */
+    formatUndecidedLabel: string;
+    /** Форматы апартаментов — ссылки на те же документы, что и карточки Apartments. */
+    formats: ApartmentFormat[];
     contactLegend: string;
     /** value — технічне значення для заявки (не перекладається). */
     contactOptions: { _key: string; value: string; label: string }[];
     submitLabel: string;
     successTitle: string;
     successText: string;
-    errors: { name: string; phone: string };
+    /** Тексты ошибок: пустое обязательное поле, неверный телефон, Turnstile не пройден, ошибка отправки. */
+    errors: { required: string; phone: string; turnstile: string; send: string };
   };
   footer: {
     address: string;
@@ -273,6 +301,8 @@ export interface ModelBlock {
   _key: string;
   /** id секции (#model): на него ссылаются меню и футер. */
   anchor: string;
+  /** Заголовок секции для экранных дикторов (визуально скрыт: в выгрузке заголовка нет). */
+  title: string;
   /** Абзац над шагами: при прокрутке проявляется по словам. */
   text: string;
   /** Шаги модели; номер (01, 02…) ставится по порядку. */
@@ -286,12 +316,18 @@ export interface ApartmentsTitleLine {
   muted?: boolean;
 }
 
-export interface ApartmentItem {
-  _key: string;
+/** Документ apartmentFormat: один на формат, на него ссылаются карточки Apartments и форма. */
+export interface ApartmentFormat {
+  _id: string;
   /** Название формата (Superior, Deluxe…) — не переводится. */
   name: string;
   /** Площадь, например «29,5–34,5 м²». */
   area: string;
+}
+
+export interface ApartmentItem {
+  _key: string;
+  format: ApartmentFormat;
   image: SanityImage;
 }
 
@@ -336,9 +372,9 @@ export interface FormBlock {
 export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
-  return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');
+  return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');
 }
 
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
-  return localize<{ blocks: LandingBlock[] }>(landingFixture, lang, 'landing');
+  return localize<{ blocks: LandingBlock[] }>(deref(landingFixture), lang, 'landing');
 }

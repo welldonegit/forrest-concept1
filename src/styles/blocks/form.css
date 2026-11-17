@@ -214,6 +214,11 @@
 .form[data-reveal] .form__mask:nth-child(1) .form__line{transition-delay:var(--form-title-delay-1)}
 .form[data-reveal] .form__mask:nth-child(2) .form__line{transition-delay:var(--form-title-delay-2)}
 .form[data-reveal] .form__text{transition:opacity var(--form-text-fade) ease var(--form-text-delay), transform var(--form-text-move) var(--ease-out-expo) var(--form-text-delay)}
+/* Размытие абзаца при появлении — как в выгрузке, только на десктопе (решение 2026-11-17). */
+@media (min-width:1280px){
+  .form[data-reveal] .form__text{transition:opacity var(--form-text-fade) ease var(--form-text-delay), transform var(--form-text-move) var(--ease-out-expo) var(--form-text-delay), filter var(--form-text-fade) ease var(--form-text-delay)}
+  .form[data-reveal="pre"] .form__text{filter:blur(var(--form-text-blur))}
+}
 .form[data-reveal] .form__bullet{
   --d:calc(var(--form-bullet-delay) + var(--i, 0) * var(--form-bullet-step));
   transition:clip-path var(--form-bullet-dur) var(--ease-out-expo) var(--d), transform var(--form-bullet-dur) var(--ease-out-expo) var(--d);

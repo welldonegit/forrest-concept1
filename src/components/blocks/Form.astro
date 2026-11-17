@@ -8,7 +8,7 @@
  *
  * Поведінка форми (маска телефону, перевірка полів) — src/scripts/ui/lead-form.js.
  * TODO(5.2–5.4): відправка в POST /api/lead, Turnstile, UTM; стан успіху (data-sent) —
- * лише після запису заявки. Тексти помилок у вигрузці відсутні — TODO в siteSettings.
+ * лише після запису заявки. Тексти помилок — siteSettings.form.errors (чернетка 2026-11-17).
  * Поява — src/scripts/anim/blocks/form.js + form.css.
  */
 import { Image } from 'astro:assets';
@@ -64,18 +64,19 @@ const id = block.anchor;
         <div class="form__field">
           <label class="form__label text-form-label" for={`${id}-name`}>{f.nameLabel}</label>
           <input class="form__input text-form-input" id={`${id}-name`} name="name" type="text" autocomplete="name" required placeholder={f.namePlaceholder} aria-describedby={`${id}-err-name`} />
-          <span class="form__error visually-hidden" id={`${id}-err-name`} data-error hidden>{f.errors.name}</span>
+          <span class="form__error visually-hidden" id={`${id}-err-name`} data-error hidden>{f.errors.required}</span>
         </div>
         <div class="form__field">
           <label class="form__label text-form-label" for={`${id}-phone`}>{f.phoneLabel}</label>
           <input class="form__input text-form-input" id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={f.phonePlaceholder} aria-describedby={`${id}-err-phone`} data-phone-mask />
-          <span class="form__error visually-hidden" id={`${id}-err-phone`} data-error hidden>{f.errors.phone}</span>
+          <span class="form__error visually-hidden" id={`${id}-err-phone`} data-error hidden data-msg-required={f.errors.required} data-msg-invalid={f.errors.phone}>{f.errors.phone}</span>
         </div>
         <div class="form__field">
           <label class="form__label text-form-label" for={`${id}-format`}>{f.formatLabel}</label>
           <span class="form__select-wrap">
             <select class="form__input form__select text-form-input" id={`${id}-format`} name="format">
-              {f.formatOptions.map((o) => <option>{o.label}</option>)}
+              <option>{f.formatUndecidedLabel}</option>
+              {f.formats.map((o) => <option>{o.name}, {o.area}</option>)}
             </select>
             <svg class="form__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
           </span>
@@ -98,6 +99,8 @@ const id = block.anchor;
             </span>
           </button>
         </div>
+        <!-- TODO(5.4): вид сообщения об ошибке отправки — в выгрузке нет; пока только для экранных дикторов. -->
+        <p class="form__status visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
       </form>
       <div class="form__done" aria-live="polite" data-lead-done>
         <span class="form__done-icon" aria-hidden="true">

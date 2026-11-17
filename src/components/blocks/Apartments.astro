@@ -62,9 +62,9 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
           />
         </div>
         <div class="apts__body">
-          <h3 class="apts__name text-apts-name">{item.name}</h3>
+          <h3 class="apts__name text-apts-name">{item.format.name}</h3>
           <div class="apts__row">
-            <span class="apts__area text-apts-area">{item.area}</span>
+            <span class="apts__area text-apts-area">{item.format.area}</span>
             <button class="apts__plan text-apts-button" type="button" data-plan-open={i}>{block.planLabel}</button>
           </div>
         </div>

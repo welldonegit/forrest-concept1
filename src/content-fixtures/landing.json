@@ -913,6 +913,16 @@
             }
           ]
         }
+      ],
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Інвестиційна модель Trinity"
+        },
+        {
+          "_key": "en",
+          "value": "Trinity investment model"
+        }
       ]
     },
     {
@@ -981,17 +991,10 @@
       "items": [
         {
           "_key": "superior",
-          "name": "Superior",
-          "area": [
-            {
-              "_key": "uk",
-              "value": "29,5–34,5 м²"
-            },
-            {
-              "_key": "en",
-              "value": "29.5–34.5 m²"
-            }
-          ],
+          "format": {
+            "_type": "reference",
+            "_ref": "format-superior"
+          },
           "image": {
             "_type": "image",
             "asset": {
@@ -1015,17 +1018,10 @@
         },
         {
           "_key": "deluxe",
-          "name": "Deluxe",
-          "area": [
-            {
-              "_key": "uk",
-              "value": "43,0–50,9 м²"
-            },
-            {
-              "_key": "en",
-              "value": "43.0–50.9 m²"
-            }
-          ],
+          "format": {
+            "_type": "reference",
+            "_ref": "format-deluxe"
+          },
           "image": {
             "_type": "image",
             "asset": {
@@ -1049,17 +1045,10 @@
         },
         {
           "_key": "family",
-          "name": "Family Suite",
-          "area": [
-            {
-              "_key": "uk",
-              "value": "57,5–60,5 м²"
-            },
-            {
-              "_key": "en",
-              "value": "57.5–60.5 m²"
-            }
-          ],
+          "format": {
+            "_type": "reference",
+            "_ref": "format-family"
+          },
           "image": {
             "_type": "image",
             "asset": {
@@ -1083,17 +1072,10 @@
         },
         {
           "_key": "junior",
-          "name": "Junior Suite",
-          "area": [
-            {
-              "_key": "uk",
-              "value": "77,3–91,6 м²"
-            },
-            {
-              "_key": "en",
-              "value": "77.3–91.6 m²"
-            }
-          ],
+          "format": {
+            "_type": "reference",
+            "_ref": "format-junior"
+          },
           "image": {
             "_type": "image",
             "asset": {
@@ -1117,17 +1099,10 @@
         },
         {
           "_key": "presidential",
-          "name": "Presidential",
-          "area": [
-            {
-              "_key": "uk",
-              "value": "111,0–111,5 м²"
-            },
-            {
-              "_key": "en",
-              "value": "111.0–111.5 m²"
-            }
-          ],
+          "format": {
+            "_type": "reference",
+            "_ref": "format-presidential"
+          },
           "image": {
             "_type": "image",
             "asset": {

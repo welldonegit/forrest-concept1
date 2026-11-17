@@ -55,11 +55,14 @@
   background:var(--text-primary);
   transform:scale(var(--model-dot-on-scale));
 }
+.model__dot::before,
 .model__dot::after{
   content:""; position:absolute; inset:calc(-1 * var(--border-1));
   border:var(--border-1) solid var(--text-primary); border-radius:var(--radius-pill);
-  opacity:0;
 }
+/* Заливка точки — второй слой: в выгрузке цвет фона и рамки меняется плавно (0.9s), здесь — opacity слоя. */
+.model__dot::before{background:var(--text-primary)}
+.model__dot::after{opacity:0}
 .model__num-wrap{display:block; overflow:hidden; padding-block-end:.04em}
 .model__num{display:block; transform-origin:0 100%}
 
@@ -71,7 +74,12 @@
   border-radius:var(--radius-24);
   background:var(--bg-inverse); color:var(--air);
   transform:rotate(var(--model-tilt));
-  box-shadow:var(--model-card-shadow);
+  position:relative;
+}
+/* Тень — отдельный слой: в выгрузке box-shadow проявляется (1.4s), здесь — opacity слоя (Р6). */
+.model__card::before{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  box-shadow:var(--model-card-shadow); pointer-events:none;
 }
 .model__title{margin:0; overflow:hidden; text-wrap:balance}
 .model__title-inner{display:block}
@@ -117,7 +125,12 @@
   background:var(--text-primary);
   box-shadow:var(--model-head-glow);
 }
-.model[data-motion] .model__dot{transition:transform var(--model-dot-dur) var(--ease-out-expo)}
+.model[data-motion] .model__dot{
+  background:var(--bg-surface-warm); border-color:var(--model-dot-border);
+  transition:transform var(--model-dot-dur) var(--ease-out-expo);
+}
+.model[data-motion] .model__dot::before{transition:opacity var(--model-dot-fill-dur) var(--ease-out-expo)}
+.model[data-motion] .model__card::before{transition:opacity var(--model-shadow-dur) ease var(--model-card-delay)}
 .model[data-motion] .model__num{transition:transform var(--model-num-dur) var(--ease-out-expo)}
 .model[data-motion] .model__title-inner{transition:transform var(--model-title-dur) var(--ease-out-expo) var(--model-title-delay)}
 .model[data-motion] .model__text{
@@ -131,17 +144,25 @@
     transform var(--model-card-move-dur) var(--ease-out-expo) var(--model-card-delay);
 }
 /* Шаг ещё не «включён» линией */
-.model[data-motion] .model__step:not([data-on]) .model__dot{
-  background:var(--bg-surface-warm); border-color:var(--model-dot-border);
-  transform:none;
-}
+.model[data-motion] .model__step:not([data-on]) .model__dot{transform:none}
+.model[data-motion] .model__step:not([data-on]) .model__dot::before{opacity:0}
 .model[data-motion] .model__step[data-on] .model__dot::after{animation:model-ring var(--model-ring-dur) var(--ease-out-expo) both}
 .model[data-motion] .model__step:not([data-on]) .model__num{transform:translateY(105%) skewY(6deg)}
 .model[data-motion] .model__step:not([data-on]) .model__title-inner{transform:translateY(110%)}
 .model[data-motion] .model__step:not([data-on]) .model__text{opacity:0; transform:translateY(var(--model-text-shift))}
 .model[data-motion] .model__step:not([data-on]) .model__card{
   opacity:0; transform:translateY(var(--model-card-shift)) rotate(calc(var(--model-tilt) * -2.5));
-  box-shadow:none;
+}
+.model[data-motion] .model__step:not([data-on]) .model__card::before{opacity:0}
+/* Размытие текста шага при появлении — как в выгрузке, только на десктопе (решение 2026-11-17). */
+@media (min-width:1280px){
+  .model[data-motion] .model__text{
+    transition:
+      opacity var(--model-text-fade-dur) ease var(--model-text-delay),
+      transform var(--model-text-move-dur) var(--ease-out-expo) var(--model-text-delay),
+      filter var(--model-text-fade-dur) ease var(--model-text-delay);
+  }
+  .model[data-motion] .model__step:not([data-on]) .model__text{filter:blur(var(--model-text-blur))}
 }
 @keyframes model-ring{
   0%{opacity:.6; transform:scale(1)}

@@ -1,0 +1,77 @@
+[
+  {
+    "_id": "format-superior",
+    "_type": "apartmentFormat",
+    "name": "Superior",
+    "area": [
+      {
+        "_key": "uk",
+        "value": "29,5–34,5 м²"
+      },
+      {
+        "_key": "en",
+        "value": "29.5–34.5 m²"
+      }
+    ]
+  },
+  {
+    "_id": "format-deluxe",
+    "_type": "apartmentFormat",
+    "name": "Deluxe",
+    "area": [
+      {
+        "_key": "uk",
+        "value": "43,0–50,9 м²"
+      },
+      {
+        "_key": "en",
+        "value": "43.0–50.9 m²"
+      }
+    ]
+  },
+  {
+    "_id": "format-family",
+    "_type": "apartmentFormat",
+    "name": "Family Suite",
+    "area": [
+      {
+        "_key": "uk",
+        "value": "57,5–60,5 м²"
+      },
+      {
+        "_key": "en",
+        "value": "57.5–60.5 m²"
+      }
+    ]
+  },
+  {
+    "_id": "format-junior",
+    "_type": "apartmentFormat",
+    "name": "Junior Suite",
+    "area": [
+      {
+        "_key": "uk",
+        "value": "77,3–91,6 м²"
+      },
+      {
+        "_key": "en",
+        "value": "77.3–91.6 m²"
+      }
+    ]
+  },
+  {
+    "_id": "format-presidential",
+    "_type": "apartmentFormat",
+    "name": "Presidential",
+    "area": [
+      {
+        "_key": "uk",
+        "value": "111,0–111,5 м²"
+      },
+      {
+        "_key": "en",
+        "value": "111.0–111.5 m²"
+      }
+    ]
+  }
+]

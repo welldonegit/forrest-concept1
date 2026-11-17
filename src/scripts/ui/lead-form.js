@@ -19,8 +19,13 @@ function formatPhone(value) {
   return `+380 (${a}${d.length >= 2 ? ') ' : ''}${b}${c ? `-${c}` : ''}${e ? `-${e}` : ''}`;
 }
 
-function setError(input, on) {
+function setError(input, on, kind = 'required') {
   const err = document.getElementById(input.getAttribute('aria-describedby'));
+  // у телефона два текста: пустое поле и неполный номер (siteSettings.form.errors)
+  if (on && err) {
+    const msg = err.dataset[kind === 'invalid' ? 'msgInvalid' : 'msgRequired'];
+    if (msg) err.textContent = msg;
+  }
   if (on) {
     // перезапуск встряски при повторной ошибке
     input.removeAttribute('aria-invalid');
@@ -43,12 +48,14 @@ function initForm(form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const badName = !name.value.trim();
-    const badPhone = phone.value.replace(/\D/g, '').length < PHONE_DIGITS;
+    const digits = phone.value.replace(/\D/g, '').length;
+    const badPhone = digits < PHONE_DIGITS;
     setError(name, badName);
-    setError(phone, badPhone);
+    setError(phone, badPhone, digits ? 'invalid' : 'required');
     if (badName) { name.focus(); return; }
     if (badPhone) { phone.focus(); return; }
-    // TODO(5.4): отправка; при успехе — form.closest('[data-lead-section]').dataset.sent = ''
+    // TODO(5.4): отправка; при успехе — form.closest('[data-lead-section]').dataset.sent = '';
+    // при ошибке — текст из [data-form-status] (data-msg-turnstile / data-msg-send).
   });
 }
 

@@ -8,7 +8,8 @@
  *
  * Сцена: src/scripts/anim/blocks/model.js. Без JS и при prefers-reduced-motion —
  * конечное состояние: текст целиком, все шаги видны, на <768 шаги столбцом.
- * TODO(вопрос): в выгрузке у блока нет заголовка h2 — шаги (h3) идут сразу после h2 Worlds.
+ * Заголовок h2 — только для экранных дикторов (в выгрузке его нет, решение 2026-11-17).
+ * TODO: текст «Інвестиційна модель Trinity» / «Trinity investment model» — черновик, ждёт подтверждения.
  */
 import type { ModelBlock } from '../../lib/content';
 
@@ -19,9 +20,10 @@ interface Props {
 const { block } = Astro.props;
 const number = (i: number) => String(i + 1).padStart(2, '0');
 ---
-<section class="model" id={block.anchor} data-anim-block="model" style={`--model-count:${block.steps.length};--model-moves:${block.steps.length - 1}`}>
+<section class="model" id={block.anchor} aria-labelledby={`${block.anchor}-title`} data-anim-block="model" style={`--model-count:${block.steps.length};--model-moves:${block.steps.length - 1}`}>
   <div class="model__wrap" data-model-wrap>
     <div class="model__stick" data-model-stick>
+      <h2 class="visually-hidden" id={`${block.anchor}-title`}>{block.title}</h2>
       <p class="model__lead text-model-lead" data-model-lead>{block.text}</p>
       <div class="model__deck" data-model-deck>
         <div class="model__line" aria-hidden="true">

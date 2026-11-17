@@ -882,84 +882,41 @@
         "value": "Apartment size"
       }
     ],
-    "formatOptions": [
+    "formatUndecidedLabel": [
       {
-        "_key": "o0",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Ще не визначився, потрібна консультація"
-          },
-          {
-            "_key": "en",
-            "value": "Not decided yet, I need advice"
-          }
-        ]
+        "_key": "uk",
+        "value": "Ще не визначився, потрібна консультація"
       },
       {
-        "_key": "o1",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Superior, 29,5–34,5 м²"
-          },
-          {
-            "_key": "en",
-            "value": "Superior, 29.5–34.5 m²"
-          }
-        ]
+        "_key": "en",
+        "value": "Not decided yet, I need advice"
+      }
+    ],
+    "formats": [
+      {
+        "_type": "reference",
+        "_key": "superior",
+        "_ref": "format-superior"
       },
       {
-        "_key": "o2",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Deluxe, 43–50,9 м²"
-          },
-          {
-            "_key": "en",
-            "value": "Deluxe, 43–50.9 m²"
-          }
-        ]
+        "_type": "reference",
+        "_key": "deluxe",
+        "_ref": "format-deluxe"
       },
       {
-        "_key": "o3",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Family, 54,3–62,5 м²"
-          },
-          {
-            "_key": "en",
-            "value": "Family, 54.3–62.5 m²"
-          }
-        ]
+        "_type": "reference",
+        "_key": "family",
+        "_ref": "format-family"
       },
       {
-        "_key": "o4",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Junior Suite, 77,3–91,6 м²"
-          },
-          {
-            "_key": "en",
-            "value": "Junior Suite, 77.3–91.6 m²"
-          }
-        ]
+        "_type": "reference",
+        "_key": "junior",
+        "_ref": "format-junior"
       },
       {
-        "_key": "o5",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Presidential, 111–111,5 м²"
-          },
-          {
-            "_key": "en",
-            "value": "Presidential, 111–111.5 m²"
-          }
-        ]
+        "_type": "reference",
+        "_key": "presidential",
+        "_ref": "format-presidential"
       }
     ],
     "contactLegend": [
@@ -1061,24 +1018,44 @@
       }
     ],
     "errors": {
-      "name": [
+      "required": [
         {
           "_key": "uk",
-          "value": "TODO: текст помилки «вкажіть ім’я» (немає у вигрузці)"
+          "value": "Заповніть це поле"
         },
         {
           "_key": "en",
-          "value": "TODO: name error text (not in the export)"
+          "value": "Please fill in this field"
         }
       ],
       "phone": [
         {
           "_key": "uk",
-          "value": "TODO: текст помилки «перевірте номер» (немає у вигрузці)"
+          "value": "Перевірте номер телефону"
         },
         {
           "_key": "en",
-          "value": "TODO: phone error text (not in the export)"
+          "value": "Please check the phone number"
+        }
+      ],
+      "turnstile": [
+        {
+          "_key": "uk",
+          "value": "Не вдалося підтвердити, що ви не робот. Спробуйте ще раз"
+        },
+        {
+          "_key": "en",
+          "value": "We couldn't verify you're not a robot. Please try again"
+        }
+      ],
+      "send": [
+        {
+          "_key": "uk",
+          "value": "Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте нам"
+        },
+        {
+          "_key": "en",
+          "value": "We couldn't send your request. Please try again or call us"
         }
       ]
     }
