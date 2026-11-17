@@ -15,6 +15,7 @@
 --moss:#3A4A3C;        /* тёмная приглушённая поверхность секций */
 --linen:#F7F2E8;       /* тёплая светлая поверхность полей (#f4f1ea слит сюда, ΔE 1.74) */
 --ash:#2B2E2D;         /* тёмный нейтральный фон (панели форм; для будущих блоков) */
+--brick:#B4533C;       /* ошибка поля формы (выгрузка, 4.7) */
 
 /* ===== Семантика цвета (светлая тема — единственная) ===== */
 --bg-page:var(--air);
@@ -32,6 +33,7 @@
 --text-on-inverse:var(--white-sand);
 --text-on-inverse-2:var(--sea-fog);
 --text-muted:var(--stone);
+--danger:var(--brick);
 
 --accent:var(--sea-wave);
 --accent-deep:var(--forest);
@@ -97,6 +99,12 @@
 --model-card-shadow:0 30px 50px -30px rgba(24,40,32,.55),0 2px 8px rgba(24,40,32,.08);
 --apts-arrow-border:color-mix(in srgb, var(--spruce) 20%, transparent);    /* rgba(24,40,32,.2) */
 --apts-bar-bg:color-mix(in srgb, var(--spruce) 14%, transparent);         /* rgba(24,40,32,.14) */
+--form-input-border:rgba(255,255,255,.18);
+--form-input-border-hover:rgba(255,255,255,.4);
+--form-input-bg:rgba(255,255,255,.05);
+--form-input-placeholder:rgba(255,255,255,.5);
+--form-input-ring:0 0 0 4px rgba(255,255,255,.08);
+--form-chip-border-hover:rgba(255,255,255,.5);
 
 /* -- Worlds (рендер) -- */
 --worlds-scrim:radial-gradient(ellipse 85% 95% at 0% 100%,
@@ -304,6 +312,34 @@
 --apts-thumb-h:3px;
 --apts-img-hover-scale:1.04;
 
+/* Form (4.7): рендер 1920 */
+--form-pad-block-start:var(--space-32);
+--form-pad-block-end:var(--space-72);
+--form-pad-inline:var(--space-32);          /* рендер 34 */
+--form-grid-gap:var(--space-16);
+--form-panel-pad:var(--space-56);
+--form-info-gap:var(--space-24);            /* рендер 26 */
+--form-text-max:560px;
+--form-bullets-mt:var(--space-12);
+--form-bullet-ratio:16 / 10;
+--form-bullet-pad:var(--space-16);
+--form-bullet-row-w-md:128px;               /* 901–1100: фото слева, как в выгрузке */
+--form-bullet-row-w-sm:136px;               /* ≤560 */
+--form-bullet-hover-scale:1.06;
+--form-bullet-img-from:1.3;
+--form-mgr-gap:var(--space-20);             /* рендер 22 */
+--form-mgr-pad:var(--space-20);             /* рендер 18 */
+--form-mgr-photo:76px;                      /* собственный размер фото эксперта */
+--form-mgr-who-basis:160px;
+--form-msg-icon:19px;
+--form-fields-gap:var(--space-28);
+--form-chip-pad:var(--space-24);            /* рендер 22 */
+--form-chevron:18px;
+--form-submit-icon:52px;                    /* круг со стрелкой в кнопке: собственный размер */
+--form-done-check:26px;
+--form-done-text-max:440px;
+--form-rise-shift:18px;
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -386,6 +422,13 @@
 --apts-title-dur:1.3s; --apts-title-delay-1:.1s; --apts-title-delay-2:.2s;
 --apts-fade-dur:1s; --apts-rise-dur:1.2s; --apts-rise-shift:12px; --apts-nav-delay:.5s; --apts-foot-delay:.9s;
 --apts-card-dur:1.5s; --apts-card-step:.12s; --apts-card-shift:-48px;
+--form-title-dur:1.3s; --form-title-delay-1:.1s; --form-title-delay-2:.2s;
+--form-text-fade:1.1s; --form-text-move:1.3s; --form-text-delay:.35s;
+--form-bullet-dur:1.4s; --form-bullet-img-dur:2.2s; --form-bullet-delay:.5s; --form-bullet-step:.15s; --form-bullet-hover-dur:1.2s;
+--form-fade-dur:1s; --form-rise-dur:1.2s; --form-mgr-delay:1s; --form-panel-dur:1.5s; --form-panel-delay:.2s;
+--form-phone-dur:.5s; --form-msg-dur:.35s; --form-input-dur:.3s; --form-chip-dur:.35s; --form-shake-dur:.5s; --form-submit-icon-dur:.6s;
+--form-done-out-dur:.6s; --form-done-in-dur:.8s; --form-done-icon-dur:1s; --form-done-fade-dur:.6s; --form-done-icon-delay:.2s;
+--form-done-text-fade:.9s; --form-done-text-move:1.1s; --form-done-text-delay:.4s;
 --season-play-fade-dur:.8s; --season-play-pop-dur:1.2s; --season-play-delay:1.2s; --season-play-scale:.4;
 --ease-out-back-strong:cubic-bezier(.34,1.5,.64,1);
 --season-pulse-dur:2.8s; --season-pulse-delay:2.4s;
@@ -432,6 +475,17 @@
 --type-apts-name-ff:var(--font-display); --type-apts-name-size:28px; --type-apts-name-lh:1.1; --type-apts-name-ls:-.02em; /* временная: название апартаментов (28/26/20/20) */
 --type-apts-area-ff:var(--font-text); --type-apts-area-size:24px; --type-apts-area-lh:1.2; /* временная: площадь (24/22/18/18) */
 --type-apts-button-ff:var(--font-text); --type-apts-button-size:15px; --type-apts-button-lh:20px; /* временная: кнопка «Планування» (15 на всех ступенях) */
+--type-form-title-ff:var(--font-display); --type-form-title-size:clamp(20px,2.05vw,36px); --type-form-title-lh:1.1; --type-form-title-ls:-.03em; /* временная, плавная: заголовок Form (36/30/21/20) */
+--type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
+--type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
+--type-form-label-ff:var(--font-text); --type-form-label-size:15px; --type-form-label-lh:20px; /* временная: подпись поля; совпадает с apts-button — кандидат на общую роль */
+--type-form-input-ff:var(--font-text); --type-form-input-size:17px; --type-form-input-lh:24px; /* временная: текст в поле */
+--type-form-chip-ff:var(--font-text); --type-form-chip-size:16px; --type-form-chip-lh:24px; /* временная: способ связи */
+--type-form-submit-ff:var(--font-text); --type-form-submit-size:17px; --type-form-submit-lh:24px; /* временная: кнопка отправки */
+--type-form-done-title-ff:var(--font-display); --type-form-done-title-size:clamp(22px,2vw,32px); --type-form-done-title-lh:1.15; --type-form-done-title-ls:-.02em; /* временная, плавная: «Дякуємо» */
+--type-form-done-text-ff:var(--font-text); --type-form-done-text-size:17px; --type-form-done-text-lh:27px; /* временная: текст успеха (рендер 17/27.2) */
+--type-manager-name-ff:var(--font-display); --type-manager-name-size:16px; --type-manager-name-lh:20px; --type-manager-name-ls:-.02em; /* временная: имя эксперта (16/14.4/14) */
+--type-manager-phone-ff:var(--font-display); --type-manager-phone-size:17px; --type-manager-phone-lh:21px; --type-manager-phone-ls:-.01em; /* временная: телефон эксперта (17/14.4/14) */
 --type-caption-ff:var(--font-text); --type-caption-size:14px; --type-caption-lh:20px;  /* юридическая строка Footer, плашка «60 сек» */
 --type-label-ff:var(--font-text); --type-label-size:12px; --type-label-lh:16px;        /* подписи меню, язык, «Гортайте» */
 --type-title-sm-ff:var(--font-display); --type-title-sm-size:28px; --type-title-sm-lh:36px; /* контакты Footer, подпись мира Worlds */
@@ -492,6 +546,13 @@
 --apts-body-gap:var(--space-16);            /* рендер 14.4 */
 --type-apts-name-size:26px;                 /* рендер 25.9 */
 --type-apts-area-size:22px;                 /* рендер 21.6 */
+--form-pad-block-start:var(--space-28);     /* рендер 28.8 */
+--form-panel-pad:var(--space-48);           /* рендер 49 */
+--form-mgr-pad:var(--space-16);             /* рендер 17.3 */
+--type-form-text-size:17px; --type-form-text-lh:28px;       /* рендер 17.3/27.6 */
+--type-form-bullet-size:11px; --type-form-bullet-lh:15px;   /* рендер 11.2/15.2 */
+--type-manager-name-size:14px; --type-manager-name-lh:18px; /* рендер 14.4/18 */
+--type-manager-phone-size:14px; --type-manager-phone-lh:18px;
 }}
 
 @media (max-width:1279px){:root{
@@ -576,6 +637,17 @@
 --apts-foot-mt:var(--space-28);             /* рендер 26.6 */
 --type-apts-name-size:20px;
 --type-apts-area-size:18px;
+--form-pad-block-start:var(--space-20);     /* рендер 20.5 */
+--form-pad-block-end:var(--space-48);       /* рендер 51.2 */
+--form-pad-inline:var(--space-28);          /* рендер 26.6 */
+--form-grid-gap:var(--space-12);
+--form-panel-pad:var(--space-36);           /* рендер 34.8 */
+--form-info-gap:var(--space-20);            /* рендер 18.4 */
+--form-bullets-mt:var(--space-8);
+--form-bullet-pad:var(--space-12);
+--form-mgr-gap:var(--space-16);             /* рендер 14.3 */
+--form-fields-gap:var(--space-20);
+--type-form-text-size:16px; --type-form-text-lh:26px;       /* рендер 16/25.6 */
 }}
 
 @media (max-width:767px){:root{
@@ -651,6 +723,11 @@
 --apts-track-pad-top:var(--space-32);
 --apts-gap:var(--space-12);
 --apts-foot-mt:var(--space-24);
+--form-pad-block-start:var(--space-16);
+--form-pad-block-end:var(--space-40);
+--form-pad-inline:var(--space-16);
+--form-panel-pad:var(--space-24);
+--form-bullets-mt:var(--space-6);
 }}
 
 /* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */

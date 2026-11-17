@@ -75,6 +75,9 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/card-income.jpg',
     '/design-export/hero-summer-mob.jpg',
     '/design-export/hero-winter-mob.jpg',
+    '/design-export/assets/photos/catalog-plans.jpg',
+    '/design-export/final-form.jpg',
+    '/design-export/manager.jpg',
     '/design-export/superior-room.jpg',
     '/design-export/deluxe-room.jpg',
     '/design-export/family-room.jpg',
@@ -149,6 +152,24 @@ export interface SiteSettings {
     address: string;
     messengers: SocialLink[];
     socials: SocialLink[];
+  };
+  /** Експерт у формах (фото, ім'я, посада); телефон і месенджери — з contacts. */
+  manager: { photo: SanityImage; name: string; role: string };
+  /** Тексти форм заявки: підписи полів, варіанти, кнопка, успіх, помилки. */
+  form: {
+    nameLabel: string;
+    namePlaceholder: string;
+    phoneLabel: string;
+    phonePlaceholder: string;
+    formatLabel: string;
+    formatOptions: { _key: string; label: string }[];
+    contactLegend: string;
+    /** value — технічне значення для заявки (не перекладається). */
+    contactOptions: { _key: string; value: string; label: string }[];
+    submitLabel: string;
+    successTitle: string;
+    successText: string;
+    errors: { name: string; phone: string };
   };
   footer: {
     address: string;
@@ -288,7 +309,31 @@ export interface ApartmentsBlock {
   items: ApartmentItem[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock;
+export interface FormTitleLine {
+  _key: string;
+  text: string;
+  /** Продовження рядка приглушеним кольором. */
+  mutedText?: string;
+}
+
+export interface FormBullet {
+  _key: string;
+  text: string;
+  image: SanityImage;
+}
+
+export interface FormBlock {
+  _type: 'form';
+  _key: string;
+  /** id секції (#forma): на нього посилаються кнопки «Зв'язатися». */
+  anchor: string;
+  title: FormTitleLine[];
+  text: string;
+  /** Що отримає інвестор: три картки з фото. */
+  bullets: FormBullet[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(siteSettingsFixture, lang, 'siteSettings');

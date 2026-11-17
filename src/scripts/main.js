@@ -4,6 +4,7 @@ import { initAnchorNav } from './ui/anchor-nav.js';
 import { initHero } from './ui/hero.js';
 import { initSwipeHints } from './ui/swipe-hint.js';
 import { initApartments } from './ui/apartments.js';
+import { initLeadForms } from './ui/lead-form.js';
 import { initFooter } from './ui/footer.js';
 import { initWorlds } from './ui/worlds.js';
 import { initAnimations } from './anim/core.js';
@@ -14,6 +15,7 @@ initAnchorNav();
 initHero();
 initApartments(); // до подсказок: лента сдвигается к среднему набору копий
 initSwipeHints();
+initLeadForms();
 initFooter();
 initWorlds();
 initAnimations();

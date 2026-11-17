@@ -26,6 +26,17 @@
 .text-apts-name{font-family:var(--type-apts-name-ff);font-size:var(--type-apts-name-size);line-height:var(--type-apts-name-lh);letter-spacing:var(--type-apts-name-ls);font-weight:600;text-transform:uppercase}
 .text-apts-area{font-family:var(--type-apts-area-ff);font-size:var(--type-apts-area-size);line-height:var(--type-apts-area-lh);font-weight:600}
 .text-apts-button{font-family:var(--type-apts-button-ff);font-size:var(--type-apts-button-size);line-height:var(--type-apts-button-lh);font-weight:600}
+.text-form-title{font-family:var(--type-form-title-ff);font-size:var(--type-form-title-size);line-height:var(--type-form-title-lh);letter-spacing:var(--type-form-title-ls);font-weight:600;text-transform:uppercase}
+.text-form-text{font-family:var(--type-form-text-ff);font-size:var(--type-form-text-size);line-height:var(--type-form-text-lh);font-weight:400}
+.text-form-bullet{font-family:var(--type-form-bullet-ff);font-size:var(--type-form-bullet-size);line-height:var(--type-form-bullet-lh);letter-spacing:var(--type-form-bullet-ls);font-weight:600}
+.text-form-label{font-family:var(--type-form-label-ff);font-size:var(--type-form-label-size);line-height:var(--type-form-label-lh);font-weight:600}
+.text-form-input{font-family:var(--type-form-input-ff);font-size:var(--type-form-input-size);line-height:var(--type-form-input-lh);font-weight:400}
+.text-form-chip{font-family:var(--type-form-chip-ff);font-size:var(--type-form-chip-size);line-height:var(--type-form-chip-lh);font-weight:600}
+.text-form-submit{font-family:var(--type-form-submit-ff);font-size:var(--type-form-submit-size);line-height:var(--type-form-submit-lh);font-weight:600}
+.text-form-done-title{font-family:var(--type-form-done-title-ff);font-size:var(--type-form-done-title-size);line-height:var(--type-form-done-title-lh);letter-spacing:var(--type-form-done-title-ls);font-weight:600;text-transform:uppercase}
+.text-form-done-text{font-family:var(--type-form-done-text-ff);font-size:var(--type-form-done-text-size);line-height:var(--type-form-done-text-lh);font-weight:400}
+.text-manager-name{font-family:var(--type-manager-name-ff);font-size:var(--type-manager-name-size);line-height:var(--type-manager-name-lh);letter-spacing:var(--type-manager-name-ls);font-weight:600}
+.text-manager-phone{font-family:var(--type-manager-phone-ff);font-size:var(--type-manager-phone-size);line-height:var(--type-manager-phone-lh);letter-spacing:var(--type-manager-phone-ls);font-weight:500}
 
 /* Общие роли (4.U): шрифт, кегль, межстрочный. Вес по умолчанию — самый частый у роли. */
 .text-body{font-family:var(--type-body-ff);font-size:var(--type-body-size);line-height:var(--type-body-lh);font-weight:400}

@@ -1,0 +1,248 @@
+/* ===== Form (4.7) — «Отримайте фінмодель» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Конечное состояние — в базовых правилах. Стартовые состояния — только при [data-reveal]
+   (ставит anim/blocks/form.js). Состояния полей — в базовых правилах (работают всегда). */
+
+.form{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--form-pad-block-start) var(--form-pad-block-end);
+  padding-inline:var(--form-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.form__grid{
+  display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+  gap:var(--form-grid-gap); align-items:stretch;
+}
+
+/* ---------- Левая панель ---------- */
+.form__info{
+  display:flex; flex-direction:column; gap:var(--form-info-gap);
+  min-inline-size:0;
+  padding:var(--form-panel-pad);
+  border-radius:var(--radius-28);
+  background:var(--air);
+}
+.form__title{margin:0}
+.form__mask{display:block; overflow:hidden; padding-block-end:.08em; margin-block-end:-.08em}
+.form__line{display:block}
+.form__muted{color:var(--text-muted)}
+.form__text{margin:0; max-inline-size:var(--form-text-max); text-wrap:pretty}
+
+.form .form__bullets{ /* .form впереди: сброс ol/ul[role=list] в reset.css сильнее одного класса */
+  display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--space-10);
+  margin-block-start:var(--form-bullets-mt);
+}
+.form__bullet{
+  position:relative; display:flex; flex-direction:column;
+  overflow:hidden; border-radius:var(--radius-20);
+  background:var(--bg-field);
+}
+.form__bullet-media{
+  position:relative; display:block; overflow:hidden;
+  aspect-ratio:var(--form-bullet-ratio);
+  background:var(--path-sand);
+}
+.form__bullet-img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+}
+.form__bullet-body{display:flex; flex-direction:column; gap:var(--space-8); flex:1; padding:var(--form-bullet-pad)}
+.form__bullet-text{text-wrap:balance; hyphens:auto; overflow-wrap:anywhere}
+
+/* ---------- Картка експерта (ManagerCard) ---------- */
+.manager{
+  display:flex; flex-wrap:wrap; align-items:center; gap:var(--form-mgr-gap);
+  padding:var(--form-mgr-pad);
+}
+.manager__photo{
+  flex:none; inline-size:var(--form-mgr-photo); block-size:var(--form-mgr-photo);
+  border-radius:var(--radius-pill);
+  object-fit:cover; object-position:var(--focus, 50% 30%);
+}
+.manager__who{display:flex; flex-direction:column; gap:var(--space-4); min-inline-size:0; flex:1 1 var(--form-mgr-who-basis)}
+.manager__role{color:var(--text-muted)}
+.manager__contacts{display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-10)}
+.manager__phone{
+  position:relative; color:var(--text-primary); text-decoration:none; white-space:nowrap;
+}
+/* подчёркивание при наведении: в выгрузке background-size, здесь — scaleX псевдоэлемента */
+.manager__phone::after{
+  content:""; position:absolute; inset-inline:0; inset-block-end:0; block-size:var(--border-1);
+  background:currentColor;
+  transform:scaleX(0); transform-origin:0 50%;
+  transition:transform var(--form-phone-dur) var(--ease-out-expo);
+}
+.manager__phone:hover::after{transform:scaleX(1)}
+.manager__msgs{display:flex; gap:var(--space-8)}
+.manager__msg{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--tap-target); block-size:var(--tap-target);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+  transition:background-color var(--form-msg-dur), transform var(--form-msg-dur) var(--ease-out-expo);
+}
+.manager__msg:hover{background:var(--ash); transform:translateY(calc(-1 * var(--space-2)))}
+.manager__msg svg{inline-size:var(--form-msg-icon); block-size:var(--form-msg-icon)}
+
+.form__manager--a{margin-block-start:auto; border-radius:var(--radius-24); background:var(--bg-field)}
+.form__manager--b{display:none; border-radius:var(--radius-28); background:var(--air)}
+
+/* ---------- Правая панель: форма ---------- */
+.form__panel{
+  position:relative; min-inline-size:0;
+  padding:var(--form-panel-pad);
+  border-radius:var(--radius-28);
+  background:var(--ash); color:var(--air);
+}
+.form__form{display:flex; flex-direction:column; gap:var(--form-fields-gap)}
+.form__field{display:flex; flex-direction:column; gap:var(--space-12)}
+.form__input{
+  inline-size:100%; block-size:var(--control-h-60);
+  padding:0 var(--space-24);
+  border:var(--border-1) solid var(--form-input-border); border-radius:var(--radius-pill);
+  background:var(--form-input-bg); color:var(--air);
+  outline:none;
+  transition:border-color var(--form-input-dur), box-shadow var(--form-input-dur);
+}
+.form__input::placeholder{color:var(--form-input-placeholder)}
+.form__input:hover{border-color:var(--form-input-border-hover)}
+.form__input:focus-visible,
+.form__input:focus{border-color:var(--air); box-shadow:var(--form-input-ring)}
+.form__input[aria-invalid="true"]{border-color:var(--danger); animation:form-shake var(--form-shake-dur) var(--ease-out-expo)}
+.form__select-wrap{position:relative; display:block}
+.form__select{appearance:none; padding-inline-end:var(--space-56); cursor:pointer}
+.form__select option{color:var(--text-primary); background:var(--air)}
+.form__chevron{
+  position:absolute; inset-inline-end:var(--space-24); inset-block-start:50%;
+  inline-size:var(--form-chevron); block-size:var(--form-chevron); margin-block-start:calc(var(--form-chevron) / -2);
+  color:var(--air); pointer-events:none;
+}
+
+.form__contact{margin:0; padding:0; border:0; min-inline-size:0}
+.form__contact .form__label{display:block; padding:0; margin-block-end:var(--space-12)}
+.form__chips{display:flex; flex-wrap:wrap; gap:var(--space-10)}
+.form__chip{
+  position:relative; display:flex; align-items:center;
+  min-block-size:calc(var(--control-h-48) + 2 * var(--border-1));
+  padding-inline:var(--form-chip-pad);
+  border:var(--border-1) solid var(--form-input-border); border-radius:var(--radius-pill);
+  background:transparent; color:var(--air);
+  cursor:pointer;
+  transition:background-color var(--form-chip-dur), color var(--form-chip-dur), border-color var(--form-chip-dur);
+}
+.form__chip:hover{border-color:var(--form-chip-border-hover)}
+.form__chip:has(input:checked){background:var(--white-sand); color:var(--text-primary); border-color:var(--white-sand)}
+.form__chip:has(input:focus-visible){outline:var(--border-2) solid var(--white-sand); outline-offset:3px}
+.form__chip-input{position:absolute; opacity:0; pointer-events:none}
+
+.form__actions{display:flex; flex-direction:column; gap:var(--space-16); margin-block-start:var(--space-8)}
+.form__submit{
+  align-self:flex-start;
+  display:flex; align-items:center; gap:var(--space-28);
+  min-block-size:var(--control-h-64);
+  padding-block:0; padding-inline:var(--space-32) var(--space-6);
+  border:0; border-radius:var(--radius-pill);
+  background:var(--white-sand); color:var(--text-primary);
+  cursor:pointer;
+}
+.form__submit-icon{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  inline-size:var(--form-submit-icon); block-size:var(--form-submit-icon);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--white-sand);
+  transition:transform var(--form-submit-icon-dur) var(--ease-out-expo);
+}
+.form__submit-icon svg{inline-size:var(--form-chevron); block-size:var(--form-chevron)}
+.form__submit:hover .form__submit-icon{transform:translateX(var(--space-4)) rotate(-45deg)}
+[dir="rtl"] .form__submit-icon svg,[dir="rtl"] .form__chevron{transform:scaleX(-1)}
+
+/* Успех: после записи заявки (TODO 5.4) lead-form.js ставит data-sent на секцию */
+.form__done{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:var(--space-20);
+  padding:var(--form-panel-pad);
+  border-radius:var(--radius-28);
+  background:var(--ash); color:var(--air);
+  visibility:hidden; opacity:0;
+  transition:opacity var(--form-done-out-dur) ease, visibility 0s var(--form-done-out-dur);
+}
+.form__done-icon{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-64); block-size:var(--control-h-64);
+  border-radius:var(--radius-pill);
+  background:var(--white-sand); color:var(--text-primary);
+  opacity:0; transform:scale(.4);
+  transition:transform var(--form-done-icon-dur) var(--ease-out-back-strong) var(--form-done-icon-delay), opacity var(--form-done-fade-dur) ease var(--form-done-icon-delay);
+}
+.form__done-icon svg{inline-size:var(--form-done-check); block-size:var(--form-done-check)}
+.form__done-title,.form__done-text{
+  margin:0; opacity:0; transform:translateY(var(--space-16));
+  transition:opacity var(--form-done-text-fade) ease var(--form-done-text-delay), transform var(--form-done-text-move) var(--ease-out-expo) var(--form-done-text-delay);
+}
+.form__done-text{max-inline-size:var(--form-done-text-max)}
+.form[data-sent] .form__done{visibility:visible; opacity:1; transition:opacity var(--form-done-in-dur) ease}
+.form[data-sent] .form__done-icon,
+.form[data-sent] .form__done-title,
+.form[data-sent] .form__done-text{opacity:1; transform:none}
+
+@keyframes form-shake{
+  0%,100%{transform:none}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-3px)}
+}
+
+/* ---------- Ступени выгрузки ---------- */
+@media (min-width:901px) and (max-width:1100px){
+  .form .form__bullets{grid-template-columns:minmax(0, 1fr)}
+  .form__bullet{flex-direction:row; align-items:center}
+  .form__bullet-media{flex:0 0 var(--form-bullet-row-w-md); align-self:center}
+}
+@media (max-width:900px){
+  .form__grid{grid-template-columns:minmax(0, 1fr); gap:var(--space-12)}
+  .form__manager--a{display:none}
+  .form__manager--b{display:flex; padding:var(--space-16)}
+}
+@media (max-width:560px){
+  .form .form__bullets{grid-template-columns:minmax(0, 1fr)}
+  .form__bullet{flex-direction:row; align-items:center}
+  .form__bullet-media{flex:0 0 var(--form-bullet-row-w-sm); align-self:center}
+}
+
+/* ---------- Появление (anim/blocks/form.js) ---------- */
+.form[data-reveal] .form__line{transition:transform var(--form-title-dur) var(--ease-out-expo)}
+.form[data-reveal] .form__mask:nth-child(1) .form__line{transition-delay:var(--form-title-delay-1)}
+.form[data-reveal] .form__mask:nth-child(2) .form__line{transition-delay:var(--form-title-delay-2)}
+.form[data-reveal] .form__text{transition:opacity var(--form-text-fade) ease var(--form-text-delay), transform var(--form-text-move) var(--ease-out-expo) var(--form-text-delay)}
+.form[data-reveal] .form__bullet{
+  --d:calc(var(--form-bullet-delay) + var(--i, 0) * var(--form-bullet-step));
+  transition:clip-path var(--form-bullet-dur) var(--ease-out-expo) var(--d), transform var(--form-bullet-dur) var(--ease-out-expo) var(--d);
+}
+.form[data-reveal] .form__bullet-img{transition:transform var(--form-bullet-img-dur) var(--ease-out-expo) var(--d)}
+.form[data-reveal] .form__bullet-body{transition:opacity var(--form-fade-dur) ease calc(var(--d) + .1s), transform var(--form-rise-dur) var(--ease-out-expo) calc(var(--d) + .1s)}
+.form[data-reveal] .form__manager--a{transition:opacity var(--form-fade-dur) ease var(--form-mgr-delay), transform var(--form-rise-dur) var(--ease-out-expo) var(--form-mgr-delay)}
+.form[data-reveal] .form__panel{transition:clip-path var(--form-panel-dur) var(--ease-out-expo) var(--form-panel-delay)}
+.form[data-reveal] .form__form > *{
+  transition:opacity var(--form-fade-dur) ease var(--d), transform var(--form-rise-dur) var(--ease-out-expo) var(--d);
+}
+.form[data-reveal] .form__form > :nth-child(1){--d:.55s}
+.form[data-reveal] .form__form > :nth-child(2){--d:.65s}
+.form[data-reveal] .form__form > :nth-child(3){--d:.75s}
+.form[data-reveal] .form__form > :nth-child(4){--d:.85s}
+.form[data-reveal] .form__form > :nth-child(5){--d:.95s}
+.form[data-reveal] .form__panel{clip-path:inset(0 0 0 0 round var(--radius-28))}
+
+.form[data-reveal="pre"] .form__line{transform:translateY(110%)}
+.form[data-reveal="pre"] .form__text{opacity:0; transform:translateY(var(--space-20))}
+.form[data-reveal="pre"] .form__bullet{clip-path:inset(0 0 100% 0 round var(--radius-20)); transform:translateY(calc(-1 * var(--space-24)))}
+.form[data-reveal="pre"] .form__bullet-img{transform:scale(var(--form-bullet-img-from))}
+.form[data-reveal="pre"] .form__bullet-body{opacity:0; transform:translateY(var(--space-12))}
+.form[data-reveal="pre"] .form__manager--a{opacity:0; transform:translateY(var(--form-rise-shift))}
+.form[data-reveal="pre"] .form__panel{clip-path:inset(0 0 100% 0 round var(--radius-28))}
+.form[data-reveal="pre"] .form__form > *{opacity:0; transform:translateY(var(--form-rise-shift))}
+
+/* Наведение на карточку: после появления, без задержки (в конце — перекрывает переход появления) */
+.form .form__bullet:hover .form__bullet-img{
+  transform:scale(var(--form-bullet-hover-scale));
+  transition:transform var(--form-bullet-hover-dur) var(--ease-out-expo) 0s;
+}

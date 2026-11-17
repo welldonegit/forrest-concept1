@@ -1150,6 +1150,133 @@
           }
         }
       ]
+    },
+    {
+      "_type": "form",
+      "_key": "form",
+      "anchor": "forma",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Отримайте"
+            },
+            {
+              "_key": "en",
+              "value": "Get the"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "фінмодель"
+            },
+            {
+              "_key": "en",
+              "value": "financial model"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "та добірку планувань"
+            },
+            {
+              "_key": "en",
+              "value": "and a selection of floor plans"
+            }
+          ]
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Заповніть контактну форму та наш експерт з інвестицій FORREST Trinity Resort надішле матеріали по формату, який вас цікавить:"
+        },
+        {
+          "_key": "en",
+          "value": "Fill in the contact form and our FORREST Trinity Resort investment expert will send you materials on the format you are interested in:"
+        }
+      ],
+      "bullets": [
+        {
+          "_key": "b1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Добірку актуальних планувань з цінами"
+            },
+            {
+              "_key": "en",
+              "value": "A selection of current floor plans with prices"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:catalog-plans.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок прогнозованої окупності"
+            },
+            {
+              "_key": "en",
+              "value": "A projected payback calculation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:final-form.jpg"
+            },
+            "hotspot": {
+              "x": 0.28,
+              "y": 0.22
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b3",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Умови оплати та розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "Payment and instalment terms"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.45
+            },
+            "decorative": true
+          }
+        }
+      ]
     }
   ]
 }

@@ -788,5 +788,299 @@
       "logoLabel": "welldone",
       "href": "#"
     }
+  },
+  "manager": {
+    "photo": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:manager.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.3
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Олена Коваль"
+        },
+        {
+          "_key": "en",
+          "value": "Olena Koval"
+        }
+      ]
+    },
+    "name": [
+      {
+        "_key": "uk",
+        "value": "Олена Коваль"
+      },
+      {
+        "_key": "en",
+        "value": "Olena Koval"
+      }
+    ],
+    "role": [
+      {
+        "_key": "uk",
+        "value": "Експерт з інвестицій"
+      },
+      {
+        "_key": "en",
+        "value": "Investment expert"
+      }
+    ]
+  },
+  "form": {
+    "nameLabel": [
+      {
+        "_key": "uk",
+        "value": "Ваше ім’я"
+      },
+      {
+        "_key": "en",
+        "value": "Your name"
+      }
+    ],
+    "namePlaceholder": [
+      {
+        "_key": "uk",
+        "value": "Ваше ім’я"
+      },
+      {
+        "_key": "en",
+        "value": "Your name"
+      }
+    ],
+    "phoneLabel": [
+      {
+        "_key": "uk",
+        "value": "Номер телефону"
+      },
+      {
+        "_key": "en",
+        "value": "Phone number"
+      }
+    ],
+    "phonePlaceholder": [
+      {
+        "_key": "uk",
+        "value": "+380 (__) ___-__-__"
+      },
+      {
+        "_key": "en",
+        "value": "+380 (__) ___-__-__"
+      }
+    ],
+    "formatLabel": [
+      {
+        "_key": "uk",
+        "value": "Площа апартаментів"
+      },
+      {
+        "_key": "en",
+        "value": "Apartment size"
+      }
+    ],
+    "formatOptions": [
+      {
+        "_key": "o0",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Ще не визначився, потрібна консультація"
+          },
+          {
+            "_key": "en",
+            "value": "Not decided yet, I need advice"
+          }
+        ]
+      },
+      {
+        "_key": "o1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Superior, 29,5–34,5 м²"
+          },
+          {
+            "_key": "en",
+            "value": "Superior, 29.5–34.5 m²"
+          }
+        ]
+      },
+      {
+        "_key": "o2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Deluxe, 43–50,9 м²"
+          },
+          {
+            "_key": "en",
+            "value": "Deluxe, 43–50.9 m²"
+          }
+        ]
+      },
+      {
+        "_key": "o3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Family, 54,3–62,5 м²"
+          },
+          {
+            "_key": "en",
+            "value": "Family, 54.3–62.5 m²"
+          }
+        ]
+      },
+      {
+        "_key": "o4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Junior Suite, 77,3–91,6 м²"
+          },
+          {
+            "_key": "en",
+            "value": "Junior Suite, 77.3–91.6 m²"
+          }
+        ]
+      },
+      {
+        "_key": "o5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Presidential, 111–111,5 м²"
+          },
+          {
+            "_key": "en",
+            "value": "Presidential, 111–111.5 m²"
+          }
+        ]
+      }
+    ],
+    "contactLegend": [
+      {
+        "_key": "uk",
+        "value": "Куди зручно отримати інформацію?"
+      },
+      {
+        "_key": "en",
+        "value": "Where would you like to receive the information?"
+      }
+    ],
+    "contactOptions": [
+      {
+        "_key": "c1",
+        "value": "telegram",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Telegram"
+          },
+          {
+            "_key": "en",
+            "value": "Telegram"
+          }
+        ]
+      },
+      {
+        "_key": "c2",
+        "value": "viber",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Viber"
+          },
+          {
+            "_key": "en",
+            "value": "Viber"
+          }
+        ]
+      },
+      {
+        "_key": "c3",
+        "value": "whatsapp",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "WhatsApp"
+          },
+          {
+            "_key": "en",
+            "value": "WhatsApp"
+          }
+        ]
+      },
+      {
+        "_key": "c4",
+        "value": "call",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Дзвінок"
+          },
+          {
+            "_key": "en",
+            "value": "Phone call"
+          }
+        ]
+      }
+    ],
+    "submitLabel": [
+      {
+        "_key": "uk",
+        "value": "Отримати пропозицію"
+      },
+      {
+        "_key": "en",
+        "value": "Get the offer"
+      }
+    ],
+    "successTitle": [
+      {
+        "_key": "uk",
+        "value": "Дякуємо, заявку отримано"
+      },
+      {
+        "_key": "en",
+        "value": "Thank you, your request has been received"
+      }
+    ],
+    "successText": [
+      {
+        "_key": "uk",
+        "value": "Менеджер зв’яжеться з вами та допоможе підібрати формат під ваш бюджет і інвестиційну мету."
+      },
+      {
+        "_key": "en",
+        "value": "A manager will contact you and help you choose a format for your budget and investment goal."
+      }
+    ],
+    "errors": {
+      "name": [
+        {
+          "_key": "uk",
+          "value": "TODO: текст помилки «вкажіть ім’я» (немає у вигрузці)"
+        },
+        {
+          "_key": "en",
+          "value": "TODO: name error text (not in the export)"
+        }
+      ],
+      "phone": [
+        {
+          "_key": "uk",
+          "value": "TODO: текст помилки «перевірте номер» (немає у вигрузці)"
+        },
+        {
+          "_key": "en",
+          "value": "TODO: phone error text (not in the export)"
+        }
+      ]
+    }
   }
 }
