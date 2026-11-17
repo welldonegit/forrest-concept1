@@ -8,12 +8,15 @@ const SEC = { exp: '#model', ours: '.model' };
 const WRAP = { exp: '[data-mwrap]', ours: '[data-model-wrap]' };
 const STICK = { exp: '[data-mstick]', ours: '[data-model-stick]' };
 
+// Дважды: секции выше получают точную высоту, когда отрисуются (content-visibility).
 const lift = (d) => async (page, side) => {
-  await page.evaluate(([sel, d]) => {
-    const s = document.querySelector(sel);
-    scrollTo({ top: s.getBoundingClientRect().top + scrollY + d, behavior: 'instant' });
-  }, [SEC[side], d]);
-  await page.waitForTimeout(4500);
+  for (const wait of [1500, 4500]) {
+    await page.evaluate(([sel, d]) => {
+      const s = document.querySelector(sel);
+      scrollTo({ top: s.getBoundingClientRect().top + scrollY + d, behavior: 'instant' });
+    }, [SEC[side], d]);
+    await page.waitForTimeout(wait);
+  }
 };
 // Колода: доля f прокрутки прилипшего блока (0 — начало, 1 — конец).
 const deck = (f) => async (page, side) => {

@@ -13,8 +13,8 @@ initMenu();
 initLangSwitch();
 initAnchorNav();
 initHero();
-initApartments(); // до подсказок: лента сдвигается к среднему набору копий
 initSwipeHints();
+initApartments();
 initLeadForms();
 initFooter();
 initWorlds();

@@ -6,6 +6,7 @@
  * - Стрелки листают на одну карточку; мышью ленту можно тянуть (с привязкой к карточке).
  * - Полоса: бегунок шириной 1/N показывает положение; по полосе можно кликнуть или тянуть.
  * Работает и при prefers-reduced-motion (это управление, а не анимация).
+ * Запуск — за экран до блока: копирование карточек и замеры не нагружают загрузку страницы.
  * TODO: письмо справа налево — scrollLeft в RTL отрицательный, перепроверить при включении.
  */
 const NORM_DELAY = 160;
@@ -37,6 +38,7 @@ function initTrack(root) {
     track.scrollLeft = left;
     track.style.scrollBehavior = '';
   };
+  const quietJump = (left) => { jump(left); track.dispatchEvent(new Event('swipehintreset')); };
   const norm = () => {
     const w = W();
     const half = step() / 2;
@@ -115,13 +117,20 @@ function initTrack(root) {
   bar.addEventListener('pointermove', (e) => { if (barDown) goBar(e); });
   bar.addEventListener('pointerup', () => { barDown = false; });
 
-  const fit = () => { jump(W() + Math.round(((track.scrollLeft - W()) / (step() || 1))) * step()); norm(); progress(); };
-  jump(W());
+  const fit = () => { quietJump(W() + Math.round(((track.scrollLeft - W()) / (step() || 1))) * step()); norm(); progress(); };
+  quietJump(W());
   progress();
   window.addEventListener('resize', fit);
   document.fonts?.ready.then(fit);
 }
 
 export function initApartments() {
-  document.querySelectorAll('[data-apts]').forEach(initTrack);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      initTrack(e.target);
+    });
+  }, { rootMargin: '100% 0px' });
+  document.querySelectorAll('[data-apts]').forEach((el) => io.observe(el));
 }

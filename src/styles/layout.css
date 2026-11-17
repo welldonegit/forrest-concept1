@@ -3,3 +3,10 @@
   padding:var(--space-12) var(--space-16);border-radius:var(--radius-pill);background:var(--bg-inverse);color:var(--air);
   font-family:var(--font-text);font-weight:600;text-decoration:none;opacity:0;pointer-events:none}
 .skip-link:focus-visible{opacity:1;pointer-events:auto}
+
+/* Секции ниже первых экранов: браузер не считает их вёрстку, пока они далеко от окна
+   (первая отрисовка мобильного — TBT, точка B). Размер-заглушка запоминается после
+   первого показа (auto). Сцены прокрутки (Hero, Worlds) сюда не входят. */
+.model,.apts,.form,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-placeholder-h)}
+/* переход по якорю (anchor-nav.js): нужны точные высоты */
+:root[data-cv-off] :is(.model,.apts,.form,.site-footer){content-visibility:visible}

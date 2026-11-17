@@ -3,9 +3,12 @@
  */
 const SEC = { exp: 'footer#kontakty', ours: '.site-footer' };
 // Подвал — в конце страницы: прокручиваем до конца, он стоит у нижнего края окна в обоих случаях.
+// Дважды: секции выше получают точную высоту, когда отрисуются (content-visibility, колода Model).
 async function scrollTo(page) {
-  await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
-  await page.waitForTimeout(800);
+  for (const wait of [800, 800]) {
+    await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+    await page.waitForTimeout(wait);
+  }
 }
 const group = (i) => [
   [`group ${i + 1} title`, `[data-hs=fgroup][data-g="${i}"] [data-hs=ftitle] span`, `.site-footer__group:nth-child(${i + 2}) .text-footer-h5`, 'text'],
