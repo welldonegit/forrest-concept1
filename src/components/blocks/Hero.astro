@@ -46,11 +46,14 @@ const summerAttrs = {
 // Мобильные фото (< 768, выгрузка 2026-11-17): отдельный кадр 9:16 вместо десктопного.
 // Фото заполняет кадр по высоте (окно телефона уже 9:16): ширина картинки ≈ 57vh, не уже окна.
 const mobileQuery = '(max-width: 767px)';
+// Набор до полной ширины исходника (941): телефоны с плотностью 3 получают его, а не растянутые 720.
+// Выше исходника не увеличиваем. Качество и ширины фото первого экрана ради скорости не снижаем (LAYOUT_RULES.md).
 const mobileWidths = [480, 720];
 const mobileSizes = 'max(100vw, 57vh)';
 async function mobileSource(image: HeroBlock['imageWinterMobile']) {
   const photo = await resolveImage(image);
-  const img = await getImage({ src: photo.src, widths: mobileWidths.filter((w) => w <= photo.src.width), format: 'avif' });
+  const widths = [...mobileWidths.filter((w) => w < photo.src.width), photo.src.width];
+  const img = await getImage({ src: photo.src, widths, format: 'avif' });
   return { srcset: img.srcSet.attribute, sizes: mobileSizes };
 }
 const winterM = await mobileSource(block.imageWinterMobile);
