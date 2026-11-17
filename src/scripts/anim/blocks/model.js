@@ -52,15 +52,13 @@ export function init(root) {
   let raf = 0;
 
   function measure() {
+    // Раскладка колоды — в CSS (model.css, <768 при html.js); здесь только движение.
     const deck = deckMq.matches;
-    root.toggleAttribute('data-deck', deck);
     if (deck) {
-      wrap.style.setProperty('--model-deck-moves', String(steps.length - 1));
       steps.forEach((li) => { li.dataset.on = ''; });
     } else {
-      wrap.style.removeProperty('--model-stick-h');
       wrap.style.removeProperty('--model-stick-top');
-      steps.forEach((li) => { li.style.transform = ''; li.style.zIndex = ''; li.style.opacity = ''; });
+      steps.forEach((li) => { li.style.transform = ''; li.style.opacity = ''; });
       nums.forEach((n) => { n.style.opacity = ''; });
     }
     const y = window.scrollY;
@@ -76,7 +74,6 @@ export function init(root) {
     if (deck) {
       const H = stick.offsetHeight;
       const T = H < vh ? (vh - H) / 2 : vh - H;
-      wrap.style.setProperty('--model-stick-h', `${H}px`);
       wrap.style.setProperty('--model-stick-top', `${Math.round(T)}px`);
       g.H = H; g.T = T;
       g.wrapTop = wrap.getBoundingClientRect().top + y;
@@ -95,7 +92,6 @@ export function init(root) {
       const b = Math.max(0, k - p);
       const bb = Math.min(b, 3);
       const dir = k % 2 ? 1 : -1;
-      li.style.zIndex = String(N - k);
       li.style.transform = `translate(${(dir * e * 120).toFixed(2)}vw,${(bb * 16 - e * 40).toFixed(1)}px) rotate(${(dir * e * 18).toFixed(2)}deg) scale(${(1 - bb * 0.05).toFixed(3)})`;
       li.style.opacity = b > 2.6 ? '0' : '1';
       nums[k].style.opacity = Math.max(0, 1 - b * 2).toFixed(3);

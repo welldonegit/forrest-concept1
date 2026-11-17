@@ -19,7 +19,7 @@ interface Props {
 const { block } = Astro.props;
 const number = (i: number) => String(i + 1).padStart(2, '0');
 ---
-<section class="model" id={block.anchor} data-anim-block="model">
+<section class="model" id={block.anchor} data-anim-block="model" style={`--model-count:${block.steps.length};--model-moves:${block.steps.length - 1}`}>
   <div class="model__wrap" data-model-wrap>
     <div class="model__stick" data-model-stick>
       <p class="model__lead text-model-lead" data-model-lead>{block.text}</p>
@@ -30,7 +30,7 @@ const number = (i: number) => String(i + 1).padStart(2, '0');
         </div>
         <ol class="model__steps" role="list" data-model-steps>
           {block.steps.map((step, i) => (
-            <li class="model__step" data-model-step>
+            <li class="model__step" style={`--k:${i}`} data-model-step>
               <span class="model__dot" aria-hidden="true"></span>
               <span class="model__num-wrap" aria-hidden="true" data-model-num>
                 <span class="model__num text-model-num">{number(i)}</span>

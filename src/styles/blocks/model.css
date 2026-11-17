@@ -148,31 +148,38 @@
   100%{opacity:0; transform:scale(var(--model-ring-scale))}
 }
 
-/* ---------- <768: колода (выгрузка 2026-11-17) ---------- */
+/* ---------- <768: колода (выгрузка 2026-11-17) ----------
+   Раскладка включается CSS-ом с первой отрисовки (html.js ставится в <head>), чтобы высота
+   страницы не менялась, когда сцена запускается: якоря и точки срабатывания ниже не сдвигаются.
+   model.js только двигает карточки и ставит --model-stick-top. Reduced motion — столбец. */
 @media (max-width:767px){
   .model{overflow-x:clip}
   .model__lead{margin-block-end:var(--model-lead-mb)}
-  .model[data-deck] .model__wrap{
-    block-size:calc(var(--model-stick-h, 100svh) + var(--model-deck-moves, 4) * var(--model-deck-step));
+}
+@media (max-width:767px) and (prefers-reduced-motion:no-preference){
+  .js .model__wrap::after{
+    content:""; display:block;
+    block-size:calc(var(--model-moves) * var(--model-deck-step));
   }
-  .model[data-deck] .model__stick{
+  .js .model__stick{
     position:sticky; inset-block-start:var(--model-stick-top, 0px);
     display:flex; flex-direction:column;
     padding-block:var(--space-16);
   }
-  .model[data-deck] .model__deck{overflow-x:clip}
-  .model[data-deck] .model__line,
-  .model[data-deck] .model__dot{display:none}
-  .model[data-deck] .model__steps{
+  .js .model__deck{overflow-x:clip}
+  .js .model__line,
+  .js .model__dot{display:none}
+  .js .model .model__steps{
     position:relative; display:block;
     block-size:var(--model-deck-h);
     padding:0; overflow:visible;
   }
-  .model[data-deck] .model__step{
+  .js .model__step{
     position:absolute; inset-inline:0; inset-block-start:0;
+    z-index:calc(var(--model-count) - var(--k));
     transform-origin:50% 30%;
   }
-  .model[data-deck] .model__card{
+  .js .model__card{
     min-block-size:var(--model-deck-card-min);
     transform:none;
     transition:opacity var(--model-deck-fade-dur) ease;

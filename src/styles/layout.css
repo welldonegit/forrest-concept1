@@ -4,9 +4,46 @@
   font-family:var(--font-text);font-weight:600;text-decoration:none;opacity:0;pointer-events:none}
 .skip-link:focus-visible{opacity:1;pointer-events:auto}
 
-/* Секции ниже первых экранов: браузер не считает их вёрстку, пока они далеко от окна
-   (первая отрисовка мобильного — TBT, точка B). Размер-заглушка запоминается после
-   первого показа (auto). Сцены прокрутки (Hero, Worlds) сюда не входят. */
-.model,.apts,.form,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-placeholder-h)}
+/* Секции ниже первых экранов (Apartments, Form, Footer): браузер не считает их вёрстку, пока
+   они далеко от окна (первая отрисовка мобильного — TBT, точка B). Правило применения —
+   LAYOUT_RULES.md, «content-visibility». Сцен прокрутки и прилипания здесь нет (Model, Hero, Worlds).
+   Заглушка высоты --cv-h — измеренная высота блока вместе с полями (плотные замеры 2026-11-17, uk), по ступеням
+   и внутренним точкам перестройки блоков; формула «px + vw», погрешность в комментарии.
+   auto — после первого показа браузер помнит настоящую высоту. Изменил вёрстку блока —
+   перемерь (scripts: замер высот в отчёте по 4.x). */
+.apts,.form,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h)}
+/* заглушка задаёт высоту содержимого — вертикальные поля секции браузер прибавляет сам */
+.apts{contain-intrinsic-size:auto calc(var(--cv-h) - var(--apts-pad-block-start) - var(--apts-pad-block-end))}
+.form{contain-intrinsic-size:auto calc(var(--cv-h) - var(--form-pad-block-start) - var(--form-pad-block-end))}
 /* переход по якорю (anchor-nav.js): нужны точные высоты */
-:root[data-cv-off] :is(.model,.apts,.form,.site-footer){content-visibility:visible}
+:root[data-cv-off] :is(.apts,.form,.site-footer){content-visibility:visible}
+
+.apts{--cv-h:calc(478px + 21.27vw)}          /* ±1 */
+.form{--cv-h:calc(715px + 5.08vw)}           /* ±7 */
+.site-footer{--cv-h:calc(686px + 16.77vw)}   /* ±0 */
+@media (max-width:1599px){
+  .apts{--cv-h:calc(361px + 28.11vw)}        /* ±0 */
+  .form{--cv-h:738px}                        /* ±0 */
+  .site-footer{--cv-h:calc(622px + 16.78vw)} /* ±0 */
+}
+@media (max-width:1279px){
+  .apts{--cv-h:calc(322px + 25.34vw)}        /* ±16 */
+  .form{--cv-h:calc(1221px - 45.94vw)}       /* ±24 */
+  .site-footer{--cv-h:calc(857px - 9.28vw)}  /* ±30 */
+}
+@media (max-width:1100px){ .form{--cv-h:calc(759px + 2.92vw)} }          /* ±1 */
+@media (max-width:1023px){ .site-footer{--cv-h:calc(1200px - 7.04vw)} }  /* ±17 */
+@media (max-width:900px){
+  .apts{--cv-h:calc(445px + 13.22vw)}        /* ±4 */
+  .form{--cv-h:calc(1021px + 20.84vw)}       /* ±0 */
+  .site-footer{--cv-h:calc(1003px + 16.75vw)}/* ±0 */
+}
+@media (max-width:767px){
+  .apts{--cv-h:calc(751px + 6.77vw)}         /* ±33 */
+  .form{--cv-h:calc(1133px - 1.05vw)}        /* ±18 */
+  .site-footer{--cv-h:calc(696px + 16.78vw)} /* ±0 */
+}
+@media (max-width:560px){
+  .apts{--cv-h:calc(656px + 19.72vw)}        /* ±21 */
+  .form{--cv-h:calc(1797px - 92.64vw)}       /* ±33 */
+}
