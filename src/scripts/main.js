@@ -10,6 +10,7 @@ import { initWorlds } from './ui/worlds.js';
 import { initLocation } from './ui/location.js';
 import { initInfra } from './ui/infra.js';
 import { initNumbers } from './ui/numbers.js';
+import { initConstruction } from './ui/construction.js';
 import { initAnimations } from './anim/core.js';
 
 initMenu();
@@ -24,4 +25,5 @@ initWorlds();
 initLocation();
 initInfra();
 initNumbers();
+initConstruction();
 initAnimations();

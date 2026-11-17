@@ -3755,6 +3755,670 @@
           ]
         }
       }
+    },
+    {
+      "_type": "construction",
+      "_key": "construction",
+      "anchor": "budivnytstvo",
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Хід будівництва"
+        },
+        {
+          "_key": "en",
+          "value": "Construction progress"
+        }
+      ],
+      "rowPrevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попередня картка"
+        },
+        {
+          "_key": "en",
+          "value": "Previous card"
+        }
+      ],
+      "rowNextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступна картка"
+        },
+        {
+          "_key": "en",
+          "value": "Next card"
+        }
+      ],
+      "photoPrevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попереднє фото"
+        },
+        {
+          "_key": "en",
+          "value": "Previous photo"
+        }
+      ],
+      "photoNextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступне фото"
+        },
+        {
+          "_key": "en",
+          "value": "Next photo"
+        }
+      ],
+      "videoLabel": [
+        {
+          "_key": "uk",
+          "value": "Drone-video"
+        },
+        {
+          "_key": "en",
+          "value": "Drone video"
+        }
+      ],
+      "videoAriaLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися drone-video"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the drone video"
+        }
+      ],
+      "maxItems": 3,
+      "maxAgeDays": 183,
+      "updates": [
+        {
+          "_key": "u1",
+          "date": "2026-10-28",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Монолітний каркас: 3-й поверх"
+            },
+            {
+              "_key": "en",
+              "value": "Monolithic frame: 3rd floor"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Секція WIND піднялася до третього поверху. Паралельно з каркасом підводимо зовнішні інженерні мережі та готуємо майданчик для наступної черги."
+            },
+            {
+              "_key": "en",
+              "value": "The WIND section has reached the third floor. Alongside the frame we are bringing in external utilities and preparing the site for the next phase."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section-winter.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено монолітні роботи 2-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic works on the 2nd floor completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Розпочато армування перекриття 3-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "Reinforcement of the 3rd-floor slab started"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Прокладено зовнішні інженерні мережі"
+                },
+                {
+                  "_key": "en",
+                  "value": "External utilities laid"
+                }
+              ]
+            },
+            {
+              "_key": "w4",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Підготовлено майданчик під секцію ROCK"
+                },
+                {
+                  "_key": "en",
+                  "value": "Site prepared for the ROCK section"
+                }
+              ]
+            }
+          ],
+          "video": {
+            "duration": "1:42"
+          }
+        },
+        {
+          "_key": "u2",
+          "date": "2026-09-26",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Перекриття 1-го поверху"
+            },
+            {
+              "_key": "en",
+              "value": "1st-floor slab"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Підземна частина завершена й захищена гідроізоляцією. Над нею залито перше перекриття, з якого починається зростання надземних поверхів."
+            },
+            {
+              "_key": "en",
+              "value": "The underground part is complete and waterproofed. The first slab has been poured above it, from which the above-ground floors begin to rise."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:rock-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Залито перекриття 1-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab poured"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Змонтовано опалубку вертикальних конструкцій"
+                },
+                {
+                  "_key": "en",
+                  "value": "Formwork for vertical structures installed"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Виконано гідроізоляцію підземної частини"
+                },
+                {
+                  "_key": "en",
+                  "value": "Underground part waterproofed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_key": "u3",
+          "date": "2026-08-29",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Фундаментна плита"
+            },
+            {
+              "_key": "en",
+              "value": "Foundation slab"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Залито монолітну фундаментну плиту, на якій стоятиме весь корпус. Котлован засипано, до майданчика облаштовано під’їзні шляхи для техніки."
+            },
+            {
+              "_key": "en",
+              "value": "The monolithic foundation slab that will carry the whole building has been poured. The pit has been backfilled and access roads for machinery have been laid to the site."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:rock-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено бетонування фундаментної плити"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab concreting completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Виконано зворотне засипання котловану"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit backfilled"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Облаштовано тимчасові під’їзні шляхи"
+                },
+                {
+                  "_key": "en",
+                  "value": "Temporary access roads built"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_key": "u4",
+          "date": "2026-07-30",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Котлован і палі"
+            },
+            {
+              "_key": "en",
+              "value": "Pit and piles"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Отримано дозвіл на будівельні роботи. Розроблено котлован і влаштовано буронабивні палі, які забезпечують стійкість будівлі на гірському схилі."
+            },
+            {
+              "_key": "en",
+              "value": "The construction permit has been obtained. The pit has been dug and bored piles installed to keep the building stable on the mountain slope."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:sun-carpathian-slope.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено розробку котловану"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit excavation completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Влаштовано буронабивні палі"
+                },
+                {
+                  "_key": "en",
+                  "value": "Bored piles installed"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Отримано дозвіл на виконання будівельних робіт"
+                },
+                {
+                  "_key": "en",
+                  "value": "Construction permit obtained"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "archive": {
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Всі"
+          },
+          {
+            "_key": "en",
+            "value": "All"
+          }
+        ],
+        "text": [
+          {
+            "_key": "uk",
+            "value": "Архів звітів з фото та відео від початку будівництва."
+          },
+          {
+            "_key": "en",
+            "value": "Archive of reports with photos and videos since construction began."
+          }
+        ],
+        "ariaLabel": [
+          {
+            "_key": "uk",
+            "value": "Усі оновлення будівництва"
+          },
+          {
+            "_key": "en",
+            "value": "All construction updates"
+          }
+        ],
+        "href": "#"
+      }
     }
   ]
 }

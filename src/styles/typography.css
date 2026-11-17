@@ -59,6 +59,14 @@
 .text-calc-tile-label{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-tile-label-size);line-height:var(--type-calc-small-lh);font-weight:600}
 .text-calc-axis{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-axis-size);font-weight:400}
 .text-calc-cta{font-family:var(--type-calc-cta-ff);font-size:var(--type-calc-cta-size);font-weight:600}
+.text-ct-month{font-family:var(--type-ct-month-ff);font-size:var(--type-ct-month-size);line-height:var(--type-ct-month-lh);letter-spacing:-.02em;font-weight:500;text-transform:uppercase}
+.text-ct-queue{font-family:var(--font-text);font-size:var(--type-ct-queue-size);line-height:1;letter-spacing:.1em;font-weight:700}
+.text-ct-title{font-family:var(--font-display);font-size:var(--type-ct-title-size);line-height:1.2;letter-spacing:-.02em;font-weight:500;text-transform:uppercase}
+.text-ct-text{font-family:var(--font-text);font-size:var(--type-ct-text-size);line-height:1.6;font-weight:400}
+.text-ct-work{font-family:var(--font-text);font-size:var(--type-ct-work-size);line-height:1.35;font-weight:600}
+.text-ct-video{font-family:var(--font-text);font-size:var(--type-ct-video-size);line-height:1;font-weight:700}
+.text-ct-arch-title{font-family:var(--font-display);font-size:var(--type-ct-arch-title-size);line-height:1;letter-spacing:-.03em;font-weight:600;text-transform:uppercase}
+.text-ct-arch-text{font-family:var(--font-text);font-size:var(--type-ct-arch-text-size);line-height:1.5;font-weight:400}
 .text-svc-lead{font-family:var(--type-svc-lead-ff);font-size:var(--type-svc-lead-size);line-height:var(--type-svc-lead-lh);font-weight:400}
 .text-svc-num{font-family:var(--type-svc-num-ff);font-size:var(--type-svc-num-size);line-height:1;letter-spacing:var(--type-svc-num-ls);font-weight:700}
 .text-svc-card-title{font-family:var(--type-svc-card-title-ff);font-size:var(--type-svc-card-title-size);line-height:var(--type-svc-card-title-lh);letter-spacing:var(--type-svc-card-title-ls);font-weight:500;text-transform:uppercase}

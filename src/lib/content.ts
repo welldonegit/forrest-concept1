@@ -574,7 +574,40 @@ export interface InvestorServiceBlock {
   dashboard: InvestorDashboard;
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock;
+export interface ConstructionUpdate {
+  _key: string;
+  /** Дата отчёта (YYYY-MM-DD): по ней — подпись месяца и порядок. */
+  date: string;
+  /** Черга (WIND, ROCK, SUN). */
+  queue: string;
+  title: string;
+  text: string;
+  slides: (SanityImage & { _key: string })[];
+  /** Дрон-видео: длительность для кнопки; файл — TODO (попап 4.17). */
+  video?: { duration: string; file?: unknown };
+  works: { _key: string; text: string }[];
+}
+export interface ConstructionBlock {
+  _type: 'construction';
+  _key: string;
+  /** id секции (#budivnytstvo). */
+  anchor: string;
+  title: string;
+  rowPrevLabel: string;
+  rowNextLabel: string;
+  photoPrevLabel: string;
+  photoNextLabel: string;
+  videoLabel: string;
+  videoAriaLabel: string;
+  /** Сколько последних отчётов показывать и не старше скольких дней (выгрузка: 3 и 183). */
+  maxItems: number;
+  maxAgeDays: number;
+  updates: ConstructionUpdate[];
+  /** Карточка «Всі» — ссылка на архив (4.18). */
+  archive: { title: string; text: string; ariaLabel: string; href: string };
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

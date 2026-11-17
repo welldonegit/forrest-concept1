@@ -491,6 +491,35 @@
 --calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
 --calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms; --calc-tick-dur:.3s; --calc-tick-blur:1.5px;   /* пересчёт чисел (ui/numbers.js читает) */
 
+/* ---------- Construction B (4.12): ≥1600 — рендер 1920 ---------- */
+--ct-pad-block:var(--space-128);
+--ct-pad-inline:var(--space-32);           /* рендер 34 (как Model) */
+--ct-head-gap-row:var(--space-24); --ct-head-gap-col:var(--space-96);
+--ct-head-mb:var(--space-64);
+--ct-btn:52px; --ct-btn-photo:var(--control-h-48); --ct-icon:18px; --ct-nav-gap:var(--space-8);
+--ct-row-gap:var(--space-16); --ct-item-gap:var(--space-16);
+--ct-item-max:1180px;                      /* ширина карточки, как в выгрузке */
+--ct-col-min:420px;                        /* колонки карточки (auto-fit) */
+--ct-item-head-gap:var(--space-12); --ct-item-head-pad:var(--space-4);
+--ct-chip-h:28px; --ct-chip-pad:var(--space-12);
+--ct-card-pad:var(--space-10); --ct-card-radius:var(--radius-32); --ct-media-radius:var(--radius-24);
+--ct-media-min:520px;
+--ct-photo-nav-inset:14px;                 /* рендер 14 (у края фото) */
+--ct-glass-bg:color-mix(in srgb, var(--air) 92%, transparent);           /* rgba(255,255,255,.92) */
+--ct-video-bg:color-mix(in srgb, var(--night-bark) 55%, transparent);    /* rgba(12,12,12,.55) */
+--ct-glass-blur:blur(10px); --ct-video-blur:blur(12px);
+--ct-video-h:var(--control-h-48); --ct-video-pad-start:var(--space-6); --ct-video-pad-end:var(--space-20); --ct-video-gap:var(--space-10);
+--ct-play:36px; --ct-play-icon:var(--icon-12);
+--ct-body-pad-start:var(--space-44); --ct-body-pad-inline:var(--space-40); --ct-body-pad-inline-end:var(--ct-body-pad-inline); --ct-body-pad-end:var(--space-32);
+--ct-body-gap:var(--space-16); --ct-text-mb:var(--space-4); /* рендер 18 + 18: 16 и 16 + 4 — список на месте */
+--ct-text-max:560px;
+--ct-works-gap:var(--space-8);
+--ct-work-min-h:36px; --ct-work-pad-block:var(--space-6); --ct-work-pad-start:var(--space-10); --ct-work-pad-end:var(--space-12); /* рендер 6 14 6 10 */
+--ct-work-gap:var(--space-8); --ct-check:14px;
+--ct-arch-w:360px; --ct-arch-pad:var(--space-40); --ct-arch-gap:var(--space-32); --ct-arch-text-gap:var(--space-12); /* рендер 14 */
+--ct-arch-arrow:var(--control-h-64); --ct-arch-icon:22px;
+--ct-hover-dur:.5s; --ct-arrow-dur:.7s; --ct-hover-scale:1.08; --ct-arrow-shift:var(--space-4);
+
 /* ---------- Investor Service (4.11): ≥1600 — рендер 1920 ---------- */
 --svc-pad-inline:var(--space-12);          /* поля секции вокруг тёмной рамки */
 --svc-radius:var(--radius-40);
@@ -694,6 +723,10 @@
 --type-calc-yield-size:13px; --type-calc-yield-ls:-.02em;
 --type-calc-axis-size:12px;
 --type-calc-cta-ff:var(--font-text); --type-calc-cta-size:17px;
+--type-ct-month-ff:var(--font-display); --type-ct-month-size:24px; --type-ct-month-lh:1.2;     /* Construction B (24/23/18) */
+--type-ct-queue-size:11px; --type-ct-work-size:13px; --type-ct-video-size:14px;  /* на всех ширинах */
+--type-ct-title-size:28px; --type-ct-text-size:17px;                                          /* (28/24/20 · 17/16/15) */
+--type-ct-arch-title-size:44px; --type-ct-arch-text-size:16px;                                 /* (44/40/28 · 16/14/14) */
 --type-svc-lead-ff:var(--font-text); --type-svc-lead-size:18px; --type-svc-lead-lh:1.55;       /* Investor Service (18/16/15) */
 --type-svc-num-ff:var(--font-text); --type-svc-num-size:12px; --type-svc-num-ls:.08em;          /* номер сервиса, 12 на всех ширинах */
 --type-svc-card-title-ff:var(--font-display); --type-svc-card-title-size:18px; --type-svc-card-title-lh:1.2; --type-svc-card-title-ls:-.01em; /* (18/15/14) */
@@ -795,6 +828,14 @@
 --svc-card-pad:var(--space-24);            /* 23 */
 --type-svc-lead-size:16px; --type-svc-card-title-size:15px; --type-svc-card-text-size:13px;
 --type-svc-cap-title-size:17px; --type-svc-cap-text-size:14px;
+/* Construction B — рендер 1440 */
+--ct-pad-block:116px;                      /* 115.2: промежуток >80, кратен 4 */
+--ct-head-gap-col:var(--space-72); --ct-head-mb:var(--space-56);
+--ct-media-min:490px;
+--ct-body-pad-start:var(--space-36); --ct-body-pad-inline:var(--space-36); --ct-body-pad-end:var(--space-28);
+--ct-arch-w:346px; --ct-arch-pad:var(--space-36);
+--type-ct-month-size:23px; --type-ct-title-size:24px; --type-ct-text-size:16px;
+--type-ct-arch-title-size:40px; --type-ct-arch-text-size:14px;
 }}
 
 @media (max-width:1279px){:root{
@@ -918,6 +959,14 @@
 --svc-card-pad:var(--space-16);
 --type-svc-lead-size:15px; --type-svc-card-title-size:14px;
 --type-svc-cap-title-size:15px; --type-svc-cap-text-size:13px;
+/* Construction B — 768–1279 (опорная 1024) */
+--ct-pad-block:var(--space-80); --ct-pad-inline:var(--space-28);
+--ct-head-gap-col:var(--space-48); --ct-head-mb:var(--space-40);
+--ct-media-min:348px;
+--ct-body-pad-start:var(--space-28); --ct-body-pad-inline:var(--space-24); --ct-body-pad-end:var(--space-20);
+--ct-arch-w:260px; --ct-arch-pad:var(--space-24);
+--type-ct-month-size:18px; --type-ct-title-size:20px; --type-ct-text-size:15px;
+--type-ct-arch-title-size:29px;
 }}
 
 @media (max-width:767px){:root{
@@ -1016,6 +1065,12 @@
 --svc-head-pad-end:var(--space-8);
 --svc-head-gap-col:var(--space-32);
 --svc-card-pad:var(--space-20); --svc-card-pad-end:var(--space-16); /* рендер 18: 20 в начале и 16 в конце — габарит как в рендере */
+/* Construction B — рендер 390 */
+--ct-pad-block:var(--space-64); --ct-pad-inline:var(--space-16);
+--ct-head-gap-col:var(--space-32); --ct-head-mb:var(--space-32);
+--ct-media-min:300px;
+--ct-body-pad-start:var(--space-20); --ct-body-pad-inline:var(--space-16); --ct-body-pad-inline-end:var(--space-12); --ct-body-pad-end:var(--space-16); /* рендер 20 14 16: 16/12 по бокам */
+--type-ct-arch-title-size:28px;
 }}
 
 /* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */

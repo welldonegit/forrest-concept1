@@ -1,0 +1,117 @@
+/* ===== Construction B (4.12) — «Хід будівництва» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Лента карточек и лента фото — прокрутка с привязкой (scroll-snap), кнопки — ui/construction.js.
+   Анимации появления в выгрузке нет; наведение на кнопки — масштаб, на «Всі» — сдвиг стрелки. */
+
+.ct{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding:var(--ct-pad-block) var(--ct-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+  overflow:hidden;
+}
+.ct__head{
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end;
+  gap:var(--ct-head-gap-row) var(--ct-head-gap-col);
+  margin-block-end:var(--ct-head-mb);
+}
+.ct__title{margin:0}
+.ct__nav{display:flex; gap:var(--ct-nav-gap)}
+
+.ct__btn{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  inline-size:var(--ct-btn); block-size:var(--ct-btn); padding:0;
+  border:0; border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary); cursor:pointer;
+  transition:transform var(--ct-hover-dur) var(--ease-out-expo);
+}
+.ct__btn svg{inline-size:var(--ct-icon); block-size:var(--ct-icon)}
+.ct__btn--glass{
+  inline-size:var(--ct-btn-photo); block-size:var(--ct-btn-photo);
+  background:var(--ct-glass-bg); -webkit-backdrop-filter:var(--ct-glass-blur); backdrop-filter:var(--ct-glass-blur);
+}
+@media (hover:hover){ .ct__btn:hover{transform:scale(var(--ct-hover-scale))} }
+
+/* ---------- Лента карточек ---------- */
+.ct__row{
+  display:flex; gap:var(--ct-row-gap);
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:var(--ct-pad-inline);
+  margin-inline:calc(-1 * var(--ct-pad-inline));
+  padding:0 var(--ct-pad-inline) var(--space-4);
+  scrollbar-width:none; overscroll-behavior-x:contain;
+}
+.ct__row::-webkit-scrollbar,
+.ct__slides::-webkit-scrollbar{display:none}
+.ct__item{
+  flex:0 0 min(100%, var(--ct-item-max)); scroll-snap-align:start;
+  display:flex; flex-direction:column; gap:var(--ct-item-gap); min-inline-size:0;
+}
+.ct__item-head{display:flex; align-items:center; gap:var(--ct-item-head-gap); padding-inline:var(--ct-item-head-pad)}
+.ct__month{white-space:nowrap}
+.ct__queue{
+  display:inline-flex; align-items:center; block-size:var(--ct-chip-h); padding-inline:var(--ct-chip-pad);
+  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air);
+}
+.ct__card{
+  flex:1 1 auto; min-inline-size:0;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, var(--ct-col-min)), 1fr)); align-items:stretch;
+  padding:var(--ct-card-pad); border-radius:var(--ct-card-radius); background:var(--air);
+}
+
+/* ---------- Фото ---------- */
+.ct__media{position:relative; min-block-size:var(--ct-media-min); border-radius:var(--ct-media-radius); overflow:hidden; background:var(--bg-surface-sand)}
+.ct__slides{position:absolute; inset:0; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
+.ct__slide{position:relative; flex:0 0 100%; scroll-snap-align:start; overflow:hidden}
+.ct__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; object-position:var(--focus, 50% 50%)}
+.ct__photo-nav{position:absolute; inset-inline-end:var(--ct-photo-nav-inset); inset-block-end:var(--ct-photo-nav-inset); display:flex; gap:var(--ct-nav-gap)}
+.ct__video{
+  position:absolute; inset-inline-start:var(--ct-photo-nav-inset); inset-block-end:var(--ct-photo-nav-inset);
+  display:inline-flex; align-items:center; gap:var(--ct-video-gap);
+  block-size:var(--ct-video-h); padding:0 var(--ct-video-pad-end) 0 var(--ct-video-pad-start);
+  border:0; border-radius:var(--radius-pill);
+  background:var(--ct-video-bg); -webkit-backdrop-filter:var(--ct-video-blur); backdrop-filter:var(--ct-video-blur);
+  color:var(--air); cursor:pointer;
+}
+.ct__play{display:flex; align-items:center; justify-content:center; inline-size:var(--ct-play); block-size:var(--ct-play); border-radius:50%; background:var(--air)}
+.ct__play svg{inline-size:var(--ct-play-icon); block-size:var(--ct-play-icon); fill:var(--night-bark)}
+
+/* ---------- Текст ---------- */
+.ct__body{
+  display:flex; flex-direction:column; gap:var(--ct-body-gap);
+  padding-block:var(--ct-body-pad-start) var(--ct-body-pad-end);
+  padding-inline:var(--ct-body-pad-inline) var(--ct-body-pad-inline-end);
+}
+.ct__item-title{margin:0; text-wrap:balance}
+.ct__text{margin:0 0 var(--ct-text-mb); max-inline-size:var(--ct-text-max); text-wrap:pretty}
+.ct .ct__works{ /* .ct впереди: сброс ul[role=list] в reset.css сильнее одного класса */
+  margin:auto 0 0; padding:0; list-style:none;
+  display:flex; flex-wrap:wrap; gap:var(--ct-works-gap);
+}
+.ct__work{
+  display:inline-flex; align-items:center; gap:var(--ct-work-gap);
+  min-block-size:var(--ct-work-min-h);
+  padding-block:var(--ct-work-pad-block); padding-inline:var(--ct-work-pad-start) var(--ct-work-pad-end);
+  border-radius:var(--radius-pill); background:var(--linen);
+}
+.ct__work svg{flex:none; inline-size:var(--ct-check); block-size:var(--ct-check)}
+
+/* ---------- «Всі» (архив) ---------- */
+.ct__arch{
+  flex:0 0 var(--ct-arch-w); scroll-snap-align:start;
+  /* выравнивание по карточке: высота строки месяца (не меньше плашки) + промежуток */
+  margin-block-start:calc(max(var(--ct-chip-h), var(--type-ct-month-size) * var(--type-ct-month-lh)) + var(--ct-item-gap));
+  display:flex; flex-direction:column; justify-content:space-between; gap:var(--ct-arch-gap);
+  padding:var(--ct-arch-pad); border-radius:var(--ct-card-radius);
+  background:var(--bg-inverse); color:var(--air); text-decoration:none;
+}
+.ct__arch-text{display:flex; flex-direction:column; gap:var(--ct-arch-text-gap)}
+.ct__arch-p{color:var(--text-muted); text-wrap:pretty}
+.ct__arch-arrow{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--ct-arch-arrow); block-size:var(--ct-arch-arrow); border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+  transition:transform var(--ct-arrow-dur) var(--ease-out-expo);
+}
+.ct__arch-arrow svg{inline-size:var(--ct-arch-icon); block-size:var(--ct-arch-icon)}
+@media (hover:hover){ .ct__arch:hover .ct__arch-arrow{transform:translateX(var(--ct-arrow-shift))} }
+@media (max-width:767px){ .ct__arch{flex-basis:100%} }
+@media (prefers-reduced-motion:reduce){ .ct__btn, .ct__arch-arrow{transition:none} }

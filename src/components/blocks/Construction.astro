@@ -1,0 +1,111 @@
+---
+/**
+ * Construction B (4.12): «Хід будівництва» — большие карточки помесячных отчётов в горизонтальной
+ * ленте (кнопки «назад/вперёд» листают по карточке), в карточке — фото (своя лента с кнопками),
+ * кнопка дрон-видео, заголовок, текст, список работ; в конце ленты — карточка «Всі» (архив).
+ * Выгрузка 2026-11-17, секция «Construction B» (data-ct2). id секции без «-2»: на него ведут меню и футер.
+ * Тексты, фото, даты — из Sanity (блок construction документа landing).
+ *
+ * Как в выгрузке: показываются отчёты не старше maxAgeDays от даты сборки, последние maxItems.
+ * Подпись месяца — из даты по правилам языка (Intl), без текстов в коде.
+ * Листание — src/scripts/ui/construction.js. Анимации появления в выгрузке нет.
+ * TODO: ссылка «Всі» — страница архива (4.18); кнопка дрон-видео — попап (4.17), файла видео нет.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type ConstructionBlock } from '../../lib/content';
+
+interface Props {
+  block: ConstructionBlock;
+  lang: string;
+}
+
+const { block, lang } = Astro.props;
+const id = block.anchor;
+const now = Date.now();
+const updates = await Promise.all(
+  block.updates
+    .filter((u) => Date.parse(u.date) >= now - block.maxAgeDays * 864e5)
+    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+    .slice(0, block.maxItems)
+    .map(async (u) => ({ ...u, photos: await Promise.all(u.slides.map(resolveImage)) })),
+);
+
+// «Жовтень 2026» / «October 2026»: месяц в именительном падеже (standalone) и год
+const monthOf = (date: string) => {
+  const d = new Date(`${date}T12:00:00Z`);
+  const month = new Intl.DateTimeFormat(lang, { month: 'long', timeZone: 'UTC' }).format(d);
+  const year = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' }).formatToParts(d).find((p) => p.type === 'year')?.value;
+  return `${month} ${year}`;
+};
+
+const arrow = (dir: 'prev' | 'next') => (dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 6' : 'M5 12h14M13 6l6 6-6 6');
+---
+<section class="ct" id={id} aria-labelledby={`${id}-title`} data-ct>
+  <div class="ct__head">
+    <h2 class="ct__title text-display-sm" id={`${id}-title`}>{block.title}</h2>
+    <div class="ct__nav">
+      <button class="ct__btn" type="button" aria-label={block.rowPrevLabel} aria-controls={`${id}-row`} data-ct-row-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow('prev')} /></svg>
+      </button>
+      <button class="ct__btn" type="button" aria-label={block.rowNextLabel} aria-controls={`${id}-row`} data-ct-row-next>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow('next')} /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="ct__row" id={`${id}-row`} data-ct-row>
+    {updates.map((u) => (
+      <article class="ct__item" data-ct-item aria-labelledby={`${id}-${u._key}`}>
+        <div class="ct__item-head">
+          <time class="ct__month text-ct-month" datetime={u.date}>{monthOf(u.date)}</time>
+          <span class="ct__queue text-ct-queue">{u.queue}</span>
+        </div>
+        <div class="ct__card">
+          <div class="ct__media">
+            <div class="ct__slides" data-ct-slides>
+              {u.photos.map((ph, i) => (
+                <div class="ct__slide">
+                  <Image class="ct__img" src={ph.src} alt={ph.alt} widths={[360, 560, 720, 880, 1160]} sizes="(max-width: 767px) calc(100vw - 52px), (max-width: 1279px) calc(100vw - 76px), 580px" format="avif" loading="lazy" decoding="async" style={`--focus:${ph.position}`} />
+                </div>
+              ))}
+            </div>
+            <div class="ct__photo-nav">
+              <button class="ct__btn ct__btn--glass" type="button" aria-label={block.photoPrevLabel} data-ct-photo-prev>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow('prev')} /></svg>
+              </button>
+              <button class="ct__btn ct__btn--glass" type="button" aria-label={block.photoNextLabel} data-ct-photo-next>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow('next')} /></svg>
+              </button>
+            </div>
+            {u.video && (
+              <button class="ct__video text-ct-video" type="button" aria-label={block.videoAriaLabel} data-ct-video>
+                <span class="ct__play" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M3 1.5v9l7.5-4.5z" /></svg></span><span>{block.videoLabel}</span><span>{u.video.duration}</span>
+              </button>
+            )}
+          </div>
+          <div class="ct__body">
+            <h3 class="ct__item-title text-ct-title" id={`${id}-${u._key}`}>{u.title}</h3>
+            <p class="ct__text text-ct-text">{u.text}</p>
+            <ul class="ct__works" role="list">
+              {u.works.map((w) => (
+                <li class="ct__work text-ct-work">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                  <span>{w.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </article>
+    ))}
+    <a class="ct__arch" href={block.archive.href} aria-label={block.archive.ariaLabel}>
+      <span class="ct__arch-text">
+        <span class="ct__arch-title text-ct-arch-title">{block.archive.title}</span>
+        <span class="ct__arch-p text-ct-arch-text">{block.archive.text}</span>
+      </span>
+      <span class="ct__arch-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={arrow('next')} /></svg>
+      </span>
+    </a>
+  </div>
+</section>
