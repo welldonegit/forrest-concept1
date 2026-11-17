@@ -1,8 +1,11 @@
-/* Локальные вариативные woff2, подмножества только latin + cyrillic.
-   Mulish — из design-export/assets/fonts (рендер использует эти файлы; 400/600/700 побайтно одинаковы).
-   Unbounded — Google Fonts v12 (wght 200–900), скачан и лежит локально: рендер выгрузки берёт
-   Unbounded 600 с Google Fonts, а файлы Unbounded в design-export/assets/fonts дают другую ширину
-   на 600 (латиница до +3%). Подключения к Google Fonts на сайте нет.
+/* Шрифты — Google Fonts, вариативные woff2, подмножества latin + cyrillic, лежат локально
+   (решение 2026-11-17). Подключения к Google Fonts на сайте нет.
+   - Unbounded v12, wght 200–900: fonts.gstatic.com/s/unbounded/v12/Yq6W-LOTXCb04q32xlpwu8Zf.woff2 (latin),
+     …/Yq6W-LOTXCb04q32xlpwv8ZfrxE.woff2 (cyrillic);
+   - Mulish v18, wght 200–1000: fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk3wot.woff2 (latin),
+     …/1Ptvg83HX_SGhgqk2wotcqA.woff2 (cyrillic).
+   Файлы design-export/assets/fonts не используются: выгрузка рисует ими Unbounded 400/500 и Mulish,
+   поэтому ширина текста отличается от рендера на 1–5% (известное отличие, LAYOUT_RULES.md).
    Язык с другим алфавитом — сообщить, шрифт не подбирать. */
 @font-face{font-family:"Unbounded";font-style:normal;font-weight:200 900;font-display:swap;
   src:url("/fonts/unbounded-cyrillic.woff2") format("woff2");
