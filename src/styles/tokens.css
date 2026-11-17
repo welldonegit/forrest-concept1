@@ -491,6 +491,38 @@
 --calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
 --calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms; --calc-tick-dur:.3s; --calc-tick-blur:1.5px;   /* пересчёт чисел (ui/numbers.js читает) */
 
+/* ---------- Team v3 (4.13): ≥1600 — рендер 1920 ---------- */
+--team-pad-block:var(--space-128); --team-pad-inline:var(--space-12);
+--team-head-pad-inline:var(--space-20);    /* рендер 22 */
+--team-head-pb:var(--space-48);            /* рендер 52 */
+--team-head-gap-row:var(--space-24); --team-head-gap-col:var(--space-96);
+--team-sub-max:420px;
+--team-tabs-w:460px; --team-col-gap:var(--space-12); --team-tab-gap:var(--space-10);
+--team-tab-pad:var(--space-24);            /* рендер 26 */
+--team-tab-min:170px; --team-tab-min-open:170px; --team-tab-inner-gap:var(--space-24);
+--team-tab-grow:1fr; --team-tab-rest:0fr; /* выбранная вкладка забирает остаток высоты панели (flex-grow 2.2 выгрузки при min-height остальных даёт то же) */
+--team-radius:var(--radius-24);            /* рендер 22: вкладки, фото, цитата */
+--team-tab-bg:var(--forest); --team-tab-bg-hover:color-mix(in srgb, var(--forest) 90%, var(--night-bark)); /* #536C61 */
+--team-tab-bg-open:var(--spruce);
+--team-chip-bg:color-mix(in srgb, var(--air) 16%, transparent);          /* rgba(255,255,255,.16) */
+--team-role-h:40px; --team-role-pad:var(--space-16);                     /* рендер 18 */
+--team-arrow:34px; --team-arrow-icon:14px;
+--team-logo-h:44px; --team-logo-max:78%;
+--team-panel-radius:var(--radius-32);
+--team-panel-min:clamp(560px, calc(100vh - 160px), 780px);              /* как в выгрузке (vh) */
+--team-photo-w:380px; --team-page-gap:var(--space-40);
+--team-page-pad:14px;                      /* рендер 14: фото у края белой панели */
+--team-body-gap:var(--space-24);
+--team-body-pad-top:var(--space-40); --team-body-pad-end:var(--space-36); --team-body-pad-bottom:var(--space-24);
+--team-stat-min-h:38px; --team-stat-pad-block:var(--space-8); --team-stat-pad-inline:var(--space-16); --team-stat-gap:var(--space-6); --team-stats-gap:var(--space-8);
+--team-q-col:180px; --team-q-gap:var(--space-24); --team-q-pad:14px; --team-q-body-gap:var(--space-12); /* рендер 14 */
+--team-q-body-pad:14px; --team-qmark-mb:var(--space-4); /* рендер 14 + 14: 12 + 4 и 12 */ --team-q-photo-min:140px; --team-q-photo-min-sm:150px; --team-q-photo-radius:var(--radius-16);
+--team-qmark-h:22px; --team-qcap-gap:var(--space-2);
+--team-mob-gap:var(--space-10); --team-mob-radius:var(--radius-28);
+--team-fade-out:.45s; --team-fade-in:.6s; --team-fade-delay:.1s; --team-shift:14px; --team-shift-dur:.8s;
+--team-grow-dur:.8s; --team-bg-dur:.5s; --team-arrow-dur:.6s;
+--team-acc-dur:.75s; --team-acc-ease:cubic-bezier(.65,0,.35,1); --team-acc-shift:-10px; --team-acc-fade-delay:.12s;
+
 /* ---------- Construction B (4.12): ≥1600 — рендер 1920 ---------- */
 --ct-pad-block:var(--space-128);
 --ct-pad-inline:var(--space-32);           /* рендер 34 (как Model) */
@@ -723,6 +755,8 @@
 --type-calc-yield-size:13px; --type-calc-yield-ls:-.02em;
 --type-calc-axis-size:12px;
 --type-calc-cta-ff:var(--font-text); --type-calc-cta-size:17px;
+--type-team-sub-size:18px; --type-team-role-size:14px; --type-team-name-size:48px; --type-team-quote-size:19px; /* Team v3 (18/16/14 · 14/14/12 · 48/40/29/26 · 19/17/15) */
+--type-team-stat-size:13px; --type-team-qmark-size:44px; --type-team-qname-size:14px; --type-team-qpos-size:13px; /* на всех ширинах */
 --type-ct-month-ff:var(--font-display); --type-ct-month-size:24px; --type-ct-month-lh:1.2;     /* Construction B (24/23/18) */
 --type-ct-queue-size:11px; --type-ct-work-size:13px; --type-ct-video-size:14px;  /* на всех ширинах */
 --type-ct-title-size:28px; --type-ct-text-size:17px;                                          /* (28/24/20 · 17/16/15) */
@@ -836,6 +870,14 @@
 --ct-arch-w:346px; --ct-arch-pad:var(--space-36);
 --type-ct-month-size:23px; --type-ct-title-size:24px; --type-ct-text-size:16px;
 --type-ct-arch-title-size:40px; --type-ct-arch-text-size:14px;
+/* Team v3 — рендер 1440 */
+--team-pad-block:116px;                    /* 115.2: промежуток >80, кратен 4 */
+--team-head-gap-col:var(--space-72);
+--team-tabs-w:432px; --team-tab-min:158px; --team-role-h:37px; --team-logo-h:37px;
+--team-photo-w:346px; --team-page-gap:var(--space-32);
+--team-body-pad-top:var(--space-36); --team-body-pad-end:var(--space-28); --team-body-pad-bottom:var(--space-20);
+--team-q-col:158px;
+--type-team-sub-size:16px; --type-team-name-size:40px; --type-team-quote-size:17px;
 }}
 
 @media (max-width:1279px){:root{
@@ -967,6 +1009,16 @@
 --ct-arch-w:260px; --ct-arch-pad:var(--space-24);
 --type-ct-month-size:18px; --type-ct-title-size:20px; --type-ct-text-size:15px;
 --type-ct-arch-title-size:29px;
+/* Team v3 — 768–1279 (опорная 1024) */
+--team-pad-block:var(--space-80); --team-pad-inline:var(--space-10);
+--team-head-pad-inline:var(--space-16); --team-head-pb:var(--space-36); --team-head-gap-col:var(--space-48);
+--team-tabs-w:308px; --team-tab-pad:var(--space-16); --team-tab-min:140px; --team-tab-inner-gap:var(--space-16);
+--team-role-h:34px; --team-role-pad:var(--space-12); --team-logo-h:32px;
+--team-photo-w:244px; --team-page-gap:var(--space-24); --team-page-pad:var(--space-10);
+--team-body-gap:var(--space-16);
+--team-body-pad-top:var(--space-24); --team-body-pad-end:var(--space-20); --team-body-pad-bottom:var(--space-16);
+--team-q-col:112px; --team-q-gap:var(--space-16); --team-q-pad:var(--space-10); --team-q-body-pad:var(--space-10);
+--type-team-sub-size:14px; --type-team-role-size:12px; --type-team-name-size:29px; --type-team-quote-size:15px;
 }}
 
 @media (max-width:767px){:root{
@@ -1071,6 +1123,12 @@
 --ct-media-min:300px;
 --ct-body-pad-start:var(--space-20); --ct-body-pad-inline:var(--space-16); --ct-body-pad-inline-end:var(--space-12); --ct-body-pad-end:var(--space-16); /* рендер 20 14 16: 16/12 по бокам */
 --type-ct-arch-title-size:28px;
+/* Team v3 — рендер 390 */
+--team-pad-block:var(--space-64); --team-pad-inline:var(--space-8);
+--team-head-pad-inline:var(--space-8); --team-head-pb:var(--space-28); --team-head-gap-col:var(--space-32);
+--team-body-pad-top:var(--space-20); --team-body-pad-end:var(--space-16);
+--team-q-body-pad:var(--space-8); --team-page-gap:var(--space-16);
+--type-team-name-size:26px;
 }}
 
 /* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */

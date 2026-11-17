@@ -59,6 +59,15 @@
 .text-calc-tile-label{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-tile-label-size);line-height:var(--type-calc-small-lh);font-weight:600}
 .text-calc-axis{font-family:var(--type-calc-small-ff);font-size:var(--type-calc-axis-size);font-weight:400}
 .text-calc-cta{font-family:var(--type-calc-cta-ff);font-size:var(--type-calc-cta-size);font-weight:600}
+.text-team-sub{font-family:var(--font-display);font-size:var(--type-team-sub-size);line-height:1.4;font-weight:500;text-transform:uppercase}
+.text-team-role{font-family:var(--font-text);font-size:var(--type-team-role-size);line-height:1;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
+.text-team-name{font-family:var(--font-display);font-size:var(--type-team-name-size);line-height:1.05;letter-spacing:-.03em;font-weight:600;text-transform:uppercase}
+.text-team-text{font-family:var(--font-text);font-size:var(--type-ct-text-size);line-height:1.6;font-weight:400}
+.text-team-stat{font-family:var(--font-text);font-size:var(--type-team-stat-size);line-height:1.3;font-weight:600}
+.text-team-qmark{font-family:var(--font-display);font-size:var(--type-team-qmark-size);line-height:.6;font-weight:600}
+.text-team-quote{font-family:var(--font-display);font-size:var(--type-team-quote-size);line-height:1.4;letter-spacing:-.01em;font-weight:500}
+.text-team-qname{font-family:var(--font-text);font-size:var(--type-team-qname-size);line-height:1.25;font-weight:700}
+.text-team-qpos{font-family:var(--font-text);font-size:var(--type-team-qpos-size);line-height:1.25;font-weight:400}
 .text-ct-month{font-family:var(--type-ct-month-ff);font-size:var(--type-ct-month-size);line-height:var(--type-ct-month-lh);letter-spacing:-.02em;font-weight:500;text-transform:uppercase}
 .text-ct-queue{font-family:var(--font-text);font-size:var(--type-ct-queue-size);line-height:1;letter-spacing:.1em;font-weight:700}
 .text-ct-title{font-family:var(--font-display);font-size:var(--type-ct-title-size);line-height:1.2;letter-spacing:-.02em;font-weight:500;text-transform:uppercase}

@@ -4419,6 +4419,736 @@
         ],
         "href": "#"
       }
+    },
+    {
+      "_type": "team",
+      "_key": "team",
+      "anchor": "komanda",
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Команда проєкту"
+        },
+        {
+          "_key": "en",
+          "value": "Project team"
+        }
+      ],
+      "subtitle": [
+        {
+          "_key": "uk",
+          "value": "За FORREST стоять ті, хто вже вміє створювати цінність"
+        },
+        {
+          "_key": "en",
+          "value": "Behind FORREST are people who already know how to create value"
+        }
+      ],
+      "members": [
+        {
+          "_key": "m1",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Забудовник"
+            },
+            {
+              "_key": "en",
+              "value": "Developer"
+            }
+          ],
+          "company": "Perspektyva Group",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/perspektyva-group-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Perspektyva Group"
+              },
+              {
+                "_key": "en",
+                "value": "Perspektyva Group"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-perspektyva.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Перша черга FORREST будується за власні кошти девелопера, що знижує залежність темпів будівництва від динаміки продажів."
+            },
+            {
+              "_key": "en",
+              "value": "The first phase of FORREST is being built with the developer’s own funds, which makes the pace of construction less dependent on sales."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "років досвіду"
+                },
+                {
+                  "_key": "en",
+                  "value": "years of experience"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "28"
+                },
+                {
+                  "_key": "en",
+                  "value": "28"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "реалізованих проєктів"
+                },
+                {
+                  "_key": "en",
+                  "value": "completed projects"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "17"
+                },
+                {
+                  "_key": "en",
+                  "value": "17"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "залучених інвестицій"
+                },
+                {
+                  "_key": "en",
+                  "value": "in investment raised"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "$300+ млн"
+                },
+                {
+                  "_key": "en",
+                  "value": "$300M+"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Ми не будуємо курорт. Ми створюємо нову легенду українських Карпат.»"
+              },
+              {
+                "_key": "en",
+                "value": "“We are not building a resort. We are creating a new legend of the Ukrainian Carpathians.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Ігор Мироненко"
+              },
+              {
+                "_key": "en",
+                "value": "Ihor Myronenko"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "CEO Perspektyva Group"
+              },
+              {
+                "_key": "en",
+                "value": "CEO, Perspektyva Group"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-myronenko.png"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.25
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Ігор Мироненко"
+                },
+                {
+                  "_key": "en",
+                  "value": "Ihor Myronenko"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m2",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Архітектор"
+            },
+            {
+              "_key": "en",
+              "value": "Architect"
+            }
+          ],
+          "company": "Filimonov & Kashirina Architects",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/filimonov-kashirina-architects-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Filimonov & Kashirina Architects"
+              },
+              {
+                "_key": "en",
+                "value": "Filimonov & Kashirina Architects"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-filimonov.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Архітектура FORREST створена як продовження карпатського ландшафту, де WIND, ROCK і SUN мають власний характер, але працюють як один курорт."
+            },
+            {
+              "_key": "en",
+              "value": "FORREST’s architecture continues the Carpathian landscape: WIND, ROCK and SUN each have their own character but work as one resort."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Міжнародно визнане бюро"
+                },
+                {
+                  "_key": "en",
+                  "value": "Internationally recognised studio"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Architecture MasterPrize"
+                },
+                {
+                  "_key": "en",
+                  "value": "Architecture MasterPrize"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Публікації ArchDaily"
+                },
+                {
+                  "_key": "en",
+                  "value": "Featured on ArchDaily"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Це не ще один готель у горах — це об’єкт із власним обличчям.»"
+              },
+              {
+                "_key": "en",
+                "value": "“This is not just another hotel in the mountains — it is a building with a face of its own.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Сергій Філімонов та Наталя Каширіна"
+              },
+              {
+                "_key": "en",
+                "value": "Serhii Filimonov and Natalia Kashirina"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "Filimonov & Kashirina Architects"
+              },
+              {
+                "_key": "en",
+                "value": "Filimonov & Kashirina Architects"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-filimonov-kashirina.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.3
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Сергій Філімонов та Наталя Каширіна"
+                },
+                {
+                  "_key": "en",
+                  "value": "Serhii Filimonov and Natalia Kashirina"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m3",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Управляюча компанія"
+            },
+            {
+              "_key": "en",
+              "value": "Management company"
+            }
+          ],
+          "company": "Maestro Hotel Management",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/maestro-hotel-management-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Maestro Hotel Management"
+              },
+              {
+                "_key": "en",
+                "value": "Maestro Hotel Management"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-maestro.jpg"
+            },
+            "hotspot": {
+              "x": 0.52,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Maestro відповідає за сервісну модель, персонал, маркетинг, продажі, бронювання та фінансову ефективність готелю."
+            },
+            {
+              "_key": "en",
+              "value": "Maestro is responsible for the service model, staff, marketing, sales, bookings and the hotel’s financial performance."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "готелів"
+                },
+                {
+                  "_key": "en",
+                  "value": "hotels"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "18"
+                },
+                {
+                  "_key": "en",
+                  "value": "18"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "номерів"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooms"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "780+"
+                },
+                {
+                  "_key": "en",
+                  "value": "780+"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторанів"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurants"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "10"
+                },
+                {
+                  "_key": "en",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "_key": "s4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "операційного досвіду"
+                },
+                {
+                  "_key": "en",
+                  "value": "of operating experience"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "10 років"
+                },
+                {
+                  "_key": "en",
+                  "value": "10 years"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Сучасна гостинність починається не з відкриття готелю, а з рішень на етапі його створення.»"
+              },
+              {
+                "_key": "en",
+                "value": "“Modern hospitality starts not with the hotel’s opening, but with the decisions made while it is being created.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Едуард Режинський"
+              },
+              {
+                "_key": "en",
+                "value": "Eduard Rezhynskyi"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "CEO Maestro Hotel Management"
+              },
+              {
+                "_key": "en",
+                "value": "CEO, Maestro Hotel Management"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-rezhinsky.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.18
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Едуард Режинський"
+                },
+                {
+                  "_key": "en",
+                  "value": "Eduard Rezhynskyi"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m4",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Дизайнер"
+            },
+            {
+              "_key": "en",
+              "value": "Designer"
+            }
+          ],
+          "company": "MAKHNO Studio",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/makhno-studio-white-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "MAKHNO Studio"
+              },
+              {
+                "_key": "en",
+                "value": "MAKHNO Studio"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-makhno.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "MAKHNO Studio створює авторські інтер’єри номерів та лобі, перетворюючи дизайн на частину преміального досвіду й цінності активу."
+            },
+            {
+              "_key": "en",
+              "value": "MAKHNO Studio creates signature interiors for the rooms and lobby, turning design into part of the premium experience and the value of the asset."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "проєктів"
+                },
+                {
+                  "_key": "en",
+                  "value": "projects"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "600"
+                },
+                {
+                  "_key": "en",
+                  "value": "600"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "країн"
+                },
+                {
+                  "_key": "en",
+                  "value": "countries"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "25"
+                },
+                {
+                  "_key": "en",
+                  "value": "25"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Red Dot Design Award"
+                },
+                {
+                  "_key": "en",
+                  "value": "Red Dot Design Award"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Це не декоративне рішення, а частина вартості активу.»"
+              },
+              {
+                "_key": "en",
+                "value": "“It is not a decorative choice, but part of the asset’s value.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Сергій Махно"
+              },
+              {
+                "_key": "en",
+                "value": "Serhii Makhno"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "MAKHNO Studio"
+              },
+              {
+                "_key": "en",
+                "value": "MAKHNO Studio"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-makhno.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.18
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Сергій Махно"
+                },
+                {
+                  "_key": "en",
+                  "value": "Serhii Makhno"
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }

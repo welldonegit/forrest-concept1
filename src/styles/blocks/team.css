@@ -1,0 +1,141 @@
+/* ===== Team v3 (4.13) — «Команда проєкту» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Разметка — пары «вкладка + панель». ≥901: вкладки в первой колонке (высоты строк:
+   выбранная забирает остаток), все панели и белая подложка — во второй колонке на всю высоту.
+   ≤900: аккордеон, панель раскрывается под своей вкладкой.
+   Смена панели и раскрытие — в ответ на нажатие, как в выгрузке (LAYOUT_RULES: анимации
+   по действию пользователя). Переключение — ui/team.js. */
+
+.team{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding:var(--team-pad-block) var(--team-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.team__head{
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end;
+  gap:var(--team-head-gap-row) var(--team-head-gap-col);
+  padding:0 var(--team-head-pad-inline) var(--team-head-pb);
+}
+.team__title{margin:0}
+.team__sub{margin:0; max-inline-size:var(--team-sub-max); text-wrap:balance}
+
+/* ---------- Вкладка ---------- */
+.team__tab{
+  position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:var(--team-tab-inner-gap);
+  min-inline-size:0; min-block-size:var(--team-tab-min);
+  margin:0; padding:var(--team-tab-pad); border:0; border-radius:var(--team-radius);
+  background:var(--team-tab-bg); color:var(--air); font:inherit; text-align:start; cursor:pointer;
+  transition:background-color var(--team-bg-dur) ease;
+}
+@media (hover:hover){ .team__tab:hover{background:var(--team-tab-bg-hover)} }
+.team__tab[aria-expanded="true"]{background:var(--team-tab-bg-open)}
+.team__tab-top{display:flex; justify-content:space-between; align-items:center; gap:var(--space-12)}
+.team__role{
+  align-self:flex-start; display:inline-flex; align-items:center;
+  block-size:var(--team-role-h); padding-inline:var(--team-role-pad);
+  border-radius:var(--radius-pill); background:var(--team-chip-bg);
+}
+.team__arrow{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--team-arrow); block-size:var(--team-arrow); border-radius:var(--radius-pill);
+  background:var(--team-chip-bg); color:var(--air);
+  transition:background-color var(--team-bg-dur) ease, color var(--team-bg-dur) ease, transform var(--team-arrow-dur) var(--ease-out-expo);
+}
+.team__arrow svg{inline-size:var(--team-arrow-icon); block-size:var(--team-arrow-icon)}
+.team__tab[aria-expanded="true"] .team__arrow{background:var(--air); color:var(--text-primary); transform:rotate(90deg)}
+.team__logo-wrap{display:flex; align-items:flex-end; min-inline-size:0}
+.team__logo{
+  display:block; block-size:var(--team-logo-h); inline-size:auto; max-inline-size:var(--team-logo-max);
+  object-fit:contain; object-position:left bottom;
+  filter:brightness(0) invert(1); /* как в выгрузке: тёмный SVG партнёра — белым на зелёном */
+}
+
+/* ---------- Панель ---------- */
+.team__panel{min-inline-size:0; display:flex; opacity:0; visibility:hidden}
+.team__panel[data-open]{opacity:1; visibility:visible}
+.team__panel-in{flex:1; display:flex; min-inline-size:0}
+.team__page{
+  flex:1; min-inline-size:0;
+  display:grid; grid-template-columns:var(--team-photo-w) minmax(0,1fr); gap:var(--team-page-gap);
+  padding:var(--team-page-pad);
+}
+.team__photo{position:relative; min-block-size:0; border-radius:var(--team-radius); overflow:hidden; background:var(--bg-inverse)}
+.team__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; object-position:var(--focus, 50% 50%)}
+.team__body{
+  min-inline-size:0; display:flex; flex-direction:column; gap:var(--team-body-gap);
+  padding-block:var(--team-body-pad-top) var(--team-body-pad-bottom); padding-inline:0 var(--team-body-pad-end);
+}
+.team__name{margin:0; text-wrap:balance; overflow-wrap:anywhere}
+.team__text{margin:0; max-inline-size:var(--ct-text-max); text-wrap:pretty}
+.team .team__stats{margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:var(--team-stats-gap)}
+.team__stat{
+  display:inline-flex; align-items:baseline; gap:var(--team-stat-gap);
+  min-block-size:var(--team-stat-min-h); padding:var(--team-stat-pad-block) var(--team-stat-pad-inline);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm);
+}
+.team__stat-value{font-weight:800}
+.team__quote{
+  margin:auto 0 0; display:grid; grid-template-columns:var(--team-q-col) minmax(0,1fr); gap:var(--team-q-gap);
+  padding:var(--team-q-pad); border-radius:var(--team-radius); background:var(--bg-surface-warm);
+}
+.team__portrait{position:relative; min-block-size:var(--team-q-photo-min); border-radius:var(--team-q-photo-radius); overflow:hidden; background:var(--bg-surface-sand)}
+.team__quote-body{
+  min-inline-size:0; display:flex; flex-direction:column; justify-content:center; gap:var(--team-q-body-gap);
+  padding-block:var(--team-q-body-pad); padding-inline:0 var(--team-q-body-pad);
+}
+.team__qmark{block-size:var(--team-qmark-h); margin-block-end:var(--team-qmark-mb)}
+.team__qtext{margin:0; text-wrap:pretty}
+.team__qcap{display:flex; flex-direction:column; gap:var(--team-qcap-gap)}
+.team__qpos{color:var(--text-muted)}
+
+/* ---------- ≥901: вкладки слева, панели справа ---------- */
+@media (min-width:901px){
+  .team__grid{
+    display:grid; grid-template-columns:var(--team-tabs-w) minmax(0,1fr);
+    grid-template-rows:var(--team-rows); /* строки вкладок: выбранная забирает остаток высоты (Team.astro, team.js) */
+    gap:var(--team-tab-gap) var(--team-col-gap);
+    transition:grid-template-rows var(--team-grow-dur) var(--ease-out-expo);
+  }
+  .team__tab{grid-column:1; grid-row:calc(var(--i) + 1)}
+  .team__panel, .team__panel-bg{grid-column:2; grid-row:1 / -1}
+  .team__panel-bg{border-radius:var(--team-panel-radius); background:var(--air); min-block-size:var(--team-panel-min)}
+  .team__panel{transition:opacity var(--team-fade-out) ease, visibility 0s linear var(--team-fade-out)}
+  .team__panel[data-open]{transition:opacity var(--team-fade-in) ease var(--team-fade-delay), visibility 0s}
+  .team__panel-in{transform:translateY(var(--team-shift)); transition:transform var(--team-shift-dur) var(--ease-out-expo)}
+  .team__panel[data-open] .team__panel-in{transform:none}
+}
+
+/* ---------- ≤900: аккордеон ---------- */
+@media (max-width:900px){
+  .team__grid{display:flex; flex-direction:column}
+  .team__panel-bg{display:none}
+  .team__tab[aria-expanded="true"]{min-block-size:var(--team-tab-min-open)}
+  .team__panel{
+    display:grid; grid-template-rows:0fr; margin-block-start:0;
+    border-radius:var(--team-mob-radius); background:var(--air); overflow:hidden;
+    transition:grid-template-rows var(--team-acc-dur) var(--team-acc-ease), margin-block-start var(--team-acc-dur) var(--team-acc-ease),
+      opacity var(--team-fade-out) ease, visibility 0s linear var(--team-acc-dur);
+  }
+  .team__panel[data-open]{
+    grid-template-rows:1fr; margin-block-start:var(--team-mob-gap);
+    transition:grid-template-rows var(--team-acc-dur) var(--team-acc-ease), margin-block-start var(--team-acc-dur) var(--team-acc-ease),
+      opacity var(--team-fade-in) ease var(--team-acc-fade-delay), visibility 0s;
+  }
+  /* поле панели — у слоя внутри строки 0fr, как в выгрузке: свёрнутая панель остаётся
+     прозрачной полосой в два поля — это и есть промежуток между вкладками */
+  .team__panel-in{min-block-size:0; overflow:hidden; padding:var(--team-page-pad); transform:translateY(var(--team-acc-shift)); transition:transform var(--team-acc-dur) var(--team-acc-ease)}
+  .team__page{padding:0}
+  .team__panel[data-open] .team__panel-in{transform:none}
+}
+@media (max-width:700px){
+  .team__page{grid-template-columns:minmax(0,1fr)}
+  .team__photo{aspect-ratio:4/5; inline-size:100%}
+  .team__body{padding:0 var(--space-6) var(--space-6)}
+}
+@media (max-width:600px){
+  .team__quote{grid-template-columns:var(--team-q-col) minmax(0,1fr)}
+  .team__portrait{min-block-size:var(--team-q-photo-min-sm)}
+}
+@media (prefers-reduced-motion:reduce){
+  .team__grid, .team__tab, .team__arrow, .team__panel, .team__panel[data-open], .team__panel-in{transition:none}
+}

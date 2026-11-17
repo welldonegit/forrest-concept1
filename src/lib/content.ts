@@ -123,6 +123,19 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/junior-room.jpg',
     '/design-export/presidential-room.jpg',
     '/design-export/assets/photos/wood-pano.jpg',
+    '/design-export/assets/photos/team-card-perspektyva.webp',
+    '/design-export/assets/photos/team-card-filimonov.webp',
+    '/design-export/assets/photos/team-card-maestro.jpg',
+    '/design-export/assets/photos/team-card-makhno.webp',
+    '/design-export/assets/photos/team-myronenko.png',
+    '/design-export/assets/photos/team-filimonov-kashirina.webp',
+    '/design-export/assets/photos/team-rezhinsky.webp',
+    '/design-export/assets/photos/team-makhno.webp',
+    // логотипы партнёров (SVG из выгрузки, без изменений)
+    '/design-export/assets/logos/perspektyva-group-dark.svg',
+    '/design-export/assets/logos/filimonov-kashirina-architects-dark.svg',
+    '/design-export/assets/logos/maestro-hotel-management-dark.svg',
+    '/design-export/assets/logos/makhno-studio-white-dark.svg',
   ],
   { import: 'default' },
 );
@@ -607,7 +620,30 @@ export interface ConstructionBlock {
   archive: { title: string; text: string; ariaLabel: string; href: string };
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock;
+export interface TeamStat { _key: string; value?: string; label: string }
+export interface TeamMember {
+  _key: string;
+  /** Роль: подпись на вкладке и заголовок панели. */
+  role: string;
+  company: string;
+  /** Логотип (SVG из выгрузки); alt — название компании. */
+  logo: SanityImage;
+  photo: SanityImage;
+  text: string;
+  stats: TeamStat[];
+  quote: { text: string; name: string; position: string; photo: SanityImage };
+}
+export interface TeamBlock {
+  _type: 'team';
+  _key: string;
+  /** id секции (#komanda). */
+  anchor: string;
+  title: string;
+  subtitle: string;
+  members: TeamMember[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');
