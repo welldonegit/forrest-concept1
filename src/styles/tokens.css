@@ -127,6 +127,7 @@
 --blur-control:blur(10px);
 --blur-caption:blur(14px);
 --blur-chip:blur(12px);          /* плашка «60 сек» в Season */
+--blur-glass:blur(16px) saturate(1.3); /* стеклянные круги Infrastructure (номер, «i») */
 
 /* ===== Радиусы (решения Р2 + п.14; 40 — рамка Hero, приёмка 4.1) ===== */
 --radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
@@ -373,6 +374,31 @@
 --loc-pulse-dur:3.2s; --loc-pulse-gap:1.6s; --loc-pulse-ease:cubic-bezier(.22,.61,.36,1);
 --loc-card-fade-dur:.35s; --loc-card-move-dur:.5s;
 
+/* ===== Infrastructure 4.9 (рендер; база = ≥1600). Поля секции — та же формула выгрузки, что у Model ===== */
+--infra-pad-block-start:var(--model-pad-block-start);
+--infra-pad-block-end:var(--model-pad-block-end);
+--infra-pad-inline:var(--model-pad-inline);
+--infra-title-mb:var(--space-64);
+--infra-gap:var(--space-24);             /* рендер 22 */
+--infra-card-w:429px;                    /* собственный размер: clamp(312px,24.7vw,429px) */
+--infra-corner:18px;                     /* положение номера и кнопки «i» от угла */
+--infra-head-inset:24px;                 /* положение заголовка от краёв */
+--infra-plate-pad-start:var(--space-20); --infra-plate-pad-end:var(--space-24); /* рендер 22 с двух сторон: 20/24 — габарит тот же */
+--infra-edge-mask:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+--infra-scrim:linear-gradient(180deg, rgba(12,12,12,.45) 0%, rgba(12,12,12,0) 26%, rgba(12,12,12,0) 46%, rgba(12,12,12,.78) 100%);
+--infra-glass-bg:color-mix(in srgb, var(--air) 14%, transparent);        /* rgba(255,255,255,.14) */
+--infra-glass-border:color-mix(in srgb, var(--air) 28%, transparent);    /* rgba(255,255,255,.28) */
+--infra-info-border:color-mix(in srgb, var(--air) 32%, transparent);     /* rgba(255,255,255,.32) */
+--infra-num-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 8px 24px -10px rgba(0,0,0,.35);
+--infra-info-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px -10px rgba(0,0,0,.4);
+--infra-dim:.2;                          /* = brightness(.8) выгрузки */
+/* движение (выгрузка) */
+--infra-img-dur:1.4s; --infra-dim-dur:1s; --infra-head-fade-dur:.5s; --infra-head-move-dur:.8s; --infra-plate-move-dur:.9s;
+--infra-info-dur:.5s; --infra-icon-dur:.6s; --infra-icon-fade-dur:.35s;
+--infra-line-dur:1.3s;
+--infra-ribbon-fade-dur:1.2s; --infra-ribbon-move-dur:1.8s; --infra-ribbon-delay:.3s; --infra-ribbon-shift:-80px;
+--infra-speed:.028;                      /* автопрокрутка, px/мс (ui/infra.js читает) */
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -510,6 +536,11 @@
 --type-apts-area-ff:var(--font-text); --type-apts-area-size:24px; --type-apts-area-lh:1.2; /* временная: площадь (24/22/18/18) */
 --type-apts-button-ff:var(--font-text); --type-apts-button-size:15px; --type-apts-button-lh:20px; /* временная: кнопка «Планування» (15 на всех ступенях) */
 --type-form-title-ff:var(--font-display); --type-form-title-size:clamp(20px,2.05vw,36px); --type-form-title-lh:1.1; --type-form-title-ls:-.03em; /* временная, плавная: заголовок Form (36/30/21/20) */
+--type-infra-num-ff:var(--font-display); --type-infra-num-size:26px; --type-infra-num-ls:-.02em;   /* временная: номер карточки Infrastructure (26 на всех ширинах) */
+--type-infra-title-ff:var(--font-display); --type-infra-title-size:24px; --type-infra-title-lh:1.2; --type-infra-title-ls:-.01em; /* временная: заголовок карточки (24/21/17) */
+--type-infra-lead-ff:var(--font-text); --type-infra-lead-size:18px; --type-infra-lead-lh:1.4;   /* временная: строка карточки (18/17/15) */
+--type-infra-plate-title-ff:var(--font-display); --type-infra-plate-title-size:16px; --type-infra-plate-title-lh:1.25; /* временная (16/15/14) */
+--type-infra-plate-text-ff:var(--font-text); --type-infra-plate-text-size:15px; --type-infra-plate-text-lh:1.55;       /* временная (15/14) */
 --type-loc-text-ff:var(--type-form-text-ff); --type-loc-text-size:var(--type-form-text-size); --type-loc-text-lh:var(--type-form-text-lh); /* временная: абзац Location = абзац Form (та же формула выгрузки) */
 --type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
 --type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
@@ -537,6 +568,10 @@
 }
 
 @media (max-width:1599px){:root{
+--type-infra-title-size:21px; --type-infra-lead-size:17px; --type-infra-plate-title-size:15px; --type-infra-plate-text-size:14px; /* рендер 20.9 · 16.6 · 15.1 · 13.7→14 */
+--infra-title-mb:var(--space-56);   /* рендер 57.6 */
+--infra-gap:var(--space-20);
+--infra-card-w:356px; --infra-corner:17px; --infra-head-inset:23px;
 --loc-gap:var(--space-56);          /* рендер 57.6 */
 /* 1280–1599 (рендер 1440) */
 --menu-pad-inline:var(--space-36);   /* рендер 37.4: видимые элементы сдвигаются ≤1.4px */
@@ -592,6 +627,11 @@
 }}
 
 @media (max-width:1279px){:root{
+--type-infra-title-size:17px; --type-infra-lead-size:15px; --type-infra-plate-title-size:14px;
+--infra-title-mb:var(--space-40);   /* рендер 41 */
+--infra-gap:var(--space-16);        /* рендер 14.3 */
+--infra-card-w:312px; --infra-corner:14px; --infra-head-inset:18px;
+--infra-plate-pad-start:var(--space-16); --infra-plate-pad-end:var(--space-20); /* рендер 18 */
 --loc-gap:var(--space-40);          /* рендер 41 */
 --loc-left-gap:var(--space-20);     /* рендер 20.5 */
 /* 768–1279 (рендер 1024) */
@@ -689,6 +729,7 @@
 }}
 
 @media (max-width:767px){:root{
+--infra-title-mb:var(--space-32);
 --loc-gap:var(--space-28);
 --loc-left-gap:var(--space-20);     /* рендер 18: 20 (+2 на промежуток) */
 --type-form-title-size:18px; /* решение 2026-11-17: <768 — 18px, две строки (выгрузка 20px, три строки на 390) */

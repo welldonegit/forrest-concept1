@@ -1,0 +1,129 @@
+/* ===== Infrastructure (4.9) — «14 причин приїжджати у FORREST цілий рік» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Конечное состояние — в базовых правилах; стартовые — при [data-motion] (anim/blocks/infrastructure.js).
+   Наведение и фокус (плашка) — только при мыши и ширине ≥768; на телефоне и сенсоре — кнопка «i»
+   ([data-open] ставит ui/infra.js). Как в выгрузке. */
+
+.infra{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--infra-pad-block-start) var(--infra-pad-block-end);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+  overflow:hidden;
+}
+.infra__title{margin:0 0 var(--infra-title-mb); padding-inline:var(--infra-pad-inline)}
+.infra__mask{display:block; overflow:hidden; padding-block-end:.08em; margin-block-end:-.08em}
+.infra__line{display:block}
+.infra__muted{color:var(--text-muted)}
+
+/* ---------- Лента ---------- */
+.infra__marquee{mask-image:var(--infra-edge-mask)}
+.infra__track{
+  overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; overscroll-behavior-x:contain;
+  cursor:grab;
+}
+.infra__track::-webkit-scrollbar{display:none}
+.infra__track[data-drag]{cursor:grabbing}
+.infra .infra__row{ /* .infra впереди: сброс ul[role=list] в reset.css сильнее одного класса */
+  display:flex; gap:var(--infra-gap); inline-size:max-content;
+  margin:0; padding:0 var(--infra-gap) 0 var(--infra-pad-inline);
+}
+.infra__item{flex:none}
+
+/* ---------- Карточка ---------- */
+.infra__card{
+  position:relative; display:block;
+  inline-size:var(--infra-card-w); aspect-ratio:4/5;
+  border-radius:var(--radius-28); overflow:hidden;
+  background:var(--bg-inverse-warm); color:var(--air);
+}
+.infra__card:focus-visible{outline-offset:-4px}
+.infra__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+  transform:scale(1.02);
+  transition:transform var(--infra-img-dur) var(--ease-out-expo);
+  -webkit-user-drag:none; user-select:none;
+}
+/* Затемнение фото при наведении: в выгрузке filter:brightness(.8), здесь — opacity слоя (Р6) */
+.infra__dim{position:absolute; inset:0; background:var(--night-bark); opacity:0; transition:opacity var(--infra-dim-dur) ease}
+.infra__scrim{position:absolute; inset:0; background:var(--infra-scrim)}
+
+.infra__num{
+  position:absolute; z-index:3;
+  inset-inline-start:var(--infra-corner); inset-block-start:var(--infra-corner);
+  display:flex; align-items:center; justify-content:center;
+  min-inline-size:var(--control-h-64); block-size:var(--control-h-64); padding-inline:var(--space-16);
+  border:var(--border-1) solid var(--infra-glass-border); border-radius:var(--radius-pill);
+  background:var(--infra-glass-bg); box-shadow:var(--infra-num-shadow);
+  -webkit-backdrop-filter:var(--blur-glass); backdrop-filter:var(--blur-glass);
+  font-variant-numeric:tabular-nums;
+}
+.infra__head{
+  position:absolute; inset-inline:var(--infra-head-inset); inset-block-end:var(--infra-head-inset);
+  display:flex; flex-direction:column; gap:var(--space-8);
+  transition:opacity var(--infra-head-fade-dur) ease, transform var(--infra-head-move-dur) var(--ease-out-expo);
+}
+.infra__card-title{margin:0; text-wrap:balance}
+.infra__lead{text-wrap:pretty}
+
+.infra__plate{
+  position:absolute; inset-inline:var(--space-10); inset-block-end:var(--space-10);
+  display:flex; flex-direction:column; gap:var(--space-10);
+  padding-block:var(--infra-plate-pad-start) var(--infra-plate-pad-end);
+  padding-inline:var(--infra-plate-pad-start) var(--infra-plate-pad-end);
+  border-radius:var(--radius-20);
+  background:var(--air); color:var(--text-primary);
+  opacity:0; transform:translateY(calc(100% + var(--space-12)));
+  transition:transform var(--infra-plate-move-dur) var(--ease-out-expo), opacity var(--infra-head-fade-dur) ease;
+}
+.infra__plate-text{text-wrap:pretty}
+
+/* Кнопка «i»: только телефон и сенсорные экраны */
+.infra__info{display:none}
+
+@media (hover:hover) and (min-width:768px){
+  .infra__card:is(:hover, :focus-visible) .infra__img{transform:scale(1.1)}
+  .infra__card:is(:hover, :focus-visible) .infra__dim{opacity:var(--infra-dim)}
+  .infra__card:is(:hover, :focus-visible) .infra__head{opacity:0; transform:translateY(calc(-1 * var(--space-16)))}
+  .infra__card:is(:hover, :focus-visible) .infra__plate{opacity:1; transform:none}
+}
+@media (hover:none), (max-width:767px){
+  .infra__info{
+    position:absolute; z-index:4;
+    inset-inline-end:var(--infra-corner); inset-block-start:var(--infra-corner);
+    display:flex; align-items:center; justify-content:center;
+    inline-size:var(--control-h-48); block-size:var(--control-h-48); padding:0;
+    border:var(--border-1) solid var(--infra-info-border); border-radius:var(--radius-pill);
+    background:var(--infra-glass-bg); box-shadow:var(--infra-info-shadow);
+    -webkit-backdrop-filter:var(--blur-glass); backdrop-filter:var(--blur-glass);
+    color:var(--air); cursor:pointer; -webkit-tap-highlight-color:transparent;
+    transition:transform var(--infra-info-dur) var(--ease-out-expo);
+  }
+  .infra__info:active{transform:scale(.92)}
+  /* открыто: белая заливка — отдельный слой с opacity (в выгрузке переход background/border-color) */
+  .infra__info-fill{position:absolute; inset:calc(-1 * var(--border-1)); border-radius:inherit; background:var(--air); opacity:0; transition:opacity var(--infra-info-dur) var(--ease-out-expo)}
+  .infra__info svg{position:relative; inline-size:var(--icon-20); block-size:var(--icon-20)}
+  .infra__info svg *{transform-box:view-box; transform-origin:12px 12px; transition:transform var(--infra-icon-dur) var(--ease-out-expo), opacity var(--infra-icon-fade-dur) ease}
+  /* крестик тёмный, «i» светлая: цвет не анимируется — меняются фигуры */
+  .infra__i-x1,
+  .infra__i-x2{fill:var(--text-primary); opacity:0; transform:scaleY(.4)}
+  .infra__card[data-open] .infra__info-fill{opacity:1}
+  .infra__card[data-open] :is(.infra__i-dot, .infra__i-stem){opacity:0; transform:scale(.3)}
+  .infra__card[data-open] .infra__i-x1{opacity:1; transform:rotate(45deg) scaleY(.85)}
+  .infra__card[data-open] .infra__i-x2{opacity:1; transform:rotate(-45deg) scaleY(.85)}
+  .infra__card[data-open] .infra__img{transform:scale(1.1)}
+  .infra__card[data-open] .infra__dim{opacity:var(--infra-dim)}
+  .infra__card[data-open] .infra__head{opacity:0; transform:translateY(calc(-1 * var(--space-16)))}
+  .infra__card[data-open] .infra__plate{opacity:1; transform:none}
+}
+
+/* ---------- Появление (как в выгрузке) ---------- */
+.infra[data-motion] .infra__line{transition:transform var(--infra-line-dur) var(--ease-out-expo) var(--d, 0s)}
+.infra[data-motion] .infra__ribbon{
+  transition:
+    opacity var(--infra-ribbon-fade-dur) ease var(--infra-ribbon-delay),
+    transform var(--infra-ribbon-move-dur) var(--ease-out-expo) var(--infra-ribbon-delay);
+}
+.infra[data-motion]:not([data-in]) .infra__line{transform:translateY(110%)}
+.infra[data-motion]:not([data-in]) .infra__ribbon{opacity:0; transform:translateX(var(--infra-ribbon-shift))}

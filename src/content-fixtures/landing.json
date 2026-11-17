@@ -1823,6 +1823,677 @@
           ]
         }
       }
+    },
+    {
+      "_type": "infrastructure",
+      "_key": "infrastructure",
+      "anchor": "infrastruktura",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "14 причин приїжджати"
+            },
+            {
+              "_key": "en",
+              "value": "14 reasons to come"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "у FORREST"
+            },
+            {
+              "_key": "en",
+              "value": "to FORREST"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "цілий рік"
+            },
+            {
+              "_key": "en",
+              "value": "all year round"
+            }
+          ]
+        }
+      ],
+      "moreLabel": [
+        {
+          "_key": "uk",
+          "value": "Детальніше"
+        },
+        {
+          "_key": "en",
+          "value": "More details"
+        }
+      ],
+      "items": [
+        {
+          "_key": "i1",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "SKI IN / SKI OUT НА ТРАСУ 5G"
+            },
+            {
+              "_key": "en",
+              "value": "SKI IN / SKI OUT TO SLOPE 5G"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Виходите з готелю — і ви вже на схилі"
+            },
+            {
+              "_key": "en",
+              "value": "Step out of the hotel and you are on the slope"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Прямий вихід на схил R5, без трансферу і пробок. Поруч ski-room із сушильними шафами і кімнати для зберігання лиж і велосипедів. Для дітей працює лижна школа."
+            },
+            {
+              "_key": "en",
+              "value": "Direct access to slope R5, no transfers or traffic. Next to it — a ski room with drying cabinets and storage for skis and bikes. A ski school works for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-snowboarder.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "2 500+ м² WELLNESS & SPA"
+            },
+            {
+              "_key": "en",
+              "value": "2,500+ m² WELLNESS & SPA"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Терми, сауни і хамам у будь-який сезон"
+            },
+            {
+              "_key": "en",
+              "value": "Thermae, saunas and hammam in any season"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Римські терми, японська баня, аромасауна, хамам, соляна кімната і кімната чайних церемоній. Тут же критий басейн із виходом назовні, дитячий басейн, масажні кабінети і салон краси. Для родин є окремий SPA на два поверхи."
+            },
+            {
+              "_key": "en",
+              "value": "Roman thermae, Japanese bath, aroma sauna, hammam, salt room and a tea ceremony room. Also an indoor pool with an outdoor exit, a children's pool, massage rooms and a beauty salon. Families have a separate two-storey SPA."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-pool.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "INFINITY POOL НА ВИСОТІ 962 м"
+            },
+            {
+              "_key": "en",
+              "value": "INFINITY POOL AT 962 m"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Басейн на даху з панорамою Карпат"
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop pool with a Carpathian panorama"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Басейн площею 106 м² над лісом, дві джакузі і лаунж-зона для компаній. Поруч окремі SPA-басейни для дорослих і для дітей."
+            },
+            {
+              "_key": "en",
+              "value": "A 106 m² pool above the forest, two jacuzzis and a lounge area for groups. Next to it — separate SPA pools for adults and for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-okupnist.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "BIOHACKING & RECOVERY CENTER"
+            },
+            {
+              "_key": "en",
+              "value": "BIOHACKING & RECOVERY CENTER"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Флоатинг, кріо- і світлотерапія для відновлення"
+            },
+            {
+              "_key": "en",
+              "value": "Floating, cryo and light therapy for recovery"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Холодні купелі, інфрачервона кімната, флоатинг, кріо- і світлотерапія. Є готові програми: антистрес, відновлення сну, 72-годинне перезавантаження."
+            },
+            {
+              "_key": "en",
+              "value": "Cold plunges, an infrared room, floating, cryo and light therapy. Ready-made programmes: anti-stress, sleep recovery, 72-hour reset."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-woman.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "КОНФЕРЕНЦ-ЗАЛИ НА [ФАКТ: N] ОСІБ"
+            },
+            {
+              "_key": "en",
+              "value": "CONFERENCE HALLS FOR [FACT: N] PEOPLE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Форуми, стратегічні сесії і корпоративні виїзди"
+            },
+            {
+              "_key": "en",
+              "value": "Forums, strategy sessions and corporate retreats"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Залу можна розставити як театр, клас, банкет або круглий стіл. Поруч 4–6 переговорних і коворкінг."
+            },
+            {
+              "_key": "en",
+              "value": "The hall can be set up as a theatre, classroom, banquet or round table. Next to it — 4–6 meeting rooms and a coworking space."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i6",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "400+ м² ДИТЯЧОГО ПРОСТОРУ"
+            },
+            {
+              "_key": "en",
+              "value": "400+ m² OF KIDS' SPACE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Програми для дітей від 2 до 14 років"
+            },
+            {
+              "_key": "en",
+              "value": "Programmes for children aged 2 to 14"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Окремі програми для груп 2–5, 6–10 і 11–14 років, з нянями і аніматорами. Надворі дитячі майданчики і спрей-майданчик. Поки діти зайняті, батьки відпочивають у SPA чи ресторані."
+            },
+            {
+              "_key": "en",
+              "value": "Separate programmes for ages 2–5, 6–10 and 11–14, with nannies and entertainers. Outdoors — playgrounds and a splash pad. While the kids are busy, parents relax in the SPA or a restaurant."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-family-meadow.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i7",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "2 РЕСТОРАНИ І 3 КАФЕ ТА БАРИ"
+            },
+            {
+              "_key": "en",
+              "value": "2 RESTAURANTS AND 3 CAFÉS & BARS"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Сніданки, обіди і кава після катання без виїзду з курорту"
+            },
+            {
+              "_key": "en",
+              "value": "Breakfast, lunch and coffee after skiing without leaving the resort"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Концептуальний ресторан створюють разом із провідними рестораторами і шефами, він відкривається одночасно з готелем. Для родин є сімейний ресторан із дитячим меню. Також працюють après-ski бар біля лижної кімнати, бар у SPA і лаунж-кафе біля відкритого басейну."
+            },
+            {
+              "_key": "en",
+              "value": "A concept restaurant is being created with leading restaurateurs and chefs and opens together with the hotel. Families have a family restaurant with a kids' menu. There is also an après-ski bar by the ski room, a bar in the SPA and a lounge café by the outdoor pool."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-bar-toast.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i8",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "230 м² ВІДКРИТИЙ БАСЕЙН"
+            },
+            {
+              "_key": "en",
+              "value": "230 m² OUTDOOR POOL"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Улітку басейн, узимку ковзанка"
+            },
+            {
+              "_key": "en",
+              "value": "A pool in summer, an ice rink in winter"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Навколо басейну 620 м² зони відпочинку з гідромасажними зонами і лежаками. Узимку басейн стає ковзанкою зі школою перших кроків для дітей."
+            },
+            {
+              "_key": "en",
+              "value": "Around the pool — 620 m² of relaxation area with hydromassage zones and loungers. In winter the pool becomes an ice rink with a first-steps school for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i9",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST SKY VIEW"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST SKY VIEW"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Оглядовий майданчик із видом на 360°"
+            },
+            {
+              "_key": "en",
+              "value": "A 360° observation deck"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Майданчик на висоті 48 метрів — найвища точка комплексу. Звідси видно ліс, схили і гірські хребти навколо Буковеля."
+            },
+            {
+              "_key": "en",
+              "value": "A deck 48 metres high — the highest point of the complex. From here you see the forest, the slopes and the mountain ridges around Bukovel."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-carpathian-slope.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i10",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "МЕДІЙНИЙ ЦЕНТР"
+            },
+            {
+              "_key": "en",
+              "value": "MEDIA CENTRE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Студії для трансляцій, подкастів і онлайн-зустрічей"
+            },
+            {
+              "_key": "en",
+              "value": "Studios for broadcasts, podcasts and online meetings"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Мультикамерна зйомка, професійне світло і звук, подкаст-студія, звукоізольовані онлайн-кімнати. Подію можна провести наживо і водночас транслювати на міжнародну аудиторію."
+            },
+            {
+              "_key": "en",
+              "value": "Multi-camera shooting, professional light and sound, a podcast studio, soundproof online rooms. An event can be held live and streamed to an international audience at the same time."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-detail-hands.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i11",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ROOFTOP 579 м²"
+            },
+            {
+              "_key": "en",
+              "value": "ROOFTOP 579 m²"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Вечері з панорамою, закриті події і кіно під зорями"
+            },
+            {
+              "_key": "en",
+              "value": "Dinners with a view, private events and cinema under the stars"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Простір на даху для вечері на заході сонця, закритих зустрічей, презентацій і приватних святкувань. Тут проходять вечері від шефа і сімейний кінотеатр просто неба."
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop space for sunset dinners, private meetings, presentations and private celebrations. Chef's dinners and an open-air family cinema take place here."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-terrace-evening.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i12",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "СКАЛОДРОМ І МОТУЗКОВИЙ ПАРК"
+            },
+            {
+              "_key": "en",
+              "value": "CLIMBING WALL AND ROPE PARK"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Пригоди для дітей за будь-якої погоди"
+            },
+            {
+              "_key": "en",
+              "value": "Adventures for children in any weather"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "На скалодромі маршрути різної складності з тренерами. Мотузкові траси розраховані на дітей 5–14 років."
+            },
+            {
+              "_key": "en",
+              "value": "Climbing routes of different difficulty with coaches. Rope courses are designed for children aged 5–14."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-architecture.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i13",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ПАДЕЛ НА ДАХУ І ФІТНЕС-ЦЕНТР"
+            },
+            {
+              "_key": "en",
+              "value": "ROOFTOP PADEL AND FITNESS CENTRE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Спорт між катанням, SPA і зустрічами"
+            },
+            {
+              "_key": "en",
+              "value": "Sport between skiing, SPA and meetings"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Падел-корт на даху: можна орендувати корт, взяти тренера або зіграти закритий турнір. Фітнес-центр із сучасним обладнанням, персональними і груповими тренуваннями та вуличними тренажерами."
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop padel court: rent a court, book a coach or play a private tournament. A fitness centre with modern equipment, personal and group training and outdoor workout machines."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-man-sunset.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i14",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "150 ПАРКОМІСЦЬ І УКРИТТЯ"
+            },
+            {
+              "_key": "en",
+              "value": "150 PARKING SPACES AND A SHELTER"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Підземний паркінг, який працює як укриття"
+            },
+            {
+              "_key": "en",
+              "value": "Underground parking that works as a shelter"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Паркомісця є в усіх трьох корпусах, з паркінгу ліфтом можна піднятися одразу в будівлю. Доступ контрольований, є відеоспостереження і зарядні станції для електромобілів. Підземна частина обладнана як укриття: інженерні системи, аварійне освітлення, зв'язок."
+            },
+            {
+              "_key": "en",
+              "value": "Parking spaces are in all three buildings; a lift takes you straight from the parking into the building. Controlled access, video surveillance and EV chargers. The underground part is equipped as a shelter: engineering systems, emergency lighting, communications."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        }
+      ]
     }
   ]
 }

@@ -8,6 +8,7 @@ import { initLeadForms } from './ui/lead-form.js';
 import { initFooter } from './ui/footer.js';
 import { initWorlds } from './ui/worlds.js';
 import { initLocation } from './ui/location.js';
+import { initInfra } from './ui/infra.js';
 import { initAnimations } from './anim/core.js';
 
 initMenu();
@@ -20,4 +21,5 @@ initLeadForms();
 initFooter();
 initWorlds();
 initLocation();
+initInfra();
 initAnimations();

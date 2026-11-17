@@ -1,0 +1,68 @@
+---
+/**
+ * Infrastructure (4.9): «14 причин приїжджати у FORREST цілий рік» — лента карточек
+ * (фото, номер, заголовок, строка), которая сама медленно едет; подробности — плашка
+ * при наведении или фокусе (десктоп) и по кнопке «i» (телефон, сенсорный экран).
+ * Выгрузка 2026-11-17, секция «Infrastructure». Тексты и фото — из Sanity.
+ *
+ * Лента бесконечная: за карточками идут копии (aria-hidden, без фокуса) — src/scripts/ui/infra.js
+ * (автопрокрутка, перетаскивание, кнопка «i»). Появление — anim/blocks/infrastructure.js.
+ */
+import { Image } from 'astro:assets';
+import SwipeHint from '../ui/SwipeHint.astro';
+import { resolveImage, type InfrastructureBlock } from '../../lib/content';
+
+interface Props {
+  block: InfrastructureBlock;
+  swipeHint: string;
+}
+
+const { block, swipeHint } = Astro.props;
+const id = block.anchor;
+const trackId = `${id}-track`;
+const items = await Promise.all(block.items.map(async (it) => ({ ...it, photo: await resolveImage(it.image) })));
+const num = (i: number) => String(i + 1).padStart(2, '0');
+---
+<section class="infra" id={id} aria-labelledby={`${id}-title`} data-anim-block="infrastructure">
+  <h2 class="infra__title text-display-sm" id={`${id}-title`}>
+    {block.title.map((line, i) => (
+      <span class="infra__mask"><span class="infra__line" style={`--d:${0.1 + i * 0.1}s`}>{line.text}{line.mutedText && <> <span class="infra__muted">{line.mutedText}</span></>}</span></span>
+    ))}
+  </h2>
+  <div class="infra__marquee">
+    <div class="infra__ribbon" data-infra-ribbon>
+      <div class="infra__track" id={trackId} data-infra-track>
+        <ul class="infra__row" role="list" data-infra-row>
+          {[false, true].map((clone) => items.map((it, i) => (
+            <li class="infra__item" aria-hidden={clone ? 'true' : undefined} data-clone={clone ? '' : undefined}>
+              <article class="infra__card" tabindex={clone ? undefined : 0} aria-labelledby={clone ? undefined : `${id}-c${i}`} data-infra-card>
+                <span class="infra__num text-infra-num" aria-hidden="true">{num(i)}</span>
+                <Image class="infra__img" src={it.photo.src} alt={it.photo.alt} widths={[360, 540, 720, 860]} sizes="(max-width: 1599px) 356px, 429px" format="avif" loading="lazy" decoding="async" draggable="false" style={`--focus:${it.photo.position}`} />
+                <span class="infra__dim" aria-hidden="true"></span>
+                <span class="infra__scrim" aria-hidden="true"></span>
+                <span class="infra__head">
+                  <h3 class="infra__card-title text-infra-title" id={clone ? undefined : `${id}-c${i}`}>{it.title}</h3>
+                  <span class="infra__lead text-infra-lead">{it.lead}</span>
+                </span>
+                <button class="infra__info" type="button" aria-label={block.moreLabel} aria-expanded="false" tabindex={clone ? -1 : undefined} data-infra-info>
+                  <span class="infra__info-fill" aria-hidden="true"></span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle class="infra__i-dot" cx="12" cy="6.6" r="1.7" fill="currentColor" />
+                    <rect class="infra__i-stem" x="10.6" y="10" width="2.8" height="9" rx="1.4" fill="currentColor" />
+                    <rect class="infra__i-x1" x="10.6" y="4" width="2.8" height="16" rx="1.4" fill="currentColor" />
+                    <rect class="infra__i-x2" x="10.6" y="4" width="2.8" height="16" rx="1.4" fill="currentColor" />
+                  </svg>
+                </button>
+                <span class="infra__plate">
+                  <span class="infra__plate-title text-infra-plate-title" aria-hidden="true">{it.title}</span>
+                  <span class="infra__plate-text text-infra-plate-text">{it.text}</span>
+                </span>
+              </article>
+            </li>
+          )))}
+        </ul>
+      </div>
+      <SwipeHint track={trackId} label={swipeHint} />
+    </div>
+  </div>
+</section>

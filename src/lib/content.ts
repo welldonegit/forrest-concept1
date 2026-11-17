@@ -99,6 +99,19 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/card-income.jpg',
     '/design-export/assets/photos/bukovel-map.jpg',
     '/design-export/tooltip.jpg',
+    '/design-export/assets/photos/wind-snowboarder.jpg',
+    '/design-export/assets/photos/sun-pool.jpg',
+    '/design-export/assets/photos/wind-woman.jpg',
+    '/design-export/assets/photos/rock-section.jpg',
+    '/design-export/assets/photos/sun-family-meadow.jpg',
+    '/design-export/assets/photos/rock-bar-toast.jpg',
+    '/design-export/assets/photos/sun-section.jpg',
+    '/design-export/assets/photos/sun-carpathian-slope.jpg',
+    '/design-export/assets/photos/rock-detail-hands.jpg',
+    '/design-export/assets/photos/rock-terrace-evening.jpg',
+    '/design-export/assets/photos/wind-architecture.jpg',
+    '/design-export/assets/photos/rock-man-sunset.jpg',
+    '/design-export/assets/photos/wind-section.jpg',
     '/design-export/hero-summer-mob.jpg',
     '/design-export/hero-winter-mob.jpg',
     '/design-export/assets/photos/catalog-plans.jpg',
@@ -417,7 +430,31 @@ export interface LocationBlock {
   };
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock;
+export interface InfrastructureItem {
+  _key: string;
+  /** Заголовок карточки; он же — заголовок плашки с подробностями. */
+  title: string;
+  /** Строка под заголовком на фото. */
+  lead: string;
+  /** Подробности: плашка при наведении (десктоп) или по кнопке «i» (телефон, сенсор). */
+  text: string;
+  image: SanityImage;
+}
+
+export interface InfrastructureBlock {
+  _type: 'infrastructure';
+  _key: string;
+  /** id секции (#infrastruktura): на него ссылаются меню и футер. */
+  anchor: string;
+  /** Строки заголовка; mutedText — приглушённое окончание строки. */
+  title: { _key: string; text: string; mutedText?: string }[];
+  /** Подпись кнопки «i» для экранных дикторов. */
+  moreLabel: string;
+  /** Номер карточки (01, 02…) ставится по порядку. */
+  items: InfrastructureItem[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');
