@@ -10,6 +10,7 @@ import Apartments from '../../components/blocks/Apartments.astro';
 import Form from '../../components/blocks/Form.astro';
 import Location from '../../components/blocks/Location.astro';
 import Infrastructure from '../../components/blocks/Infrastructure.astro';
+import Numbers from '../../components/blocks/Numbers.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
@@ -36,6 +37,7 @@ const landing = await getLanding(lang);
         case 'form': return <Form block={block} settings={settings} />;
         case 'location': return <Location block={block} />;
         case 'infrastructure': return <Infrastructure block={block} swipeHint={settings.ui.swipeHint} />;
+        case 'numbers': return <Numbers block={block} lang={lang} />;
         default: return null;
       }
     })}

@@ -399,6 +399,97 @@
 --infra-ribbon-fade-dur:1.2s; --infra-ribbon-move-dur:1.8s; --infra-ribbon-delay:.3s; --infra-ribbon-shift:-80px;
 --infra-speed:.028;                      /* автопрокрутка, px/мс (ui/infra.js читает) */
 
+/* ===== Numbers (4.10) + калькулятор (рендер; база = ≥1600) ===== */
+--nums-pad-block-start:var(--model-pad-block-start);
+--nums-pad-block-end:var(--model-pad-block-end);
+--nums-pad-inline:var(--model-pad-inline);
+--nums-title-mb:var(--space-56);
+--nums-stack-gap:var(--space-12);          /* <900: карточки и калькулятор столбцом */
+--nums-scene-gap:var(--space-16);          /* ≥900: промежуток карточек (в выгрузке 16 на всех ширинах) */
+--nums-track-h:360vh;                      /* длина сцены прокрутки, как в выгрузке */
+--nums-card-max-w:56vh;                    /* ширина карточки ≤ 0.7·высоты окна / 1.25 (выгрузка) */
+--nums-pano-inset:48px;                    /* панорама в конце сцены: высота окна − 48 */
+--nums-form-pad:max(16px, 2.5cqw);         /* поле калькулятора в сцене: max(16, 2.5% ширины), как в выгрузке */
+--nums-pano-pad:var(--space-32);           /* без сцены, ≥900: поле панорамы вокруг калькулятора */
+--nums-dark:.6; --nums-dark-static:.55;
+--nums-card-pad:var(--space-40);
+--nums-card-gap:var(--space-20);
+--nums-chip-h:var(--control-h-32);
+--nums-chip-pad-start:var(--space-12); --nums-chip-pad-end:var(--space-16);  /* рендер 14 с двух сторон */
+--nums-graph-pb:var(--space-36);
+--nums-gbars-h:170px;                      /* собственный размер: clamp(120px,10vw,170px) */
+--nums-gbars-gap:var(--space-12);          /* рендер 14 */
+--nums-gbar-radius:var(--radius-12);
+--nums-tag-h:28px; --nums-tag-pad:var(--space-12); --nums-tag-gap:var(--space-16); /* «Точка окупності»: 14 ниже точки */
+--nums-axis-mt:var(--space-10); --nums-axis-h:16px;
+--nums-ring-w:260px;                       /* собственный размер: min(62%, clamp(190px,16vw,260px)) */
+--nums-ring-pb:var(--space-24);
+--nums-ring-gap:var(--space-20);
+--nums-ring-center-gap:var(--space-4);
+--nums-steps-gap:var(--space-12);          /* рендер 14 */
+--nums-step-gap:var(--space-6);
+--nums-step-dot:12px; --nums-step-dot-gap:var(--space-8);
+--nums-bar-1:#D6E2DA; --nums-bar-2:#B4CABD; --nums-bar-3:#8FAE9D; --nums-bar-4:#6E9784; --nums-bar-5:#4E7A66; --nums-bar-6:var(--pine); /* столбики «Річна дохідність» */
+--nums-gbar-fade:linear-gradient(180deg, #000 0%, rgba(0,0,0,.8) 45%, transparent 100%); /* цвет → прозрачный вниз (CC = .8) */
+--nums-area-stop:var(--nums-bar-5); --nums-area-stop-opacity:.38;
+--nums-card-shadow:0 1px 0 rgba(255,255,255,.8) inset, 0 30px 60px -40px rgba(50,37,18,.28);
+--nums-pulse-scale:2.6; --nums-pulse-opacity:.35;
+
+--calc-grid-gap:var(--space-16);
+--calc-panel-pad:var(--space-40);
+--calc-panel-gap:var(--space-36);
+--calc-field-gap:var(--space-12);          /* рендер 14 */
+--calc-label-gap:var(--space-12);          /* рендер 14 */
+--calc-icon-box:var(--control-h-44); --calc-icon:22px; --calc-chev-box:var(--control-h-40); --calc-chev:18px;
+--calc-trig-pad:var(--space-12) var(--space-16) var(--space-16) var(--space-20); /* рендер 14 14 14 22: габарит тот же */
+--calc-trig-gap:var(--space-16);
+--calc-trig-text-gap:var(--space-4);
+--calc-trig-radius:var(--radius-24);       /* рендер 22 */
+--calc-trig-bg:#FBF7F0;
+--calc-trig-ring:0 0 0 5px rgba(24,40,32,.06);
+--calc-list-offset:var(--space-10); --calc-list-pad:var(--space-6); --calc-list-radius:var(--radius-24);
+--calc-list-shadow:0 0 0 1px var(--path-sand), 0 40px 80px -36px rgba(24,40,32,.5);
+--calc-list-shift:-10px; --calc-list-scale:.98;
+--calc-opt-pad:var(--space-10) var(--space-16) var(--space-10) var(--space-12); /* рендер 10 14 */
+--calc-opt-radius:var(--radius-16);        /* рендер 14 */
+--calc-opt-gap:var(--space-16); --calc-opt-text-gap:var(--space-12);
+--calc-radio:20px;
+--calc-radio-on:radial-gradient(circle at center, var(--air) 0 3.5px, var(--spruce) 4px);
+--calc-params-gap:var(--space-12); --calc-params-pt:var(--space-8); --calc-param-gap:var(--space-6);
+--calc-res-pad:var(--space-32);
+--calc-res-gap:var(--space-24);            /* рендер 26 */
+--calc-res-top-gap:var(--space-20);
+--calc-price-row-gap:var(--space-12) var(--space-24);
+--calc-price-gap:var(--space-8);
+--calc-yield-h:var(--control-h-40); --calc-yield-pad-start:var(--space-16); --calc-yield-pad-end:var(--space-6); --calc-yield-gap:var(--space-10);
+--calc-yield-val-h:30px; --calc-yield-val-pad:var(--space-12);
+--calc-tiles-gap:var(--space-8); --calc-tile-min:150px;
+--calc-tile-pad-block-start:var(--space-16); --calc-tile-pad-block-end:var(--space-20); --calc-tile-pad-inline:var(--space-20); /* рендер 18 / 20: 16+20 — габарит тот же */
+--calc-tile-radius:var(--radius-20);       /* рендер 18 */
+--calc-tile-gap:var(--space-10);
+--calc-chart-gap:var(--space-12);
+--calc-bars-h:100px;                       /* собственный размер: clamp(72px,6.4vw,100px) */
+--calc-bars-gap:var(--space-4);
+--calc-bar-radius:6px 6px 2px 2px;         /* столбик графика, как в выгрузке */
+--calc-legend-gap:var(--space-8) var(--space-20); --calc-legend-item-gap:var(--space-8);
+--calc-swatch:12px; --calc-swatch-radius:3px;
+--calc-foot-mt:var(--space-4);
+--calc-cta-gap:var(--space-24);
+--calc-cta-h:var(--control-h-64); --calc-cta-pad-start:var(--space-28); --calc-cta-pad-end:var(--space-6); --calc-cta-icon-box:52px; /* 64/52 на всех ширинах, как в рендере */
+--calc-cta-icon:18px;
+/* движение (рендер) */
+--nums-line-dur:1.3s;
+--nums-clip-dur:1.5s; --nums-step:.15s;
+--nums-txt-fade-dur:1s; --nums-txt-move-dur:1.3s; --nums-txt-delay:.5s; --nums-txt-shift:-18px;
+--nums-gb-dur:1.2s; --nums-gs-dur:.5s; --nums-gs-fade-dur:.6s; --nums-gs-move-dur:.8s; --nums-area-dur:1s; --nums-tick-dur:.4s;
+--nums-line-draw-dur:1.8s; --nums-ring-draw-dur:1.1s; --nums-draw-delay:1.3s;
+--nums-pulse-dur:2.4s; --nums-pulse-delay:3s;
+--nums-hover-dur:.4s; --nums-ring-dur:.5s; --nums-chev-dur:.6s; --nums-list-fade-dur:.3s; --nums-list-move-dur:.5s; --nums-opt-dur:.35s;
+--calc-bar-dur:1.6s; --calc-bar-step:70ms; --calc-bar-fast-dur:.9s; --calc-bar-fast-step:25ms;
+--calc-paid-dur:.6s; --calc-paid-delay:.4s;
+--calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
+--calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms;   /* пересчёт чисел (ui/numbers.js читает) */
+
 /* ===== Меню (рендер) ===== */
 --menu-pad-block-start:var(--space-24);
 --menu-pad-inline:var(--space-48);
@@ -541,6 +632,27 @@
 --type-infra-lead-ff:var(--font-text); --type-infra-lead-size:18px; --type-infra-lead-lh:1.4;   /* временная: строка карточки (18/17/15) */
 --type-infra-plate-title-ff:var(--font-display); --type-infra-plate-title-size:16px; --type-infra-plate-title-lh:1.25; /* временная (16/15/14) */
 --type-infra-plate-text-ff:var(--font-text); --type-infra-plate-text-size:15px; --type-infra-plate-text-lh:1.55;       /* временная (15/14) */
+--type-num-chip-ff:var(--font-text); --type-num-chip-size:12px; --type-num-chip-lh:16px; --type-num-chip-ls:.12em;   /* временная: плашка карточки Numbers */
+--type-num-step-ls:.1em;
+--type-num-value-ff:var(--font-display); --type-num-value-size:76px; --type-num-value-ls:-.045em;   /* временная: цифра карточки (76/63/45/44) */
+--type-num-unit-ff:var(--font-text); --type-num-unit-size:18px;                                     /* «років» (18/17/15) */
+--type-num-ring-ff:var(--font-display); --type-num-ring-size:44px; --type-num-ring-ls:-.04em;      /* «24» в кольце (44/39/30) */
+--type-num-tag-ff:var(--font-text); --type-num-tag-size:11px; --type-num-tag-ls:.1em; --type-num-ring-label-ls:.12em;
+--type-num-axis-ff:var(--font-text); --type-num-axis-size:13px;
+--type-num-small-ff:var(--font-text); --type-num-small-size:13px; --type-num-small-lh:1.35;
+--type-calc-title-ff:var(--font-display); --type-calc-title-size:32px; --type-calc-title-lh:1.1; --type-calc-title-ls:-.03em; /* (32/27/20) */
+--type-calc-label-ff:var(--font-display); --type-calc-label-size:12px; --type-calc-label-ls:.18em;
+--type-calc-choice-ff:var(--font-display); --type-calc-choice-size:18px; --type-calc-choice-lh:1.2;  /* (18/17/15) */
+--type-calc-sub-ff:var(--font-text); --type-calc-sub-size:14px; --type-calc-sub-lh:1.3;
+--type-calc-opt-ff:var(--font-display); --type-calc-opt-size:16px; --type-calc-opt-lh:1.2;         /* (16/15/14) */
+--type-calc-small-ff:var(--font-text); --type-calc-small-size:13px; --type-calc-small-lh:1.3;
+--type-calc-param-ff:var(--font-display); --type-calc-param-size:26px; --type-calc-num-ls:-.045em;  /* (26/23/20) */
+--type-calc-price-size:48px;                                                                        /* (48/40/30) */
+--type-calc-tile-size:22px; --type-calc-tile-ls:-.04em;                                             /* (22/19/17) */
+--type-calc-tile-label-size:12px;
+--type-calc-yield-size:13px; --type-calc-yield-ls:-.02em;
+--type-calc-axis-size:12px;
+--type-calc-cta-ff:var(--font-text); --type-calc-cta-size:17px;
 --type-loc-text-ff:var(--type-form-text-ff); --type-loc-text-size:var(--type-form-text-size); --type-loc-text-lh:var(--type-form-text-lh); /* временная: абзац Location = абзац Form (та же формула выгрузки) */
 --type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
 --type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
@@ -569,6 +681,10 @@
 
 @media (max-width:1599px){:root{
 --type-infra-title-size:21px; --type-infra-lead-size:17px; --type-infra-plate-title-size:15px; --type-infra-plate-text-size:14px; /* рендер 20.9 · 16.6 · 15.1 · 13.7→14 */
+--type-num-value-size:63px; --type-num-unit-size:17px; --type-num-ring-size:39px;   /* рендер 63.4 · 16.6 · 38.9 */
+--type-calc-title-size:27px; --type-calc-choice-size:17px; --type-calc-opt-size:15px; --type-calc-param-size:23px; --type-calc-price-size:40px; --type-calc-tile-size:19px;
+--nums-card-pad:var(--space-36); --nums-gbars-h:144px; --nums-ring-w:230px; --nums-ring-gap:var(--space-16); /* рендер 34.6 · 144 · 230 · 17.3 */
+--calc-panel-pad:var(--space-32); --calc-res-pad:var(--space-28); --calc-bars-h:92px; /* панель: рендер 34.6; 36 переносит «Гарантована оренда» */
 --infra-title-mb:var(--space-56);   /* рендер 57.6 */
 --infra-gap:var(--space-20);
 --infra-card-w:356px; --infra-corner:17px; --infra-head-inset:23px;
@@ -628,6 +744,14 @@
 
 @media (max-width:1279px){:root{
 --type-infra-title-size:17px; --type-infra-lead-size:15px; --type-infra-plate-title-size:14px;
+--type-num-value-size:45px; --type-num-unit-size:15px; --type-num-ring-size:30px;
+--type-calc-title-size:20px; --type-calc-choice-size:15px; --type-calc-opt-size:14px; --type-calc-param-size:20px; --type-calc-price-size:30px; --type-calc-tile-size:17px;
+--nums-title-mb:var(--space-40);           /* рендер 41 */
+--nums-card-pad:var(--space-24); --nums-card-gap:var(--space-12); --nums-graph-pb:var(--space-24);
+--nums-gbars-h:120px; --nums-gbars-gap:var(--space-8); --nums-ring-w:164px; --nums-ring-pb:var(--space-16); --nums-ring-gap:var(--space-12);
+--calc-grid-gap:var(--space-12); --calc-panel-pad:var(--space-24); --calc-panel-gap:var(--space-24); --calc-params-pt:var(--space-6);
+--calc-res-pad:var(--space-20); --calc-res-gap:var(--space-20); --calc-res-top-gap:var(--space-16);
+--calc-tile-pad-block-start:var(--space-12); --calc-tile-pad-block-end:var(--space-16); --calc-tile-pad-inline:var(--space-16); --calc-bars-h:72px; /* плитки: рендер 14 */
 --infra-title-mb:var(--space-40);   /* рендер 41 */
 --infra-gap:var(--space-16);        /* рендер 14.3 */
 --infra-card-w:312px; --infra-corner:14px; --infra-head-inset:18px;
@@ -730,6 +854,12 @@
 
 @media (max-width:767px){:root{
 --infra-title-mb:var(--space-32);
+--nums-title-mb:var(--space-32);
+--nums-ring-w:min(62%, 190px);
+--nums-graph-pb:var(--space-20);
+--nums-pano-pad:var(--space-10);
+--calc-res-gap:var(--space-16);          /* рендер 18 */
+--calc-params-pt:var(--space-4);
 --loc-gap:var(--space-28);
 --loc-left-gap:var(--space-20);     /* рендер 18: 20 (+2 на промежуток) */
 --type-form-title-size:18px; /* решение 2026-11-17: <768 — 18px, две строки (выгрузка 20px, три строки на 390) */

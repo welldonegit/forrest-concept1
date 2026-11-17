@@ -122,6 +122,7 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/family-room.jpg',
     '/design-export/junior-room.jpg',
     '/design-export/presidential-room.jpg',
+    '/design-export/assets/photos/wood-pano.jpg',
   ],
   { import: 'default' },
 );
@@ -454,7 +455,83 @@ export interface InfrastructureBlock {
   items: InfrastructureItem[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock;
+export interface NumbersTitleLine { _key: string; text: string; muted?: boolean }
+
+export interface NumbersCalcFormat {
+  _key: string;
+  /** Формат апартамента (название и диапазон площади — из документа формата). */
+  format: ApartmentFormat;
+  /** Площадь для расчёта, м². */
+  area: number;
+  /** Годовая доходность, %. */
+  yieldPercent: number;
+}
+
+export interface NumbersCalcPayment {
+  _key: string;
+  title: string;
+  note: string;
+  /** Первый взнос, % цены (100 — оплата сразу). */
+  firstPercent: number;
+  /** Срок рассрочки, мес. (0 — без рассрочки). */
+  months: number;
+  /** Выбран при загрузке страницы. */
+  isDefault?: boolean;
+}
+
+export interface NumbersCalc {
+  title: NumbersTitleLine[];
+  formatLabel: string;
+  paymentLabel: string;
+  /** Первый формат выбран при загрузке страницы. */
+  formats: NumbersCalcFormat[];
+  payments: NumbersCalcPayment[];
+  pricePerM2: number;
+  areaLabel: string;
+  areaUnit: string;
+  priceM2Label: string;
+  rentLabel: string;
+  rentValue: string;
+  rentUnit: string;
+  /** Знак валюты перед суммой. */
+  currency: string;
+  priceLabel: string;
+  yieldLabel: string;
+  firstLabel: string;
+  monthLabel: string;
+  /** Что показать в «Щомісячний платіж» при оплате сразу. */
+  noMonthly: string;
+  incomeLabel: string;
+  paybackLabel: string;
+  /** {n} — срок окупаемости, лет. */
+  paybackFormat: string;
+  chartTitle: string;
+  /** {n} — год окупаемости. */
+  breakEvenFormat: string;
+  /** Сколько лет на графике. */
+  years: number;
+  axisStart: string;
+  axisEnd: string;
+  legendBefore: string;
+  legendAfter: string;
+  cta: { label: string; href: string };
+}
+
+export interface NumbersBlock {
+  _type: 'numbers';
+  _key: string;
+  /** id секции (#cyfry-2). */
+  anchor: string;
+  title: NumbersTitleLine[];
+  yieldCard: { label: string; value: string };
+  paybackCard: { label: string; value: string; unit: string; pointLabel: string; start: string; point: string; end: string };
+  paymentCard: { label: string; value: string; months: string; monthsLabel: string; steps: { _key: string; title: string; text: string }[] };
+  /** Панорама: оборот карточек и фон калькулятора. */
+  panorama: SanityImage;
+  calc: NumbersCalc;
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

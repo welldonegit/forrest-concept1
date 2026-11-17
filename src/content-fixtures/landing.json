@@ -2494,6 +2494,626 @@
           }
         }
       ]
+    },
+    {
+      "_type": "numbers",
+      "_key": "numbers",
+      "anchor": "cyfry-2",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Тепер — про головне."
+            },
+            {
+              "_key": "en",
+              "value": "Now for the main thing."
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Ваш актив у цифрах."
+            },
+            {
+              "_key": "en",
+              "value": "Your asset in numbers."
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "yieldCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Річна дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Annual yield"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "12%"
+          },
+          {
+            "_key": "en",
+            "value": "12%"
+          }
+        ]
+      },
+      "paybackCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Окупність"
+          },
+          {
+            "_key": "en",
+            "value": "Payback"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "10"
+          },
+          {
+            "_key": "en",
+            "value": "10"
+          }
+        ],
+        "unit": [
+          {
+            "_key": "uk",
+            "value": "років"
+          },
+          {
+            "_key": "en",
+            "value": "years"
+          }
+        ],
+        "pointLabel": [
+          {
+            "_key": "uk",
+            "value": "Точка окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Break-even point"
+          }
+        ],
+        "start": [
+          {
+            "_key": "uk",
+            "value": "Старт"
+          },
+          {
+            "_key": "en",
+            "value": "Start"
+          }
+        ],
+        "point": [
+          {
+            "_key": "uk",
+            "value": "10 р."
+          },
+          {
+            "_key": "en",
+            "value": "10 yrs"
+          }
+        ],
+        "end": [
+          {
+            "_key": "uk",
+            "value": "15 р."
+          },
+          {
+            "_key": "en",
+            "value": "15 yrs"
+          }
+        ]
+      },
+      "paymentCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Перший внесок"
+          },
+          {
+            "_key": "en",
+            "value": "First payment"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "$5 533"
+          },
+          {
+            "_key": "en",
+            "value": "$5,533"
+          }
+        ],
+        "months": [
+          {
+            "_key": "uk",
+            "value": "24"
+          },
+          {
+            "_key": "en",
+            "value": "24"
+          }
+        ],
+        "monthsLabel": [
+          {
+            "_key": "uk",
+            "value": "місяці"
+          },
+          {
+            "_key": "en",
+            "value": "months"
+          }
+        ],
+        "steps": [
+          {
+            "_key": "s1",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Внесок"
+              },
+              {
+                "_key": "en",
+                "value": "Deposit"
+              }
+            ],
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Старт розстрочки"
+              },
+              {
+                "_key": "en",
+                "value": "Instalment start"
+              }
+            ]
+          },
+          {
+            "_key": "s2",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Платежі"
+              },
+              {
+                "_key": "en",
+                "value": "Payments"
+              }
+            ],
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Рівними частинами щомісяця"
+              },
+              {
+                "_key": "en",
+                "value": "Equal monthly parts"
+              }
+            ]
+          }
+        ]
+      },
+      "panorama": {
+        "asset": {
+          "_ref": "fixture:wood-pano.jpg"
+        },
+        "decorative": true
+      },
+      "calc": {
+        "title": [
+          {
+            "_key": "l1",
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Розрахуйте дохід"
+              },
+              {
+                "_key": "en",
+                "value": "Calculate the income"
+              }
+            ],
+            "muted": false
+          },
+          {
+            "_key": "l2",
+            "text": [
+              {
+                "_key": "uk",
+                "value": "свого апартаменту"
+              },
+              {
+                "_key": "en",
+                "value": "of your apartment"
+              }
+            ],
+            "muted": true
+          }
+        ],
+        "formatLabel": [
+          {
+            "_key": "uk",
+            "value": "Оберіть апартамент"
+          },
+          {
+            "_key": "en",
+            "value": "Choose an apartment"
+          }
+        ],
+        "paymentLabel": [
+          {
+            "_key": "uk",
+            "value": "Варіант оплати"
+          },
+          {
+            "_key": "en",
+            "value": "Payment option"
+          }
+        ],
+        "formats": [
+          {
+            "_key": "f1",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-superior"
+            },
+            "area": 29.5,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f2",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-deluxe"
+            },
+            "area": 43,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f3",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-family"
+            },
+            "area": 57.5,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f4",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-junior"
+            },
+            "area": 77.3,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f5",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-presidential"
+            },
+            "area": 111,
+            "yieldPercent": 12
+          }
+        ],
+        "payments": [
+          {
+            "_key": "p1",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Одноразова оплата"
+              },
+              {
+                "_key": "en",
+                "value": "One-time payment"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "100% одразу"
+              },
+              {
+                "_key": "en",
+                "value": "100% upfront"
+              }
+            ],
+            "firstPercent": 100,
+            "months": 0,
+            "isDefault": false
+          },
+          {
+            "_key": "p2",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Розтермінування"
+              },
+              {
+                "_key": "en",
+                "value": "Instalments"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "12 міс, внесок 30%"
+              },
+              {
+                "_key": "en",
+                "value": "12 mo, 30% deposit"
+              }
+            ],
+            "firstPercent": 30,
+            "months": 12,
+            "isDefault": false
+          },
+          {
+            "_key": "p3",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Розтермінування"
+              },
+              {
+                "_key": "en",
+                "value": "Instalments"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "24 міс, внесок 30%"
+              },
+              {
+                "_key": "en",
+                "value": "24 mo, 30% deposit"
+              }
+            ],
+            "firstPercent": 30,
+            "months": 24,
+            "isDefault": true
+          }
+        ],
+        "pricePerM2": 4500,
+        "areaLabel": [
+          {
+            "_key": "uk",
+            "value": "Площа"
+          },
+          {
+            "_key": "en",
+            "value": "Area"
+          }
+        ],
+        "areaUnit": [
+          {
+            "_key": "uk",
+            "value": "м²"
+          },
+          {
+            "_key": "en",
+            "value": "m²"
+          }
+        ],
+        "priceM2Label": [
+          {
+            "_key": "uk",
+            "value": "Ціна за м²"
+          },
+          {
+            "_key": "en",
+            "value": "Price per m²"
+          }
+        ],
+        "rentLabel": [
+          {
+            "_key": "uk",
+            "value": "Гарантована оренда"
+          },
+          {
+            "_key": "en",
+            "value": "Guaranteed rent"
+          }
+        ],
+        "rentValue": [
+          {
+            "_key": "uk",
+            "value": "20 700 ₴"
+          },
+          {
+            "_key": "en",
+            "value": "₴20,700"
+          }
+        ],
+        "rentUnit": [
+          {
+            "_key": "uk",
+            "value": "/м²"
+          },
+          {
+            "_key": "en",
+            "value": "/m²"
+          }
+        ],
+        "currency": "$",
+        "priceLabel": [
+          {
+            "_key": "uk",
+            "value": "Вартість апартаменту"
+          },
+          {
+            "_key": "en",
+            "value": "Apartment price"
+          }
+        ],
+        "yieldLabel": [
+          {
+            "_key": "uk",
+            "value": "Дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Yield"
+          }
+        ],
+        "firstLabel": [
+          {
+            "_key": "uk",
+            "value": "Перший внесок"
+          },
+          {
+            "_key": "en",
+            "value": "First payment"
+          }
+        ],
+        "monthLabel": [
+          {
+            "_key": "uk",
+            "value": "Щомісячний платіж"
+          },
+          {
+            "_key": "en",
+            "value": "Monthly payment"
+          }
+        ],
+        "noMonthly": [
+          {
+            "_key": "uk",
+            "value": "—"
+          },
+          {
+            "_key": "en",
+            "value": "—"
+          }
+        ],
+        "incomeLabel": [
+          {
+            "_key": "uk",
+            "value": "Річний дохід"
+          },
+          {
+            "_key": "en",
+            "value": "Annual income"
+          }
+        ],
+        "paybackLabel": [
+          {
+            "_key": "uk",
+            "value": "Строк окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Payback period"
+          }
+        ],
+        "paybackFormat": [
+          {
+            "_key": "uk",
+            "value": "≈ {n} р."
+          },
+          {
+            "_key": "en",
+            "value": "≈ {n} yrs"
+          }
+        ],
+        "chartTitle": [
+          {
+            "_key": "uk",
+            "value": "Накопичений дохід за роками"
+          },
+          {
+            "_key": "en",
+            "value": "Accumulated income by year"
+          }
+        ],
+        "breakEvenFormat": [
+          {
+            "_key": "uk",
+            "value": "Окупність на {n}-й рік"
+          },
+          {
+            "_key": "en",
+            "value": "Payback in year {n}"
+          }
+        ],
+        "years": 15,
+        "axisStart": [
+          {
+            "_key": "uk",
+            "value": "1 рік"
+          },
+          {
+            "_key": "en",
+            "value": "Year 1"
+          }
+        ],
+        "axisEnd": [
+          {
+            "_key": "uk",
+            "value": "15 років"
+          },
+          {
+            "_key": "en",
+            "value": "15 years"
+          }
+        ],
+        "legendBefore": [
+          {
+            "_key": "uk",
+            "value": "Дохід до окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Income before payback"
+          }
+        ],
+        "legendAfter": [
+          {
+            "_key": "uk",
+            "value": "Дохід після окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Income after payback"
+          }
+        ],
+        "cta": {
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Отримати повну фінансову модель"
+            },
+            {
+              "_key": "en",
+              "value": "Get the full financial model"
+            }
+          ],
+          "href": "#forma"
+        }
+      }
     }
   ]
 }
