@@ -122,11 +122,13 @@
     transform var(--loc-card-move-dur) var(--ease-out-quint),
     visibility 0s linear var(--loc-card-move-dur);
 }
-.loc__dot:hover ~ .loc__card,
-.loc__dot:focus-visible:not([data-dismissed]) ~ .loc__card,
-.loc__dot[aria-expanded="true"] ~ .loc__card{
-  visibility:visible; opacity:1; transform:translate(-50%, 0) scale(1);
-  transition-delay:0s;
+@media (min-width:768px){
+  .loc__dot:hover ~ .loc__card,
+  .loc__dot:focus-visible:not([data-dismissed]) ~ .loc__card,
+  .loc__dot[aria-expanded="true"] ~ .loc__card{
+    visibility:visible; opacity:1; transform:translate(-50%, 0) scale(1);
+    transition-delay:0s;
+  }
 }
 .loc__card-media{position:relative; display:block; border-radius:var(--radius-20); overflow:hidden; aspect-ratio:16/10}
 .loc__card-img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; display:block}
@@ -154,6 +156,46 @@
   border-radius:var(--radius-pill); background:var(--bg-surface-warm);
   font-family:var(--font-text); font-weight:600; font-size:var(--loc-card-small-size); white-space:nowrap;
 }
+
+/* ---------- <768: карточка в окне по центру экрана (решение 2026-11-17) ----------
+   Та же карточка (ui/location.js переносит её в <dialog>), но не в долях карты: размеры шрифтов —
+   из существующих ролей (title-sm, calc-tile, label), ширина — до 420px, как у карточки на 1920. */
+.loc__modal{
+  inline-size:min(var(--loc-card-max-w), 100% - 2 * var(--space-16));
+  max-inline-size:none; max-block-size:calc(100% - 2 * var(--space-16));
+  margin:auto; padding:0; border:0; overflow:auto; overscroll-behavior:contain;
+  background:transparent; color:var(--text-primary);
+  --loc-card-w:100%;
+  --loc-card-title-size:var(--type-title-sm-size);
+  --loc-card-sub-size:var(--type-label-size);
+  --loc-fact-size:var(--type-calc-tile-size);
+  --loc-card-small-size:var(--type-label-size);
+}
+.loc__modal::backdrop{background:var(--loc-modal-backdrop)}
+.loc__modal .loc__card{
+  position:relative; inset:auto;
+  visibility:visible; opacity:1; pointer-events:auto; transform:none; transition:none;
+  box-shadow:none;
+}
+/* значения переносятся по словам; колонка не уже самого длинного слова (слова не рвутся) */
+.loc__modal .loc__facts{grid-template-columns:repeat(3, minmax(min-content, 1fr))}
+.loc__modal .loc__fact-value{white-space:normal}
+.loc__modal-close{
+  position:absolute; z-index:2;
+  inset-inline-end:var(--space-16); inset-block-start:var(--space-16);
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-44); block-size:var(--control-h-44);
+  padding:0; border:0; border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary); box-shadow:var(--loc-tag-shadow);
+  cursor:pointer;
+}
+.loc__modal-close svg{inline-size:var(--icon-20); block-size:var(--icon-20)}
+@media (prefers-reduced-motion:no-preference){
+  .loc__modal[open] .loc__card{animation:loc-modal-in var(--loc-card-move-dur) var(--ease-out-quint) both}
+  .loc__modal[open]::backdrop{animation:loc-modal-fade var(--loc-card-fade-dur) ease both}
+}
+@keyframes loc-modal-in{from{opacity:0; transform:translateY(var(--space-10)) scale(.94)}}
+@keyframes loc-modal-fade{from{opacity:0}}
 
 /* ---------- Появление (как в выгрузке) ---------- */
 .loc[data-motion] .loc__line{transition:transform var(--loc-line-dur) var(--ease-out-expo) var(--d, 0s)}

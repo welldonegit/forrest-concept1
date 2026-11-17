@@ -8,6 +8,8 @@
  * Размеры внутри карты в выгрузке заданы в долях её ширины (cqw) — карта масштабируется как
  * иллюстрация, это перенесено как есть (см. отчёт 4.8).
  * Карточка курорта — src/scripts/ui/location.js; появление — anim/blocks/location.js + location.css.
+ * <768: та же карточка открывается по нажатию в окне <dialog> по центру экрана (решение 2026-11-17):
+ * на карте она обрезалась и уменьшалась вместе с картой.
  */
 import { Image } from 'astro:assets';
 import mark from '../../assets/brand/logo-forrest-mark.svg';
@@ -15,9 +17,11 @@ import { resolveImage, type LocationBlock } from '../../lib/content';
 
 interface Props {
   block: LocationBlock;
+  /** Подпись кнопки закрытия окна карточки (siteSettings.ui). */
+  closeLabel: string;
 }
 
-const { block } = Astro.props;
+const { block, closeLabel } = Astro.props;
 const id = block.anchor;
 const map = await resolveImage(block.map);
 const card = block.resort.card;
@@ -75,7 +79,7 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
               <Image class="loc__card-img" src={cardPhoto.src} alt={cardPhoto.alt} widths={[420, 600]} sizes="420px" format="avif" loading="lazy" decoding="async" />
               <span class="loc__card-badge">{card.badge}</span>
               <span class="loc__card-head">
-                <span class="loc__card-title">{card.title}</span>
+                <span class="loc__card-title" id={`${id}-card-title`}>{card.title}</span>
                 <span class="loc__card-sub">{card.subtitle}</span>
               </span>
             </span>
@@ -90,6 +94,11 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
           </div>
           <span class="loc__tag" aria-hidden="true">{block.resort.label}</span>
         </div>
+        <dialog class="loc__modal" aria-labelledby={`${id}-card-title`} data-loc-modal>
+          <button class="loc__modal-close" type="button" aria-label={closeLabel} data-loc-close>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </dialog>
       </div>
     </div>
   </div>

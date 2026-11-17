@@ -177,7 +177,7 @@ export interface FooterGroup { _key: string; title: string; links: Link[] }
 
 export interface SiteSettings {
   seo: { title: string; description: string };
-  ui: { skipLink: string; swipeHint: string };
+  ui: { skipLink: string; swipeHint: string; closeLabel: string };
   header: {
     homeHref: string;
     logoAlt: string;

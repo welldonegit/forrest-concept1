@@ -38,7 +38,7 @@ const landing = await getLanding(lang);
         case 'model': return <Model block={block} />;
         case 'apartments': return <Apartments block={block} swipeHint={settings.ui.swipeHint} />;
         case 'form': return <Form block={block} settings={settings} />;
-        case 'location': return <Location block={block} />;
+        case 'location': return <Location block={block} closeLabel={settings.ui.closeLabel} />;
         case 'infrastructure': return <Infrastructure block={block} swipeHint={settings.ui.swipeHint} />;
         case 'team': return <Team block={block} />;
         case 'construction': return <Construction block={block} lang={lang} />;
