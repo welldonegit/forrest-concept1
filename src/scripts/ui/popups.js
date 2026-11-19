@@ -8,6 +8,7 @@
 const modules = {
   apartments: () => import('../popups/apartments.js'),
   video: () => import('../popups/video.js'),
+  quiz: () => import('../popups/quiz.js'),
 };
 const cache = {};
 

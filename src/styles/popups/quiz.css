@@ -1,0 +1,172 @@
+/* Квиз (4.17) — по выгрузке: [data-quiz], qpanel, qbody, qstep, qopt, qfoot и кадры qBg, qPan, qIn, qPop, qDraw. */
+.quiz[open]{display:flex; align-items:center; justify-content:center; padding:var(--quiz-pad)}
+
+.quiz__back{
+  position:absolute; inset:0; background:var(--quiz-back);
+  backdrop-filter:blur(var(--quiz-back-blur)); -webkit-backdrop-filter:blur(var(--quiz-back-blur));
+  animation:quiz-fade var(--quiz-bg-in) ease both;
+}
+.quiz__panel{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  inline-size:min(var(--quiz-max-w), 100%); block-size:min(var(--quiz-max-h), 100%);
+  border-radius:var(--quiz-radius); background:var(--bg-surface-warm); color:var(--text-primary); box-shadow:var(--quiz-shadow);
+  animation:quiz-pan var(--quiz-pan-in) var(--ease-out-quint) both;
+}
+.quiz[data-closing] .quiz__back{opacity:0; transition:opacity var(--quiz-out) ease}
+.quiz[data-closing] .quiz__panel{
+  opacity:0; transform:translateY(var(--quiz-out-shift)) scale(var(--quiz-pan-scale));
+  transition:opacity var(--quiz-out) ease, transform var(--quiz-out) var(--ease-out-quint);
+}
+
+.quiz__head{display:flex; flex-direction:column; gap:var(--quiz-head-gap); padding:var(--quiz-head-pad-block-start) var(--quiz-pad-inline) 0}
+.quiz__row{display:flex; align-items:center; justify-content:space-between; gap:var(--quiz-head-row-gap)}
+.quiz__eyebrow{letter-spacing:.18em; color:var(--text-muted)}
+.quiz__tools{display:flex; align-items:center; gap:var(--quiz-head-row-gap)}
+.quiz__x{
+  inline-size:var(--quiz-x); block-size:var(--quiz-x); background:transparent; color:var(--text-primary);
+  border:var(--border-1) solid var(--quiz-line-strong); transition:background var(--quiz-btn-dur) ease, border-color var(--quiz-btn-dur) ease;
+}
+.quiz__x svg{inline-size:var(--quiz-x-icon); block-size:var(--quiz-x-icon)}
+.quiz__x:hover{background:var(--air); border-color:var(--quiz-line-hover)}
+.quiz__bar{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--quiz-seg-gap)}
+.quiz__seg{display:block; block-size:var(--quiz-seg-h); border-radius:var(--radius-pill); background:var(--quiz-line); overflow:hidden}
+.quiz__fill{
+  display:block; block-size:100%; background:var(--text-primary);
+  transform:scaleX(0); transform-origin:0 50%; transition:transform var(--quiz-fill) var(--ease-out-quint);
+}
+[dir=rtl] .quiz__fill{transform-origin:100% 50%}
+.quiz__fill[data-on]{transform:scaleX(1)}
+
+.quiz__body{
+  flex:1; min-block-size:0; overflow-y:auto; overscroll-behavior:contain;
+  padding:var(--quiz-body-pad-block-start) var(--quiz-pad-inline) var(--quiz-body-pad-block-end);
+}
+.quiz__step{display:flex; flex-direction:column; gap:var(--quiz-step-gap); margin-inline:auto; transition:opacity var(--quiz-leave) ease, transform var(--quiz-leave) var(--ease-out-quint), filter var(--quiz-leave) ease}
+.quiz__step[hidden]{display:none}
+.quiz__step--formats{max-inline-size:var(--quiz-step0-max)}
+.quiz__step--budget{max-inline-size:var(--quiz-step1-max)}
+.quiz__step--contact{max-inline-size:var(--quiz-step2-max); gap:var(--quiz-step2-gap)}
+.quiz__step--done{max-inline-size:var(--quiz-step2-max); min-block-size:100%; align-items:center; justify-content:center; text-align:center; gap:var(--quiz-done-gap)}
+.quiz__body[data-leave] .quiz__step{opacity:0; transform:translateY(var(--quiz-leave-shift)); filter:blur(var(--quiz-leave-blur))}
+
+/* появление шага: дети по очереди, варианты — своей лесенкой */
+.quiz__step > *{animation:quiz-in var(--quiz-in) var(--ease-out-quint) both}
+.quiz__step > :nth-child(2){animation-delay:var(--quiz-in-step)}
+.quiz__step > :nth-child(3){animation-delay:calc(2 * var(--quiz-in-step))}
+.quiz__step > :nth-child(4){animation-delay:calc(3 * var(--quiz-in-step))}
+.quiz[data-dir=b] .quiz__step > *{animation-name:quiz-in-back}
+.quiz__grid > .quiz__opt, .quiz__list > .quiz__opt{animation:quiz-in var(--quiz-opt-in) var(--ease-out-quint) both; animation-delay:calc(var(--quiz-opt-delay) + var(--k, 0) * var(--quiz-opt-step))}
+.quiz__opt:nth-child(2){--k:1} .quiz__opt:nth-child(3){--k:2} .quiz__opt:nth-child(4){--k:3} .quiz__opt:nth-child(5){--k:4} .quiz__opt:nth-child(6){--k:5}
+
+.quiz__title{margin:0; text-wrap:balance}
+.quiz__title:focus{outline:none}
+.quiz__titles{display:flex; flex-direction:column; gap:var(--quiz-title-gap)}
+.quiz__sub{margin:0; color:var(--text-muted)}
+
+/* варианты */
+.quiz__grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--quiz-grid-gap)}
+.quiz__opt{
+  display:flex; flex-direction:column; gap:var(--quiz-opt-gap);
+  padding:var(--quiz-opt-pad) var(--quiz-opt-pad) var(--quiz-opt-pad-end);
+  border:var(--border-1) solid var(--quiz-line-soft); border-radius:var(--quiz-opt-radius);
+  background:var(--quiz-opt-bg); color:var(--text-primary); text-align:start; cursor:pointer;
+  transition:background var(--quiz-hover) ease, border-color var(--quiz-hover) ease, box-shadow var(--quiz-hover) ease, transform var(--quiz-hover) var(--ease-out-quint);
+}
+.quiz__opt:hover{background:var(--air); border-color:var(--quiz-line-hover); box-shadow:var(--quiz-opt-shadow)}
+.quiz__opt:active{transform:scale(var(--quiz-press))}
+.quiz__opt[aria-pressed=true], .quiz__opt:has(:checked){background:var(--air); border-color:var(--text-primary); box-shadow:0 0 0 var(--border-1) var(--text-primary), var(--quiz-opt-shadow)}
+.quiz__opt:focus-visible, .quiz__opt:has(:focus-visible){outline:none; box-shadow:0 0 0 var(--border-2) var(--text-primary)}
+.quiz__img{position:relative; display:block; inline-size:100%; aspect-ratio:var(--quiz-img-ratio); border-radius:var(--quiz-img-radius); overflow:hidden; background:var(--quiz-img-bg)}
+.quiz__photo{position:absolute; inset:0; inline-size:100%; block-size:100%; max-inline-size:none; object-fit:cover; object-position:var(--focus, 50% 50%); transition:transform var(--quiz-img-hover) var(--ease-out-quint)}
+.quiz__opt:hover .quiz__photo{transform:scale(var(--quiz-img-scale))}
+.quiz__img--icon{display:flex; align-items:center; justify-content:center; color:var(--text-primary)}
+.quiz__img--icon svg{inline-size:var(--quiz-undecided-icon); block-size:var(--quiz-undecided-icon)}
+.quiz__cap{display:flex; align-items:flex-start; gap:var(--quiz-opt-gap); padding-inline:var(--quiz-cap-pad)}
+.quiz__opt-text{display:flex; flex-direction:column; gap:var(--space-4); min-inline-size:0}
+.quiz__opt-name{font-weight:700}
+.quiz__opt-area{color:var(--text-muted)}
+
+.quiz__mark{
+  flex:0 0 var(--quiz-mark); display:flex; align-items:center; justify-content:center;
+  inline-size:var(--quiz-mark); block-size:var(--quiz-mark); box-sizing:border-box; color:var(--air);
+  border:var(--quiz-mark-border) solid var(--quiz-line-hover); background:transparent;
+  transition:background var(--quiz-mark-dur) ease, border-color var(--quiz-mark-dur) ease;
+}
+.quiz__mark--radio{border-radius:var(--radius-pill); margin-block-start:1px}
+.quiz__mark--box{border-radius:var(--quiz-sq-radius)}
+.quiz__mark svg{inline-size:var(--quiz-mark-icon); block-size:var(--quiz-mark-icon); opacity:0; transform:scale(var(--quiz-mark-from)); transition:opacity var(--quiz-mark-dur) ease, transform var(--quiz-mark-pop) var(--ease-out-back-strong)}
+[aria-pressed=true] .quiz__mark, :checked + .quiz__mark{background:var(--text-primary); border-color:var(--text-primary)}
+[aria-pressed=true] .quiz__mark svg, :checked + .quiz__mark svg{opacity:1; transform:none}
+
+.quiz__list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--quiz-list-gap)}
+.quiz__opt--row{flex-direction:row; align-items:center; gap:var(--quiz-row-gap); min-block-size:var(--quiz-row-h); padding:var(--quiz-row-pad-block) var(--quiz-row-pad-inline); border-radius:var(--quiz-row-radius)}
+
+/* контакты */
+.quiz__form{display:flex; flex-direction:column; gap:var(--quiz-form-gap)}
+.quiz__field{
+  inline-size:100%; min-inline-size:0; block-size:var(--quiz-field-h); box-sizing:border-box;
+  padding:0 var(--quiz-field-pad); border:var(--border-1) solid var(--quiz-line); border-radius:var(--quiz-field-radius);
+  background:var(--air); color:var(--text-primary); font-weight:500; outline:none;
+  transition:border-color var(--quiz-field-dur) ease, box-shadow var(--quiz-field-dur) ease;
+}
+.quiz__field::placeholder{color:var(--text-muted)}
+.quiz__field:hover{border-color:var(--quiz-line-hover)}
+.quiz__field:focus, .quiz__field:focus-within{border-color:var(--text-primary); box-shadow:var(--quiz-focus-ring)}
+.quiz__field[aria-invalid=true]{border-color:var(--text-primary); box-shadow:0 0 0 var(--border-1) var(--text-primary)}
+.quiz__phone{display:flex; gap:var(--quiz-code-gap)}
+.quiz__code{
+  position:relative; flex:0 0 auto; inline-size:auto; display:flex; align-items:center; gap:var(--quiz-code-gap);
+  padding-inline:var(--quiz-code-pad-start) var(--quiz-code-pad-end); cursor:pointer;
+}
+.quiz__flag{display:flex; flex-direction:column; inline-size:var(--quiz-flag-w); block-size:var(--quiz-flag-h); border-radius:var(--quiz-flag-radius); overflow:hidden; box-shadow:var(--quiz-flag-ring); background:linear-gradient(var(--quiz-flag-top) 50%, var(--quiz-flag-bottom) 50%)}
+.quiz__flag[hidden]{display:none}
+.quiz__code-text{font-weight:600}
+.quiz__chev{position:absolute; inset-inline-end:var(--space-16); inset-block-start:50%; inline-size:var(--quiz-chev); block-size:var(--quiz-chev); transform:translateY(-50%)}
+.quiz__select{position:absolute; inset:0; inline-size:100%; opacity:0; cursor:pointer; font-size:var(--type-pop-input-size)}
+.quiz__err{padding-inline-start:var(--quiz-err-pad); color:var(--text-primary); animation:quiz-in var(--quiz-err-in) var(--ease-out-quint) both}
+.quiz__err[hidden]{display:none}
+.quiz__consent-wrap{display:flex; flex-direction:column; gap:var(--quiz-consent-gap); padding:var(--quiz-consent-pad-top) var(--space-2) 0}
+.quiz__consent{display:flex; align-items:flex-start; gap:var(--quiz-consent-gap); color:var(--text-muted); cursor:pointer}
+.quiz__consent:has(:focus-visible) .quiz__mark{outline:var(--focus-width) solid var(--text-primary); outline-offset:var(--focus-offset)}
+.quiz__consent-text{padding-block-start:1px}
+.quiz__link{color:var(--text-primary); text-decoration:underline; text-underline-offset:3px}
+.quiz__err--consent{padding-inline-start:calc(var(--quiz-mark) + var(--quiz-consent-gap))}
+
+/* готово */
+.quiz__ok{display:flex; align-items:center; justify-content:center; inline-size:var(--quiz-ok); block-size:var(--quiz-ok); border-radius:var(--radius-pill); background:var(--text-primary); color:var(--air); animation:quiz-pop var(--quiz-pop) var(--ease-out-back-strong) var(--quiz-pop-delay) both}
+.quiz__ok svg{inline-size:var(--quiz-ok-icon); block-size:var(--quiz-ok-icon)}
+.quiz__ok-path{stroke-dasharray:1; animation:quiz-draw var(--quiz-draw) var(--ease-out-quint) var(--quiz-draw-delay) both}
+.quiz__done-text{margin:0; color:var(--text-primary); text-wrap:pretty}
+
+/* подвал и кнопки */
+.quiz__foot{display:flex; align-items:center; justify-content:space-between; gap:var(--quiz-foot-gap); padding:var(--quiz-foot-pad-block-start) var(--quiz-pad-inline) var(--quiz-foot-pad-block-end); border-block-start:var(--border-1) solid var(--quiz-line-foot); animation:quiz-fade var(--quiz-bg-in) ease both}
+.quiz__foot[hidden]{display:none}
+.quiz__btn{display:flex; align-items:center; block-size:var(--quiz-btn-h); border-radius:var(--radius-pill); cursor:pointer; white-space:nowrap}
+.quiz__btn svg{flex:none; inline-size:var(--quiz-btn-icon); block-size:var(--quiz-btn-icon)}
+[dir=rtl] .quiz__btn svg{transform:scaleX(-1)}
+.quiz__btn[hidden]{display:none}
+.quiz__btn--back{gap:var(--quiz-back-gap); padding-inline:var(--quiz-back-pad-start) var(--quiz-back-pad-end); border:var(--border-1) solid var(--quiz-line-strong); background:transparent; color:var(--text-primary); transition:background var(--quiz-btn-dur) ease, border-color var(--quiz-btn-dur) ease}
+.quiz__btn--back:hover{background:var(--air); border-color:var(--quiz-line-hover)}
+.quiz__btn--next{gap:var(--quiz-next-gap); padding-inline:var(--quiz-next-pad-start) var(--quiz-next-pad-end); border:0; background:var(--text-primary); color:var(--air); transition:background var(--quiz-btn-dur) ease, transform var(--quiz-btn-dur) var(--ease-out-quint), opacity var(--quiz-btn-dur) ease}
+.quiz__btn--next:hover{background:var(--night-bark)}
+.quiz__btn--next svg{transition:transform var(--quiz-arrow-dur) var(--ease-out-quint)}
+.quiz__btn--next:hover svg{transform:translateX(var(--quiz-arrow-shift))}
+.quiz__btn--next:disabled{opacity:var(--quiz-disabled); pointer-events:none}
+.quiz__ret{block-size:var(--quiz-ret-h); padding-inline:var(--quiz-ret-pad)}
+
+@keyframes quiz-fade{from{opacity:0}}
+@keyframes quiz-pan{from{opacity:0; transform:translateY(var(--quiz-pan-shift)) scale(var(--quiz-pan-scale))}}
+@keyframes quiz-in{from{opacity:0; transform:translateY(var(--quiz-in-shift)); filter:blur(var(--quiz-in-blur))}}
+@keyframes quiz-in-back{from{opacity:0; transform:translateY(calc(-1 * var(--quiz-in-shift))); filter:blur(var(--quiz-in-blur))}}
+@keyframes quiz-pop{0%{transform:scale(.6); opacity:0} 60%{transform:scale(1.06); opacity:1} 100%{transform:scale(1)}}
+@keyframes quiz-draw{from{stroke-dashoffset:1} to{stroke-dashoffset:0}}
+
+@media (max-width:767px){
+  .quiz__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quiz__list{grid-template-columns:minmax(0,1fr)}
+  .quiz__panel{block-size:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .quiz__back, .quiz__panel, .quiz__foot, .quiz__err, .quiz__ok, .quiz__ok-path, .quiz__step > *, .quiz__grid > .quiz__opt, .quiz__list > .quiz__opt{animation:none}
+  .quiz__step, .quiz__fill, .quiz__panel, .quiz__back{transition:none}
+}

@@ -1560,4 +1560,5 @@
 }}
 @media (prefers-reduced-motion:reduce){:root{
 --apop-ready-delay:0;
+--quiz-leave-ms:0; --quiz-out-ms:0;
 }}

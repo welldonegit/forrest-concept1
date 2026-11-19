@@ -1,0 +1,18 @@
+/* Боковая вкладка «Розрахувати дохід» (4.17) — по выгрузке. */
+.quiz-tab{
+  --tab-shift:calc(var(--tab-w-hover) - var(--tab-w));
+  position:fixed; z-index:var(--tab-z); inset-inline-end:0; inset-block-start:50%;
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--tab-w-hover); padding-block:var(--tab-pad-block);
+  border-start-start-radius:var(--tab-radius); border-end-start-radius:var(--tab-radius);
+  background:var(--bg-inverse); color:var(--air); text-decoration:none; box-shadow:var(--tab-shadow);
+  transform:translate(var(--tab-shift), -50%);
+  transition:transform var(--tab-dur) ease, background var(--tab-dur) ease;
+}
+.quiz-tab__label{writing-mode:vertical-rl; white-space:nowrap; letter-spacing:var(--tab-ls); text-transform:uppercase; transform:translateX(calc(var(--tab-shift) / -2)); transition:transform var(--tab-dur) ease}
+.quiz-tab:hover{transform:translate(0, -50%); background:var(--night-bark)}
+.quiz-tab:hover .quiz-tab__label{transform:none}
+[dir=rtl] .quiz-tab{transform:translate(calc(-1 * var(--tab-shift)), -50%)}
+[dir=rtl] .quiz-tab__label{transform:translateX(calc(var(--tab-shift) / 2))}
+[dir=rtl] .quiz-tab:hover{transform:translate(0, -50%)}
+@media (prefers-reduced-motion:reduce){ .quiz-tab, .quiz-tab__label{transition:none} }

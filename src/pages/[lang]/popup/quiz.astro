@@ -1,0 +1,22 @@
+---
+/** Фрагмент квиза (4.17): см. layouts/PopupPage.astro. */
+import PopupPage from '../../../layouts/PopupPage.astro';
+import QuizPopup from '../../../components/popups/QuizPopup.astro';
+import '../../../styles/popups/popup.css';
+import '../../../styles/popups/quiz.css';
+import { languages } from '../../../lib/languages';
+import { getSiteSettings, getLanding, type ApartmentsBlock, type NumbersBlock } from '../../../lib/content';
+
+export function getStaticPaths() {
+  return languages.map((l) => ({ params: { lang: l.id } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const settings = await getSiteSettings(lang);
+const landing = await getLanding(lang);
+const apartments = landing.blocks.find((b): b is ApartmentsBlock => b._type === 'apartments');
+const numbers = landing.blocks.find((b): b is NumbersBlock => b._type === 'numbers');
+---
+<PopupPage lang={lang} title={settings.seo.title}>
+  {apartments && numbers && <QuizPopup block={apartments} calc={numbers.calc} settings={settings} />}
+</PopupPage>

@@ -1,0 +1,19 @@
+---
+/**
+ * Боковая вкладка «Розрахувати дохід» (4.17): закреплена у правого края, открывает квиз.
+ * Без JS — обычная ссылка на форму заявки (#forma), как в выгрузке.
+ * Квиз подгружается при первом наведении, фокусе или касании (scripts/ui/popups.js).
+ * Расширение при наведении: в выгрузке анимируется ширина; здесь вкладка шире на разницу
+ * и сдвинута за край — при наведении выезжает transform, подпись остаётся по центру видимой части.
+ */
+interface Props {
+  label: string;
+  ariaLabel: string;
+  href: string;
+}
+
+const { label, ariaLabel, href } = Astro.props;
+---
+<a class="quiz-tab" href={href} aria-label={ariaLabel} aria-haspopup="dialog" data-popup="quiz">
+  <span class="quiz-tab__label text-quiz-tab">{label}</span>
+</a>
