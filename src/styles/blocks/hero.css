@@ -1,7 +1,7 @@
 /* ===== Hero (4.1) — первый экран =====
    Значения — из рендера design-export, только через tokens.css.
    Слои кадра (как в выгрузке): 0 летнее фото · 1 зимнее (iris) · 2 заголовок ·
-   3 передний план (фото по контуру зданий) · 4 копия заголовка · 5 вуаль · 6 текст и кнопки. */
+   3 передний план (фото по контуру зданий) · 4 копия заголовка · 5 заслонка проявления, вуаль · 6 текст и кнопки. */
 
 .hero{
   position:relative;
@@ -48,6 +48,9 @@
 .hero__line{display:block}
 .hero__line--dark{color:var(--text-primary)}
 .hero__line--light{color:var(--air); text-align:end}
+
+/* Заслонка проявления кадра: над фото и заголовками (слои 0–4), под вуалью. Без анимации — прозрачна. */
+.hero__curtain{position:absolute; inset:0; z-index:5; background:var(--bg-inverse); opacity:0; pointer-events:none}
 
 .hero__shade{
   position:absolute; z-index:5; inset-inline-start:0; inset-block-end:0;
@@ -155,7 +158,10 @@
 
 /* ---------- Появление (первый экран: старт задан через .js, п.«Без JS контент виден») ---------- */
 @media (prefers-reduced-motion:no-preference){
+  /* Кадр: масштаб — на слое фото, проявление — заслонкой поверх (та же кривая и длительность):
+     фото непрозрачно с первого кадра и регистрируется как LCP. Вид тот же, что у opacity 0 → 1 на слое фото. */
   .js .hero__media{animation:hero-img var(--hero-img-dur) var(--ease-out-quint) both}
+  .js .hero__curtain{animation:hero-curtain var(--hero-img-dur) var(--ease-out-quint) both}
   .js .hero__title:not(.hero__title--front) .hero__line--dark{animation:hero-rise1 var(--hero-rise-dur) var(--ease-out-expo) var(--hero-rise1-delay) both}
   .js .hero__title:not(.hero__title--front) .hero__line--light{animation:hero-rise2 var(--hero-rise-dur) var(--ease-out-expo) var(--hero-rise2-delay) both}
   .js .hero__title--front .hero__line--dark{animation:hero-fade var(--hero-fade-dur) ease var(--hero-fade1-delay) both}
@@ -171,7 +177,8 @@
   .js .hero__ring{animation:hero-pulse var(--hero-pulse-dur) var(--ease-out-quint) var(--hero-pulse1-delay) infinite both}
   .js .hero__ring--late{animation-delay:var(--hero-pulse2-delay)}
 }
-@keyframes hero-img{from{opacity:0; transform:scale(var(--hero-img-scale))}}
+@keyframes hero-img{from{transform:scale(var(--hero-img-scale))}}
+@keyframes hero-curtain{from{opacity:1}}
 @keyframes hero-rise1{from{transform:translateY(var(--hero-rise1-from))}}
 @keyframes hero-rise2{from{transform:translateY(var(--hero-rise2-from))}}
 @keyframes hero-fade{from{opacity:0}}
