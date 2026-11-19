@@ -126,6 +126,9 @@
   .team__panel-in{min-block-size:0; overflow:hidden; padding:var(--team-page-pad); transform:translateY(var(--team-acc-shift)); transition:transform var(--team-acc-dur) var(--team-acc-ease)}
   .team__page{padding:0}
   .team__panel[data-open] .team__panel-in{transform:none}
+  /* портрет не тянется по высоте текста цитаты: рамка 4:5, текст — рядом по центру */
+  .team__quote{align-items:center}
+  .team__portrait{min-block-size:0; aspect-ratio:var(--team-q-photo-ratio)}
 }
 @media (max-width:700px){
   .team__page{grid-template-columns:minmax(0,1fr)}
@@ -134,7 +137,6 @@
 }
 @media (max-width:600px){
   .team__quote{grid-template-columns:var(--team-q-col) minmax(0,1fr)}
-  .team__portrait{min-block-size:var(--team-q-photo-min-sm)}
 }
 @media (prefers-reduced-motion:reduce){
   .team__grid, .team__tab, .team__arrow, .team__panel, .team__panel[data-open], .team__panel-in{transition:none}

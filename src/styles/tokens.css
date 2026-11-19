@@ -521,7 +521,7 @@
 --team-body-pad-top:var(--space-40); --team-body-pad-end:var(--space-36); --team-body-pad-bottom:var(--space-24);
 --team-stat-min-h:38px; --team-stat-pad-block:var(--space-8); --team-stat-pad-inline:var(--space-16); --team-stat-gap:var(--space-6); --team-stats-gap:var(--space-8);
 --team-q-col:180px; --team-q-gap:var(--space-24); --team-q-pad:14px; --team-q-body-gap:var(--space-12); /* рендер 14 */
---team-q-body-pad:14px; --team-qmark-mb:var(--space-4); /* рендер 14 + 14: 12 + 4 и 12 */ --team-q-photo-min:140px; --team-q-photo-min-sm:150px; --team-q-photo-radius:var(--radius-16);
+--team-q-body-pad:14px; --team-qmark-mb:var(--space-4); /* рендер 14 + 14: 12 + 4 и 12 */ --team-q-photo-min:140px; --team-q-photo-min-sm:150px; --team-q-photo-ratio:4 / 5; /* портрет в цитате на ≤900 — как исходные фото и рамка на десктопе */ --team-q-photo-radius:var(--radius-16);
 --team-qmark-h:22px; --team-qcap-gap:var(--space-2);
 --team-mob-gap:var(--space-10); --team-mob-radius:var(--radius-28);
 --team-fade-out:.45s; --team-fade-in:.6s; --team-fade-delay:.1s; --team-shift:14px; --team-shift-dur:.8s;
@@ -1181,7 +1181,7 @@
 --faq-x-line:14px;
 --faq-a-pad-end:var(--space-32);
 --faq-a-max:640px;
---faq-metric-pad-block:var(--space-10); --faq-metric-pad-inline:var(--space-16);
+
 --faq-cta-text-max:380px;
 
 --faq-doc-bg:color-mix(in srgb, var(--air) 6%, transparent);        /* rgba(255,255,255,.06) */
@@ -1210,8 +1210,6 @@
 --type-faq-cta-button-size:18px; --type-faq-cta-button-lh:24px;     /* Mulish 600 (18/17.3/15 · 15) */
 --type-faq-q-size:clamp(14px,1.15vw,19px); --type-faq-q-lh:1.3;     /* плавная, Unbounded 500, caps (19/16.6/14 · 14) */
 --type-faq-a-size:18px; --type-faq-a-lh:29px;                       /* Mulish (18/15.8/15 · 15), межстрочный 1.6 */
---type-faq-metric-size:13px; --type-faq-metric-lh:16px;             /* плашка с цифрой, Mulish (только <900) */
---type-faq-metric-value-size:16px; --type-faq-metric-value-lh:20px; /* Unbounded 500 */
 }
 @media (max-width:1599px){:root{
 --faq-pad-block-start:116px;                 /* рендер 115.2, кратно 4 (>80 вне шкалы) */
