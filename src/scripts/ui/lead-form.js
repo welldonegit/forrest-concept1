@@ -3,9 +3,9 @@
  * - Телефон: «+380 (XX) XXX-XX-XX», лишние цифры и префиксы 380 / 0 отбрасываются.
  * - Пустое имя или неполный номер — aria-invalid на поле (красная рамка и встряска),
  *   текст ошибки из siteSettings — для экранных дикторов (в выгрузке текста нет).
- * TODO(5.2–5.4): отправка в POST /api/lead (Turnstile, UTM) и стан успеха — ставить
- * data-sent на секцию только после ответа об успешной записи заявки. Сейчас форма
- * после проверки никуда не отправляется.
+ * После отправки — переход на страницу «Дякуємо» (data-thanks, /{lang}/thanks/).
+ * TODO(5.2–5.4): отправка в POST /api/lead (Turnstile, UTM); переходить только после ответа
+ * об успешной записи заявки. Сейчас форма после проверки сразу переходит, без отправки.
  */
 import { within } from './lazy.js';
 import { formatPhone, setError, PHONE_DIGITS } from './form-fields.js';
@@ -27,8 +27,9 @@ function initForm(form) {
     setError(phone, badPhone, digits ? 'invalid' : 'required');
     if (badName) { name.focus(); return; }
     if (badPhone) { phone.focus(); return; }
-    // TODO(5.4): отправка; при успехе — form.closest('[data-lead-section]').dataset.sent = '';
+    // TODO(5.4): сначала отправка; переход — только при успехе,
     // при ошибке — текст из [data-form-status] (data-msg-turnstile / data-msg-send).
+    window.location.assign(form.dataset.thanks);
   });
 }
 

@@ -1,0 +1,33 @@
+---
+/**
+ * Страница «Дякуємо»: сюда ведёт форма заявки после отправки (lead-form.js).
+ * Шапка и футер — общие с главной (якоря ведут на блоки главной). Первый экран — блок hero
+ * документа landing без заголовка; вместо лида — сообщение из siteSettings.thanksPage (h1).
+ * Не индексируется (integrations/indexing.ts).
+ */
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/blocks/Header.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Footer from '../../components/blocks/Footer.astro';
+import { languages } from '../../lib/languages';
+import { getSiteSettings, getLanding, type HeroBlock } from '../../lib/content';
+import { homePath } from '../../lib/routes';
+
+export function getStaticPaths() {
+  return languages.map((l) => ({ params: { lang: l.id } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const settings = await getSiteSettings(lang);
+const landing = await getLanding(lang);
+const hero = landing.blocks.find((b): b is HeroBlock => b._type === 'hero');
+const page = settings.thanksPage;
+const home = homePath(lang);
+---
+<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink}>
+  <Header lang={lang} settings={settings} base={home} path="thanks/" />
+  <main id="main" tabindex="-1">
+    {hero ? <Hero block={hero} message={page.message} base={home} /> : <h1 class="visually-hidden">{page.message}</h1>}
+  </main>
+  <Footer settings={settings} base={home} />
+</Base>

@@ -185,6 +185,8 @@ export interface SiteSettings {
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
   /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
+  /** Страница «Дякуємо» после отправки формы: первый экран главной, вместо заголовка и лида — сообщение (h1). Перенос строки — перенос на десктопе. */
+  thanksPage: { seoTitle: string; seoDescription: string; message: string };
   /** Тексты попапов (4.17). {n} — подстановка. */
   popups: {
     apartment: {
