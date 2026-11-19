@@ -48,7 +48,7 @@ export const location = defineType({
     hiddenField,
     anchorField('lokatsiya-google'),
     titleLinesField('locationTitleLine'),
-    text('text', { title: 'Текст', multiline: true, group: 'content' }),
+    text('text', { title: 'Опис під заголовком', description: 'Перенос рядка (Enter) — новий рядок на сайті.', multiline: true, group: 'content' }),
     linkField('mapLink', 'Посилання на Google-карту', { group: 'content' }),
     photoField('map', 'Карта', { group: 'content', description: 'Ілюстрація карти. Положення міток рахуються у відсотках від її розміру.' }),
     defineField({ name: 'pins', title: 'Мітки', type: 'array', of: [{ type: 'locationPin' }], group: 'content' }),
