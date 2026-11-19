@@ -38,7 +38,7 @@ const photo = await resolveImage(manager.photo);
     <div class="manager__msgs">
       {contacts.messengers.map((m) => (
         <a class="manager__msg" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
-          <SocialIcon network={m.network} />
+          <SocialIcon network={m.network} icon={m.icon} />
         </a>
       ))}
     </div>

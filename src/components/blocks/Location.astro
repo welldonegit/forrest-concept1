@@ -13,7 +13,7 @@
  */
 import { Image } from 'astro:assets';
 import mark from '../../assets/brand/logo-forrest-mark.svg';
-import { resolveImage, type LocationBlock } from '../../lib/content';
+import { resolveImage, resolveIcon, type LocationBlock } from '../../lib/content';
 
 interface Props {
   block: LocationBlock;
@@ -32,6 +32,12 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
   leisure: '<path d="M2.8 19.2 9.4 8.3l3.9 6.3"/><path d="m11.4 11.6 2.4-3.8 7.4 11.4H2.8"/>',
   hotel: '<path d="M3.5 18.5V6.5"/><path d="M3.5 14.5h17v4"/><path d="M20.5 14.5v-2a3 3 0 0 0-3-3h-6.5v5"/><circle cx="7.2" cy="11.6" r="1.7"/>',
 };
+// Иконки категорий из админки (вкладка «Іконки міток»); поле пустое — иконка выше (из выгрузки).
+const pinAttrs = { fill: 'none', stroke: 'currentColor', 'stroke-width': '2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+const pinIcon = Object.fromEntries((Object.keys(icons) as (keyof typeof icons)[]).map((k) => {
+  const custom = resolveIcon(block.icons?.[k], `мітка ${k}`);
+  return [k, custom ? { viewBox: custom.viewBox, attrs: Object.fromEntries(custom.attrs), inner: custom.inner } : { viewBox: '0 0 24 24', attrs: pinAttrs, inner: icons[k] }];
+})) as Record<keyof typeof icons, { viewBox: string; attrs: Record<string, string>; inner: string }>;
 ---
 <section class="loc" id={id} aria-labelledby={`${id}-title`} data-anim-block="location">
   <div class="loc__row">
@@ -63,7 +69,7 @@ const icons: Record<LocationBlock['pins'][number]['icon'], string> = {
           {block.pins.map((p) => (
             <li class="loc__pin" style={`--x:${p.x}%;--y:${p.y}%;--xn:${p.x}`} data-loc-pin>
               <span class:list={['loc__pin-label', `loc__pin-label--${p.side}`]}>
-                <span class="loc__pin-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={icons[p.icon]} /></span>{p.label}
+                <span class="loc__pin-icon" aria-hidden="true"><svg viewBox={pinIcon[p.icon].viewBox} {...pinIcon[p.icon].attrs} focusable="false" set:html={pinIcon[p.icon].inner} /></span>{p.label}
               </span>
             </li>
           ))}

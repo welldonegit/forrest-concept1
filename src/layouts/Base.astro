@@ -1,10 +1,14 @@
 ---
 /**
  * Базовый шаблон страницы: язык и направление письма, мета-теги, предзагрузка
- * шрифтов первого экрана, место под GTM, пропуск к содержимому.
+ * шрифтов первого экрана, отложенный GTM, пропуск к содержимому.
  */
 import '../styles/main.css';
 import { getLanguage } from '../lib/languages';
+import { getSiteSettings } from '../lib/content';
+
+/** Через сколько мс после загрузки страницы подключить GTM, если посетитель ничего не сделал. */
+const GTM_DELAY = 5000;
 
 interface Props {
   lang: string;
@@ -15,6 +19,7 @@ interface Props {
 
 const { lang, title, description, skipLink } = Astro.props;
 const language = getLanguage(lang);
+const gtmId = (await getSiteSettings(lang)).analytics?.gtmId?.trim();
 const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${language.subset}.woff2`];
 ---
 <!doctype html>
@@ -22,6 +27,21 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/*
+      Google Tag Manager — отложенно (CLAUDE.md, «Скорость»): очередь dataLayer создаётся сразу,
+      а gtm.js грузится при первом действии посетителя (прокрутка, касание, клавиша)
+      или через GTM_DELAY мс после загрузки страницы. ID контейнера — siteSettings.analytics.gtmId
+      (Sanity, вкладка «Технічне»); пусто — GTM не подключается.
+    */}
+    {gtmId && <script is:inline define:vars={{ gtmId, delay: GTM_DELAY }}>
+window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());
+dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});
+(()=>{const ev=['scroll','pointerdown','keydown','touchstart'];let done=0;
+const load=()=>{if(done)return;done=1;for(const t of ev)removeEventListener(t,load,true);
+const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id='+encodeURIComponent(gtmId);document.head.appendChild(s)};
+for(const t of ev)addEventListener(t,load,{capture:true,passive:true});
+addEventListener('load',()=>setTimeout(load,delay))})();
+    </script>}
     <title>{title}</title>
     <meta name="description" content={description} />
     {fonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
@@ -44,7 +64,7 @@ const user=(e)=>{if(e.type!=='scroll'||e.target===d)go()};
 for(const t of['scroll','keydown','pointerdown','touchstart'])addEventListener(t,user,{capture:true,passive:true});
 addEventListener('load',go);
 d.addEventListener('DOMContentLoaded',()=>{const m=d.querySelector('img[fetchpriority=high]');if(!m||m.complete)return go();m.addEventListener('load',go);m.addEventListener('error',go)})})();</script>
-    <!-- TODO(6.x): canonical, hreflang, og — после выбора домена. TODO(7.2): GTM, отложенная загрузка. -->
+    <!-- TODO(6.x): canonical, hreflang, og — после выбора домена. -->
   </head>
   <body>
     <a class="skip-link" href="#main">{skipLink}</a>

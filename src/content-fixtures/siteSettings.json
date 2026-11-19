@@ -1662,5 +1662,40 @@
         "value": "Back to home"
       }
     ]
+  },
+  "thanksPage": {
+    "seoTitle": [
+      {
+        "_key": "uk",
+        "value": "Дякуємо за заявку — FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "Thank you for your request — FORREST Trinity Resort"
+      }
+    ],
+    "seoDescription": [
+      {
+        "_key": "uk",
+        "value": "Ваша заявка прийнята. Менеджер зв'яжеться з вами найближчим часом."
+      },
+      {
+        "_key": "en",
+        "value": "Your request has been received. A manager will contact you shortly."
+      }
+    ],
+    "message": [
+      {
+        "_key": "uk",
+        "value": "Ваша заявка прийнята!\nМенеджер зв'яжеться з вами найближчим часом."
+      },
+      {
+        "_key": "en",
+        "value": "Your request has been received!\nA manager will contact you shortly."
+      }
+    ]
+  },
+  "analytics": {
+    "gtmId": "GTM-WPFP499D"
   }
 }

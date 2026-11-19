@@ -9,3 +9,8 @@ dist/
 *.log
 .DS_Store
 .acceptance/
+studio/node_modules/
+studio/dist/
+studio/.sanity/
+studio/import/out/
+src/content-sanity/

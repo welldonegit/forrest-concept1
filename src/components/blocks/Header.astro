@@ -151,7 +151,7 @@ const logoH = logo.height;
             {contacts.messengers.map((m) => (
               <li>
                 <a class="site-menu__social" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
-                  <SocialIcon network={m.network} />
+                  <SocialIcon network={m.network} icon={m.icon} />
                 </a>
               </li>
             ))}
@@ -167,7 +167,7 @@ const logoH = logo.height;
             {contacts.socials.map((m) => (
               <li>
                 <a class="site-menu__social" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
-                  <SocialIcon network={m.network} />
+                  <SocialIcon network={m.network} icon={m.icon} />
                 </a>
               </li>
             ))}

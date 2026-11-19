@@ -1,0 +1,22 @@
+{
+  "name": "forrest-trinity-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sanity": "DO_NOT_TRACK=1 sanity",
+    "dev": "DO_NOT_TRACK=1 sanity dev",
+    "build": "DO_NOT_TRACK=1 sanity build",
+    "deploy": "DO_NOT_TRACK=1 sanity deploy",
+    "validate": "DO_NOT_TRACK=1 sanity schema validate && node --experimental-strip-types --no-warnings --import ./import/register.mjs import/array-fields.mjs",
+    "import:build": "node --experimental-strip-types --no-warnings --import ./import/register.mjs import/array-fields.mjs && node --experimental-strip-types --no-warnings --import ./import/register.mjs import/build.mjs",
+    "import:verify": "node import/verify-dimensions.mjs"
+  },
+  "dependencies": {
+    "@sanity/locale-uk-ua": "1.1.37",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
+    "sanity": "6.22.0",
+    "sanity-plugin-internationalized-array": "5.3.9",
+    "styled-components": "6.6.0"
+  }
+}

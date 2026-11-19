@@ -1,8 +1,10 @@
 /**
  * Доступ к контенту. Компоненты получают данные только отсюда.
  *
- * Сейчас источник — временные фикстуры в форме Sanity (src/content-fixtures/),
- * на этапе 3 здесь появятся запросы к Sanity; интерфейс функций не меняется.
+ * Источник — Sanity: снимок опубликованного контента скачивает при сборке
+ * src/integrations/sanity.ts в src/content-sanity/, src/lib/sanity-source.ts приводит его
+ * к форме временных фикстур. CONTENT_SOURCE=fixtures — сборка из src/content-fixtures/
+ * (для сверки; папка удаляется после подтверждения человека).
  *
  * Переводимые поля приходят массивом sanity-plugin-internationalized-array.
  * localize() превращает их в строки нужного языка; нет перевода → значение
@@ -13,6 +15,21 @@ import { defaultLanguage, languageIds } from './languages';
 import siteSettingsFixture from '../content-fixtures/siteSettings.json';
 import landingFixture from '../content-fixtures/landing.json';
 import apartmentFormatsFixture from '../content-fixtures/apartmentFormats.json';
+import { fromSanity, type SanitySnapshot } from './sanity-source';
+import { sanitizeSvg, type InlineIcon } from './svg';
+
+/* ---------- Источник ---------- */
+
+// Источник фиксируется при сборке (astro.config.mjs → vite.define): ветка другого источника вырезается
+// вместе с его фото — иначе Vite положил бы в сборку неиспользуемые оригиналы.
+declare const __CONTENT_SOURCE__: 'sanity' | 'fixtures';
+const useSanity = __CONTENT_SOURCE__ === 'sanity';
+const snapshotModule = import.meta.glob<SanitySnapshot>('/src/content-sanity/content.json', { eager: true, import: 'default' });
+const snapshot = Object.values(snapshotModule)[0];
+if (useSanity && !snapshot) throw new Error('Нет снимка Sanity (src/content-sanity/content.json): его скачивает интеграция forrest-sanity при сборке');
+const source = useSanity
+  ? fromSanity(snapshot!)
+  : { landing: landingFixture, siteSettings: siteSettingsFixture, apartmentFormats: apartmentFormatsFixture };
 
 type I18nItem = { _key?: string; language?: string; value: unknown };
 
@@ -34,12 +51,14 @@ function pick(items: I18nItem[], lang: string, path: string): unknown {
   const byLang = (id: string) => items.find((it) => (it.language ?? it._key) === id)?.value;
   const value = byLang(lang);
   if (value !== undefined && value !== '') return value;
+  const fallback = byLang(defaultLanguage);
+  if (fallback === undefined || fallback === '') return fallback;
   const key = `${lang}:${path}`;
   if (!reported.has(key)) {
     reported.add(key);
     console.warn(`[i18n] нет перевода «${lang}»: ${path} → подставлен «${defaultLanguage}»`);
   }
-  return byLang(defaultLanguage);
+  return fallback;
 }
 
 /* ---------- Ссылки на документы ---------- */
@@ -47,7 +66,7 @@ function pick(items: I18nItem[], lang: string, path: string): unknown {
 // Документы, на которые ссылаются другие (как reference в Sanity): форматы апартаментов
 // — одни данные для карточек Apartments и списка в форме.
 const documents = new Map<string, unknown>(
-  (apartmentFormatsFixture as { _id: string }[]).map((d) => [d._id, d]),
+  (source.apartmentFormats as { _id: string }[]).map((d) => [d._id, d]),
 );
 
 /** Подставляет документы вместо ссылок { _type: 'reference', _ref }. */
@@ -81,10 +100,14 @@ export function localize<T = unknown>(value: unknown, lang: string, path = ''): 
 
 /* ---------- Фото ---------- */
 
-// Только фото, на которые ссылаются фикстуры: всё, что попало в glob, Vite кладёт в сборку.
-// Новый блок с фото до подключения Sanity — добавить файл в этот список.
-// Источник — design-export/assets/photos (Р8); фото карточек Stats есть только в корне выгрузки.
-const fixturePhotos = import.meta.glob<ImageMetadata>(
+// Всё, что попало в glob, Vite кладёт в сборку, поэтому список зависит от источника.
+// Sanity: оригиналы, скачанные при сборке (src/integrations/sanity.ts).
+// Фикстуры: только фото, на которые они ссылаются; источник — design-export/assets/photos (Р8),
+// фото карточек Stats есть только в корне выгрузки.
+type PhotoGlob = Record<string, () => Promise<ImageMetadata>>;
+const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
+  ? import.meta.glob<ImageMetadata>('/src/content-sanity/assets/*.{jpg,jpeg,png,webp,gif,avif,svg}', { import: 'default' })
+  : import.meta.glob<ImageMetadata>(
   [
     '/design-export/assets/photos/hero-summer.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
@@ -145,6 +168,9 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
   { import: 'default' },
 );
 
+/** SVG-иконки контента из Sanity — текстом, для встраивания в страницу. */
+const sanitySvgText = import.meta.glob<string>('/src/content-sanity/assets/*.svg', { query: '?raw', import: 'default', eager: true });
+
 export interface SanityImage {
   asset: { _ref: string };
   hotspot?: { x: number; y: number };
@@ -161,22 +187,50 @@ export interface ResolvedImage {
   position: string;
 }
 
+/** Файл Sanity (sanity:<id>) → путь оригинала в src/content-sanity/assets/. */
+function sanityFile(ref: string): string {
+  const id = ref.slice('sanity:'.length);
+  const f = snapshot?.files[id];
+  if (!f) throw new Error(`Файла ${id} нет в снимке Sanity`);
+  return `/src/content-sanity/assets/${f.file}`;
+}
+
 export async function resolveImage(img: SanityImage): Promise<ResolvedImage> {
   const ref = img.asset._ref;
-  if (!ref.startsWith('fixture:')) throw new Error(`Фото из Sanity ещё не подключены: ${ref}`);
-  const file = ref.slice('fixture:'.length);
-  const load = fixturePhotos[`/design-export/assets/photos/${file}`] ?? fixturePhotos[`/design-export/${file}`];
-  if (!load) throw new Error(`Фото нет в списке fixturePhotos (content.ts): ${file}`);
+  let file: string;
+  let load: (() => Promise<ImageMetadata>) | undefined;
+  if (ref.startsWith('sanity:')) {
+    file = sanityFile(ref);
+    load = fixturePhotos[file];
+    if (!load) throw new Error(`Оригинал фото не скачан: ${file}`);
+  } else {
+    if (!ref.startsWith('fixture:')) throw new Error(`Неизвестная ссылка на фото: ${ref}`);
+    file = ref.slice('fixture:'.length);
+    load = fixturePhotos[`/design-export/assets/photos/${file}`] ?? fixturePhotos[`/design-export/${file}`];
+    if (!load) throw new Error(`Фото нет в списке fixturePhotos (content.ts): ${file}`);
+  }
   const x = Math.round((img.hotspot?.x ?? 0.5) * 100);
   const y = Math.round((img.hotspot?.y ?? 0.5) * 100);
   if (!img.decorative && !img.alt) throw new Error(`Нет alt у фото ${file}: заполни alt или отметь «декоративне фото»`);
   return { src: await load(), alt: img.decorative ? '' : (img.alt ?? ''), position: `${x}% ${y}%` };
 }
 
+/** Иконка контента (поле SVG в админке); пусто — undefined, компонент рисует иконку из кода. */
+export function resolveIcon(icon: { asset?: { _ref?: string } } | undefined, label: string): InlineIcon | undefined {
+  const ref = icon?.asset?._ref;
+  if (!ref) return undefined;
+  if (!ref.startsWith('sanity:')) return undefined;
+  const text = sanitySvgText[sanityFile(ref)];
+  if (text === undefined) throw new Error(`SVG иконки ${label} не скачан`);
+  return sanitizeSvg(text, label);
+}
+
 /* ---------- Документы ---------- */
 
 export interface Link { _key: string; href: string; label: string }
-export interface SocialLink { _key: string; network: string; label: string; url: string }
+/** Поле SVG-иконки в админке (svgIcon): пусто — иконка из кода. */
+export type IconRef = { asset?: { _ref?: string } } | undefined;
+export interface SocialLink { _key: string; network: string; label: string; url: string; icon?: IconRef }
 
 export interface FooterGroup { _key: string; title: string; links: Link[] }
 
@@ -185,6 +239,10 @@ export interface SiteSettings {
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
   /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
+  /** Страница «Дякуємо» после отправки формы: первый экран главной, вместо заголовка и лида — сообщение (h1). Перенос строки — перенос на десктопе. */
+  thanksPage: { seoTitle: string; seoDescription: string; message: string };
+  /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
+  analytics?: { gtmId?: string };
   /** Тексты попапов (4.17). {n} — подстановка. */
   popups: {
     apartment: {
@@ -464,6 +522,8 @@ export interface LocationBlock {
   /** Карта-иллюстрация: по её размеру строится кадр и проценты меток. */
   map: SanityImage;
   pins: LocationPin[];
+  /** Иконки категорий меток из админки; пусто — иконки из кода. */
+  icons?: Partial<Record<LocationPin['icon'], IconRef>>;
   /** Метка курорта: точка с логотипом, подпись и карточка при наведении. */
   resort: {
     x: number;
@@ -731,9 +791,9 @@ export interface FaqBlock {
 export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
-  return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');
+  return localize<SiteSettings>(deref(source.siteSettings), lang, 'siteSettings');
 }
 
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
-  return localize<{ blocks: LandingBlock[] }>(deref(landingFixture), lang, 'landing');
+  return localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing');
 }

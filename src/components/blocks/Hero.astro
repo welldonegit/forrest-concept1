@@ -7,15 +7,22 @@
  * На < 768 — мобильные фото, передний план по контуру не показывается (решение 2026-11-17).
  * Поведение: src/scripts/ui/hero.js (контур, сезон, позиция кнопки на мобильном),
  * появление и параллакс заголовка — src/scripts/anim/blocks/hero.js и hero.css.
+ * Страница «Дякуємо» (message): заголовка нет, вместо лида — сообщение (h1); передний план
+ * по контуру не нужен (за зданиями нечего прятать). Ссылки «#…» ведут на главную (base).
  */
 import { getImage } from 'astro:assets';
 import { resolveImage, type HeroBlock } from '../../lib/content';
+import { onPage } from '../../lib/routes';
 
 interface Props {
   block: HeroBlock;
+  /** Сообщение вместо заголовка и лида (страница «Дякуємо»). */
+  message?: string;
+  /** Адрес главной на внутренней странице: «#forma» → «/uk/#forma». */
+  base?: string;
 }
 
-const { block } = Astro.props;
+const { block, message, base } = Astro.props;
 const summer = await resolveImage(block.imageSummer);
 const winter = await resolveImage(block.imageWinter);
 
@@ -61,12 +68,13 @@ const winterM = await mobileSource(block.imageWinterMobile);
 const summerM = await mobileSource(block.imageSummerMobile);
 const skyline = JSON.stringify(block.skyline);
 const [line1, line2] = block.title;
-const leadLines = block.lead.split('\n');
+const leadLines = (message ?? block.lead).split('\n');
+const Lead = message ? 'h1' : 'p';
 ---
 <div class="hero" id="top">
   <section
     class="hero__frame"
-    aria-labelledby="hero-title"
+    aria-labelledby={message ? 'hero-message' : 'hero-title'}
     data-hero
     data-season="winter"
     data-skyline={skyline}
@@ -79,6 +87,7 @@ const leadLines = block.lead.split('\n');
         <picture><source media={mobileQuery} srcset={winterM.srcset} sizes={winterM.sizes} /><img class="hero__img" {...winterAttrs} alt={winter.alt} loading="eager" fetchpriority="high" decoding="async" style={`--focus:${winter.position}`} /></picture>
       </div>
 
+      {!message && (<>
       <h1 class="hero__title text-hero-h1" id="hero-title" data-hero-title>
         <span class="hero__line hero__line--dark">{line1}</span>
         <span class="hero__line hero__line--light">{line2}</span>
@@ -98,6 +107,7 @@ const leadLines = block.lead.split('\n');
         <span class="hero__line hero__line--dark">{line1}</span>
         <span class="hero__line hero__line--light">{line2}</span>
       </div>
+      </>)}
     </div>
 
     <!-- Заслонка цвета рамки: проявление кадра (opacity 1 → 0). Фото под ней непрозрачно с первого кадра —
@@ -107,13 +117,13 @@ const leadLines = block.lead.split('\n');
     <div class="hero__shade" aria-hidden="true"></div>
 
     <div class="hero__content" data-hero-content>
-      <p class="hero__lead text-hero-lead">
+      <Lead class="hero__lead text-hero-lead" id={message ? 'hero-message' : undefined}>
         {leadLines.map((line, i) => (
           <>{i > 0 && <>{" "}<br class="hero__br" /></>}{line}</>
         ))}
-      </p>
+      </Lead>
       <div class="hero__buttons">
-        <a class="hero__cta text-hero-button-lg" href={block.cta.href}>
+        <a class="hero__cta text-hero-button-lg" href={onPage(block.cta.href, base)}>
           {block.cta.label}
           <span class="hero__cta-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
