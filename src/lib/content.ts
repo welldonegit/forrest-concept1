@@ -20,7 +20,10 @@ import { sanitizeSvg, type InlineIcon } from './svg';
 
 /* ---------- Источник ---------- */
 
-const useSanity = (process.env.CONTENT_SOURCE ?? 'sanity') === 'sanity';
+// Источник фиксируется при сборке (astro.config.mjs → vite.define): ветка другого источника вырезается
+// вместе с его фото — иначе Vite положил бы в сборку неиспользуемые оригиналы.
+declare const __CONTENT_SOURCE__: 'sanity' | 'fixtures';
+const useSanity = __CONTENT_SOURCE__ === 'sanity';
 const snapshotModule = import.meta.glob<SanitySnapshot>('/src/content-sanity/content.json', { eager: true, import: 'default' });
 const snapshot = Object.values(snapshotModule)[0];
 if (useSanity && !snapshot) throw new Error('Нет снимка Sanity (src/content-sanity/content.json): его скачивает интеграция forrest-sanity при сборке');
@@ -97,10 +100,14 @@ export function localize<T = unknown>(value: unknown, lang: string, path = ''): 
 
 /* ---------- Фото ---------- */
 
-// Только фото, на которые ссылаются фикстуры: всё, что попало в glob, Vite кладёт в сборку.
-// Новый блок с фото до подключения Sanity — добавить файл в этот список.
-// Источник — design-export/assets/photos (Р8); фото карточек Stats есть только в корне выгрузки.
-const fixturePhotos = import.meta.glob<ImageMetadata>(
+// Всё, что попало в glob, Vite кладёт в сборку, поэтому список зависит от источника.
+// Sanity: оригиналы, скачанные при сборке (src/integrations/sanity.ts).
+// Фикстуры: только фото, на которые они ссылаются; источник — design-export/assets/photos (Р8),
+// фото карточек Stats есть только в корне выгрузки.
+type PhotoGlob = Record<string, () => Promise<ImageMetadata>>;
+const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
+  ? import.meta.glob<ImageMetadata>('/src/content-sanity/assets/*.{jpg,jpeg,png,webp,gif,avif,svg}', { import: 'default' })
+  : import.meta.glob<ImageMetadata>(
   [
     '/design-export/assets/photos/hero-summer.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
@@ -157,8 +164,6 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/assets/logos/filimonov-kashirina-architects-dark.svg',
     '/design-export/assets/logos/maestro-hotel-management-dark.svg',
     '/design-export/assets/logos/makhno-studio-white-dark.svg',
-    // Sanity: оригиналы, скачанные при сборке (src/integrations/sanity.ts)
-    '/src/content-sanity/assets/*.{jpg,jpeg,png,webp,gif,avif,svg}',
   ],
   { import: 'default' },
 );

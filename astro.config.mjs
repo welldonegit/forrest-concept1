@@ -26,6 +26,10 @@ export default defineConfig({
     layout: 'constrained',
   },
   build: { format: 'directory' },
+  vite: {
+    // Источник контента: sanity (по умолчанию) | fixtures — константа сборки (src/lib/content.ts).
+    define: { __CONTENT_SOURCE__: JSON.stringify(process.env.CONTENT_SOURCE ?? 'sanity') },
+  },
   // Дев-сервер в контейнере: слушать все адреса IPv4 — иначе Astro садится на [::1],
   // и проброс порта VS Code (идёт на 127.0.0.1) страницу не открывает.
   server: { host: '0.0.0.0', port: 4321 },

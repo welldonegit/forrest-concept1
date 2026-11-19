@@ -7,17 +7,16 @@
  *   assets/      — оригиналы фото, SVG и PDF без пережатия, имена — исходные имена файлов.
  * Дальше фото обрабатывает astro:assets так же, как раньше из выгрузки (src/lib/content.ts).
  *
- * Документы: набор данных публичный, ключ не нужен, черновики не видны (только опубликованное).
- * Фото: обычный адрес CDN отдаёт пережатую копию (проверено 2026-11-19: пиксели и вес другие),
- * оригинал — только с ?dlRaw=true и ключом чтения. Ключ — переменная сборки SANITY_READ_TOKEN
- * (роль Viewer; в Cloudflare — секрет сборки, не в репозитории и не на сайте).
- * Каждый скачанный файл сверяется с контрольной суммой оригинала (sha1); не совпало — сборка падает.
+ * Набор данных публичный: ключей нет ни в сборке, ни на сайте; черновики не видны (только опубликованное).
+ * Фото: адрес CDN без параметров отдаёт пережатую копию (JPEG ~75%), исходный файл — только с ключом.
+ * Поэтому фото берутся без потерь — ?fm=png: те же пиксели, что в загруженном оригинале
+ * (проверено 2026-11-19 на 48 из 49 фото попиксельно), дальше astro:assets делает AVIF как раньше.
+ * Файлы (SVG-иконки, PDF) отдаются байт в байт; SVG-логотипы в поле фото — без обёртки метаданных c2pa, рисунок тот же. Размер фото сверяется с данными Sanity; не совпал — сборка падает.
  * Источник переключается переменной CONTENT_SOURCE: sanity (по умолчанию) | fixtures.
  */
-import { mkdir, writeFile, readdir, stat, rm } from 'node:fs/promises';
+import { mkdir, writeFile, readdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import type { AstroIntegration } from 'astro';
 
 export const SANITY = { projectId: 'rxw30lco', dataset: 'production', apiVersion: '2025-02-19' } as const;
@@ -38,7 +37,10 @@ async function query<T>(groq: string): Promise<T> {
   }
 }
 
-interface AssetDoc { _id: string; url: string; originalFilename?: string; extension: string; sha1hash: string; size: number }
+interface AssetDoc { _id: string; url: string; originalFilename?: string; extension: string; sha1hash: string; size: number; w?: number; h?: number }
+
+/** Растровое фото: качаем без потерь в PNG. SVG-«фото» (логотипы) и файлы — как есть. */
+const isRaster = (a: AssetDoc) => a._id.startsWith('image-') && a.extension !== 'svg';
 
 /** Все ссылки на файлы в документах: image-… и file-…. */
 function collectAssetRefs(v: unknown, out: Set<string>) {
@@ -50,30 +52,19 @@ function collectAssetRefs(v: unknown, out: Set<string>) {
   }
 }
 
-/** Имя файла: исходное имя; при совпадении имён у разных файлов — с началом контрольной суммы. */
+/** Имя файла: исходное имя (у фото — с .png); при совпадении имён у разных файлов — с началом контрольной суммы. */
 function fileNames(assets: AssetDoc[]): Map<string, string> {
-  const safe = (s: string) => s.replace(/[^\w.-]+/g, '-');
+  const base = (a: AssetDoc) => {
+    const n = (a.originalFilename ?? `${a.sha1hash}.${a.extension}`).replace(/[^\w.-]+/g, '-');
+    return isRaster(a) ? n.replace(/\.[^.]+$/, '') + '.png' : n;
+  };
   const count = new Map<string, number>();
-  for (const a of assets) {
-    const n = safe(a.originalFilename ?? `${a.sha1hash}.${a.extension}`);
-    count.set(n, (count.get(n) ?? 0) + 1);
-  }
-  return new Map(assets.map((a) => {
-    const n = safe(a.originalFilename ?? `${a.sha1hash}.${a.extension}`);
-    return [a._id, count.get(n)! > 1 ? `${a.sha1hash.slice(0, 8)}-${n}` : n];
-  }));
+  for (const a of assets) count.set(base(a), (count.get(base(a)) ?? 0) + 1);
+  return new Map(assets.map((a) => [a._id, count.get(base(a))! > 1 ? `${a.sha1hash.slice(0, 8)}-${base(a)}` : base(a)]));
 }
 
-/** Строки KEY=value из .env (без подстановок); файла нет — пусто. */
-async function envFile(url: URL): Promise<Record<string, string>> {
-  if (!existsSync(url)) return {};
-  const out: Record<string, string> = {};
-  for (const line of (await readFile(url, 'utf8')).split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-    if (m) out[m[1]] = m[2].replace(/^(['"])(.*)\1$/, '$2');
-  }
-  return out;
-}
+/** Ширина и высота PNG из заголовка IHDR. */
+const pngSize = (b: Buffer) => ({ w: b.readUInt32BE(16), h: b.readUInt32BE(20) });
 
 export default function sanityContent(): AstroIntegration {
   return {
@@ -91,26 +82,25 @@ export default function sanityContent(): AstroIntegration {
         const documents = await query<Record<string, unknown>[]>(`*[_type in $types]`.replace('$types', JSON.stringify(TYPES)));
         const refs = new Set<string>();
         collectAssetRefs(documents, refs);
-        const assets = await query<AssetDoc[]>(`*[_id in ${JSON.stringify([...refs])}]{_id, url, originalFilename, extension, sha1hash, size}`);
+        const assets = await query<AssetDoc[]>(`*[_id in ${JSON.stringify([...refs])}]{_id, url, originalFilename, extension, sha1hash, size, "w": metadata.dimensions.width, "h": metadata.dimensions.height}`);
         const missing = [...refs].filter((r) => !assets.some((a) => a._id === r));
         if (missing.length) throw new Error(`В Sanity нет файлов: ${missing.join(', ')}`);
 
-        // Cloudflare: переменная сборки; локально — файл .env в корне (в git не попадает).
-        const token = (process.env.SANITY_READ_TOKEN ?? (await envFile(new URL('.env', config.root))).SANITY_READ_TOKEN)?.trim();
-        if (!token && assets.some((a) => a._id.startsWith('image-')))
-          throw new Error('Нет SANITY_READ_TOKEN: без ключа чтения Sanity отдаёт только пережатые копии фото (docs/ADMIN.md, «Сборка»)');
-        const sha1 = (b: Buffer) => createHash('sha1').update(b).digest('hex');
         const names = fileNames(assets);
+        // Прошлый снимок: файл с тем же именем и тем же _id уже скачан — не качаем снова.
+        const prevUrl = new URL('content.json', dir);
+        const prev = existsSync(prevUrl) ? (JSON.parse(await readFile(prevUrl, 'utf8')).files ?? {}) as Record<string, { file: string }> : {};
         let downloaded = 0;
         await Promise.all(assets.map(async (a) => {
           const file = new URL(names.get(a._id)!, assetsDir);
-          // Оригинал уже скачан (контрольная сумма совпала) — не качаем снова.
-          if (existsSync(file) && (await stat(file)).size === a.size && sha1(await readFile(file)) === a.sha1hash) return;
-          const isImage = a._id.startsWith('image-');
-          const res = await fetch(isImage ? `${a.url}?dlRaw=true` : a.url, isImage ? { headers: { Authorization: `Bearer ${token}` } } : {});
-          if (!res.ok) throw new Error(`Не скачался файл ${a.originalFilename}: HTTP ${res.status}${res.status === 401 ? ' (ключ SANITY_READ_TOKEN не подходит)' : ''}`);
+          if (prev[a._id]?.file === names.get(a._id) && existsSync(file)) return;
+          const res = await fetch(isRaster(a) ? `${a.url}?fm=png` : a.url);
+          if (!res.ok) throw new Error(`Не скачался файл ${a.originalFilename}: HTTP ${res.status}`);
           const bytes = Buffer.from(await res.arrayBuffer());
-          if (sha1(bytes) !== a.sha1hash) throw new Error(`Файл ${a.originalFilename} пришёл не оригиналом (контрольная сумма не совпала)`);
+          if (isRaster(a)) {
+            const { w, h } = pngSize(bytes);
+            if (w !== a.w || h !== a.h) throw new Error(`Фото ${a.originalFilename}: пришло ${w}×${h}, в Sanity ${a.w}×${a.h}`);
+          } else if (a._id.startsWith('file-') && bytes.length !== a.size) throw new Error(`Файл ${a.originalFilename} пришёл изменённым (${bytes.length} байт вместо ${a.size})`);
           await writeFile(file, bytes);
           downloaded++;
         }));
