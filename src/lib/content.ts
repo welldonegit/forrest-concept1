@@ -643,6 +643,24 @@ export interface TeamBlock {
   members: TeamMember[];
 }
 
+export interface FormFinalBlock {
+  _type: 'formFinal';
+  _key: string;
+  /** id секции (#forma-final): на него ведёт кнопка FAQ «Поставити питання». */
+  anchor: string;
+  title: FormTitleLine[];
+  text: string;
+  bullets: FormBullet[];
+  /** Вопрос о цели инвестиции и варианты (value — техническое значение для заявки). */
+  goalLabel: string;
+  goals: { _key: string; value: string; label: string }[];
+  contactLegend: string;
+  contactOptions: { _key: string; value: string; label: string }[];
+  submitLabel: string;
+  /** Подпись рядом с кнопкой. */
+  note: string;
+}
+
 export interface FaqTitleLine { _key: string; text: string; muted?: boolean }
 export interface FaqDoc {
   _key: string;
@@ -676,7 +694,7 @@ export interface FaqBlock {
   items: FaqItem[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock;
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

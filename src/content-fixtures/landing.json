@@ -5649,6 +5649,289 @@
           ]
         }
       ]
+    },
+    {
+      "_type": "formFinal",
+      "_key": "formFinal",
+      "anchor": "forma-final",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Оберіть свій"
+            },
+            {
+              "_key": "en",
+              "value": "Choose your"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "актив"
+            },
+            {
+              "_key": "en",
+              "value": "asset"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "у FORREST"
+            },
+            {
+              "_key": "en",
+              "value": "in FORREST"
+            }
+          ]
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Отримайте персональну фінансову модель з актуальними апартаментами, вартістю, умовами оплати, прогнозованим доходом та строком окупності."
+        },
+        {
+          "_key": "en",
+          "value": "Get a personal financial model with current apartments, prices, payment terms, projected income and payback period."
+        }
+      ],
+      "bullets": [
+        {
+          "_key": "b1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Добірку актуальних планувань з цінами"
+            },
+            {
+              "_key": "en",
+              "value": "A selection of current floor plans with prices"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:catalog-plans.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок прогнозованої окупності"
+            },
+            {
+              "_key": "en",
+              "value": "A projected payback calculation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:final-form.jpg"
+            },
+            "hotspot": {
+              "x": 0.28,
+              "y": 0.22
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b3",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Умови оплати та розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "Payment and instalment terms"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.45
+            },
+            "decorative": true
+          }
+        }
+      ],
+      "goalLabel": [
+        {
+          "_key": "uk",
+          "value": "Який формат інвестиції вас цікавить?"
+        },
+        {
+          "_key": "en",
+          "value": "Which investment format are you interested in?"
+        }
+      ],
+      "goals": [
+        {
+          "_key": "g1",
+          "value": "passive-income",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Пасивний дохід"
+            },
+            {
+              "_key": "en",
+              "value": "Passive income"
+            }
+          ]
+        },
+        {
+          "_key": "g2",
+          "value": "capital-growth",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Зростання вартості активу"
+            },
+            {
+              "_key": "en",
+              "value": "Asset value growth"
+            }
+          ]
+        },
+        {
+          "_key": "g3",
+          "value": "income-and-stays",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Дохід + власний відпочинок"
+            },
+            {
+              "_key": "en",
+              "value": "Income + your own holidays"
+            }
+          ]
+        },
+        {
+          "_key": "g4",
+          "value": "consultation",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Хочу отримати консультацію"
+            },
+            {
+              "_key": "en",
+              "value": "I'd like a consultation"
+            }
+          ]
+        }
+      ],
+      "contactLegend": [
+        {
+          "_key": "uk",
+          "value": "Куди надіслати матеріали?"
+        },
+        {
+          "_key": "en",
+          "value": "Where should we send the materials?"
+        }
+      ],
+      "contactOptions": [
+        {
+          "_key": "c1",
+          "value": "telegram",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Telegram"
+            },
+            {
+              "_key": "en",
+              "value": "Telegram"
+            }
+          ]
+        },
+        {
+          "_key": "c2",
+          "value": "viber",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Viber"
+            },
+            {
+              "_key": "en",
+              "value": "Viber"
+            }
+          ]
+        },
+        {
+          "_key": "c3",
+          "value": "whatsapp",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "WhatsApp"
+            },
+            {
+              "_key": "en",
+              "value": "WhatsApp"
+            }
+          ]
+        },
+        {
+          "_key": "c4",
+          "value": "call",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Телефонний дзвінок"
+            },
+            {
+              "_key": "en",
+              "value": "Phone call"
+            }
+          ]
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Отримати фінансову модель"
+        },
+        {
+          "_key": "en",
+          "value": "Get the financial model"
+        }
+      ],
+      "note": [
+        {
+          "_key": "uk",
+          "value": "Без зобов’язань. Менеджер допоможе порівняти доступні формати апартаментів."
+        },
+        {
+          "_key": "en",
+          "value": "No obligation. A manager will help you compare the available apartment formats."
+        }
+      ]
     }
   ]
 }

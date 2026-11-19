@@ -15,6 +15,7 @@ import InvestorService from '../../components/blocks/InvestorService.astro';
 import Construction from '../../components/blocks/Construction.astro';
 import Team from '../../components/blocks/Team.astro';
 import Faq from '../../components/blocks/Faq.astro';
+import FormFinal from '../../components/blocks/FormFinal.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
@@ -43,13 +44,13 @@ const landing = await getLanding(lang);
         case 'infrastructure': return <Infrastructure block={block} swipeHint={settings.ui.swipeHint} />;
         case 'team': return <Team block={block} />;
         case 'faq': return <Faq block={block} />;
+        case 'formFinal': return <FormFinal block={block} settings={settings} />;
         case 'construction': return <Construction block={block} lang={lang} />;
         case 'investorService': return <InvestorService block={block} />;
         case 'numbers': return <Numbers block={block} lang={lang} />;
         default: return null;
       }
     })}
-    <!-- TODO(4.11 и далее): остальные блоки документа landing -->
   </main>
   <Footer settings={settings} />
 </Base>

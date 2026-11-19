@@ -334,6 +334,9 @@
 --form-mgr-who-basis:160px;
 --form-msg-icon:19px;
 --form-fields-gap:var(--space-28);
+--form-field-gap:var(--space-12);            /* подпись → поле, подпись группы → чипы */
+--form-input-h:var(--control-h-60);
+--form-chip-h:var(--control-h-48);
 --form-chip-pad:var(--space-24);            /* рендер 22 */
 --form-chevron:18px;
 --form-submit-icon:52px;                    /* круг со стрелкой в кнопке: собственный размер */
@@ -1253,4 +1256,28 @@
 --faq-q-pad-start:var(--space-20);           /* рендер 18 → 20 + 16 */
 --faq-q-pad-inline:var(--space-20);          /* рендер 18 */
 --faq-q-gap:var(--space-12);                 /* рендер 14; с полем 20 вместо 18 ширина текста вопроса как в рендере */
+}}
+
+/* ===== Final Form 4.15 (рендер): та же секция, что Form, — переопределяются только эти значения (.form--final) ===== */
+:root{
+--ff-pad-block-start:var(--space-48);
+--ff-fields-gap:var(--space-20);
+--ff-field-gap:var(--space-10);
+--ff-input-h:var(--control-h-56);            /* рендер 54 */
+--ff-chip-h:var(--control-h-44);
+--ff-chip-pad:var(--space-20);               /* рендер 18, как у Form 22 → 24 */
+--ff-note-basis:200px; --ff-note-max:320px;  /* подпись рядом с кнопкой: как в выгрузке */
+--type-form-note-size:13px; --type-form-note-lh:20px; /* временная: подпись у кнопки Final Form (Mulish 13/19.5) */
+}
+@media (max-width:1599px){:root{
+--ff-pad-block-start:var(--space-44);        /* рендер 43.2 */
+}}
+@media (max-width:1279px){:root{
+--ff-pad-block-start:var(--space-32);        /* рендер 30.7 */
+--ff-fields-gap:var(--space-16);             /* рендер 14.3 */
+}}
+@media (max-width:767px){:root{
+--ff-pad-block-start:var(--space-24);
+--ff-fields-gap:var(--space-12);             /* рендер 14; вниз — поля 56 вместо 54, высота панели как в рендере */
+--ff-title-size:20px;                        /* как в выгрузке: заголовок Final Form помещается в 2 строки до 360 (у Form — 18, решение 2026-11-17) */
 }}

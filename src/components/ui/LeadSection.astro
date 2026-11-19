@@ -1,0 +1,124 @@
+---
+/**
+ * Секция с формой заявки — общая для Form (4.7) и Final Form (4.15): светлая панель
+ * (заголовок, текст, три карточки с фото, карточка эксперта) и тёмная панель с формой.
+ * Блоки отличаются только раскладкой (модификатор form--final, значения — tokens.css)
+ * и контентом. Подписи имени и телефона, успех, ошибки и эксперт — siteSettings;
+ * проверка полей и маска телефона — src/scripts/ui/lead-form.js (одна для всех форм);
+ * появление — src/scripts/anim/blocks/form.js + form.css.
+ * TODO(5.2–5.4): отправка в POST /api/lead, Turnstile, UTM; data-sent — после записи заявки.
+ */
+import { Image } from 'astro:assets';
+import ManagerCard from './ManagerCard.astro';
+import { resolveImage, type FormBullet, type FormTitleLine, type SiteSettings } from '../../lib/content';
+
+interface Option { value?: string; label: string }
+interface Props {
+  id: string;
+  variant: 'form' | 'final';
+  title: FormTitleLine[];
+  text: string;
+  bullets: FormBullet[];
+  select: { label: string; name: string; options: Option[] };
+  contactLegend: string;
+  contactOptions: { value: string; label: string }[];
+  submitLabel: string;
+  /** Подпись рядом с кнопкой (есть только у Final Form). */
+  note?: string;
+  settings: SiteSettings;
+}
+
+const { id, variant, title, text, select, contactLegend, contactOptions, submitLabel, note, settings } = Astro.props;
+const f = settings.form;
+const bullets = await Promise.all(
+  Astro.props.bullets.map(async (b) => ({ ...b, photo: await resolveImage(b.image) })),
+);
+const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
+---
+<section class:list={['form', { 'form--final': variant === 'final' }]} id={id} aria-labelledby={`${id}-title`} data-anim-block="form" data-lead-section>
+  <div class="form__grid">
+    <div class="form__info">
+      <h2 class="form__title text-form-title" id={`${id}-title`}>
+        {title.map((line) => (
+          <span class="form__mask"><span class="form__line">{line.text}{line.mutedText && <> <span class="form__muted">{line.mutedText}</span></>}</span></span>
+        ))}
+      </h2>
+      <p class="form__text text-form-text">{text}</p>
+      <ul class="form__bullets" role="list">
+        {bullets.map((b, i) => (
+          <li class="form__bullet" style={`--i:${i}`}>
+            <span class="form__bullet-media">
+              <Image
+                class="form__bullet-img"
+                src={b.photo.src}
+                alt={b.photo.alt}
+                widths={[280, 420, 560]}
+                sizes="(max-width: 560px) 136px, (max-width: 900px) 30vw, (max-width: 1100px) 128px, 17vw"
+                format="avif"
+                loading="lazy"
+                decoding="async"
+                style={`--focus:${b.photo.position}`}
+              />
+            </span>
+            <span class="form__bullet-body"><span class="form__bullet-text text-form-bullet">{b.text}</span></span>
+          </li>
+        ))}
+      </ul>
+      <ManagerCard settings={settings} class="form__manager form__manager--a" />
+    </div>
+
+    <div class="form__panel">
+      <form class="form__form" novalidate data-lead-form>
+        <div class="form__field">
+          <label class="form__label text-form-label" for={`${id}-name`}>{f.nameLabel}</label>
+          <input class="form__input text-form-input" id={`${id}-name`} name="name" type="text" autocomplete="name" required placeholder={f.namePlaceholder} aria-describedby={`${id}-err-name`} />
+          <span class="form__error visually-hidden" id={`${id}-err-name`} data-error hidden>{f.errors.required}</span>
+        </div>
+        <div class="form__field">
+          <label class="form__label text-form-label" for={`${id}-phone`}>{f.phoneLabel}</label>
+          <input class="form__input text-form-input" id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={f.phonePlaceholder} aria-describedby={`${id}-err-phone`} data-phone-mask />
+          <span class="form__error visually-hidden" id={`${id}-err-phone`} data-error hidden data-msg-required={f.errors.required} data-msg-invalid={f.errors.phone}>{f.errors.phone}</span>
+        </div>
+        <div class="form__field">
+          <label class="form__label text-form-label" for={`${id}-${select.name}`}>{select.label}</label>
+          <span class="form__select-wrap">
+            <select class="form__input form__select text-form-input" id={`${id}-${select.name}`} name={select.name}>
+              {select.options.map((o) => <option value={o.value}>{o.label}</option>)}
+            </select>
+            <svg class="form__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+          </span>
+        </div>
+        <fieldset class="form__contact">
+          <legend class="form__label text-form-label">{contactLegend}</legend>
+          <div class="form__chips">
+            {contactOptions.map((o) => (
+              <label class:list={['form__chip', chipText]}>
+                <input class="form__chip-input" type="radio" name="contact" value={o.value} />{o.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="form__actions">
+          <button class="form__submit text-form-submit" type="submit">
+            {submitLabel}
+            <span class="form__submit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </button>
+          {note && <p class="form__note text-form-note">{note}</p>}
+        </div>
+        <!-- TODO(5.4): вид сообщения об ошибке отправки — в выгрузке нет; пока только для экранных дикторов. -->
+        <p class="form__status visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
+      </form>
+      <div class="form__done" aria-live="polite" data-lead-done>
+        <span class="form__done-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+        </span>
+        <h3 class="form__done-title text-form-done-title">{f.successTitle}</h3>
+        <p class="form__done-text text-form-done-text">{f.successText}</p>
+      </div>
+    </div>
+
+    <ManagerCard settings={settings} class="form__manager form__manager--b" />
+  </div>
+</section>

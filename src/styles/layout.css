@@ -15,6 +15,8 @@
 /* заглушка задаёт высоту содержимого — вертикальные поля секции браузер прибавляет сам */
 .apts{contain-intrinsic-size:auto calc(var(--cv-h) - var(--apts-pad-block-start) - var(--apts-pad-block-end))}
 .form{contain-intrinsic-size:auto calc(var(--cv-h) - var(--form-pad-block-start) - var(--form-pad-block-end))}
+/* Final Form (та же секция .form) — без content-visibility: заглушка Form ей не подходит; решение — по замеру точки D */
+.form--final{content-visibility:visible}
 .loc{contain-intrinsic-size:auto calc(var(--cv-h) - var(--loc-pad-block-start) - var(--loc-pad-block-end))}
 .infra{contain-intrinsic-size:auto calc(var(--cv-h) - var(--infra-pad-block-start) - var(--infra-pad-block-end))}
 .ct{contain-intrinsic-size:auto calc(var(--cv-h) - 2 * var(--ct-pad-block))}
