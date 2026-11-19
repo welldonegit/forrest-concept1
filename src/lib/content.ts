@@ -677,8 +677,6 @@ export interface FaqItem {
   question: string;
   answer: string;
   /** Плашка с цифрой под ответом — видна только на <900, как в выгрузке. */
-  metricValue: string;
-  metricText: string;
 }
 export interface FaqBlock {
   _type: 'faq';

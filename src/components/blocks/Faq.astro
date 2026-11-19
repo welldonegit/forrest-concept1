@@ -3,7 +3,7 @@
  * FAQ (4.14): «Відповіді на часті питання» — заголовок, слева тёмная карточка
  * (материалы для инвестора PDF, «Не знайшли відповідь?» и кнопка к финальной форме,
  * на ≥900 прилипает), справа аккордеон из 8 вопросов. На <900 — одна колонка,
- * карточка под вопросами, под ответами видны плашки с цифрой (как в выгрузке).
+ * карточка под вопросами. Плашки с цифрой из мобильной выгрузки убраны (решение 2026-11-19).
  *
  * Тексты, файлы и ссылка кнопки — из Sanity (блок faq документа landing).
  * Аккордеон — src/scripts/ui/faq.js; появление — src/scripts/anim/blocks/faq.js + faq.css.
@@ -86,7 +86,6 @@ const num = (i: number) => String(i + 1).padStart(2, '0');
             <div class="faq__panel-in">
               <div class="faq__answer">
                 <p class="faq__a text-faq-a">{item.answer}</p>
-                <p class="faq__metric text-faq-metric"><b class="faq__metric-value text-faq-metric-value">{item.metricValue}</b> {item.metricText}</p>
               </div>
             </div>
           </div>

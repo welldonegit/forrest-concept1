@@ -104,8 +104,6 @@
 .text-faq-cta-button{font-family:var(--font-text);font-size:var(--type-faq-cta-button-size);line-height:var(--type-faq-cta-button-lh);font-weight:600}
 .text-faq-q{font-family:var(--font-display);font-size:var(--type-faq-q-size);line-height:var(--type-faq-q-lh);letter-spacing:-.01em;font-weight:500}
 .text-faq-a{font-family:var(--font-text);font-size:var(--type-faq-a-size);line-height:var(--type-faq-a-lh);font-weight:400}
-.text-faq-metric{font-family:var(--font-text);font-size:var(--type-faq-metric-size);line-height:var(--type-faq-metric-lh);font-weight:400}
-.text-faq-metric-value{font-family:var(--font-display);font-size:var(--type-faq-metric-value-size);line-height:var(--type-faq-metric-value-lh);font-weight:500}
 
 /* Модификаторы: вес и заглавные (стоят после ролей — перекрывают их вес). */
 .text-w-400{font-weight:400}

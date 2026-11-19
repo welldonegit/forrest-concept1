@@ -148,12 +148,6 @@
   transition:opacity var(--faq-answer-fade) ease, transform var(--faq-answer-move) var(--ease-out-expo);
 }
 .faq__a{margin:0; max-inline-size:var(--faq-a-max); text-wrap:pretty}
-.faq__metric{
-  display:none; align-self:flex-start; flex-wrap:wrap; align-items:baseline; gap:var(--space-10);
-  margin:0; padding:var(--faq-metric-pad-block) var(--faq-metric-pad-inline);
-  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air);
-}
-.faq__metric-value{font-weight:500}
 
 /* Свёрнутые ответы — только с JS: без него весь текст виден */
 .js .faq__item:not([data-open]) .faq__panel{grid-template-rows:0fr}
@@ -163,7 +157,7 @@
 }
 .js .faq__item[data-open] .faq__answer{transition-delay:var(--faq-answer-delay)}
 
-/* ---------- <900: одна колонка, карточка под вопросами, плашки с цифрой ---------- */
+/* ---------- <900: одна колонка, карточка под вопросами ---------- */
 @media (max-width:899px){
   .faq__grid{grid-template-columns:minmax(0, 1fr)}
   .faq__aside{
@@ -173,7 +167,6 @@
     border-radius:var(--radius-28);
   }
   .faq__answer{padding-inline-start:var(--faq-q-pad-inline)}
-  .faq__metric{display:inline-flex}
 }
 
 /* ---------- Появление (anim/blocks/faq.js) ---------- */

@@ -5325,26 +5325,6 @@
               "_key": "en",
               "value": "The product model projects a return of up to 12% per year and an expected payback period of up to 10 years. Actual results depend on the specific apartment and the resort's performance."
             }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "до 12%"
-            },
-            {
-              "_key": "en",
-              "value": "up to 12%"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "прогнозована дохідність річних, окупність до 10 років"
-            },
-            {
-              "_key": "en",
-              "value": "projected annual return, payback within 10 years"
-            }
           ]
         },
         {
@@ -5367,26 +5347,6 @@
             {
               "_key": "en",
               "value": "WIND, ROCK and SUN work as a single investment model. So the investor's result depends not only on demand for one section, but on the performance of the entire Trinity Resort ecosystem."
-            }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "3 в 1"
-            },
-            {
-              "_key": "en",
-              "value": "3 in 1"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "WIND, ROCK і SUN працюють як єдина інвестиційна модель"
-            },
-            {
-              "_key": "en",
-              "value": "WIND, ROCK and SUN work as a single investment model"
             }
           ]
         },
@@ -5411,26 +5371,6 @@
               "_key": "en",
               "value": "The resort will be managed by Maestro Hotel Management, which is responsible for operations, service, marketing, sales, bookings and financial control."
             }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "Maestro"
-            },
-            {
-              "_key": "en",
-              "value": "Maestro"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "Hotel Management: сервіс, продажі, бронювання та фінансовий контроль"
-            },
-            {
-              "_key": "en",
-              "value": "Hotel Management: service, sales, bookings and financial control"
-            }
           ]
         },
         {
@@ -5453,26 +5393,6 @@
             {
               "_key": "en",
               "value": "No. The apartments operate in a professional hotel model managed by the operator."
-            }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "Ні"
-            },
-            {
-              "_key": "en",
-              "value": "No"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "апартаменти працюють у професійній готельній моделі"
-            },
-            {
-              "_key": "en",
-              "value": "the apartments operate in a professional hotel model"
             }
           ]
         },
@@ -5497,26 +5417,6 @@
               "_key": "en",
               "value": "Yes. The investment model allows the owner to stay in the apartment and use the Trinity Resort infrastructure."
             }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "Так"
-            },
-            {
-              "_key": "en",
-              "value": "Yes"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "особисте проживання та інфраструктура Trinity Resort"
-            },
-            {
-              "_key": "en",
-              "value": "personal stays and Trinity Resort infrastructure"
-            }
           ]
         },
         {
@@ -5539,26 +5439,6 @@
             {
               "_key": "en",
               "value": "WIND is scheduled to be commissioned in Q4 2028. The current Product Concept states 2030 for ROCK and SUN."
-            }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "2028"
-            },
-            {
-              "_key": "en",
-              "value": "2028"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "IV квартал, введення WIND. ROCK і SUN у 2030 році"
-            },
-            {
-              "_key": "en",
-              "value": "Q4, WIND commissioning. ROCK and SUN in 2030"
             }
           ]
         },
@@ -5583,26 +5463,6 @@
               "_key": "en",
               "value": "Perspektyva Group is a company with 28 years of experience, 17 completed projects and over $300 million in investments raised."
             }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "28 років"
-            },
-            {
-              "_key": "en",
-              "value": "28 years"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "досвіду Perspektyva Group, 17 проєктів, понад $300 млн інвестицій"
-            },
-            {
-              "_key": "en",
-              "value": "of Perspektyva Group experience, 17 projects, over $300 million invested"
-            }
           ]
         },
         {
@@ -5625,26 +5485,6 @@
             {
               "_key": "en",
               "value": "FORREST combines three autonomous worlds — Adults, Business and Family — within one resort and one investment model. This makes it possible to work with different demand scenarios throughout the year."
-            }
-          ],
-          "metricValue": [
-            {
-              "_key": "uk",
-              "value": "3 світи"
-            },
-            {
-              "_key": "en",
-              "value": "3 worlds"
-            }
-          ],
-          "metricText": [
-            {
-              "_key": "uk",
-              "value": "Adults, Business і Family в одному курорті"
-            },
-            {
-              "_key": "en",
-              "value": "Adults, Business and Family in one resort"
             }
           ]
         }
