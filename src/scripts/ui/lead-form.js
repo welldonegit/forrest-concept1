@@ -7,6 +7,7 @@
  * data-sent на секцию только после ответа об успешной записи заявки. Сейчас форма
  * после проверки никуда не отправляется.
  */
+import { within } from './lazy.js';
 const PHONE_DIGITS = 12;
 
 function formatPhone(value) {
@@ -59,6 +60,6 @@ function initForm(form) {
   });
 }
 
-export function initLeadForms() {
-  document.querySelectorAll('[data-lead-form]').forEach(initForm);
+export function initLeadForms(root = document) {
+  within(root, '[data-lead-form]').forEach(initForm);
 }

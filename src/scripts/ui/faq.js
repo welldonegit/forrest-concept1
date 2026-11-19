@@ -4,8 +4,9 @@
  * - Стрелки вверх/вниз, Home, End — переход фокуса между вопросами (по кругу).
  * - Свечение в карточке сдвигается к открытому пункту (--faq-k, переход в faq.css).
  */
+import { within } from './lazy.js';
 export function initFaq(root = document) {
-  root.querySelectorAll('[data-faq]').forEach((section) => {
+  within(root, '[data-faq]').forEach((section) => {
     const items = [...section.querySelectorAll('[data-faq-item]')];
     const buttons = items.map((it) => it.querySelector('[data-faq-button]'));
     const glow = section.querySelector('[data-faq-glow]');

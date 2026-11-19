@@ -4,12 +4,13 @@
  * Кнопки на фото — лента фото своей карточки на одно фото; «вперёд» на последнем — к первому.
  * Reduced motion — без плавной прокрутки.
  */
+import { within } from './lazy.js';
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const behavior = () => (reduce.matches ? 'auto' : 'smooth');
 const dir = (el) => (getComputedStyle(el).direction === 'rtl' ? -1 : 1);
 
 export function initConstruction(root = document) {
-  root.querySelectorAll('[data-ct]').forEach((section) => {
+  within(root, '[data-ct]').forEach((section) => {
     const row = section.querySelector('[data-ct-row]');
     const step = (d) => {
       const item = row.querySelector('[data-ct-item]');
