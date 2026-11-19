@@ -4,7 +4,7 @@ export default defineCliConfig({
   api: { projectId: 'rxw30lco', dataset: 'production' },
   // Адрес админки: https://forrest-trinity.sanity.studio (решение человека 2026-11-19).
   studioHost: 'forrest-trinity',
-  deployment: { autoUpdates: false },
+  deployment: { appId: 'papkjah715i4z07vo6mt61vq', autoUpdates: false },
   // languages.ts лежит в корне проекта (src/lib) — разрешаем дев-серверу читать файлы уровнем выше.
   vite: (config) => ({
     ...config,
