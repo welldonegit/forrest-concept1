@@ -2,7 +2,8 @@
 /**
  * Страница «Дякуємо»: сюда ведёт форма заявки после отправки (lead-form.js).
  * Шапка и футер — общие с главной (якоря ведут на блоки главной). Первый экран — блок hero
- * документа landing без заголовка; вместо лида — сообщение из siteSettings.thanksPage (h1).
+ * документа landing без заголовка; вместо лида — сообщение из siteSettings.thanksPage (h1),
+ * одна кнопка «На головну» (thanksPage.homeButton), без кнопки презентации.
  * Не индексируется (integrations/indexing.ts).
  */
 import Base from '../../layouts/Base.astro';
@@ -27,7 +28,7 @@ const home = homePath(lang);
 <Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink}>
   <Header lang={lang} settings={settings} base={home} path="thanks/" />
   <main id="main" tabindex="-1">
-    {hero ? <Hero block={hero} message={page.message} base={home} /> : <h1 class="visually-hidden">{page.message}</h1>}
+    {hero ? <Hero block={hero} message={page.message} base={home} home={{ label: page.homeButton, href: home }} /> : <h1 class="visually-hidden">{page.message}</h1>}
   </main>
   <Footer settings={settings} base={home} />
 </Base>

@@ -9,6 +9,7 @@
  * появление и параллакс заголовка — src/scripts/anim/blocks/hero.js и hero.css.
  * Страница «Дякуємо» (message): заголовка нет, вместо лида — сообщение (h1); передний план
  * по контуру не нужен (за зданиями нечего прятать). Ссылки «#…» ведут на главную (base).
+ * Кнопки там — одна «На головну» (home) вместо CTA; кнопки презентации нет (решение 2026-11-19).
  */
 import { getImage } from 'astro:assets';
 import { resolveImage, type HeroBlock } from '../../lib/content';
@@ -20,9 +21,12 @@ interface Props {
   message?: string;
   /** Адрес главной на внутренней странице: «#forma» → «/uk/#forma». */
   base?: string;
+  /** Страница «Дякуємо»: подпись и адрес кнопки вместо CTA блока; кнопки презентации нет. */
+  home?: { label: string; href: string };
 }
 
-const { block, message, base } = Astro.props;
+const { block, message, base, home } = Astro.props;
+const cta = home ?? { label: block.cta.label, href: onPage(block.cta.href, base) };
 const summer = await resolveImage(block.imageSummer);
 const winter = await resolveImage(block.imageWinter);
 
@@ -123,12 +127,13 @@ const Lead = message ? 'h1' : 'p';
         ))}
       </Lead>
       <div class="hero__buttons">
-        <a class="hero__cta text-hero-button-lg" href={onPage(block.cta.href, base)}>
-          {block.cta.label}
+        <a class="hero__cta text-hero-button-lg" href={cta.href}>
+          {cta.label}
           <span class="hero__cta-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </span>
         </a>
+        {!home && (<>
         <!-- Видео презентации — тот же видео-попап, что у Season (4.17). TODO: адрес видео (presentationVideoUrl) от клиента;
              пока поле пустое, кнопка без действия, как в выгрузке. -->
         <button class="hero__play text-hero-button-lg" type="button" aria-haspopup={block.presentationVideoUrl ? 'dialog' : undefined} data-popup={block.presentationVideoUrl ? 'video' : undefined} data-video-src={block.presentationVideoUrl || undefined}>
@@ -137,6 +142,7 @@ const Lead = message ? 'h1' : 'p';
           </span>
           <span class="hero__play-label">{block.presentationLabel}</span>
         </button>
+        </>)}
       </div>
     </div>
 
