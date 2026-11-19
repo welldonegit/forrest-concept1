@@ -5,7 +5,7 @@
 ## Стек
 
 - **Сайт:** Astro, статическая сборка (`output: "static"`). JavaScript только там, где он нужен блоку.
-- **Админка:** Sanity (бесплатный тариф). Studio лежит в `studio/`.
+- **Админка:** Sanity (бесплатный тариф), Project ID `rxw30lco`, dataset `production`. Studio лежит в `studio/`; подключается на этапе 3, после окончания вёрстки.
 - **Хостинг:** Cloudflare Workers со статикой (не Pages). Сборка через Workers Builds, пересборка по Deploy Hook из Sanity.
 - **Заявки:** одна серверная функция `POST /api/lead` на Cloudflare Worker.
 - **Анимации:** GSAP + ScrollTrigger. Других библиотек анимации не добавлять.
