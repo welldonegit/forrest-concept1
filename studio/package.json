@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "sanity dev",
-    "build": "sanity build",
-    "deploy": "sanity deploy",
-    "validate": "sanity schema validate"
+    "sanity": "DO_NOT_TRACK=1 sanity",
+    "dev": "DO_NOT_TRACK=1 sanity dev",
+    "build": "DO_NOT_TRACK=1 sanity build",
+    "deploy": "DO_NOT_TRACK=1 sanity deploy",
+    "validate": "DO_NOT_TRACK=1 sanity schema validate && node --experimental-strip-types --no-warnings --import ./import/register.mjs import/array-fields.mjs",
+    "import:build": "node --experimental-strip-types --no-warnings --import ./import/register.mjs import/array-fields.mjs && node --experimental-strip-types --no-warnings --import ./import/register.mjs import/build.mjs"
   },
   "dependencies": {
     "@sanity/locale-uk-ua": "1.1.37",

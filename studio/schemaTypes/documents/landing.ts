@@ -4,7 +4,7 @@
  * Один документ на сайт (_id landing): створення нових і видалення вимкнені в sanity.config.ts.
  */
 import { defineField, defineType } from 'sanity';
-import { blockTypes } from '../blocks';
+import { blockTypes } from '../blocks/index.ts';
 
 export const landing = defineType({
   name: 'landing',

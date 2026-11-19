@@ -6,10 +6,10 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
 import { ukUALocale } from '@sanity/locale-uk-ua';
-import { languages, defaultLanguage } from '../src/lib/languages';
-import { schemaTypes, singletonTypes } from './schemaTypes';
-import { groupTypes } from './schemaTypes/lib/i18n';
-import { structure } from './structure';
+import { languages, defaultLanguage } from '../src/lib/languages.ts';
+import { schemaTypes, singletonTypes } from './schemaTypes/index.ts';
+import { groupTypes } from './schemaTypes/lib/i18n.ts';
+import { structure } from './structure.ts';
 
 export default defineConfig({
   name: 'default',
