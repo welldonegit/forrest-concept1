@@ -8,6 +8,7 @@
  * Пока число докручивается, оно слегка размыто ([data-tick], как в выгрузке; анимация по действию
  * пользователя — LAYOUT_RULES.md, «Анимации вне правила»).
  */
+import { within } from './lazy.js';
 import { calc, fill, formatNumber } from '../../lib/calc';
 
 const ease = (k) => 1 - (1 - k) ** 4;
@@ -109,5 +110,5 @@ function initCalc(el) {
 }
 
 export function initNumbers(root = document) {
-  root.querySelectorAll('[data-calc]').forEach(initCalc);
+  within(root, '[data-calc]').forEach(initCalc);
 }

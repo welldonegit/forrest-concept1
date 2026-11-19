@@ -1067,7 +1067,600 @@
           "_key": "en",
           "value": "We couldn't send your request. Please try again or call us"
         }
+      ],
+      "consent": [
+        {
+          "_key": "uk",
+          "value": "Потрібна ваша згода"
+        },
+        {
+          "_key": "en",
+          "value": "Your consent is required"
+        }
       ]
     }
+  },
+  "popups": {
+    "apartment": {
+      "dialogLabel": [
+        {
+          "_key": "uk",
+          "value": "Апартаменти {n}"
+        },
+        {
+          "_key": "en",
+          "value": "{n} apartment"
+        }
+      ],
+      "areaLabel": [
+        {
+          "_key": "uk",
+          "value": "Площа"
+        },
+        {
+          "_key": "en",
+          "value": "Area"
+        }
+      ],
+      "priceLabel": [
+        {
+          "_key": "uk",
+          "value": "Ціна"
+        },
+        {
+          "_key": "en",
+          "value": "Price"
+        }
+      ],
+      "incomeLabel": [
+        {
+          "_key": "uk",
+          "value": "Дохід на рік"
+        },
+        {
+          "_key": "en",
+          "value": "Annual income"
+        }
+      ],
+      "yieldLabel": [
+        {
+          "_key": "uk",
+          "value": "Дохідність"
+        },
+        {
+          "_key": "en",
+          "value": "Yield"
+        }
+      ],
+      "fromFormat": [
+        {
+          "_key": "uk",
+          "value": "від {n}"
+        },
+        {
+          "_key": "en",
+          "value": "from {n}"
+        }
+      ],
+      "yieldFormat": [
+        {
+          "_key": "uk",
+          "value": "{n}% річних"
+        },
+        {
+          "_key": "en",
+          "value": "{n}% per year"
+        }
+      ],
+      "descriptionLabel": [
+        {
+          "_key": "uk",
+          "value": "Опис"
+        },
+        {
+          "_key": "en",
+          "value": "Description"
+        }
+      ],
+      "phoneLabel": [
+        {
+          "_key": "uk",
+          "value": "Ваш телефон"
+        },
+        {
+          "_key": "en",
+          "value": "Your phone"
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Дізнатись ціну"
+        },
+        {
+          "_key": "en",
+          "value": "Get the price"
+        }
+      ],
+      "successLabel": [
+        {
+          "_key": "uk",
+          "value": "Дякуємо, передзвонимо"
+        },
+        {
+          "_key": "en",
+          "value": "Thank you, we'll call you back"
+        }
+      ],
+      "planLabel": [
+        {
+          "_key": "uk",
+          "value": "Планування"
+        },
+        {
+          "_key": "en",
+          "value": "Floor plan"
+        }
+      ],
+      "photoLabel": [
+        {
+          "_key": "uk",
+          "value": "Фото {n}"
+        },
+        {
+          "_key": "en",
+          "value": "Photo {n}"
+        }
+      ],
+      "prevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попереднє фото"
+        },
+        {
+          "_key": "en",
+          "value": "Previous photo"
+        }
+      ],
+      "nextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступне фото"
+        },
+        {
+          "_key": "en",
+          "value": "Next photo"
+        }
+      ]
+    },
+    "video": {
+      "dialogLabel": [
+        {
+          "_key": "uk",
+          "value": "Відео FORREST"
+        },
+        {
+          "_key": "en",
+          "value": "FORREST video"
+        }
+      ],
+      "closeLabel": [
+        {
+          "_key": "uk",
+          "value": "Закрити відео"
+        },
+        {
+          "_key": "en",
+          "value": "Close video"
+        }
+      ],
+      "frameTitle": [
+        {
+          "_key": "uk",
+          "value": "FORREST Trinity Resort — відео"
+        },
+        {
+          "_key": "en",
+          "value": "FORREST Trinity Resort — video"
+        }
+      ]
+    },
+    "quiz": {
+      "tabLabel": [
+        {
+          "_key": "uk",
+          "value": "Розрахувати дохід"
+        },
+        {
+          "_key": "en",
+          "value": "Calculate income"
+        }
+      ],
+      "tabAriaLabel": [
+        {
+          "_key": "uk",
+          "value": "Розрахувати дохід — пройти квіз"
+        },
+        {
+          "_key": "en",
+          "value": "Calculate income — take the quiz"
+        }
+      ],
+      "eyebrow": [
+        {
+          "_key": "uk",
+          "value": "Розрахунок доходу"
+        },
+        {
+          "_key": "en",
+          "value": "Income calculation"
+        }
+      ],
+      "formatTitle": [
+        {
+          "_key": "uk",
+          "value": "Який формат апартаментів розглядаєте?"
+        },
+        {
+          "_key": "en",
+          "value": "Which apartment format are you considering?"
+        }
+      ],
+      "budgetTitle": [
+        {
+          "_key": "uk",
+          "value": "На який бюджет інвестиції ви орієнтуєтесь?"
+        },
+        {
+          "_key": "en",
+          "value": "What investment budget are you aiming for?"
+        }
+      ],
+      "budgets": [
+        {
+          "_key": "b1",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "До $130 000"
+            },
+            {
+              "_key": "en",
+              "value": "Up to $130,000"
+            }
+          ]
+        },
+        {
+          "_key": "b2",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "$130 000–$160 000"
+            },
+            {
+              "_key": "en",
+              "value": "$130,000–$160,000"
+            }
+          ]
+        },
+        {
+          "_key": "b3",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "$160 000–$200 000"
+            },
+            {
+              "_key": "en",
+              "value": "$160,000–$200,000"
+            }
+          ]
+        },
+        {
+          "_key": "b4",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Понад $200 000"
+            },
+            {
+              "_key": "en",
+              "value": "Over $200,000"
+            }
+          ]
+        },
+        {
+          "_key": "b5",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Ще не визначився, хочу отримати консультацію"
+            },
+            {
+              "_key": "en",
+              "value": "Not decided yet, I'd like advice"
+            }
+          ]
+        }
+      ],
+      "contactTitle": [
+        {
+          "_key": "uk",
+          "value": "Як ми можемо з вами зв'язатися?"
+        },
+        {
+          "_key": "en",
+          "value": "How can we contact you?"
+        }
+      ],
+      "contactText": [
+        {
+          "_key": "uk",
+          "value": "Будь ласка, заповніть форму нижче"
+        },
+        {
+          "_key": "en",
+          "value": "Please fill in the form below"
+        }
+      ],
+      "nameLabel": [
+        {
+          "_key": "uk",
+          "value": "Ім'я"
+        },
+        {
+          "_key": "en",
+          "value": "Name"
+        }
+      ],
+      "countryLabel": [
+        {
+          "_key": "uk",
+          "value": "Код країни"
+        },
+        {
+          "_key": "en",
+          "value": "Country code"
+        }
+      ],
+      "countries": [
+        {
+          "_key": "380",
+          "code": "+380",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Україна"
+            },
+            {
+              "_key": "en",
+              "value": "Ukraine"
+            }
+          ]
+        },
+        {
+          "_key": "48",
+          "code": "+48",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Польща"
+            },
+            {
+              "_key": "en",
+              "value": "Poland"
+            }
+          ]
+        },
+        {
+          "_key": "49",
+          "code": "+49",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Німеччина"
+            },
+            {
+              "_key": "en",
+              "value": "Germany"
+            }
+          ]
+        },
+        {
+          "_key": "420",
+          "code": "+420",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Чехія"
+            },
+            {
+              "_key": "en",
+              "value": "Czechia"
+            }
+          ]
+        },
+        {
+          "_key": "44",
+          "code": "+44",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Велика Британія"
+            },
+            {
+              "_key": "en",
+              "value": "United Kingdom"
+            }
+          ]
+        },
+        {
+          "_key": "1",
+          "code": "+1",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "США"
+            },
+            {
+              "_key": "en",
+              "value": "USA"
+            }
+          ]
+        }
+      ],
+      "phonePlaceholder": [
+        {
+          "_key": "uk",
+          "value": "xx xxx xxxx*"
+        },
+        {
+          "_key": "en",
+          "value": "xx xxx xxxx*"
+        }
+      ],
+      "emailLabel": [
+        {
+          "_key": "uk",
+          "value": "E-mail"
+        },
+        {
+          "_key": "en",
+          "value": "E-mail"
+        }
+      ],
+      "consentText": [
+        {
+          "_key": "uk",
+          "value": "Я погоджуюсь з"
+        },
+        {
+          "_key": "en",
+          "value": "I agree to the"
+        }
+      ],
+      "consentLinkLabel": [
+        {
+          "_key": "uk",
+          "value": "політикою конфіденційності та правилами використання"
+        },
+        {
+          "_key": "en",
+          "value": "privacy policy and terms of use"
+        }
+      ],
+      "backLabel": [
+        {
+          "_key": "uk",
+          "value": "Назад"
+        },
+        {
+          "_key": "en",
+          "value": "Back"
+        }
+      ],
+      "nextLabel": [
+        {
+          "_key": "uk",
+          "value": "Далі"
+        },
+        {
+          "_key": "en",
+          "value": "Next"
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Отримати розрахунок"
+        },
+        {
+          "_key": "en",
+          "value": "Get the calculation"
+        }
+      ],
+      "successTitle": [
+        {
+          "_key": "uk",
+          "value": "Дякуємо!"
+        },
+        {
+          "_key": "en",
+          "value": "Thank you!"
+        }
+      ],
+      "successText": [
+        {
+          "_key": "uk",
+          "value": "Менеджер зв'яжеться з вами найближчим часом і розрахує дохід для обраного формату."
+        },
+        {
+          "_key": "en",
+          "value": "A manager will contact you shortly and calculate the income for the chosen format."
+        }
+      ],
+      "returnLabel": [
+        {
+          "_key": "uk",
+          "value": "Повернутися на сайт"
+        },
+        {
+          "_key": "en",
+          "value": "Back to the site"
+        }
+      ]
+    }
+  },
+  "archivePage": {
+    "seoTitle": [
+      {
+        "_key": "uk",
+        "value": "Хід будівництва. Архів звітів — FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "Construction progress. Reports archive — FORREST Trinity Resort"
+      }
+    ],
+    "seoDescription": [
+      {
+        "_key": "uk",
+        "value": "Архів звітів з фото та відео від початку будівництва."
+      },
+      {
+        "_key": "en",
+        "value": "Archive of reports with photos and videos since construction began."
+      }
+    ],
+    "title": [
+      {
+        "_key": "uk",
+        "value": "Хід будівництва"
+      },
+      {
+        "_key": "en",
+        "value": "Construction progress"
+      }
+    ],
+    "subtitle": [
+      {
+        "_key": "uk",
+        "value": "Архів звітів"
+      },
+      {
+        "_key": "en",
+        "value": "Reports archive"
+      }
+    ],
+    "backLabel": [
+      {
+        "_key": "uk",
+        "value": "На головну"
+      },
+      {
+        "_key": "en",
+        "value": "Back to home"
+      }
+    ]
   }
 }

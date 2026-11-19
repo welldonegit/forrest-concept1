@@ -7,35 +7,8 @@
  * data-sent на секцию только после ответа об успешной записи заявки. Сейчас форма
  * после проверки никуда не отправляется.
  */
-const PHONE_DIGITS = 12;
-
-function formatPhone(value) {
-  let d = value.replace(/\D/g, '');
-  if (d.startsWith('380')) d = d.slice(3);
-  else if (d.startsWith('0')) d = d.slice(1);
-  d = d.slice(0, 9);
-  if (!d) return '';
-  const [a, b, c, e] = [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)];
-  return `+380 (${a}${d.length >= 2 ? ') ' : ''}${b}${c ? `-${c}` : ''}${e ? `-${e}` : ''}`;
-}
-
-function setError(input, on, kind = 'required') {
-  const err = document.getElementById(input.getAttribute('aria-describedby'));
-  // у телефона два текста: пустое поле и неполный номер (siteSettings.form.errors)
-  if (on && err) {
-    const msg = err.dataset[kind === 'invalid' ? 'msgInvalid' : 'msgRequired'];
-    if (msg) err.textContent = msg;
-  }
-  if (on) {
-    // перезапуск встряски при повторной ошибке
-    input.removeAttribute('aria-invalid');
-    void input.offsetWidth;
-    input.setAttribute('aria-invalid', 'true');
-  } else {
-    input.removeAttribute('aria-invalid');
-  }
-  if (err) err.hidden = !on;
-}
+import { within } from './lazy.js';
+import { formatPhone, setError, PHONE_DIGITS } from './form-fields.js';
 
 function initForm(form) {
   const { name, phone } = form.elements;
@@ -59,6 +32,6 @@ function initForm(form) {
   });
 }
 
-export function initLeadForms() {
-  document.querySelectorAll('[data-lead-form]').forEach(initForm);
+export function initLeadForms(root = document) {
+  within(root, '[data-lead-form]').forEach(initForm);
 }

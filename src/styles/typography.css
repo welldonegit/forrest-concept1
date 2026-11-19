@@ -34,6 +34,7 @@
 .text-form-chip{font-family:var(--type-form-chip-ff);font-size:var(--type-form-chip-size);line-height:var(--type-form-chip-lh);font-weight:600}
 .text-form-submit{font-family:var(--type-form-submit-ff);font-size:var(--type-form-submit-size);line-height:var(--type-form-submit-lh);font-weight:600}
 .text-form-done-title{font-family:var(--type-form-done-title-ff);font-size:var(--type-form-done-title-size);line-height:var(--type-form-done-title-lh);letter-spacing:var(--type-form-done-title-ls);font-weight:600;text-transform:uppercase}
+.text-quiz-tab{font-family:var(--font-text);font-size:var(--type-tab-size);line-height:var(--type-tab-lh);font-weight:600}
 .text-form-note{font-family:var(--font-text);font-size:var(--type-form-note-size);line-height:var(--type-form-note-lh);font-weight:400}
 .text-form-done-text{font-family:var(--type-form-done-text-ff);font-size:var(--type-form-done-text-size);line-height:var(--type-form-done-text-lh);font-weight:400}
 .text-infra-num{font-family:var(--type-infra-num-ff);font-size:var(--type-infra-num-size);letter-spacing:var(--type-infra-num-ls);font-weight:500}
@@ -69,6 +70,8 @@
 .text-team-quote{font-family:var(--font-display);font-size:var(--type-team-quote-size);line-height:1.4;letter-spacing:-.01em;font-weight:500}
 .text-team-qname{font-family:var(--font-text);font-size:var(--type-team-qname-size);line-height:1.25;font-weight:700}
 .text-team-qpos{font-family:var(--font-text);font-size:var(--type-team-qpos-size);line-height:1.25;font-weight:400}
+.text-arch-title{font-family:var(--type-arch-title-ff);font-size:var(--type-arch-title-size);line-height:var(--type-arch-title-lh);letter-spacing:-.035em;font-weight:600;text-transform:uppercase}
+.text-arch-back{font-family:var(--font-text);font-size:var(--type-arch-back-size);line-height:normal;font-weight:700}
 .text-ct-month{font-family:var(--type-ct-month-ff);font-size:var(--type-ct-month-size);line-height:var(--type-ct-month-lh);letter-spacing:-.02em;font-weight:500;text-transform:uppercase}
 .text-ct-queue{font-family:var(--font-text);font-size:var(--type-ct-queue-size);line-height:1;letter-spacing:.1em;font-weight:700}
 .text-ct-title{font-family:var(--font-display);font-size:var(--type-ct-title-size);line-height:1.2;letter-spacing:-.02em;font-weight:500;text-transform:uppercase}

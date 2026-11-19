@@ -240,6 +240,7 @@
           "value": "Watch the presentation"
         }
       ],
+      "presentationVideoUrl": "",
       "season": {
         "prefix": [
           {
@@ -4384,6 +4385,274 @@
               ]
             }
           ]
+        },
+        {
+          "_key": "u5",
+          "date": "2026-06-27",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Підготовка майданчика"
+            },
+            {
+              "_key": "en",
+              "value": "Site preparation"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Розчищено ділянку під першу чергу, винесено осі будівлі та облаштовано тимчасове енергопостачання майданчика."
+            },
+            {
+              "_key": "en",
+              "value": "The plot for the first phase has been cleared, the building axes set out on site and temporary power supplied to the site."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Підготовка майданчика, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Site preparation, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Підготовка майданчика, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Site preparation, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:rock-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Підготовка майданчика, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Site preparation, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Розчищено ділянку під секцію WIND"
+                },
+                {
+                  "_key": "en",
+                  "value": "Plot cleared for the WIND section"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Винесено осі будівлі в натуру"
+                },
+                {
+                  "_key": "en",
+                  "value": "Building axes set out on site"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Підключено тимчасове енергопостачання"
+                },
+                {
+                  "_key": "en",
+                  "value": "Temporary power supply connected"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_key": "u6",
+          "date": "2026-05-29",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Геологія та проєкт"
+            },
+            {
+              "_key": "en",
+              "value": "Geology and design"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Завершено інженерно-геологічні вишукування на схилі. За їхніми результатами доопрацьовано проєкт фундаментів."
+            },
+            {
+              "_key": "en",
+              "value": "Engineering and geological surveys of the slope have been completed. Based on their results, the foundation design has been refined."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:sun-carpathian-slope.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Геологія та проєкт, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Geology and design, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Геологія та проєкт, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Geology and design, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Геологія та проєкт, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Geology and design, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Виконано інженерно-геологічні вишукування"
+                },
+                {
+                  "_key": "en",
+                  "value": "Engineering and geological surveys completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Доопрацьовано проєкт фундаментів"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation design refined"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Огороджено будівельний майданчик"
+                },
+                {
+                  "_key": "en",
+                  "value": "Construction site fenced"
+                }
+              ]
+            }
+          ]
         }
       ],
       "archive": {
@@ -4416,8 +4685,7 @@
             "_key": "en",
             "value": "All construction updates"
           }
-        ],
-        "href": "#"
+        ]
       }
     },
     {

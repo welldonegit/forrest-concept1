@@ -1,0 +1,15 @@
+/* Видео-попап (4.17) — по выгрузке: role=dialog «Відео FORREST». */
+.vpop__back{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  padding:var(--vpop-pad); background:var(--vpop-bg);
+  backdrop-filter:blur(var(--vpop-blur)); -webkit-backdrop-filter:blur(var(--vpop-blur));
+}
+.vpop__close{
+  position:absolute; inset-block-start:var(--vpop-close-offset); inset-inline-end:var(--vpop-close-offset);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.vpop__frame{
+  position:relative; inline-size:min(100%, calc((100vh - var(--vpop-chrome)) * 16 / 9), var(--vpop-max)); aspect-ratio:16 / 9;
+  border-radius:var(--vpop-radius); overflow:hidden; background:var(--night-bark); box-shadow:var(--vpop-shadow);
+}
+.vpop__frame iframe{position:absolute; inset:0; inline-size:100%; block-size:100%; border:0}

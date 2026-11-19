@@ -4,6 +4,7 @@
 @import "./typography.css";
 @import "./layout.css";
 @import "./components/swipe-hint.css";
+@import "./components/quiz-tab.css";
 @import "./blocks/header.css";
 @import "./blocks/hero.css";
 @import "./blocks/stats.css";

@@ -8,6 +8,7 @@
  * - Кнопка «i» (телефон, сенсор): открывает плашку карточки, закрывает остальные;
  *   нажатие на открытую плашку или Esc — закрывает.
  */
+import { within } from './lazy.js';
 const PAUSE = { wheel: 1800, touch: 2500, drag: 1500 };
 const DRAG_MIN = 4;
 const MAX_FRAME = 64;
@@ -119,7 +120,7 @@ function initInfo(section) {
 // Лента запускается, когда секция подходит к экрану: чтение раскладки (scrollLeft, offsetLeft)
 // при загрузке заставило бы браузер сразу считать всю страницу (TBT).
 export function initInfra(root = document) {
-  root.querySelectorAll('.infra').forEach((section) => {
+  within(root, '.infra').forEach((section) => {
     initInfo(section);
     const io = new IntersectionObserver((es) => {
       if (!es.some((e) => e.isIntersecting)) return;

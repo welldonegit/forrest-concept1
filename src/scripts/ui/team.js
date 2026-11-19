@@ -4,10 +4,11 @@
  * ≤900 (аккордеон) повторное нажатие на открытую вкладку её сворачивает.
  * ≥901 высота строк вкладок: выбранная забирает остаток высоты (строка --team-rows на сетке).
  */
+import { within } from './lazy.js';
 const accordion = window.matchMedia('(max-width: 900px)');
 
 export function initTeam(root = document) {
-  root.querySelectorAll('[data-team]').forEach((section) => {
+  within(root, '[data-team]').forEach((section) => {
     const grid = section.querySelector('[data-team-grid]');
     const tabs = [...section.querySelectorAll('[data-team-tab]')];
     const panels = tabs.map((t) => section.querySelector(`#${CSS.escape(t.getAttribute('aria-controls'))}`));

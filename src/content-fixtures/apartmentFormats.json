@@ -12,7 +12,118 @@
         "_key": "en",
         "value": "29.5–34.5 m²"
       }
-    ]
+    ],
+    "tags": [
+      {
+        "_key": "t1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "2 гостей"
+          },
+          {
+            "_key": "en",
+            "value": "2 guests"
+          }
+        ]
+      },
+      {
+        "_key": "t2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Ліжко Double або Twin"
+          },
+          {
+            "_key": "en",
+            "value": "Double or twin bed"
+          }
+        ]
+      },
+      {
+        "_key": "t3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Робоча зона"
+          },
+          {
+            "_key": "en",
+            "value": "Work area"
+          }
+        ]
+      },
+      {
+        "_key": "t4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Капсульна кавомашина"
+          },
+          {
+            "_key": "en",
+            "value": "Capsule coffee machine"
+          }
+        ]
+      },
+      {
+        "_key": "t5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Мінібар і сейф"
+          },
+          {
+            "_key": "en",
+            "value": "Minibar and safe"
+          }
+        ]
+      },
+      {
+        "_key": "t6",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Балкон"
+          },
+          {
+            "_key": "en",
+            "value": "Balcony"
+          }
+        ]
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "Затишний апартамент для двох зі спальнею-вітальнею та робочою зоною біля вікна. Ліжко на вибір: двоспальне 180×200 або два окремі ліжка-трансформери. Ранок починається з кави з капсульної кавомашини, а для зручності передбачені мінібар, сейф, телевізор і світлонепроникні штори. Санвузол із душем або ванною укомплектований халатами, феном і косметикою, а за бажанням можна встановити кухонний блок."
+      },
+      {
+        "_key": "en",
+        "value": "A cosy apartment for two with a bedroom-living room and a work area by the window. Choose the bed: a 180×200 double or two separate convertible beds. Mornings start with coffee from the capsule machine, and there is a minibar, a safe, a TV and blackout curtains. The bathroom with a shower or bath comes with bathrobes, a hairdryer and toiletries, and a kitchen unit can be installed on request."
+      }
+    ],
+    "gallery": [],
+    "plan": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:superior-plan.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Планування апартаментів Superior"
+        },
+        {
+          "_key": "en",
+          "value": "Superior apartment floor plan"
+        }
+      ]
+    }
   },
   {
     "_id": "format-deluxe",
@@ -27,7 +138,179 @@
         "_key": "en",
         "value": "43.0–50.9 m²"
       }
-    ]
+    ],
+    "tags": [
+      {
+        "_key": "t1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "2+1 гостей"
+          },
+          {
+            "_key": "en",
+            "value": "2+1 guests"
+          }
+        ]
+      },
+      {
+        "_key": "t2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Ліжко king size"
+          },
+          {
+            "_key": "en",
+            "value": "King-size bed"
+          }
+        ]
+      },
+      {
+        "_key": "t3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Зона відпочинку"
+          },
+          {
+            "_key": "en",
+            "value": "Lounge area"
+          }
+        ]
+      },
+      {
+        "_key": "t4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Барна стійка"
+          },
+          {
+            "_key": "en",
+            "value": "Bar counter"
+          }
+        ]
+      },
+      {
+        "_key": "t5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Розкладний диван"
+          },
+          {
+            "_key": "en",
+            "value": "Sofa bed"
+          }
+        ]
+      },
+      {
+        "_key": "t6",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Балкон"
+          },
+          {
+            "_key": "en",
+            "value": "Balcony"
+          }
+        ]
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "Просторий апартамент із ліжком king size 200×200 та окремою зоною відпочинку з розкладним диваном, двома кріслами й журнальним столиком. Барна стійка з капсульною кавомашиною дозволяє снідати й працювати, не виходячи з номера. До ваших послуг шафа-гардероб, сейф, мінібар і телевізор, а також санвузол із душем або ванною та гігієнічним душем. Передбачена можливість встановлення кухонного блоку."
+      },
+      {
+        "_key": "en",
+        "value": "A spacious apartment with a 200×200 king-size bed and a separate lounge area with a sofa bed, two armchairs and a coffee table. The bar counter with a capsule coffee machine lets you have breakfast and work without leaving the room. There is a wardrobe, a safe, a minibar and a TV, plus a bathroom with a shower or bath and a bidet shower. A kitchen unit can be installed."
+      }
+    ],
+    "gallery": [
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments-new.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Deluxe, фото 2"
+          },
+          {
+            "_key": "en",
+            "value": "Deluxe apartment interior, photo 2"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Deluxe, фото 3"
+          },
+          {
+            "_key": "en",
+            "value": "Deluxe apartment interior, photo 3"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:wind-interior-reading.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Deluxe, фото 4"
+          },
+          {
+            "_key": "en",
+            "value": "Deluxe apartment interior, photo 4"
+          }
+        ]
+      }
+    ],
+    "plan": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:plan-room.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Планування апартаментів Deluxe"
+        },
+        {
+          "_key": "en",
+          "value": "Deluxe apartment floor plan"
+        }
+      ]
+    }
   },
   {
     "_id": "format-family",
@@ -42,7 +325,118 @@
         "_key": "en",
         "value": "57.5–60.5 m²"
       }
-    ]
+    ],
+    "tags": [
+      {
+        "_key": "t1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "2+2 гостей"
+          },
+          {
+            "_key": "en",
+            "value": "2+2 guests"
+          }
+        ]
+      },
+      {
+        "_key": "t2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Окрема спальня"
+          },
+          {
+            "_key": "en",
+            "value": "Separate bedroom"
+          }
+        ]
+      },
+      {
+        "_key": "t3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Вітальня"
+          },
+          {
+            "_key": "en",
+            "value": "Living room"
+          }
+        ]
+      },
+      {
+        "_key": "t4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Повноцінна кухня"
+          },
+          {
+            "_key": "en",
+            "value": "Full kitchen"
+          }
+        ]
+      },
+      {
+        "_key": "t5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Обідній стіл"
+          },
+          {
+            "_key": "en",
+            "value": "Dining table"
+          }
+        ]
+      },
+      {
+        "_key": "t6",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Гостьовий санвузол*"
+          },
+          {
+            "_key": "en",
+            "value": "Guest bathroom*"
+          }
+        ]
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "Сімейний апартамент, де кожному знайдеться свій простір: окрема спальня з ліжком king size і вітальня з великим розкладним диваном та обіднім столом. Повноцінна кухня з індукційною плитою, мікрохвильовою піччю, вбудованим холодильником і повним набором посуду дозволяє готувати для всієї родини. Для маленьких гостей підготовлені дитячі халати, капці та косметика, а в частині апартаментів є гостьовий санвузол."
+      },
+      {
+        "_key": "en",
+        "value": "A family apartment with room for everyone: a separate bedroom with a king-size bed and a living room with a large sofa bed and a dining table. The full kitchen with an induction hob, a microwave, a built-in fridge and a complete set of tableware lets you cook for the whole family. Young guests get children's bathrobes, slippers and toiletries, and some apartments have a guest bathroom."
+      }
+    ],
+    "gallery": [],
+    "plan": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:family-plan.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Планування апартаментів Family Suite"
+        },
+        {
+          "_key": "en",
+          "value": "Family Suite apartment floor plan"
+        }
+      ]
+    }
   },
   {
     "_id": "format-junior",
@@ -57,7 +451,179 @@
         "_key": "en",
         "value": "77.3–91.6 m²"
       }
-    ]
+    ],
+    "tags": [
+      {
+        "_key": "t1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "2+2 гостей"
+          },
+          {
+            "_key": "en",
+            "value": "2+2 guests"
+          }
+        ]
+      },
+      {
+        "_key": "t2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Спальня king size"
+          },
+          {
+            "_key": "en",
+            "value": "King-size bedroom"
+          }
+        ]
+      },
+      {
+        "_key": "t3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Вітальня-релакс"
+          },
+          {
+            "_key": "en",
+            "value": "Relax living room"
+          }
+        ]
+      },
+      {
+        "_key": "t4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Повноцінна кухня"
+          },
+          {
+            "_key": "en",
+            "value": "Full kitchen"
+          }
+        ]
+      },
+      {
+        "_key": "t5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Гостьова спальня*"
+          },
+          {
+            "_key": "en",
+            "value": "Guest bedroom*"
+          }
+        ]
+      },
+      {
+        "_key": "t6",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Гостьовий санвузол*"
+          },
+          {
+            "_key": "en",
+            "value": "Guest bathroom*"
+          }
+        ]
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "Апартамент для тривалого відпочинку з окремою спальнею, вітальнею-релакс-зоною та повноцінною кухнею. У спальні — ліжко king size з м'яким узголів'ям, у вітальні — розкладний диван, крісла й телевізор. Кухня обладнана індукційною плитою, мікрохвильовою піччю, холодильником і витяжкою, а капсульна кавомашина, мінібар і сейф доповнюють комфорт. У частині апартаментів другої черги додатково є гостьова спальня та гостьовий санвузол."
+      },
+      {
+        "_key": "en",
+        "value": "An apartment for longer stays with a separate bedroom, a relax living area and a full kitchen. The bedroom has a king-size bed with an upholstered headboard; the living room has a sofa bed, armchairs and a TV. The kitchen is fitted with an induction hob, a microwave, a fridge and a hood, while a capsule coffee machine, a minibar and a safe add comfort. Some second-phase apartments also have a guest bedroom and a guest bathroom."
+      }
+    ],
+    "gallery": [
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments-new.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Junior Suite, фото 2"
+          },
+          {
+            "_key": "en",
+            "value": "Junior Suite apartment interior, photo 2"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Junior Suite, фото 3"
+          },
+          {
+            "_key": "en",
+            "value": "Junior Suite apartment interior, photo 3"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:wind-interior-reading.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Junior Suite, фото 4"
+          },
+          {
+            "_key": "en",
+            "value": "Junior Suite apartment interior, photo 4"
+          }
+        ]
+      }
+    ],
+    "plan": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:plan-room.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Планування апартаментів Junior Suite"
+        },
+        {
+          "_key": "en",
+          "value": "Junior Suite apartment floor plan"
+        }
+      ]
+    }
   },
   {
     "_id": "format-presidential",
@@ -72,6 +638,178 @@
         "_key": "en",
         "value": "111.0–111.5 m²"
       }
-    ]
+    ],
+    "tags": [
+      {
+        "_key": "t1",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "4+2 гостей"
+          },
+          {
+            "_key": "en",
+            "value": "4+2 guests"
+          }
+        ]
+      },
+      {
+        "_key": "t2",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Дві спальні king size*"
+          },
+          {
+            "_key": "en",
+            "value": "Two king-size bedrooms*"
+          }
+        ]
+      },
+      {
+        "_key": "t3",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Два санвузли"
+          },
+          {
+            "_key": "en",
+            "value": "Two bathrooms"
+          }
+        ]
+      },
+      {
+        "_key": "t4",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Простора вітальня"
+          },
+          {
+            "_key": "en",
+            "value": "Spacious living room"
+          }
+        ]
+      },
+      {
+        "_key": "t5",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Великий обідній стіл"
+          },
+          {
+            "_key": "en",
+            "value": "Large dining table"
+          }
+        ]
+      },
+      {
+        "_key": "t6",
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Повноцінна кухня"
+          },
+          {
+            "_key": "en",
+            "value": "Full kitchen"
+          }
+        ]
+      }
+    ],
+    "description": [
+      {
+        "_key": "uk",
+        "value": "Флагманський апартамент FORREST — лише 20 таких у комплексі. Дві спальні з ліжками king size, два санвузли та простора вітальня з великим розкладним диваном, обіднім столом і декоративними консолями створюють простір для великої родини чи компанії. Повноцінна кухня з індукційною плитою, мікрохвильовою піччю та холодильником, шафа-гардероб із сейфом і мінібар забезпечують комфорт, як у власному домі."
+      },
+      {
+        "_key": "en",
+        "value": "The FORREST flagship apartment — only 20 of them in the complex. Two bedrooms with king-size beds, two bathrooms and a spacious living room with a large sofa bed, a dining table and decorative consoles make room for a big family or a group of friends. A full kitchen with an induction hob, a microwave and a fridge, a wardrobe with a safe and a minibar provide the comfort of your own home."
+      }
+    ],
+    "gallery": [
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments-new.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Presidential, фото 2"
+          },
+          {
+            "_key": "en",
+            "value": "Presidential apartment interior, photo 2"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:card-apartments.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Presidential, фото 3"
+          },
+          {
+            "_key": "en",
+            "value": "Presidential apartment interior, photo 3"
+          }
+        ]
+      },
+      {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:wind-interior-reading.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Інтер'єр апартаментів Presidential, фото 4"
+          },
+          {
+            "_key": "en",
+            "value": "Presidential apartment interior, photo 4"
+          }
+        ]
+      }
+    ],
+    "plan": {
+      "_type": "image",
+      "asset": {
+        "_ref": "fixture:plan-room.jpg"
+      },
+      "hotspot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "alt": [
+        {
+          "_key": "uk",
+          "value": "Планування апартаментів Presidential"
+        },
+        {
+          "_key": "en",
+          "value": "Presidential apartment floor plan"
+        }
+      ]
+    }
   }
 ]

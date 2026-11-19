@@ -7,12 +7,15 @@
  */
 import { Image } from 'astro:assets';
 import { resolveImage, type SiteSettings } from '../../lib/content';
+import { onPage } from '../../lib/routes';
 
 interface Props {
   settings: SiteSettings;
+  /** На внутренних страницах (архив) — адрес главной: якоря ведут на её блоки. */
+  base?: string;
 }
 
-const { settings } = Astro.props;
+const { settings, base } = Astro.props;
 const { footer, contacts } = settings;
 const bg = await resolveImage(footer.image);
 ---
@@ -53,7 +56,7 @@ const bg = await resolveImage(footer.image);
             <div class="site-footer__clip">
               <ul class="site-footer__list text-footer-body" role="list">
                 {group.links.map((link) => (
-                  <li><a class="site-footer__link" href={link.href}>{link.label}</a></li>
+                  <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
                 ))}
               </ul>
             </div>
@@ -68,10 +71,10 @@ const bg = await resolveImage(footer.image);
       <span>{footer.copyright}</span>
       <ul class="site-footer__legal-links" role="list">
         {footer.legalLinks.map((link) => (
-          <li><a class="site-footer__link" href={link.href}>{link.label}</a></li>
+          <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
         ))}
       </ul>
-      <a class="site-footer__link site-footer__credit" href={footer.credit.href}>
+      <a class="site-footer__link site-footer__credit" href={onPage(footer.credit.href, base)}>
         <span>{footer.credit.label}</span>
         <span class="site-footer__credit-logo" role="img" aria-label={footer.credit.logoLabel}></span>
       </a>

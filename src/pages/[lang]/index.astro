@@ -17,6 +17,7 @@ import Team from '../../components/blocks/Team.astro';
 import Faq from '../../components/blocks/Faq.astro';
 import FormFinal from '../../components/blocks/FormFinal.astro';
 import Footer from '../../components/blocks/Footer.astro';
+import QuizTab from '../../components/ui/QuizTab.astro';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
 
@@ -27,9 +28,12 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: string };
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
+// без JS вкладка квиза ведёт к первой форме заявки
+const formAnchor = landing.blocks.find((b) => b._type === 'form')?.anchor;
 ---
 <Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink}>
   <Header lang={lang} settings={settings} />
+  <QuizTab label={settings.popups.quiz.tabLabel} ariaLabel={settings.popups.quiz.tabAriaLabel} href={formAnchor ? `#${formAnchor}` : '#main'} />
   <main id="main" tabindex="-1">
     {landing.blocks.map((block) => {
       switch (block._type) {

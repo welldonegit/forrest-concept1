@@ -1,0 +1,136 @@
+---
+/**
+ * Попап апартамента (4.17): открывается фото карточки и кнопкой «Планування» в Apartments.
+ * Одна панель на карточку, в том же порядке, что и карточки (data-plan-open = индекс).
+ * Тексты плашек, описание, галерея и планировка — из документа формата (apartmentFormat);
+ * площадь «від», цена за м² и доходность — из калькулятора Numbers (одно место для чисел).
+ * Поведение и анимации — src/scripts/popups/apartments.js, стили — src/styles/popups/apartment.css.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type ApartmentsBlock, type NumbersCalc, type SiteSettings } from '../../lib/content';
+import { formatNumber, fill } from '../../lib/calc';
+
+interface Props {
+  lang: string;
+  block: ApartmentsBlock;
+  calc: NumbersCalc;
+  texts: SiteSettings['popups']['apartment'];
+  errors: SiteSettings['form']['errors'];
+  closeLabel: string;
+}
+
+const { lang, block, calc, texts, errors, closeLabel } = Astro.props;
+const num = (n: number, max = 0) => new Intl.NumberFormat(lang, { maximumFractionDigits: max }).format(n);
+
+const panels = await Promise.all(
+  block.items.map(async (item, i) => {
+    const f = item.format;
+    const c = calc.formats.find((x) => x.format._id === f._id);
+    if (!c) throw new Error(`Формата ${f._id} нет в калькуляторе Numbers: площадь и доходность для попапа берутся оттуда`);
+    const slides = [
+      { photo: await resolveImage(item.image), plan: false },
+      ...(await Promise.all(f.gallery.map(async (g) => ({ photo: await resolveImage(g), plan: false })))),
+      { photo: await resolveImage(f.plan), plan: true },
+    ];
+    let photoN = 0;
+    const stats = [
+      { label: texts.areaLabel, value: fill(texts.fromFormat, `${num(c.area, 1)} ${calc.areaUnit}`) },
+      { label: texts.priceLabel, value: fill(texts.fromFormat, `${calc.currency}${formatNumber(calc.pricePerM2, lang)}${calc.rentUnit}`) },
+      { label: texts.incomeLabel, value: fill(texts.fromFormat, `${calc.currency}${formatNumber((calc.pricePerM2 * c.yieldPercent) / 100, lang, 2)}${calc.rentUnit}`) },
+      { label: texts.yieldLabel, value: fill(texts.yieldFormat, num(c.yieldPercent, 1)) },
+    ];
+    return {
+      id: `apop-${i}`,
+      name: f.name,
+      tags: f.tags,
+      description: f.description,
+      stats,
+      slides: slides.map((s) => ({ ...s, label: s.plan ? texts.planLabel : fill(texts.photoLabel, String(++photoN)) })),
+    };
+  }),
+);
+const x = 'M6 6l12 12M18 6L6 18';
+---
+<dialog class="pop apop" data-popup-root data-apop aria-label={fill(texts.dialogLabel, panels[0]?.name ?? '')}>
+  <div class="apop__back" data-popup-backdrop></div>
+  <div class="apop__card" data-apop-card>
+    <button class="pop-close apop__close" type="button" aria-label={closeLabel} data-popup-close autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d={x} /></svg>
+    </button>
+    {panels.map((p, i) => (
+      <div class="apop__panel" data-apop-panel={i} data-dialog-label={fill(texts.dialogLabel, p.name)} hidden>
+        <div class="apop__info">
+          <div class="apop__scroll">
+            <h2 class="apop__name text-pop-title" id={`${p.id}-title`}>{p.name}</h2>
+            <dl class="apop__stats">
+              {p.stats.map((s) => (
+                <div class="apop__stat">
+                  <dt class="apop__stat-label text-pop-label">{s.label}</dt>
+                  <dd class="apop__stat-value text-pop-stat">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <ul class="apop__tags">
+              {p.tags.map((t) => <li class="apop__tag text-pop-caps">{t.label}</li>)}
+            </ul>
+            <div class="apop__desc">
+              <h3 class="apop__desc-title text-pop-caps">{texts.descriptionLabel}</h3>
+              <p class="apop__desc-text text-pop-text">{p.description}</p>
+            </div>
+          </div>
+          <div class="apop__ctaw">
+            <form class="apop__cta" novalidate data-apop-form>
+              <label class="visually-hidden" for={`${p.id}-phone`}>{texts.phoneLabel}</label>
+              <input class="apop__tel text-pop-input" id={`${p.id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={texts.phoneLabel} aria-describedby={`${p.id}-err`} />
+              <span class="visually-hidden" id={`${p.id}-err`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
+              <button class="apop__price text-pop-caps" type="submit" data-success-label={texts.successLabel}>{texts.submitLabel}</button>
+              <p class="visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
+            </form>
+          </div>
+        </div>
+        <div class="apop__frame" data-apop-frame>
+          <div class="apop__slides">
+            {p.slides.map((s, k) => (
+              <Image
+                class="apop__slide"
+                src={s.photo.src}
+                alt={s.photo.alt}
+                widths={[640, 960, 1280, 1600]}
+                sizes="(max-width: 899px) 100vw, 55vw"
+                format="avif"
+                loading="lazy"
+                decoding="async"
+                data-apop-slide
+                data-plan={s.plan ? '' : undefined}
+                data-on={k === 0 ? '' : undefined}
+                aria-hidden={k === 0 ? undefined : 'true'}
+                style={`--focus:${s.photo.position}`}
+              />
+            ))}
+          </div>
+          <span class="apop__plantag text-pop-caps" aria-hidden="true">{texts.planLabel}</span>
+          <div class="apop__ctrls">
+            <div class="apop__dots">
+              <div class="apop__dots-track" style={`--n:${p.slides.length}`}>
+                {p.slides.map((s, k) => (
+                  <button class="apop__dot" type="button" style={`--i:${k}`} aria-label={s.label} aria-pressed={k === 0 ? 'true' : 'false'} data-apop-dot>
+                    <span class="apop__dot-pill"></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div class="apop__arrows">
+              <button class="apop__arrow" type="button" aria-label={texts.prevLabel} data-apop-step="-1">
+                <svg class="apop__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
+              </button>
+              <button class="apop__arrow" type="button" aria-label={texts.nextLabel} data-apop-step="1">
+                <svg class="apop__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="apop__fly" aria-hidden="true" data-apop-fly><img alt="" decoding="async" /></div>
+</dialog>

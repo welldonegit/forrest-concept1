@@ -119,8 +119,9 @@ const leadLines = block.lead.split('\n');
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </span>
         </a>
-        <!-- TODO(4.17): видео-попап презентации. В выгрузке кнопка без действия. -->
-        <button class="hero__play text-hero-button-lg" type="button">
+        <!-- Видео презентации — тот же видео-попап, что у Season (4.17). TODO: адрес видео (presentationVideoUrl) от клиента;
+             пока поле пустое, кнопка без действия, как в выгрузке. -->
+        <button class="hero__play text-hero-button-lg" type="button" aria-haspopup={block.presentationVideoUrl ? 'dialog' : undefined} data-popup={block.presentationVideoUrl ? 'video' : undefined} data-video-src={block.presentationVideoUrl || undefined}>
           <span class="hero__play-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M7 4.5v15l13-7.5z" /></svg>
           </span>

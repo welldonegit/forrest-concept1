@@ -11,16 +11,18 @@ interface Props {
   label?: string;
   /** …или id видимой подписи. */
   labelledby?: string;
+  /** Путь страницы после /{lang}/: на архиве язык меняется на той же странице. */
+  path?: string;
 }
 
-const { lang, label, labelledby } = Astro.props;
+const { lang, label, labelledby, path = '' } = Astro.props;
 ---
 <ul class="lang-switch__list" role="list" aria-label={label} aria-labelledby={labelledby}>
   {languages.map((l) => (
     <li>
       <a
         class="lang-switch__option"
-        href={`/${l.id}/`}
+        href={`/${l.id}/${path}`}
         hreflang={l.id}
         lang={l.id}
         aria-current={l.id === lang ? 'true' : undefined}
