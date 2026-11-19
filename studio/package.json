@@ -1,0 +1,19 @@
+{
+  "name": "forrest-trinity-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "validate": "sanity schema validate"
+  },
+  "dependencies": {
+    "@sanity/locale-uk-ua": "1.1.37",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
+    "sanity": "6.22.0",
+    "sanity-plugin-internationalized-array": "5.3.9",
+    "styled-components": "6.6.0"
+  }
+}
