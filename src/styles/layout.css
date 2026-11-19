@@ -1,0 +1,105 @@
+/* Пропуск к содержимому: виден только при фокусе. */
+.skip-link{position:absolute;z-index:100;inset-block-start:var(--space-8);inset-inline-start:var(--space-8);
+  padding:var(--space-12) var(--space-16);border-radius:var(--radius-pill);background:var(--bg-inverse);color:var(--air);
+  font-family:var(--font-text);font-weight:600;text-decoration:none;opacity:0;pointer-events:none}
+.skip-link:focus-visible{opacity:1;pointer-events:auto}
+
+/* Секции ниже первых экранов (Apartments, Form, Location, Infrastructure, Construction, Team, Footer): браузер не считает их вёрстку, пока
+   они далеко от окна (первая отрисовка мобильного — TBT, точка B). Правило применения —
+   LAYOUT_RULES.md, «content-visibility». Сцены с прилипанием — только на элементе с жёсткой высотой (дорожка Numbers); Hero, Worlds, Model — нет.
+   Заглушка высоты --cv-h — измеренная высота блока вместе с полями (плотные замеры 2026-11-17, uk), по ступеням
+   и внутренним точкам перестройки блоков; формула «px + vw», погрешность в комментарии.
+   auto — после первого показа браузер помнит настоящую высоту. Изменил вёрстку блока —
+   перемерь (scripts: замер высот в отчёте по 4.x). */
+.apts,.form,.loc,.infra,.ct,.team,.site-footer{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h)}
+/* заглушка задаёт высоту содержимого — вертикальные поля секции браузер прибавляет сам */
+.apts{contain-intrinsic-size:auto calc(var(--cv-h) - var(--apts-pad-block-start) - var(--apts-pad-block-end))}
+.form{contain-intrinsic-size:auto calc(var(--cv-h) - var(--form-pad-block-start) - var(--form-pad-block-end))}
+/* Final Form (та же секция .form) — без content-visibility: заглушка Form ей не подходит; решение — по замеру точки D */
+.form--final{content-visibility:visible}
+.loc{contain-intrinsic-size:auto calc(var(--cv-h) - var(--loc-pad-block-start) - var(--loc-pad-block-end))}
+.infra{contain-intrinsic-size:auto calc(var(--cv-h) - var(--infra-pad-block-start) - var(--infra-pad-block-end))}
+.ct{contain-intrinsic-size:auto calc(var(--cv-h) - 2 * var(--ct-pad-block))}
+.team{contain-intrinsic-size:auto calc(var(--cv-h) - 2 * var(--team-pad-block))}
+/* переход по якорю (anchor-nav.js): нужны точные высоты */
+:root[data-cv-off] :is(.apts,.form,.loc,.infra,.ct,.team,.nums__track,.site-footer){content-visibility:visible}
+
+/* Numbers — на дорожке сцены, а не на секции (заголовок остаётся снаружи).
+   ≥900 со сценой: высота дорожки задана жёстко (--nums-track-h), заглушка не нужна — она и есть высота.
+   Сцена с прилипанием разрешена с жёсткой высотой (решение 2026-11-17). Без JS и при reduced motion ≥900 — нет.
+   <900: прилипания нет, обычное правило — измеренная заглушка (высота дорожки ≈ 3.75 × ширина + ступени переносов). */
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){ .js .nums__track{content-visibility:auto} }
+@media (max-width:899px){
+  .nums__track{content-visibility:auto; contain-intrinsic-size:auto var(--cv-h); --cv-h:calc(819px + 375vw)} /* ±0 */
+}
+@media (max-width:783px){ .nums__track{--cv-h:calc(897px + 375vw)} }  /* ±0 */
+@media (max-width:767px){ .nums__track{--cv-h:calc(855px + 375vw)} }  /* ±0 */
+@media (max-width:715px){ .nums__track{--cv-h:calc(933px + 375vw)} }  /* ±0 */
+@media (max-width:567px){ .nums__track{--cv-h:calc(961px + 375vw)} }  /* ±10 */
+@media (max-width:433px){ .nums__track{--cv-h:calc(1032px + 375vw)} } /* ±9 */
+@media (max-width:410px){ .nums__track{--cv-h:calc(1065px + 375vw)} } /* ±0 */
+@media (max-width:399px){ .nums__track{--cv-h:calc(1233px + 375vw)} } /* ±11 */
+@media (max-width:362px){ .nums__track{--cv-h:calc(1275px + 375vw)} } /* ±11 */
+@media (max-width:338px){ .nums__track{--cv-h:calc(1315px + 375vw)} } /* ±9 */
+
+.apts{--cv-h:calc(478px + 21.27vw)}          /* ±1 */
+.form{--cv-h:calc(715px + 5.08vw)}           /* ±7 */
+.site-footer{--cv-h:calc(686px + 16.77vw)}   /* ±0 */
+.loc{--cv-h:calc(83px + 49.87vw)}            /* ±0 (Location и Infrastructure — замеры 2026-11-17) */
+.infra{--cv-h:891px}                         /* ±3 */
+@media (max-width:1599px){
+  .apts{--cv-h:calc(361px + 28.11vw)}        /* ±0 */
+  .form{--cv-h:738px}                        /* ±0 */
+  .site-footer{--cv-h:calc(622px + 16.78vw)} /* ±0 */
+  .infra{--cv-h:calc(661px + 7.48vw)}        /* ±0 */
+}
+@media (max-width:1279px){
+  .apts{--cv-h:calc(322px + 25.34vw)}        /* ±16 */
+  .form{--cv-h:calc(1221px - 45.94vw)}       /* ±24 */
+  .site-footer{--cv-h:calc(857px - 9.28vw)}  /* ±30 */
+  .loc{--cv-h:calc(47px + 49.87vw)}          /* ±0 */
+  .infra{--cv-h:calc(545px + 7.21vw)}        /* ±3 */
+}
+@media (max-width:959px){ .loc{--cv-h:calc(286px + 85.34vw)} }           /* ±2: колонки Location друг под другом */
+@media (max-width:1100px){ .form{--cv-h:calc(759px + 2.92vw)} }          /* ±1 */
+@media (max-width:1023px){ .site-footer{--cv-h:calc(1200px - 7.04vw)} }  /* ±17 */
+@media (max-width:900px){
+  .apts{--cv-h:calc(445px + 13.22vw)}        /* ±4 */
+  .form{--cv-h:calc(1021px + 20.84vw)}       /* ±0 */
+  .site-footer{--cv-h:calc(1003px + 16.75vw)}/* ±0 */
+}
+@media (max-width:767px){
+  .apts{--cv-h:calc(751px + 6.77vw)}         /* ±33 */
+  .form{--cv-h:calc(1133px - 1.05vw)}        /* ±18 */
+  .site-footer{--cv-h:calc(696px + 16.78vw)} /* ±0 */
+  .loc{--cv-h:calc(318px + 79.2vw)}          /* ±0 */
+  .infra{--cv-h:612px}                       /* ±0 */
+}
+@media (max-width:499px){ .infra{--cv-h:642px} }                         /* ±0: заголовок в 3 строки */
+@media (max-width:409px){ .loc{--cv-h:calc(1549px - 228.5vw)} }       /* ±0: перенос заголовка Location */
+@media (max-width:399px){ .infra{--cv-h:673px} }                         /* ±0: заголовок в 4 строки */
+@media (max-width:379px){ .loc{--cv-h:calc(407px + 79vw)} }               /* ±0 */
+@media (max-width:560px){
+  .apts{--cv-h:calc(656px + 19.72vw)}        /* ±21 */
+  .form{--cv-h:calc(1797px - 92.64vw)}       /* ±33 */
+}
+
+/* Construction B и Team v3 (замеры 2026-11-17, uk). Высота Construction — ступенями переносов текста карточки.
+   Team ≥901: высота = поля и шапка + высота панели (как в выгрузке, clamp от высоты окна). */
+.ct{--cv-h:970px}                            /* ±2 */
+.team{--cv-h:calc(364px + clamp(560px, 100vh - 160px, 780px))} /* ±2 */
+@media (max-width:1599px){
+  .ct{--cv-h:902px}                          /* ±4 */
+  .team{--cv-h:calc(335px + clamp(560px, 100vh - 160px, 780px))} /* ±6 */
+}
+@media (max-width:1279px){
+  .ct{--cv-h:680px}                          /* ±12 */
+  .team{--cv-h:calc(240px + clamp(560px, 100vh - 160px, 780px))} /* ±4 */
+}
+@media (max-width:943px){ .ct{--cv-h:940px} .team{--cv-h:calc(313px + clamp(560px, 100vh - 160px, 780px))} } /* ct ±32 */
+@media (max-width:900px){ .team{--cv-h:1405px} }                          /* ±28: аккордеон */
+@media (max-width:767px){ .ct{--cv-h:850px} .team{--cv-h:1392px} }        /* ±22, ±11 */
+@media (max-width:703px){ .ct{--cv-h:925px} .team{--cv-h:calc(1550px + 79vw)} } /* ±15, ±16: фото 4:5 во всю ширину */
+@media (max-width:495px){ .ct{--cv-h:1012px} }                           /* ±18 */
+@media (max-width:399px){ .ct{--cv-h:1070px} .team{--cv-h:1940px} }       /* ±18, ±18 */
+@media (max-width:351px){ .ct{--cv-h:1142px} }                           /* ±0 */

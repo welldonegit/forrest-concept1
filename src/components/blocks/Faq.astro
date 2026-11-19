@@ -1,0 +1,96 @@
+---
+/**
+ * FAQ (4.14): «Відповіді на часті питання» — заголовок, слева тёмная карточка
+ * (материалы для инвестора PDF, «Не знайшли відповідь?» и кнопка к финальной форме,
+ * на ≥900 прилипает), справа аккордеон из 8 вопросов. На <900 — одна колонка,
+ * карточка под вопросами. Плашки с цифрой из мобильной выгрузки убраны (решение 2026-11-19).
+ *
+ * Тексты, файлы и ссылка кнопки — из Sanity (блок faq документа landing).
+ * Аккордеон — src/scripts/ui/faq.js; появление — src/scripts/anim/blocks/faq.js + faq.css.
+ * Без JS все ответы раскрыты (сворачивает их класс js на <html>).
+ */
+import type { FaqBlock } from '../../lib/content';
+
+interface Props {
+  block: FaqBlock;
+}
+
+const { block } = Astro.props;
+const id = block.anchor;
+const num = (i: number) => String(i + 1).padStart(2, '0');
+---
+<section class="faq" id={id} aria-labelledby={`${id}-title`} data-anim-block="faq" data-faq>
+  <div class="faq__head" data-faq-head>
+    <h2 class="faq__title text-display-sm text-w-600" id={`${id}-title`}>
+      {block.title.map((line) => (
+        <span class="faq__mask"><span class:list={['faq__line', { 'faq__line--muted': line.muted }]}>{line.text}</span></span>
+      ))}
+    </h2>
+  </div>
+
+  <div class="faq__grid">
+    <aside class="faq__aside" aria-label={block.docsTitle} data-faq-aside>
+      <span class="faq__glow" aria-hidden="true" data-faq-glow></span>
+      <div class="faq__docs">
+        <p class="faq__docs-title text-faq-docs-title">{block.docsTitle}</p>
+        <ul class="faq__doc-list" role="list">
+          {block.docs.map((doc) => (
+            <li>
+              {/* TODO: файлы PDF — от заказчика (поле file в Sanity); без файла ссылка без адреса */}
+              <a class="faq__doc" href={doc.file?.url} download={doc.file ? '' : undefined}>
+                <span class="faq__doc-badge text-faq-tag">{doc.format}</span>
+                <span class="faq__doc-body">
+                  <span class="faq__doc-title text-faq-doc-title">{doc.title}</span>
+                  <span class="faq__doc-note text-label text-w-400">{doc.note}</span>
+                </span>
+                <span class="faq__doc-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 4v12M6 11l6 6 6-6M5 20h14" /></svg>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="faq__cta">
+        <div class="faq__cta-text">
+          <p class="faq__cta-title text-faq-cta-title">{block.ctaTitle}</p>
+          <p class="faq__cta-lead text-faq-cta-text">{block.ctaText}</p>
+        </div>
+        <a class="faq__cta-button text-faq-cta-button" href={block.cta.href}>
+          {block.cta.label}
+          <span class="faq__cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="faq__list" data-faq-list>
+      {block.items.map((item, i) => (
+        <div class="faq__item" data-faq-item data-open={i === 0 ? '' : undefined} style={`--i:${i}`}>
+          <h3 class="faq__q-wrap">
+            <button
+              class="faq__q"
+              type="button"
+              id={`${id}-q${i}`}
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`${id}-a${i}`}
+              data-faq-button
+            >
+              <span class="faq__num text-label text-caps-md">{num(i)}</span>
+              <span class="faq__q-text text-faq-q">{item.question}</span>
+              <span class="faq__x" aria-hidden="true"><span class="faq__x-h"></span><span class="faq__x-v"></span></span>
+            </button>
+          </h3>
+          <div class="faq__panel" id={`${id}-a${i}`} role="region" aria-labelledby={`${id}-q${i}`}>
+            <div class="faq__panel-in">
+              <div class="faq__answer">
+                <p class="faq__a text-faq-a">{item.answer}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

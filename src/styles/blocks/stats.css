@@ -1,0 +1,72 @@
+/* ===== Stats (4.2) — четыре карточки-цифры =====
+   Значения — из рендера design-export, только через tokens.css. */
+
+.stats{
+  padding-block:var(--stats-pad-block-start) var(--stats-pad-block-end);
+  padding-inline:var(--stats-pad-inline);
+  max-inline-size:var(--page-max); margin-inline:auto;
+  background:var(--bg-surface-warm);
+}
+.stats__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, var(--stats-card-min)), 1fr));
+  gap:var(--stats-gap);
+}
+.stats__card{
+  position:relative; overflow:hidden;
+  aspect-ratio:var(--stats-card-ratio);
+  border-radius:var(--stats-card-radius);
+  background:var(--bg-inverse);
+}
+.stats__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+}
+/* Вуаль над фото — декор */
+.stats__card::after{content:""; position:absolute; inset:0; background:var(--stats-overlay); pointer-events:none}
+.stats__body{
+  position:absolute; inset:0; z-index:1;
+  display:flex; flex-direction:column; align-items:flex-start;
+  padding:var(--stats-card-pad);
+  color:var(--air);
+}
+/* Число не переносится (как в выгрузке), единица и плашка — переносятся: перевод может быть длиннее. */
+.stats__value{margin-block-end:var(--stats-num-gap)}
+.stats__number{white-space:nowrap}
+.stats__unit{margin-inline-start:var(--type-stats-stat-sm-gap)}
+.stats__chip{
+  margin-block-start:auto;
+  display:flex; align-items:center;
+  /* в выгрузке рамка снаружи высоты (content-box) */
+  min-block-size:calc(var(--stats-chip-h) + 2 * var(--stats-chip-pad-block) + 2 * var(--border-1));
+  padding-block:var(--stats-chip-pad-block);
+  padding-inline:var(--stats-chip-pad-start) var(--stats-chip-pad-end);
+  border:var(--border-1) solid var(--stats-chip-border);
+  border-radius:var(--radius-pill);
+  background:var(--stats-chip-bg);
+  -webkit-backdrop-filter:var(--blur-caption); backdrop-filter:var(--blur-caption);
+  max-inline-size:100%;
+}
+
+/* ---------- Мобильный: сетка 2×2 (выгрузка 2026-11-17) ---------- */
+@media (max-width:767px){
+  .stats__grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .stats__text{text-wrap:balance}
+}
+
+/* ---------- Появление карточек (старт ставит JS: data-reveal="pre") ---------- */
+.stats[data-reveal] .stats__card{
+  transition:clip-path var(--stats-clip-dur) var(--ease-in-out-quart) calc(var(--i) * var(--stats-step));
+}
+.stats[data-reveal] .stats__img{
+  transition:transform var(--stats-img-dur) var(--ease-out-quint) calc(var(--i) * var(--stats-step));
+}
+.stats[data-reveal] .stats__body{
+  transition:
+    opacity var(--stats-txt-fade-dur) ease calc(var(--stats-txt-delay) + var(--i) * var(--stats-step)),
+    transform var(--stats-txt-move-dur) var(--ease-out-quint) calc(var(--stats-txt-delay) + var(--i) * var(--stats-step));
+}
+.stats[data-reveal="pre"] .stats__card{clip-path:inset(0 0 100% 0 round var(--stats-card-radius))}
+.stats[data-reveal="pre"] .stats__img{transform:translateY(var(--stats-img-shift)) scale(var(--stats-img-scale))}
+.stats[data-reveal="pre"] .stats__body{opacity:0; transform:translateY(var(--stats-txt-shift))}
+.stats[data-reveal="in"] .stats__card{clip-path:inset(0 0 0 0 round var(--stats-card-radius))}

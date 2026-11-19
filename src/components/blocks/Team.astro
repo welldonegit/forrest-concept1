@@ -1,0 +1,105 @@
+---
+/**
+ * Team v3 (4.13): «Команда проєкту» — слева вкладки участников (роль, логотип), справа панель
+ * выбранного: фото, заголовок, текст, факты, цитата с портретом.
+ * Выгрузка 2026-11-17, секция «Team v3» (data-kt). id секции без «-2»: на него ведут меню и футер.
+ * Тексты, фото, логотипы — из Sanity (блок team документа landing).
+ *
+ * ≥901 — вкладки слева, панели в одной ячейке справа (смена — прозрачность и сдвиг текста).
+ * ≤900 — аккордеон: панель раскрывается под своей вкладкой, повторное нажатие сворачивает.
+ * Разметка — пары «кнопка + панель» (порядок фокуса совпадает с видом на обеих ширинах):
+ * кнопки с aria-expanded, а не role="tab", потому что на телефоне это аккордеон.
+ * Без JS — открыт первый участник. Переключение — src/scripts/ui/team.js.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type TeamBlock } from '../../lib/content';
+
+interface Props {
+  block: TeamBlock;
+}
+
+const { block } = Astro.props;
+const id = block.anchor;
+const members = await Promise.all(
+  block.members.map(async (m) => ({
+    ...m,
+    logoImg: await resolveImage(m.logo),
+    photoImg: await resolveImage(m.photo),
+    portrait: await resolveImage(m.quote.photo),
+  })),
+);
+// Строки вкладок (≥901): выбранная забирает остаток высоты, остальные — по минимуму (как flex-grow в выгрузке)
+const rows = (sel: number) => members.map((_, i) => `minmax(var(--team-tab-min), ${i === sel ? 'var(--team-tab-grow)' : 'var(--team-tab-rest)'})`).join(' ');
+---
+<section class="team" id={id} aria-labelledby={`${id}-title`} data-team>
+  <div class="team__head">
+    <h2 class="team__title text-display-sm" id={`${id}-title`}>{block.title}</h2>
+    <p class="team__sub text-team-sub">{block.subtitle}</p>
+  </div>
+
+  <div class="team__grid" data-team-grid style={`--team-rows:${rows(0)}`}>
+    <div class="team__panel-bg" aria-hidden="true"></div>
+    {members.map((m, i) => (
+      <>
+        <button
+          class="team__tab"
+          type="button"
+          id={`${id}-tab-${i}`}
+          aria-expanded={i === 0 ? 'true' : 'false'}
+          aria-controls={`${id}-panel-${i}`}
+          data-team-tab
+          style={`--i:${i}`}
+        >
+          <span class="team__tab-top">
+            <span class="team__role text-team-role">{m.role}</span>
+            <span class="team__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </span>
+          <span class="team__logo-wrap">
+            <img class="team__logo" src={m.logoImg.src.src} width={m.logoImg.src.width} height={m.logoImg.src.height} alt={m.logoImg.alt} loading="lazy" decoding="async" />
+          </span>
+        </button>
+        <div
+          class="team__panel"
+          id={`${id}-panel-${i}`}
+          role="region"
+          aria-labelledby={`${id}-tab-${i}`}
+          data-team-panel
+          data-open={i === 0 ? '' : undefined}
+          style={`--i:${i}`}
+        >
+          <div class="team__panel-in">
+            <div class="team__page">
+              <div class="team__photo">
+                <Image class="team__img" src={m.photoImg.src} alt={m.photoImg.alt} widths={[400, 600, 760, 1000]} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 900px) 245px, (max-width: 1599px) 346px, 380px" format="avif" loading="lazy" decoding="async" style={`--focus:${m.photoImg.position}`} />
+              </div>
+              <div class="team__body">
+                <h3 class="team__name text-team-name">{m.role}</h3>
+                <p class="team__text text-team-text">{m.text}</p>
+                <ul class="team__stats" role="list">
+                  {m.stats.map((s) => (
+                    <li class="team__stat text-team-stat">{s.value && <b class="team__stat-value">{s.value}</b>}<span>{s.label}</span></li>
+                  ))}
+                </ul>
+                <figure class="team__quote">
+                  <span class="team__portrait">
+                    <Image class="team__img" src={m.portrait.src} alt={m.portrait.alt} widths={[240, 360]} sizes="(max-width: 1279px) 112px, 180px" format="avif" loading="lazy" decoding="async" style={`--focus:${m.portrait.position}`} />
+                  </span>
+                  <span class="team__quote-body">
+                    <span class="team__qmark text-team-qmark" aria-hidden="true">“</span>
+                    <blockquote class="team__qtext text-team-quote">{m.quote.text}</blockquote>
+                    <figcaption class="team__qcap">
+                      <span class="team__qname text-team-qname">{m.quote.name}</span>
+                      <span class="team__qpos text-team-qpos">{m.quote.position}</span>
+                    </figcaption>
+                  </span>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    ))}
+  </div>
+</section>

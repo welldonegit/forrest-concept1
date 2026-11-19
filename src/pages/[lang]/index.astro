@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/blocks/Header.astro';
+import Hero from '../../components/blocks/Hero.astro';
+import Stats from '../../components/blocks/Stats.astro';
+import Season from '../../components/blocks/Season.astro';
+import Worlds from '../../components/blocks/Worlds.astro';
+import Model from '../../components/blocks/Model.astro';
+import Apartments from '../../components/blocks/Apartments.astro';
+import Form from '../../components/blocks/Form.astro';
+import Location from '../../components/blocks/Location.astro';
+import Infrastructure from '../../components/blocks/Infrastructure.astro';
+import Numbers from '../../components/blocks/Numbers.astro';
+import InvestorService from '../../components/blocks/InvestorService.astro';
+import Construction from '../../components/blocks/Construction.astro';
+import Team from '../../components/blocks/Team.astro';
+import Faq from '../../components/blocks/Faq.astro';
+import FormFinal from '../../components/blocks/FormFinal.astro';
+import Footer from '../../components/blocks/Footer.astro';
+import { languages } from '../../lib/languages';
+import { getSiteSettings, getLanding } from '../../lib/content';
+
+export function getStaticPaths() {
+  return languages.map((l) => ({ params: { lang: l.id } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const settings = await getSiteSettings(lang);
+const landing = await getLanding(lang);
+---
+<Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink}>
+  <Header lang={lang} settings={settings} />
+  <main id="main" tabindex="-1">
+    {landing.blocks.map((block) => {
+      switch (block._type) {
+        case 'hero': return <Hero block={block} />;
+        case 'stats': return <Stats block={block} />;
+        case 'season': return <Season block={block} />;
+        case 'worlds': return <Worlds block={block} />;
+        case 'model': return <Model block={block} />;
+        case 'apartments': return <Apartments block={block} swipeHint={settings.ui.swipeHint} />;
+        case 'form': return <Form block={block} settings={settings} />;
+        case 'location': return <Location block={block} closeLabel={settings.ui.closeLabel} />;
+        case 'infrastructure': return <Infrastructure block={block} swipeHint={settings.ui.swipeHint} />;
+        case 'team': return <Team block={block} />;
+        case 'faq': return <Faq block={block} />;
+        case 'formFinal': return <FormFinal block={block} settings={settings} />;
+        case 'construction': return <Construction block={block} lang={lang} />;
+        case 'investorService': return <InvestorService block={block} />;
+        case 'numbers': return <Numbers block={block} lang={lang} />;
+        default: return null;
+      }
+    })}
+  </main>
+  <Footer settings={settings} />
+</Base>

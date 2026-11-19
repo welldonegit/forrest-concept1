@@ -1,0 +1,31 @@
+---
+/**
+ * Form (4.7): «Отримайте фінмодель». Разметка, проверка полей и появление — общие
+ * с Final Form: src/components/ui/LeadSection.astro.
+ * Тексты блока — из Sanity (блок form документа landing); подписи полей, варианты списка
+ * (форматы апартаментов), способы связи и кнопка — из siteSettings.form.
+ */
+import LeadSection from '../ui/LeadSection.astro';
+import type { FormBlock, SiteSettings } from '../../lib/content';
+
+interface Props {
+  block: FormBlock;
+  settings: SiteSettings;
+}
+
+const { block, settings } = Astro.props;
+const f = settings.form;
+const options = [{ label: f.formatUndecidedLabel }, ...f.formats.map((o) => ({ label: `${o.name}, ${o.area}` }))];
+---
+<LeadSection
+  id={block.anchor}
+  variant="form"
+  title={block.title}
+  text={block.text}
+  bullets={block.bullets}
+  select={{ label: f.formatLabel, name: 'format', options }}
+  contactLegend={f.contactLegend}
+  contactOptions={f.contactOptions}
+  submitLabel={f.submitLabel}
+  settings={settings}
+/>

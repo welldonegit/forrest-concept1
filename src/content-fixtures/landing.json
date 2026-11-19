@@ -1,0 +1,5777 @@
+{
+  "_type": "landing",
+  "blocks": [
+    {
+      "_type": "hero",
+      "_key": "hero",
+      "title": [
+        [
+          {
+            "_key": "uk",
+            "value": "Три світи —"
+          },
+          {
+            "_key": "en",
+            "value": "Three worlds —"
+          }
+        ],
+        [
+          {
+            "_key": "uk",
+            "value": "один актив"
+          },
+          {
+            "_key": "en",
+            "value": "one asset"
+          }
+        ]
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "Інвестиційні апартаменти у першому в Буковелі\nкурортному комплексі формату Trinity Resort."
+        },
+        {
+          "_key": "en",
+          "value": "Investment apartments in Bukovel's first\nTrinity Resort format resort complex."
+        }
+      ],
+      "imageSummer": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-summer.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Курортний комплекс FORREST Trinity Resort серед карпатського лісу"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST Trinity Resort complex in the Carpathian forest"
+          }
+        ]
+      },
+      "imageWinter": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-winter.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decorative": true
+      },
+      "imageSummerMobile": {
+        "_type": "image",
+        "_comment": "Мобільне фото (ширина < 768): окремий кадр 9:16. Alt береться з основного фото — це той самий знімок для іншого екрана.",
+        "asset": {
+          "_ref": "fixture:hero-summer-mob.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decorative": true
+      },
+      "imageWinterMobile": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:hero-winter-mob.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decorative": true
+      },
+      "skyline": {
+        "_comment": "Контур будівель на фото hero-summer/hero-winter (координати в пікселях фото 1672×941): з-за нього виходить заголовок. Прив'язаний до фото — при заміні фото потрібен новий контур. На мобільному (< 768) контур не використовується.",
+        "width": 1672,
+        "height": 941,
+        "points": [
+          [
+            0,
+            941
+          ],
+          [
+            0,
+            372
+          ],
+          [
+            90,
+            366
+          ],
+          [
+            180,
+            372
+          ],
+          [
+            248,
+            350
+          ],
+          [
+            250,
+            296
+          ],
+          [
+            300,
+            288
+          ],
+          [
+            400,
+            276
+          ],
+          [
+            470,
+            282
+          ],
+          [
+            556,
+            302
+          ],
+          [
+            560,
+            352
+          ],
+          [
+            620,
+            350
+          ],
+          [
+            700,
+            352
+          ],
+          [
+            808,
+            352
+          ],
+          [
+            812,
+            382
+          ],
+          [
+            860,
+            386
+          ],
+          [
+            866,
+            432
+          ],
+          [
+            905,
+            408
+          ],
+          [
+            985,
+            400
+          ],
+          [
+            1060,
+            418
+          ],
+          [
+            1130,
+            428
+          ],
+          [
+            1220,
+            436
+          ],
+          [
+            1330,
+            440
+          ],
+          [
+            1385,
+            450
+          ],
+          [
+            1400,
+            470
+          ],
+          [
+            1470,
+            478
+          ],
+          [
+            1560,
+            496
+          ],
+          [
+            1620,
+            470
+          ],
+          [
+            1672,
+            462
+          ],
+          [
+            1672,
+            941
+          ]
+        ]
+      },
+      "cta": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Отримати фінмодель"
+          },
+          {
+            "_key": "en",
+            "value": "Get the financial model"
+          }
+        ],
+        "href": "#forma"
+      },
+      "presentationLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися презентацію"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the presentation"
+        }
+      ],
+      "season": {
+        "prefix": [
+          {
+            "_key": "uk",
+            "value": "Подивитись"
+          },
+          {
+            "_key": "en",
+            "value": "See"
+          }
+        ],
+        "toWinter": [
+          {
+            "_key": "uk",
+            "value": "вид взимку"
+          },
+          {
+            "_key": "en",
+            "value": "winter view"
+          }
+        ],
+        "toSummer": [
+          {
+            "_key": "uk",
+            "value": "вид влітку"
+          },
+          {
+            "_key": "en",
+            "value": "summer view"
+          }
+        ]
+      }
+    },
+    {
+      "_type": "stats",
+      "_key": "stats",
+      "cards": [
+        {
+          "_key": "s1",
+          "value": "460+",
+          "unit": "",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "апартаментів в 5 форматах"
+            },
+            {
+              "_key": "en",
+              "value": "apartments in 5 formats"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "від 29,5 до 111,5 м²"
+            },
+            {
+              "_key": "en",
+              "value": "from 29.5 to 111.5 m²"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments-new.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "s2",
+          "value": "10",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "років"
+            },
+            {
+              "_key": "en",
+              "value": "years"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "до повної окупності"
+            },
+            {
+              "_key": "en",
+              "value": "to full payback"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "капіталізація 20%"
+            },
+            {
+              "_key": "en",
+              "value": "20% capitalisation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-okupnist.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "s3",
+          "value": "10 750",
+          "unit": "$",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "мінімальний\nщорічний прибуток"
+            },
+            {
+              "_key": "en",
+              "value": "minimum\nannual profit"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "12% річних"
+            },
+            {
+              "_key": "en",
+              "value": "12% per annum"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "s4",
+          "value": "24",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "міс"
+            },
+            {
+              "_key": "en",
+              "value": "mo"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "instalment plan"
+            }
+          ],
+          "chip": [
+            {
+              "_key": "uk",
+              "value": "перший внесок від 5533$"
+            },
+            {
+              "_key": "en",
+              "value": "down payment from $5,533"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        }
+      ]
+    },
+    {
+      "_type": "season",
+      "_key": "season",
+      "anchor": "season",
+      "title": [
+        [
+          {
+            "_key": "uk",
+            "value": "Дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Returns"
+          }
+        ],
+        [
+          {
+            "_key": "uk",
+            "value": "365 днів на рік"
+          },
+          {
+            "_key": "en",
+            "value": "365 days a year"
+          }
+        ]
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Сезонність Буковеля ми перетворили на перевагу. FORREST складається з трьох секцій, кожна з яких працює зі своєю аудиторією та власним сценарієм попиту в різні періоди року. Завдяки цьому курорт залишається затребуваним протягом усього року, а інвестор отримує актив, що працює 365 днів."
+        },
+        {
+          "_key": "en",
+          "value": "We turned Bukovel's seasonality into an advantage. FORREST consists of three sections, each working with its own audience and its own demand scenario at different times of the year. As a result, the resort stays in demand all year round, and the investor gets an asset that works 365 days."
+        }
+      ],
+      "poster": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:video-poster-forest.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Карпатський ліс навколо FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "Carpathian forest around FORREST Trinity Resort"
+          }
+        ]
+      },
+      "durationLabel": [
+        {
+          "_key": "uk",
+          "value": "60 сек"
+        },
+        {
+          "_key": "en",
+          "value": "60 sec"
+        }
+      ],
+      "playLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися відео"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the video"
+        }
+      ],
+      "videoUrl": "https://www.youtube-nocookie.com/embed/d9ZbEgt5lhQ"
+    },
+    {
+      "_type": "worlds",
+      "_key": "worlds",
+      "anchor": "worlds",
+      "title": [
+        {
+          "_key": "t1",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "Три"
+            },
+            {
+              "_key": "en",
+              "value": "Three"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-apartments.jpg"
+            },
+            "hotspot": {
+              "x": 0.6,
+              "y": 0.45
+            },
+            "decorative": true
+          },
+          "after": [
+            {
+              "_key": "uk",
+              "value": "аудиторії"
+            },
+            {
+              "_key": "en",
+              "value": "audiences"
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t2",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "три сценарії"
+            },
+            {
+              "_key": "en",
+              "value": "three demand"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:hero-summer.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "after": [
+            {
+              "_key": "uk",
+              "value": "попиту"
+            },
+            {
+              "_key": "en",
+              "value": "scenarios"
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t3",
+          "before": [
+            {
+              "_key": "uk",
+              "value": "один актив"
+            },
+            {
+              "_key": "en",
+              "value": "one asset"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "worlds": [
+        {
+          "_key": "wind",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 1"
+            },
+            {
+              "_key": "en",
+              "value": "Section 1"
+            }
+          ],
+          "name": "WIND",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Світ тиші та відновлення"
+            },
+            {
+              "_key": "en",
+              "value": "A world of quiet and renewal"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про WIND"
+              },
+              {
+                "_key": "en",
+                "value": "More about WIND"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція WIND — апартаменти для тиші та відновлення"
+              },
+              {
+                "_key": "en",
+                "value": "WIND section — apartments for quiet and renewal"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "rock",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 2"
+            },
+            {
+              "_key": "en",
+              "value": "Section 2"
+            }
+          ],
+          "name": "ROCK",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Простір рішень і масштабування"
+            },
+            {
+              "_key": "en",
+              "value": "A space for decisions and growth"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про ROCK"
+              },
+              {
+                "_key": "en",
+                "value": "More about ROCK"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція ROCK — апартаменти для бізнесу та масштабування"
+              },
+              {
+                "_key": "en",
+                "value": "ROCK section — apartments for business and growth"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "sun",
+          "overline": [
+            {
+              "_key": "uk",
+              "value": "Секція 3"
+            },
+            {
+              "_key": "en",
+              "value": "Section 3"
+            }
+          ],
+          "name": "SUN",
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Світ дому, тепла та спільного відпочинку"
+            },
+            {
+              "_key": "en",
+              "value": "A world of home, warmth and time together"
+            }
+          ],
+          "cta": {
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Детальніше про SUN"
+              },
+              {
+                "_key": "en",
+                "value": "More about SUN"
+              }
+            ],
+            "href": "#forma"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-section-winter.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Секція SUN — апартаменти для родинного відпочинку"
+              },
+              {
+                "_key": "en",
+                "value": "SUN section — apartments for family holidays"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "_type": "model",
+      "_key": "model",
+      "anchor": "model",
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Інвестуючи в один апартамент ви отримуєте дохід від усіх 3 секцій. WIND, ROCK та SUN працюють, як єдина інвестиційна модель: різні аудиторії та сезони створюють спільний потік бронювань протягом року. Операційне управління бере на себе Maestro, а ви отримуєте дохід з будь-якої точки світу."
+        },
+        {
+          "_key": "en",
+          "value": "By investing in one apartment you earn income from all 3 sections. WIND, ROCK and SUN work as a single investment model: different audiences and seasons create a shared flow of bookings throughout the year. Maestro takes over operations, and you earn income from anywhere in the world."
+        }
+      ],
+      "steps": [
+        {
+          "_key": "s1",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ОБИРАЄТЕ СВІЙ АПАРТАМЕНТ"
+            },
+            {
+              "_key": "en",
+              "value": "You choose your apartment"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "WIND, ROCK або SUN відповідно до вашого бюджету, формату та інвестиційної стратегії."
+            },
+            {
+              "_key": "en",
+              "value": "WIND, ROCK or SUN to match your budget, format and investment strategy."
+            }
+          ]
+        },
+        {
+          "_key": "s2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "СТАЄТЕ ЧАСТИНОЮ ЄДИНОЇ МОДЕЛІ TRINITY RESORT"
+            },
+            {
+              "_key": "en",
+              "value": "You become part of the single Trinity Resort model"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Ваш актив працює в системі всього FORREST і не залежить лише від попиту на окрему секцію."
+            },
+            {
+              "_key": "en",
+              "value": "Your asset works within the whole FORREST system and does not depend on demand for a single section."
+            }
+          ]
+        },
+        {
+          "_key": "s3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "MAESTRO БЕРЕ УПРАВЛІННЯ НА СЕБЕ"
+            },
+            {
+              "_key": "en",
+              "value": "Maestro takes over management"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Професійний оператор забезпечує бронювання, сервіс, операційне управління та фінансову звітність."
+            },
+            {
+              "_key": "en",
+              "value": "A professional operator handles bookings, service, operations and financial reporting."
+            }
+          ]
+        },
+        {
+          "_key": "s4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST ФОРМУЄ ПОПИТ ПРОТЯГОМ РОКУ"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST generates demand all year round"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Три секції залучають різні аудиторії у різні сезони та підтримують цілорічну роботу курорту."
+            },
+            {
+              "_key": "en",
+              "value": "Three sections attract different audiences in different seasons and keep the resort running all year."
+            }
+          ]
+        },
+        {
+          "_key": "s5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ВИ ОТРИМУЄТЕ ДОХІД І КОНТРОЛЮЄТЕ АКТИВ"
+            },
+            {
+              "_key": "en",
+              "value": "You earn income and control your asset"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Стежите за ключовими показниками онлайн з будь-якої точки світу, а за бажанням можете особисто відпочивати у своїх апартаментах."
+            },
+            {
+              "_key": "en",
+              "value": "You track key figures online from anywhere in the world and can stay in your apartment whenever you like."
+            }
+          ]
+        }
+      ],
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Інвестиційна модель Trinity"
+        },
+        {
+          "_key": "en",
+          "value": "Trinity investment model"
+        }
+      ]
+    },
+    {
+      "_type": "apartments",
+      "_key": "apartments",
+      "anchor": "apartamenty",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Оберіть апартаменти під"
+            },
+            {
+              "_key": "en",
+              "value": "Choose an apartment for"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "свій бюджет і стратегію"
+            },
+            {
+              "_key": "en",
+              "value": "your budget and strategy"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "prevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попередні апартаменти"
+        },
+        {
+          "_key": "en",
+          "value": "Previous apartments"
+        }
+      ],
+      "nextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступні апартаменти"
+        },
+        {
+          "_key": "en",
+          "value": "Next apartments"
+        }
+      ],
+      "planLabel": [
+        {
+          "_key": "uk",
+          "value": "Планування"
+        },
+        {
+          "_key": "en",
+          "value": "Floor plan"
+        }
+      ],
+      "items": [
+        {
+          "_key": "superior",
+          "format": {
+            "_type": "reference",
+            "_ref": "format-superior"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:superior-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Superior"
+              },
+              {
+                "_key": "en",
+                "value": "Superior apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "deluxe",
+          "format": {
+            "_type": "reference",
+            "_ref": "format-deluxe"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:deluxe-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Deluxe"
+              },
+              {
+                "_key": "en",
+                "value": "Deluxe apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "family",
+          "format": {
+            "_type": "reference",
+            "_ref": "format-family"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:family-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Family Suite"
+              },
+              {
+                "_key": "en",
+                "value": "Family Suite apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "junior",
+          "format": {
+            "_type": "reference",
+            "_ref": "format-junior"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:junior-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Junior Suite"
+              },
+              {
+                "_key": "en",
+                "value": "Junior Suite apartment visualisation"
+              }
+            ]
+          }
+        },
+        {
+          "_key": "presidential",
+          "format": {
+            "_type": "reference",
+            "_ref": "format-presidential"
+          },
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:presidential-room.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Візуалізація апартаментів Presidential"
+              },
+              {
+                "_key": "en",
+                "value": "Presidential apartment visualisation"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "_type": "form",
+      "_key": "form",
+      "anchor": "forma",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Отримайте"
+            },
+            {
+              "_key": "en",
+              "value": "Get the"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "фінмодель"
+            },
+            {
+              "_key": "en",
+              "value": "financial model"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "та добірку планувань"
+            },
+            {
+              "_key": "en",
+              "value": "and a selection of floor plans"
+            }
+          ]
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Заповніть контактну форму та наш експерт з інвестицій FORREST Trinity Resort надішле матеріали по формату, який вас цікавить:"
+        },
+        {
+          "_key": "en",
+          "value": "Fill in the contact form and our FORREST Trinity Resort investment expert will send you materials on the format you are interested in:"
+        }
+      ],
+      "bullets": [
+        {
+          "_key": "b1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Добірку актуальних планувань з цінами"
+            },
+            {
+              "_key": "en",
+              "value": "A selection of current floor plans with prices"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:catalog-plans.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок прогнозованої окупності"
+            },
+            {
+              "_key": "en",
+              "value": "A projected payback calculation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:final-form.jpg"
+            },
+            "hotspot": {
+              "x": 0.28,
+              "y": 0.22
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b3",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Умови оплати та розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "Payment and instalment terms"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.45
+            },
+            "decorative": true
+          }
+        }
+      ]
+    },
+    {
+      "_type": "location",
+      "_key": "location",
+      "anchor": "lokatsiya-google",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Природа навколо"
+            },
+            {
+              "_key": "en",
+              "value": "Nature all around"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "та Буковель поруч"
+            },
+            {
+              "_key": "en",
+              "value": "and Bukovel nearby"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Підйомники, ресторани, SPA та озеро Молодості в кількох хвилинах від FORREST. Відкрийте карту, щоб побудувати маршрут."
+        },
+        {
+          "_key": "en",
+          "value": "Lifts, restaurants, SPA and the Lake of Youth are minutes away from FORREST. Open the map to plan your route."
+        }
+      ],
+      "mapLink": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Переглянути на Google карті"
+          },
+          {
+            "_key": "en",
+            "value": "View on Google Maps"
+          }
+        ],
+        "href": "https://www.google.com/maps/d/u/0/viewer?mid=1B9_ge7bS7tqSZC_bSdOAcCAWerE8xUY&ll=48.35448751795114%2C24.399357499999972&z=17"
+      },
+      "map": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:bukovel-map.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Карта Буковеля з розташуванням FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "Map of Bukovel showing FORREST Trinity Resort"
+          }
+        ]
+      },
+      "pins": [
+        {
+          "_key": "p1",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Паркувальний майданчик"
+            },
+            {
+              "_key": "en",
+              "value": "Parking"
+            }
+          ],
+          "x": 24.9,
+          "y": 8.1,
+          "side": "left",
+          "icon": "parking"
+        },
+        {
+          "_key": "p2",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Бабин Бограч"
+            },
+            {
+              "_key": "en",
+              "value": "Babyn Bohrach"
+            }
+          ],
+          "x": 31.8,
+          "y": 5.5,
+          "side": "right",
+          "icon": "food"
+        },
+        {
+          "_key": "p3",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Гуцул Ленд"
+            },
+            {
+              "_key": "en",
+              "value": "Hutsul Land"
+            }
+          ],
+          "x": 30.4,
+          "y": 10.4,
+          "side": "right",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p4",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Озеро Молодості"
+            },
+            {
+              "_key": "en",
+              "value": "Lake of Youth"
+            }
+          ],
+          "x": 30,
+          "y": 17,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p5",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Margherita"
+            },
+            {
+              "_key": "en",
+              "value": "Margherita"
+            }
+          ],
+          "x": 36.3,
+          "y": 17.8,
+          "side": "right",
+          "icon": "food"
+        },
+        {
+          "_key": "p6",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Сноу Парк Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Snow Park Bukovel"
+            }
+          ],
+          "x": 12,
+          "y": 29.2,
+          "side": "right",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p7",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Batyarska Rebernya"
+            },
+            {
+              "_key": "en",
+              "value": "Batyarska Rebernya"
+            }
+          ],
+          "x": 63.9,
+          "y": 27.8,
+          "side": "left",
+          "icon": "food"
+        },
+        {
+          "_key": "p8",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Twins Hotel&Spa"
+            },
+            {
+              "_key": "en",
+              "value": "Twins Hotel&Spa"
+            }
+          ],
+          "x": 69.4,
+          "y": 35.8,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p9",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "GirskiDelux"
+            },
+            {
+              "_key": "en",
+              "value": "GirskiDelux"
+            }
+          ],
+          "x": 74.1,
+          "y": 34.3,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p10",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "VODA club"
+            },
+            {
+              "_key": "en",
+              "value": "VODA club"
+            }
+          ],
+          "x": 38.7,
+          "y": 40.3,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p11",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Radisson Blu Resort"
+            },
+            {
+              "_key": "en",
+              "value": "Radisson Blu Resort"
+            }
+          ],
+          "x": 59.9,
+          "y": 41.5,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p12",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Bukovel arthotel"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel arthotel"
+            }
+          ],
+          "x": 13.4,
+          "y": 59.1,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p13",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel"
+            }
+          ],
+          "x": 44.6,
+          "y": 61.8,
+          "side": "left",
+          "icon": "leisure"
+        },
+        {
+          "_key": "p14",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "HVOYA «Хвоя»"
+            },
+            {
+              "_key": "en",
+              "value": "HVOYA"
+            }
+          ],
+          "x": 51.7,
+          "y": 64.5,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p15",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Tbiliso"
+            },
+            {
+              "_key": "en",
+              "value": "Tbiliso"
+            }
+          ],
+          "x": 47,
+          "y": 70.3,
+          "side": "left",
+          "icon": "food"
+        },
+        {
+          "_key": "p16",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Підгір'я"
+            },
+            {
+              "_key": "en",
+              "value": "Pidhiria"
+            }
+          ],
+          "x": 88.5,
+          "y": 69.8,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p17",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Mountain Residence"
+            },
+            {
+              "_key": "en",
+              "value": "Mountain Residence"
+            }
+          ],
+          "x": 36.6,
+          "y": 75.8,
+          "side": "right",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p18",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "F&B Spa Resort"
+            },
+            {
+              "_key": "en",
+              "value": "F&B Spa Resort"
+            }
+          ],
+          "x": 85.1,
+          "y": 77.7,
+          "side": "left",
+          "icon": "hotel"
+        },
+        {
+          "_key": "p19",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Піцерія Дон Япон"
+            },
+            {
+              "_key": "en",
+              "value": "Pizzeria Don Yapon"
+            }
+          ],
+          "x": 75.6,
+          "y": 83.3,
+          "side": "right",
+          "icon": "food"
+        }
+      ],
+      "resort": {
+        "x": 23.5,
+        "y": 79,
+        "label": [
+          {
+            "_key": "uk",
+            "value": "FORREST Trinity Resort"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST Trinity Resort"
+          }
+        ],
+        "card": {
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:tooltip.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "badge": [
+            {
+              "_key": "uk",
+              "value": "Буковель"
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST Trinity Resort"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST Trinity Resort"
+            }
+          ],
+          "subtitle": [
+            {
+              "_key": "uk",
+              "value": "Курорт серед лісу біля траси 5G"
+            },
+            {
+              "_key": "en",
+              "value": "A forest resort next to slope 5G"
+            }
+          ],
+          "facts": [
+            {
+              "_key": "f1",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "7 хв"
+                },
+                {
+                  "_key": "en",
+                  "value": "7 min"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "до центру Буковеля"
+                },
+                {
+                  "_key": "en",
+                  "value": "to Bukovel centre"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "Ski In/Out"
+                },
+                {
+                  "_key": "en",
+                  "value": "Ski In/Out"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий вихід на трасу 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct access to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "2 заїзди"
+                },
+                {
+                  "_key": "en",
+                  "value": "2 entrances"
+                }
+              ],
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "зручна логістика"
+                },
+                {
+                  "_key": "en",
+                  "value": "easy logistics"
+                }
+              ]
+            }
+          ],
+          "chips": [
+            {
+              "_key": "c1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Ліс з чотирьох сторін"
+                },
+                {
+                  "_key": "en",
+                  "value": "Forest on all four sides"
+                }
+              ]
+            },
+            {
+              "_key": "c2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Гірська річка"
+                },
+                {
+                  "_key": "en",
+                  "value": "Mountain river"
+                }
+              ]
+            },
+            {
+              "_key": "c3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Підземний паркінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "Underground parking"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_type": "infrastructure",
+      "_key": "infrastructure",
+      "anchor": "infrastruktura",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "14 причин приїжджати"
+            },
+            {
+              "_key": "en",
+              "value": "14 reasons to come"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "у FORREST"
+            },
+            {
+              "_key": "en",
+              "value": "to FORREST"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "цілий рік"
+            },
+            {
+              "_key": "en",
+              "value": "all year round"
+            }
+          ]
+        }
+      ],
+      "moreLabel": [
+        {
+          "_key": "uk",
+          "value": "Детальніше"
+        },
+        {
+          "_key": "en",
+          "value": "More details"
+        }
+      ],
+      "items": [
+        {
+          "_key": "i1",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "SKI IN / SKI OUT НА ТРАСУ 5G"
+            },
+            {
+              "_key": "en",
+              "value": "SKI IN / SKI OUT TO SLOPE 5G"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Виходите з готелю — і ви вже на схилі"
+            },
+            {
+              "_key": "en",
+              "value": "Step out of the hotel and you are on the slope"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Прямий вихід на схил R5, без трансферу і пробок. Поруч ski-room із сушильними шафами і кімнати для зберігання лиж і велосипедів. Для дітей працює лижна школа."
+            },
+            {
+              "_key": "en",
+              "value": "Direct access to slope R5, no transfers or traffic. Next to it — a ski room with drying cabinets and storage for skis and bikes. A ski school works for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-snowboarder.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "2 500+ м² WELLNESS & SPA"
+            },
+            {
+              "_key": "en",
+              "value": "2,500+ m² WELLNESS & SPA"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Терми, сауни і хамам у будь-який сезон"
+            },
+            {
+              "_key": "en",
+              "value": "Thermae, saunas and hammam in any season"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Римські терми, японська баня, аромасауна, хамам, соляна кімната і кімната чайних церемоній. Тут же критий басейн із виходом назовні, дитячий басейн, масажні кабінети і салон краси. Для родин є окремий SPA на два поверхи."
+            },
+            {
+              "_key": "en",
+              "value": "Roman thermae, Japanese bath, aroma sauna, hammam, salt room and a tea ceremony room. Also an indoor pool with an outdoor exit, a children's pool, massage rooms and a beauty salon. Families have a separate two-storey SPA."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-pool.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "INFINITY POOL НА ВИСОТІ 962 м"
+            },
+            {
+              "_key": "en",
+              "value": "INFINITY POOL AT 962 m"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Басейн на даху з панорамою Карпат"
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop pool with a Carpathian panorama"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Басейн площею 106 м² над лісом, дві джакузі і лаунж-зона для компаній. Поруч окремі SPA-басейни для дорослих і для дітей."
+            },
+            {
+              "_key": "en",
+              "value": "A 106 m² pool above the forest, two jacuzzis and a lounge area for groups. Next to it — separate SPA pools for adults and for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-okupnist.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "BIOHACKING & RECOVERY CENTER"
+            },
+            {
+              "_key": "en",
+              "value": "BIOHACKING & RECOVERY CENTER"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Флоатинг, кріо- і світлотерапія для відновлення"
+            },
+            {
+              "_key": "en",
+              "value": "Floating, cryo and light therapy for recovery"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Холодні купелі, інфрачервона кімната, флоатинг, кріо- і світлотерапія. Є готові програми: антистрес, відновлення сну, 72-годинне перезавантаження."
+            },
+            {
+              "_key": "en",
+              "value": "Cold plunges, an infrared room, floating, cryo and light therapy. Ready-made programmes: anti-stress, sleep recovery, 72-hour reset."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-woman.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "КОНФЕРЕНЦ-ЗАЛИ НА [ФАКТ: N] ОСІБ"
+            },
+            {
+              "_key": "en",
+              "value": "CONFERENCE HALLS FOR [FACT: N] PEOPLE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Форуми, стратегічні сесії і корпоративні виїзди"
+            },
+            {
+              "_key": "en",
+              "value": "Forums, strategy sessions and corporate retreats"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Залу можна розставити як театр, клас, банкет або круглий стіл. Поруч 4–6 переговорних і коворкінг."
+            },
+            {
+              "_key": "en",
+              "value": "The hall can be set up as a theatre, classroom, banquet or round table. Next to it — 4–6 meeting rooms and a coworking space."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i6",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "400+ м² ДИТЯЧОГО ПРОСТОРУ"
+            },
+            {
+              "_key": "en",
+              "value": "400+ m² OF KIDS' SPACE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Програми для дітей від 2 до 14 років"
+            },
+            {
+              "_key": "en",
+              "value": "Programmes for children aged 2 to 14"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Окремі програми для груп 2–5, 6–10 і 11–14 років, з нянями і аніматорами. Надворі дитячі майданчики і спрей-майданчик. Поки діти зайняті, батьки відпочивають у SPA чи ресторані."
+            },
+            {
+              "_key": "en",
+              "value": "Separate programmes for ages 2–5, 6–10 and 11–14, with nannies and entertainers. Outdoors — playgrounds and a splash pad. While the kids are busy, parents relax in the SPA or a restaurant."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-family-meadow.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i7",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "2 РЕСТОРАНИ І 3 КАФЕ ТА БАРИ"
+            },
+            {
+              "_key": "en",
+              "value": "2 RESTAURANTS AND 3 CAFÉS & BARS"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Сніданки, обіди і кава після катання без виїзду з курорту"
+            },
+            {
+              "_key": "en",
+              "value": "Breakfast, lunch and coffee after skiing without leaving the resort"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Концептуальний ресторан створюють разом із провідними рестораторами і шефами, він відкривається одночасно з готелем. Для родин є сімейний ресторан із дитячим меню. Також працюють après-ski бар біля лижної кімнати, бар у SPA і лаунж-кафе біля відкритого басейну."
+            },
+            {
+              "_key": "en",
+              "value": "A concept restaurant is being created with leading restaurateurs and chefs and opens together with the hotel. Families have a family restaurant with a kids' menu. There is also an après-ski bar by the ski room, a bar in the SPA and a lounge café by the outdoor pool."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-bar-toast.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i8",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "230 м² ВІДКРИТИЙ БАСЕЙН"
+            },
+            {
+              "_key": "en",
+              "value": "230 m² OUTDOOR POOL"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Улітку басейн, узимку ковзанка"
+            },
+            {
+              "_key": "en",
+              "value": "A pool in summer, an ice rink in winter"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Навколо басейну 620 м² зони відпочинку з гідромасажними зонами і лежаками. Узимку басейн стає ковзанкою зі школою перших кроків для дітей."
+            },
+            {
+              "_key": "en",
+              "value": "Around the pool — 620 m² of relaxation area with hydromassage zones and loungers. In winter the pool becomes an ice rink with a first-steps school for children."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i9",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST SKY VIEW"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST SKY VIEW"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Оглядовий майданчик із видом на 360°"
+            },
+            {
+              "_key": "en",
+              "value": "A 360° observation deck"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Майданчик на висоті 48 метрів — найвища точка комплексу. Звідси видно ліс, схили і гірські хребти навколо Буковеля."
+            },
+            {
+              "_key": "en",
+              "value": "A deck 48 metres high — the highest point of the complex. From here you see the forest, the slopes and the mountain ridges around Bukovel."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:sun-carpathian-slope.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i10",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "МЕДІЙНИЙ ЦЕНТР"
+            },
+            {
+              "_key": "en",
+              "value": "MEDIA CENTRE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Студії для трансляцій, подкастів і онлайн-зустрічей"
+            },
+            {
+              "_key": "en",
+              "value": "Studios for broadcasts, podcasts and online meetings"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Мультикамерна зйомка, професійне світло і звук, подкаст-студія, звукоізольовані онлайн-кімнати. Подію можна провести наживо і водночас транслювати на міжнародну аудиторію."
+            },
+            {
+              "_key": "en",
+              "value": "Multi-camera shooting, professional light and sound, a podcast studio, soundproof online rooms. An event can be held live and streamed to an international audience at the same time."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-detail-hands.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i11",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ROOFTOP 579 м²"
+            },
+            {
+              "_key": "en",
+              "value": "ROOFTOP 579 m²"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Вечері з панорамою, закриті події і кіно під зорями"
+            },
+            {
+              "_key": "en",
+              "value": "Dinners with a view, private events and cinema under the stars"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Простір на даху для вечері на заході сонця, закритих зустрічей, презентацій і приватних святкувань. Тут проходять вечері від шефа і сімейний кінотеатр просто неба."
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop space for sunset dinners, private meetings, presentations and private celebrations. Chef's dinners and an open-air family cinema take place here."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-terrace-evening.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i12",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "СКАЛОДРОМ І МОТУЗКОВИЙ ПАРК"
+            },
+            {
+              "_key": "en",
+              "value": "CLIMBING WALL AND ROPE PARK"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Пригоди для дітей за будь-якої погоди"
+            },
+            {
+              "_key": "en",
+              "value": "Adventures for children in any weather"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "На скалодромі маршрути різної складності з тренерами. Мотузкові траси розраховані на дітей 5–14 років."
+            },
+            {
+              "_key": "en",
+              "value": "Climbing routes of different difficulty with coaches. Rope courses are designed for children aged 5–14."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-architecture.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i13",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "ПАДЕЛ НА ДАХУ І ФІТНЕС-ЦЕНТР"
+            },
+            {
+              "_key": "en",
+              "value": "ROOFTOP PADEL AND FITNESS CENTRE"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Спорт між катанням, SPA і зустрічами"
+            },
+            {
+              "_key": "en",
+              "value": "Sport between skiing, SPA and meetings"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Падел-корт на даху: можна орендувати корт, взяти тренера або зіграти закритий турнір. Фітнес-центр із сучасним обладнанням, персональними і груповими тренуваннями та вуличними тренажерами."
+            },
+            {
+              "_key": "en",
+              "value": "A rooftop padel court: rent a court, book a coach or play a private tournament. A fitness centre with modern equipment, personal and group training and outdoor workout machines."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:rock-man-sunset.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "i14",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "150 ПАРКОМІСЦЬ І УКРИТТЯ"
+            },
+            {
+              "_key": "en",
+              "value": "150 PARKING SPACES AND A SHELTER"
+            }
+          ],
+          "lead": [
+            {
+              "_key": "uk",
+              "value": "Підземний паркінг, який працює як укриття"
+            },
+            {
+              "_key": "en",
+              "value": "Underground parking that works as a shelter"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Паркомісця є в усіх трьох корпусах, з паркінгу ліфтом можна піднятися одразу в будівлю. Доступ контрольований, є відеоспостереження і зарядні станції для електромобілів. Підземна частина обладнана як укриття: інженерні системи, аварійне освітлення, зв'язок."
+            },
+            {
+              "_key": "en",
+              "value": "Parking spaces are in all three buildings; a lift takes you straight from the parking into the building. Controlled access, video surveillance and EV chargers. The underground part is equipped as a shelter: engineering systems, emergency lighting, communications."
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:wind-section.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        }
+      ]
+    },
+    {
+      "_type": "numbers",
+      "_key": "numbers",
+      "anchor": "cyfry-2",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Тепер — про головне."
+            },
+            {
+              "_key": "en",
+              "value": "Now for the main thing."
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Ваш актив у цифрах."
+            },
+            {
+              "_key": "en",
+              "value": "Your asset in numbers."
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "yieldCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Річна дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Annual yield"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "12%"
+          },
+          {
+            "_key": "en",
+            "value": "12%"
+          }
+        ]
+      },
+      "paybackCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Окупність"
+          },
+          {
+            "_key": "en",
+            "value": "Payback"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "10"
+          },
+          {
+            "_key": "en",
+            "value": "10"
+          }
+        ],
+        "unit": [
+          {
+            "_key": "uk",
+            "value": "років"
+          },
+          {
+            "_key": "en",
+            "value": "years"
+          }
+        ],
+        "pointLabel": [
+          {
+            "_key": "uk",
+            "value": "Точка окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Break-even point"
+          }
+        ],
+        "start": [
+          {
+            "_key": "uk",
+            "value": "Старт"
+          },
+          {
+            "_key": "en",
+            "value": "Start"
+          }
+        ],
+        "point": [
+          {
+            "_key": "uk",
+            "value": "10 р."
+          },
+          {
+            "_key": "en",
+            "value": "10 yrs"
+          }
+        ],
+        "end": [
+          {
+            "_key": "uk",
+            "value": "15 р."
+          },
+          {
+            "_key": "en",
+            "value": "15 yrs"
+          }
+        ]
+      },
+      "paymentCard": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Перший внесок"
+          },
+          {
+            "_key": "en",
+            "value": "First payment"
+          }
+        ],
+        "value": [
+          {
+            "_key": "uk",
+            "value": "$5 533"
+          },
+          {
+            "_key": "en",
+            "value": "$5,533"
+          }
+        ],
+        "months": [
+          {
+            "_key": "uk",
+            "value": "24"
+          },
+          {
+            "_key": "en",
+            "value": "24"
+          }
+        ],
+        "monthsLabel": [
+          {
+            "_key": "uk",
+            "value": "місяці"
+          },
+          {
+            "_key": "en",
+            "value": "months"
+          }
+        ],
+        "steps": [
+          {
+            "_key": "s1",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Внесок"
+              },
+              {
+                "_key": "en",
+                "value": "Deposit"
+              }
+            ],
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Старт розстрочки"
+              },
+              {
+                "_key": "en",
+                "value": "Instalment start"
+              }
+            ]
+          },
+          {
+            "_key": "s2",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Платежі"
+              },
+              {
+                "_key": "en",
+                "value": "Payments"
+              }
+            ],
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Рівними частинами щомісяця"
+              },
+              {
+                "_key": "en",
+                "value": "Equal monthly parts"
+              }
+            ]
+          }
+        ]
+      },
+      "panorama": {
+        "asset": {
+          "_ref": "fixture:wood-pano.jpg"
+        },
+        "decorative": true
+      },
+      "calc": {
+        "title": [
+          {
+            "_key": "l1",
+            "text": [
+              {
+                "_key": "uk",
+                "value": "Розрахуйте дохід"
+              },
+              {
+                "_key": "en",
+                "value": "Calculate the income"
+              }
+            ],
+            "muted": false
+          },
+          {
+            "_key": "l2",
+            "text": [
+              {
+                "_key": "uk",
+                "value": "свого апартаменту"
+              },
+              {
+                "_key": "en",
+                "value": "of your apartment"
+              }
+            ],
+            "muted": true
+          }
+        ],
+        "formatLabel": [
+          {
+            "_key": "uk",
+            "value": "Оберіть апартамент"
+          },
+          {
+            "_key": "en",
+            "value": "Choose an apartment"
+          }
+        ],
+        "paymentLabel": [
+          {
+            "_key": "uk",
+            "value": "Варіант оплати"
+          },
+          {
+            "_key": "en",
+            "value": "Payment option"
+          }
+        ],
+        "formats": [
+          {
+            "_key": "f1",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-superior"
+            },
+            "area": 29.5,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f2",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-deluxe"
+            },
+            "area": 43,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f3",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-family"
+            },
+            "area": 57.5,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f4",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-junior"
+            },
+            "area": 77.3,
+            "yieldPercent": 12
+          },
+          {
+            "_key": "f5",
+            "format": {
+              "_type": "reference",
+              "_ref": "format-presidential"
+            },
+            "area": 111,
+            "yieldPercent": 12
+          }
+        ],
+        "payments": [
+          {
+            "_key": "p1",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Одноразова оплата"
+              },
+              {
+                "_key": "en",
+                "value": "One-time payment"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "100% одразу"
+              },
+              {
+                "_key": "en",
+                "value": "100% upfront"
+              }
+            ],
+            "firstPercent": 100,
+            "months": 0,
+            "isDefault": false
+          },
+          {
+            "_key": "p2",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Розтермінування"
+              },
+              {
+                "_key": "en",
+                "value": "Instalments"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "12 міс, внесок 30%"
+              },
+              {
+                "_key": "en",
+                "value": "12 mo, 30% deposit"
+              }
+            ],
+            "firstPercent": 30,
+            "months": 12,
+            "isDefault": false
+          },
+          {
+            "_key": "p3",
+            "title": [
+              {
+                "_key": "uk",
+                "value": "Розтермінування"
+              },
+              {
+                "_key": "en",
+                "value": "Instalments"
+              }
+            ],
+            "note": [
+              {
+                "_key": "uk",
+                "value": "24 міс, внесок 30%"
+              },
+              {
+                "_key": "en",
+                "value": "24 mo, 30% deposit"
+              }
+            ],
+            "firstPercent": 30,
+            "months": 24,
+            "isDefault": true
+          }
+        ],
+        "pricePerM2": 4500,
+        "areaLabel": [
+          {
+            "_key": "uk",
+            "value": "Площа"
+          },
+          {
+            "_key": "en",
+            "value": "Area"
+          }
+        ],
+        "areaUnit": [
+          {
+            "_key": "uk",
+            "value": "м²"
+          },
+          {
+            "_key": "en",
+            "value": "m²"
+          }
+        ],
+        "priceM2Label": [
+          {
+            "_key": "uk",
+            "value": "Ціна за м²"
+          },
+          {
+            "_key": "en",
+            "value": "Price per m²"
+          }
+        ],
+        "rentLabel": [
+          {
+            "_key": "uk",
+            "value": "Гарантована оренда"
+          },
+          {
+            "_key": "en",
+            "value": "Guaranteed rent"
+          }
+        ],
+        "rentValue": [
+          {
+            "_key": "uk",
+            "value": "20 700 ₴"
+          },
+          {
+            "_key": "en",
+            "value": "₴20,700"
+          }
+        ],
+        "rentUnit": [
+          {
+            "_key": "uk",
+            "value": "/м²"
+          },
+          {
+            "_key": "en",
+            "value": "/m²"
+          }
+        ],
+        "currency": "$",
+        "priceLabel": [
+          {
+            "_key": "uk",
+            "value": "Вартість апартаменту"
+          },
+          {
+            "_key": "en",
+            "value": "Apartment price"
+          }
+        ],
+        "yieldLabel": [
+          {
+            "_key": "uk",
+            "value": "Дохідність"
+          },
+          {
+            "_key": "en",
+            "value": "Yield"
+          }
+        ],
+        "firstLabel": [
+          {
+            "_key": "uk",
+            "value": "Перший внесок"
+          },
+          {
+            "_key": "en",
+            "value": "First payment"
+          }
+        ],
+        "monthLabel": [
+          {
+            "_key": "uk",
+            "value": "Щомісячний платіж"
+          },
+          {
+            "_key": "en",
+            "value": "Monthly payment"
+          }
+        ],
+        "noMonthly": [
+          {
+            "_key": "uk",
+            "value": "—"
+          },
+          {
+            "_key": "en",
+            "value": "—"
+          }
+        ],
+        "incomeLabel": [
+          {
+            "_key": "uk",
+            "value": "Річний дохід"
+          },
+          {
+            "_key": "en",
+            "value": "Annual income"
+          }
+        ],
+        "paybackLabel": [
+          {
+            "_key": "uk",
+            "value": "Строк окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Payback period"
+          }
+        ],
+        "paybackFormat": [
+          {
+            "_key": "uk",
+            "value": "≈ {n} р."
+          },
+          {
+            "_key": "en",
+            "value": "≈ {n} yrs"
+          }
+        ],
+        "chartTitle": [
+          {
+            "_key": "uk",
+            "value": "Накопичений дохід за роками"
+          },
+          {
+            "_key": "en",
+            "value": "Accumulated income by year"
+          }
+        ],
+        "breakEvenFormat": [
+          {
+            "_key": "uk",
+            "value": "Окупність на {n}-й рік"
+          },
+          {
+            "_key": "en",
+            "value": "Payback in year {n}"
+          }
+        ],
+        "years": 15,
+        "axisStart": [
+          {
+            "_key": "uk",
+            "value": "1 рік"
+          },
+          {
+            "_key": "en",
+            "value": "Year 1"
+          }
+        ],
+        "axisEnd": [
+          {
+            "_key": "uk",
+            "value": "15 років"
+          },
+          {
+            "_key": "en",
+            "value": "15 years"
+          }
+        ],
+        "legendBefore": [
+          {
+            "_key": "uk",
+            "value": "Дохід до окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Income before payback"
+          }
+        ],
+        "legendAfter": [
+          {
+            "_key": "uk",
+            "value": "Дохід після окупності"
+          },
+          {
+            "_key": "en",
+            "value": "Income after payback"
+          }
+        ],
+        "cta": {
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Отримати повну фінансову модель"
+            },
+            {
+              "_key": "en",
+              "value": "Get the full financial model"
+            }
+          ],
+          "href": "#forma"
+        }
+      }
+    },
+    {
+      "_type": "investorService",
+      "_key": "investorService",
+      "anchor": "servis",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Сервіс та контроль"
+            },
+            {
+              "_key": "en",
+              "value": "Service and control"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "для інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "for the investor"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "FORREST передбачає окрему екосистему сервісів для власників — від контролю фінансових показників до персонального супроводу та закритої інвесторської спільноти."
+        },
+        {
+          "_key": "en",
+          "value": "FORREST provides a dedicated ecosystem of services for owners — from monitoring financial performance to personal support and a closed investor community."
+        }
+      ],
+      "feature": {
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard"
+          }
+        ],
+        "text": [
+          {
+            "_key": "uk",
+            "value": "Завантаженість, бронювання, чиста дохідність, фінансові звіти та аналітика активу в одному кабінеті."
+          },
+          {
+            "_key": "en",
+            "value": "Occupancy, bookings, net yield, financial reports and asset analytics in one account."
+          }
+        ]
+      },
+      "services": [
+        {
+          "_key": "s2",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Investor Concierge"
+            },
+            {
+              "_key": "en",
+              "value": "Investor Concierge"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Персональний менеджер з питань документів, звітності, візитів, бронювань та спеціальних запитів."
+            },
+            {
+              "_key": "en",
+              "value": "A personal manager for documents, reporting, visits, bookings and special requests."
+            }
+          ]
+        },
+        {
+          "_key": "s3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Онлайн-будівництво"
+            },
+            {
+              "_key": "en",
+              "value": "Construction online"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Можливість слідкувати за динамікою будівництва та прогресом своєї черги."
+            },
+            {
+              "_key": "en",
+              "value": "Follow the construction progress and the status of your phase."
+            }
+          ]
+        },
+        {
+          "_key": "s4",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "VR-тур інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "Investor VR tour"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Доступ до майбутнього апартаменту, планування, інтер’єру та ключових зон ще до завершення будівництва."
+            },
+            {
+              "_key": "en",
+              "value": "Access to your future apartment, its layout, interior and key areas before construction is complete."
+            }
+          ]
+        },
+        {
+          "_key": "s5",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Owner's Night"
+            },
+            {
+              "_key": "en",
+              "value": "Owner's Night"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Закриті події для власників із презентацією результатів та нових сервісів курорту."
+            },
+            {
+              "_key": "en",
+              "value": "Private events for owners presenting results and new resort services."
+            }
+          ]
+        },
+        {
+          "_key": "s6",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Forrest Syndicate"
+            },
+            {
+              "_key": "en",
+              "value": "Forrest Syndicate"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Закрита інвесторська спільнота, бізнес-нетворкінг, клубні події та доступ до спеціальних форматів."
+            },
+            {
+              "_key": "en",
+              "value": "A closed investor community, business networking, club events and access to special formats."
+            }
+          ]
+        },
+        {
+          "_key": "s7",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Бізнес-сервіс для інвестора"
+            },
+            {
+              "_key": "en",
+              "value": "Business service for investors"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Можливість використовувати бізнес-інфраструктуру FORREST для власної команди та партнерів."
+            },
+            {
+              "_key": "en",
+              "value": "Use the FORREST business infrastructure for your own team and partners."
+            }
+          ]
+        }
+      ],
+      "dashboard": {
+        "ariaLabel": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard: завантаженість, бронювання, чиста дохідність і фінансові звіти"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard: occupancy, bookings, net yield and financial reports"
+          }
+        ],
+        "brand": "FORREST",
+        "nav": [
+          {
+            "_key": "n1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Огляд"
+              },
+              {
+                "_key": "en",
+                "value": "Overview"
+              }
+            ]
+          },
+          {
+            "_key": "n2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Бронювання"
+              },
+              {
+                "_key": "en",
+                "value": "Bookings"
+              }
+            ]
+          },
+          {
+            "_key": "n3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Фінанси"
+              },
+              {
+                "_key": "en",
+                "value": "Finance"
+              }
+            ]
+          },
+          {
+            "_key": "n4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Звіти"
+              },
+              {
+                "_key": "en",
+                "value": "Reports"
+              }
+            ]
+          },
+          {
+            "_key": "n5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Будівництво"
+              },
+              {
+                "_key": "en",
+                "value": "Construction"
+              }
+            ]
+          }
+        ],
+        "unit": [
+          {
+            "_key": "uk",
+            "value": "Апартамент W-214"
+          },
+          {
+            "_key": "en",
+            "value": "Apartment W-214"
+          }
+        ],
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Investor Dashboard"
+          },
+          {
+            "_key": "en",
+            "value": "Investor Dashboard"
+          }
+        ],
+        "status": [
+          {
+            "_key": "uk",
+            "value": "Онлайн"
+          },
+          {
+            "_key": "en",
+            "value": "Online"
+          }
+        ],
+        "kpis": [
+          {
+            "_key": "k1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Завантаженість"
+              },
+              {
+                "_key": "en",
+                "value": "Occupancy"
+              }
+            ],
+            "value": 87,
+            "suffix": "%",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "за сезон"
+              },
+              {
+                "_key": "en",
+                "value": "per season"
+              }
+            ]
+          },
+          {
+            "_key": "k2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Бронювання"
+              },
+              {
+                "_key": "en",
+                "value": "Bookings"
+              }
+            ],
+            "value": 42,
+            "note": [
+              {
+                "_key": "uk",
+                "value": "за квартал"
+              },
+              {
+                "_key": "en",
+                "value": "per quarter"
+              }
+            ]
+          },
+          {
+            "_key": "k3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Чиста дохідність"
+              },
+              {
+                "_key": "en",
+                "value": "Net yield"
+              }
+            ],
+            "value": 12,
+            "suffix": "%",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "річних"
+              },
+              {
+                "_key": "en",
+                "value": "per year"
+              }
+            ]
+          },
+          {
+            "_key": "k4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Виплата"
+              },
+              {
+                "_key": "en",
+                "value": "Payout"
+              }
+            ],
+            "value": 1248,
+            "prefix": "$",
+            "note": [
+              {
+                "_key": "uk",
+                "value": "жовтень"
+              },
+              {
+                "_key": "en",
+                "value": "October"
+              }
+            ]
+          }
+        ],
+        "chartTitle": [
+          {
+            "_key": "uk",
+            "value": "Дохід активу, 2026"
+          },
+          {
+            "_key": "en",
+            "value": "Asset income, 2026"
+          }
+        ],
+        "chartPeriod": [
+          {
+            "_key": "uk",
+            "value": "12 міс"
+          },
+          {
+            "_key": "en",
+            "value": "12 mo"
+          }
+        ],
+        "chartPoints": [
+          62,
+          58,
+          60,
+          45,
+          38,
+          30,
+          22,
+          26,
+          34,
+          42,
+          36,
+          28
+        ],
+        "chartAxis": [
+          {
+            "_key": "a1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Січ"
+              },
+              {
+                "_key": "en",
+                "value": "Jan"
+              }
+            ]
+          },
+          {
+            "_key": "a2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Квіт"
+              },
+              {
+                "_key": "en",
+                "value": "Apr"
+              }
+            ]
+          },
+          {
+            "_key": "a3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Лип"
+              },
+              {
+                "_key": "en",
+                "value": "Jul"
+              }
+            ]
+          },
+          {
+            "_key": "a4",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Жовт"
+              },
+              {
+                "_key": "en",
+                "value": "Oct"
+              }
+            ]
+          },
+          {
+            "_key": "a5",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Гру"
+              },
+              {
+                "_key": "en",
+                "value": "Dec"
+              }
+            ]
+          }
+        ],
+        "reportsTitle": [
+          {
+            "_key": "uk",
+            "value": "Фінансові звіти"
+          },
+          {
+            "_key": "en",
+            "value": "Financial reports"
+          }
+        ],
+        "reports": [
+          {
+            "_key": "r1",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Жовтень"
+              },
+              {
+                "_key": "en",
+                "value": "October"
+              }
+            ],
+            "tag": "PDF"
+          },
+          {
+            "_key": "r2",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Вересень"
+              },
+              {
+                "_key": "en",
+                "value": "September"
+              }
+            ],
+            "tag": "PDF"
+          },
+          {
+            "_key": "r3",
+            "label": [
+              {
+                "_key": "uk",
+                "value": "Серпень"
+              },
+              {
+                "_key": "en",
+                "value": "August"
+              }
+            ],
+            "tag": "PDF"
+          }
+        ],
+        "phone": {
+          "payoutLabel": [
+            {
+              "_key": "uk",
+              "value": "Виплата за жовтень"
+            },
+            {
+              "_key": "en",
+              "value": "October payout"
+            }
+          ],
+          "payout": 1248,
+          "payoutPrefix": "$",
+          "occupancy": 87,
+          "occupancyLabel": [
+            {
+              "_key": "uk",
+              "value": "завантаженість"
+            },
+            {
+              "_key": "en",
+              "value": "occupancy"
+            }
+          ],
+          "stays": [
+            {
+              "_key": "p1",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "12–15 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "12–15 Nov"
+                }
+              ],
+              "tag": "Rock"
+            },
+            {
+              "_key": "p2",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "18–21 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "18–21 Nov"
+                }
+              ],
+              "tag": "Sun"
+            },
+            {
+              "_key": "p3",
+              "dates": [
+                {
+                  "_key": "uk",
+                  "value": "22–24 лис"
+                },
+                {
+                  "_key": "en",
+                  "value": "22–24 Nov"
+                }
+              ],
+              "tag": "Wind"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "_type": "construction",
+      "_key": "construction",
+      "anchor": "budivnytstvo",
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Хід будівництва"
+        },
+        {
+          "_key": "en",
+          "value": "Construction progress"
+        }
+      ],
+      "rowPrevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попередня картка"
+        },
+        {
+          "_key": "en",
+          "value": "Previous card"
+        }
+      ],
+      "rowNextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступна картка"
+        },
+        {
+          "_key": "en",
+          "value": "Next card"
+        }
+      ],
+      "photoPrevLabel": [
+        {
+          "_key": "uk",
+          "value": "Попереднє фото"
+        },
+        {
+          "_key": "en",
+          "value": "Previous photo"
+        }
+      ],
+      "photoNextLabel": [
+        {
+          "_key": "uk",
+          "value": "Наступне фото"
+        },
+        {
+          "_key": "en",
+          "value": "Next photo"
+        }
+      ],
+      "videoLabel": [
+        {
+          "_key": "uk",
+          "value": "Drone-video"
+        },
+        {
+          "_key": "en",
+          "value": "Drone video"
+        }
+      ],
+      "videoAriaLabel": [
+        {
+          "_key": "uk",
+          "value": "Дивитися drone-video"
+        },
+        {
+          "_key": "en",
+          "value": "Watch the drone video"
+        }
+      ],
+      "maxItems": 3,
+      "maxAgeDays": 183,
+      "updates": [
+        {
+          "_key": "u1",
+          "date": "2026-10-28",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Монолітний каркас: 3-й поверх"
+            },
+            {
+              "_key": "en",
+              "value": "Monolithic frame: 3rd floor"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Секція WIND піднялася до третього поверху. Паралельно з каркасом підводимо зовнішні інженерні мережі та готуємо майданчик для наступної черги."
+            },
+            {
+              "_key": "en",
+              "value": "The WIND section has reached the third floor. Alongside the frame we are bringing in external utilities and preparing the site for the next phase."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section-winter.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Монолітний каркас: 3-й поверх, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic frame: 3rd floor, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено монолітні роботи 2-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "Monolithic works on the 2nd floor completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Розпочато армування перекриття 3-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "Reinforcement of the 3rd-floor slab started"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Прокладено зовнішні інженерні мережі"
+                },
+                {
+                  "_key": "en",
+                  "value": "External utilities laid"
+                }
+              ]
+            },
+            {
+              "_key": "w4",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Підготовлено майданчик під секцію ROCK"
+                },
+                {
+                  "_key": "en",
+                  "value": "Site prepared for the ROCK section"
+                }
+              ]
+            }
+          ],
+          "video": {
+            "duration": "1:42"
+          }
+        },
+        {
+          "_key": "u2",
+          "date": "2026-09-26",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Перекриття 1-го поверху"
+            },
+            {
+              "_key": "en",
+              "value": "1st-floor slab"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Підземна частина завершена й захищена гідроізоляцією. Над нею залито перше перекриття, з якого починається зростання надземних поверхів."
+            },
+            {
+              "_key": "en",
+              "value": "The underground part is complete and waterproofed. The first slab has been poured above it, from which the above-ground floors begin to rise."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:rock-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Перекриття 1-го поверху, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Залито перекриття 1-го поверху"
+                },
+                {
+                  "_key": "en",
+                  "value": "1st-floor slab poured"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Змонтовано опалубку вертикальних конструкцій"
+                },
+                {
+                  "_key": "en",
+                  "value": "Formwork for vertical structures installed"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Виконано гідроізоляцію підземної частини"
+                },
+                {
+                  "_key": "en",
+                  "value": "Underground part waterproofed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_key": "u3",
+          "date": "2026-08-29",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Фундаментна плита"
+            },
+            {
+              "_key": "en",
+              "value": "Foundation slab"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Залито монолітну фундаментну плиту, на якій стоятиме весь корпус. Котлован засипано, до майданчика облаштовано під’їзні шляхи для техніки."
+            },
+            {
+              "_key": "en",
+              "value": "The monolithic foundation slab that will carry the whole building has been poured. The pit has been backfilled and access roads for machinery have been laid to the site."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:rock-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Фундаментна плита, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено бетонування фундаментної плити"
+                },
+                {
+                  "_key": "en",
+                  "value": "Foundation slab concreting completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Виконано зворотне засипання котловану"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit backfilled"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Облаштовано тимчасові під’їзні шляхи"
+                },
+                {
+                  "_key": "en",
+                  "value": "Temporary access roads built"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_key": "u4",
+          "date": "2026-07-30",
+          "queue": "WIND",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Котлован і палі"
+            },
+            {
+              "_key": "en",
+              "value": "Pit and piles"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Отримано дозвіл на будівельні роботи. Розроблено котлован і влаштовано буронабивні палі, які забезпечують стійкість будівлі на гірському схилі."
+            },
+            {
+              "_key": "en",
+              "value": "The construction permit has been obtained. The pit has been dug and bored piles installed to keep the building stable on the mountain slope."
+            }
+          ],
+          "slides": [
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:sun-carpathian-slope.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 1"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 1"
+                }
+              ],
+              "_key": "sl1"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-architecture.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 2"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 2"
+                }
+              ],
+              "_key": "sl2"
+            },
+            {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:wind-section.jpg"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.5
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Котлован і палі, фото 3"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit and piles, photo 3"
+                }
+              ],
+              "_key": "sl3"
+            }
+          ],
+          "works": [
+            {
+              "_key": "w1",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Завершено розробку котловану"
+                },
+                {
+                  "_key": "en",
+                  "value": "Pit excavation completed"
+                }
+              ]
+            },
+            {
+              "_key": "w2",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Влаштовано буронабивні палі"
+                },
+                {
+                  "_key": "en",
+                  "value": "Bored piles installed"
+                }
+              ]
+            },
+            {
+              "_key": "w3",
+              "text": [
+                {
+                  "_key": "uk",
+                  "value": "Отримано дозвіл на виконання будівельних робіт"
+                },
+                {
+                  "_key": "en",
+                  "value": "Construction permit obtained"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "archive": {
+        "title": [
+          {
+            "_key": "uk",
+            "value": "Всі"
+          },
+          {
+            "_key": "en",
+            "value": "All"
+          }
+        ],
+        "text": [
+          {
+            "_key": "uk",
+            "value": "Архів звітів з фото та відео від початку будівництва."
+          },
+          {
+            "_key": "en",
+            "value": "Archive of reports with photos and videos since construction began."
+          }
+        ],
+        "ariaLabel": [
+          {
+            "_key": "uk",
+            "value": "Усі оновлення будівництва"
+          },
+          {
+            "_key": "en",
+            "value": "All construction updates"
+          }
+        ],
+        "href": "#"
+      }
+    },
+    {
+      "_type": "team",
+      "_key": "team",
+      "anchor": "komanda",
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Команда проєкту"
+        },
+        {
+          "_key": "en",
+          "value": "Project team"
+        }
+      ],
+      "subtitle": [
+        {
+          "_key": "uk",
+          "value": "За FORREST стоять ті, хто вже вміє створювати цінність"
+        },
+        {
+          "_key": "en",
+          "value": "Behind FORREST are people who already know how to create value"
+        }
+      ],
+      "members": [
+        {
+          "_key": "m1",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Забудовник"
+            },
+            {
+              "_key": "en",
+              "value": "Developer"
+            }
+          ],
+          "company": "Perspektyva Group",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/perspektyva-group-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Perspektyva Group"
+              },
+              {
+                "_key": "en",
+                "value": "Perspektyva Group"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-perspektyva.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Перша черга FORREST будується за власні кошти девелопера, що знижує залежність темпів будівництва від динаміки продажів."
+            },
+            {
+              "_key": "en",
+              "value": "The first phase of FORREST is being built with the developer’s own funds, which makes the pace of construction less dependent on sales."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "років досвіду"
+                },
+                {
+                  "_key": "en",
+                  "value": "years of experience"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "28"
+                },
+                {
+                  "_key": "en",
+                  "value": "28"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "реалізованих проєктів"
+                },
+                {
+                  "_key": "en",
+                  "value": "completed projects"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "17"
+                },
+                {
+                  "_key": "en",
+                  "value": "17"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "залучених інвестицій"
+                },
+                {
+                  "_key": "en",
+                  "value": "in investment raised"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "$300+ млн"
+                },
+                {
+                  "_key": "en",
+                  "value": "$300M+"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Ми не будуємо курорт. Ми створюємо нову легенду українських Карпат.»"
+              },
+              {
+                "_key": "en",
+                "value": "“We are not building a resort. We are creating a new legend of the Ukrainian Carpathians.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Ігор Мироненко"
+              },
+              {
+                "_key": "en",
+                "value": "Ihor Myronenko"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "CEO Perspektyva Group"
+              },
+              {
+                "_key": "en",
+                "value": "CEO, Perspektyva Group"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-myronenko.png"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.25
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Ігор Мироненко"
+                },
+                {
+                  "_key": "en",
+                  "value": "Ihor Myronenko"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m2",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Архітектор"
+            },
+            {
+              "_key": "en",
+              "value": "Architect"
+            }
+          ],
+          "company": "Filimonov & Kashirina Architects",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/filimonov-kashirina-architects-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Filimonov & Kashirina Architects"
+              },
+              {
+                "_key": "en",
+                "value": "Filimonov & Kashirina Architects"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-filimonov.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Архітектура FORREST створена як продовження карпатського ландшафту, де WIND, ROCK і SUN мають власний характер, але працюють як один курорт."
+            },
+            {
+              "_key": "en",
+              "value": "FORREST’s architecture continues the Carpathian landscape: WIND, ROCK and SUN each have their own character but work as one resort."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Міжнародно визнане бюро"
+                },
+                {
+                  "_key": "en",
+                  "value": "Internationally recognised studio"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Architecture MasterPrize"
+                },
+                {
+                  "_key": "en",
+                  "value": "Architecture MasterPrize"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Публікації ArchDaily"
+                },
+                {
+                  "_key": "en",
+                  "value": "Featured on ArchDaily"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Це не ще один готель у горах — це об’єкт із власним обличчям.»"
+              },
+              {
+                "_key": "en",
+                "value": "“This is not just another hotel in the mountains — it is a building with a face of its own.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Сергій Філімонов та Наталя Каширіна"
+              },
+              {
+                "_key": "en",
+                "value": "Serhii Filimonov and Natalia Kashirina"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "Filimonov & Kashirina Architects"
+              },
+              {
+                "_key": "en",
+                "value": "Filimonov & Kashirina Architects"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-filimonov-kashirina.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.3
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Сергій Філімонов та Наталя Каширіна"
+                },
+                {
+                  "_key": "en",
+                  "value": "Serhii Filimonov and Natalia Kashirina"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m3",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Управляюча компанія"
+            },
+            {
+              "_key": "en",
+              "value": "Management company"
+            }
+          ],
+          "company": "Maestro Hotel Management",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/maestro-hotel-management-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "Maestro Hotel Management"
+              },
+              {
+                "_key": "en",
+                "value": "Maestro Hotel Management"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-maestro.jpg"
+            },
+            "hotspot": {
+              "x": 0.52,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Maestro відповідає за сервісну модель, персонал, маркетинг, продажі, бронювання та фінансову ефективність готелю."
+            },
+            {
+              "_key": "en",
+              "value": "Maestro is responsible for the service model, staff, marketing, sales, bookings and the hotel’s financial performance."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "готелів"
+                },
+                {
+                  "_key": "en",
+                  "value": "hotels"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "18"
+                },
+                {
+                  "_key": "en",
+                  "value": "18"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "номерів"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooms"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "780+"
+                },
+                {
+                  "_key": "en",
+                  "value": "780+"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторанів"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurants"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "10"
+                },
+                {
+                  "_key": "en",
+                  "value": "10"
+                }
+              ]
+            },
+            {
+              "_key": "s4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "операційного досвіду"
+                },
+                {
+                  "_key": "en",
+                  "value": "of operating experience"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "10 років"
+                },
+                {
+                  "_key": "en",
+                  "value": "10 years"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Сучасна гостинність починається не з відкриття готелю, а з рішень на етапі його створення.»"
+              },
+              {
+                "_key": "en",
+                "value": "“Modern hospitality starts not with the hotel’s opening, but with the decisions made while it is being created.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Едуард Режинський"
+              },
+              {
+                "_key": "en",
+                "value": "Eduard Rezhynskyi"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "CEO Maestro Hotel Management"
+              },
+              {
+                "_key": "en",
+                "value": "CEO, Maestro Hotel Management"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-rezhinsky.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.18
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Едуард Режинський"
+                },
+                {
+                  "_key": "en",
+                  "value": "Eduard Rezhynskyi"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "_key": "m4",
+          "role": [
+            {
+              "_key": "uk",
+              "value": "Дизайнер"
+            },
+            {
+              "_key": "en",
+              "value": "Designer"
+            }
+          ],
+          "company": "MAKHNO Studio",
+          "logo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:assets/logos/makhno-studio-white-dark.svg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": false,
+            "alt": [
+              {
+                "_key": "uk",
+                "value": "MAKHNO Studio"
+              },
+              {
+                "_key": "en",
+                "value": "MAKHNO Studio"
+              }
+            ]
+          },
+          "photo": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:team-card-makhno.webp"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          },
+          "text": [
+            {
+              "_key": "uk",
+              "value": "MAKHNO Studio створює авторські інтер’єри номерів та лобі, перетворюючи дизайн на частину преміального досвіду й цінності активу."
+            },
+            {
+              "_key": "en",
+              "value": "MAKHNO Studio creates signature interiors for the rooms and lobby, turning design into part of the premium experience and the value of the asset."
+            }
+          ],
+          "stats": [
+            {
+              "_key": "s1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "проєктів"
+                },
+                {
+                  "_key": "en",
+                  "value": "projects"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "600"
+                },
+                {
+                  "_key": "en",
+                  "value": "600"
+                }
+              ]
+            },
+            {
+              "_key": "s2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "країн"
+                },
+                {
+                  "_key": "en",
+                  "value": "countries"
+                }
+              ],
+              "value": [
+                {
+                  "_key": "uk",
+                  "value": "25"
+                },
+                {
+                  "_key": "en",
+                  "value": "25"
+                }
+              ]
+            },
+            {
+              "_key": "s3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Red Dot Design Award"
+                },
+                {
+                  "_key": "en",
+                  "value": "Red Dot Design Award"
+                }
+              ]
+            }
+          ],
+          "quote": {
+            "text": [
+              {
+                "_key": "uk",
+                "value": "«Це не декоративне рішення, а частина вартості активу.»"
+              },
+              {
+                "_key": "en",
+                "value": "“It is not a decorative choice, but part of the asset’s value.”"
+              }
+            ],
+            "name": [
+              {
+                "_key": "uk",
+                "value": "Сергій Махно"
+              },
+              {
+                "_key": "en",
+                "value": "Serhii Makhno"
+              }
+            ],
+            "position": [
+              {
+                "_key": "uk",
+                "value": "MAKHNO Studio"
+              },
+              {
+                "_key": "en",
+                "value": "MAKHNO Studio"
+              }
+            ],
+            "photo": {
+              "_type": "image",
+              "asset": {
+                "_ref": "fixture:team-makhno.webp"
+              },
+              "hotspot": {
+                "x": 0.5,
+                "y": 0.18
+              },
+              "decorative": false,
+              "alt": [
+                {
+                  "_key": "uk",
+                  "value": "Сергій Махно"
+                },
+                {
+                  "_key": "en",
+                  "value": "Serhii Makhno"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "_type": "faq",
+      "_key": "faq",
+      "anchor": "faq",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Відповіді"
+            },
+            {
+              "_key": "en",
+              "value": "Answers"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "на часті питання"
+            },
+            {
+              "_key": "en",
+              "value": "to frequent questions"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "docsTitle": [
+        {
+          "_key": "uk",
+          "value": "Матеріали для інвестора"
+        },
+        {
+          "_key": "en",
+          "value": "Investor materials"
+        }
+      ],
+      "docs": [
+        {
+          "_key": "d1",
+          "format": "PDF",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Презентація проєкту"
+            },
+            {
+              "_key": "en",
+              "value": "Project presentation"
+            }
+          ],
+          "note": [
+            {
+              "_key": "uk",
+              "value": "24 сторінки, 8 МБ"
+            },
+            {
+              "_key": "en",
+              "value": "24 pages, 8 MB"
+            }
+          ],
+          "file": null
+        },
+        {
+          "_key": "d2",
+          "format": "PDF",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Фінансова модель"
+            },
+            {
+              "_key": "en",
+              "value": "Financial model"
+            }
+          ],
+          "note": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок дохідності"
+            },
+            {
+              "_key": "en",
+              "value": "Return calculation"
+            }
+          ],
+          "file": null
+        },
+        {
+          "_key": "d3",
+          "format": "PDF",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Договір купівлі"
+            },
+            {
+              "_key": "en",
+              "value": "Purchase agreement"
+            }
+          ],
+          "note": [
+            {
+              "_key": "uk",
+              "value": "Типовий зразок"
+            },
+            {
+              "_key": "en",
+              "value": "Standard template"
+            }
+          ],
+          "file": null
+        }
+      ],
+      "ctaTitle": [
+        {
+          "_key": "uk",
+          "value": "Не знайшли відповідь?"
+        },
+        {
+          "_key": "en",
+          "value": "Didn't find an answer?"
+        }
+      ],
+      "ctaText": [
+        {
+          "_key": "uk",
+          "value": "Менеджер відповість на питання щодо апартаментів, дохідності та умов купівлі."
+        },
+        {
+          "_key": "en",
+          "value": "A manager will answer your questions about the apartments, returns and purchase terms."
+        }
+      ],
+      "cta": {
+        "label": [
+          {
+            "_key": "uk",
+            "value": "Поставити питання"
+          },
+          {
+            "_key": "en",
+            "value": "Ask a question"
+          }
+        ],
+        "href": "#forma-final"
+      },
+      "items": [
+        {
+          "_key": "q1",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Яку дохідність прогнозує FORREST?"
+            },
+            {
+              "_key": "en",
+              "value": "What return does FORREST project?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "Продуктова модель передбачає прогнозовану дохідність до 12% річних та очікуваний строк окупності до 10 років. Фактичні показники залежать від конкретного апартаменту та результатів роботи курорту."
+            },
+            {
+              "_key": "en",
+              "value": "The product model projects a return of up to 12% per year and an expected payback period of up to 10 years. Actual results depend on the specific apartment and the resort's performance."
+            }
+          ]
+        },
+        {
+          "_key": "q2",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Від чого залежить дохід мого апартаменту?"
+            },
+            {
+              "_key": "en",
+              "value": "What does my apartment's income depend on?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "WIND, ROCK і SUN працюють як єдина інвестиційна модель. Тому результат інвестора формується не лише попитом на одну секцію, а роботою всієї екосистеми Trinity Resort."
+            },
+            {
+              "_key": "en",
+              "value": "WIND, ROCK and SUN work as a single investment model. So the investor's result depends not only on demand for one section, but on the performance of the entire Trinity Resort ecosystem."
+            }
+          ]
+        },
+        {
+          "_key": "q3",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Хто управляє апартаментами?"
+            },
+            {
+              "_key": "en",
+              "value": "Who manages the apartments?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "Курорт працюватиме під управлінням Maestro Hotel Management, яка відповідає за операційну діяльність, сервіс, маркетинг, продажі, бронювання та фінансовий контроль."
+            },
+            {
+              "_key": "en",
+              "value": "The resort will be managed by Maestro Hotel Management, which is responsible for operations, service, marketing, sales, bookings and financial control."
+            }
+          ]
+        },
+        {
+          "_key": "q4",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Чи потрібно мені самостійно шукати орендарів?"
+            },
+            {
+              "_key": "en",
+              "value": "Do I need to find tenants myself?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "Ні. Апартаменти працюють у професійній готельній моделі під управлінням оператора."
+            },
+            {
+              "_key": "en",
+              "value": "No. The apartments operate in a professional hotel model managed by the operator."
+            }
+          ]
+        },
+        {
+          "_key": "q5",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Чи можу я сам відпочивати у своїх апартаментах?"
+            },
+            {
+              "_key": "en",
+              "value": "Can I stay in my apartment myself?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "Так. Інвестиційна модель передбачає можливість особистого проживання власника та користування інфраструктурою Trinity Resort."
+            },
+            {
+              "_key": "en",
+              "value": "Yes. The investment model allows the owner to stay in the apartment and use the Trinity Resort infrastructure."
+            }
+          ]
+        },
+        {
+          "_key": "q6",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Коли буде введено першу чергу?"
+            },
+            {
+              "_key": "en",
+              "value": "When will the first phase be completed?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "WIND заплановано до введення в експлуатацію у IV кварталі 2028 року. Для ROCK і SUN у актуальному Product Concept зазначено 2030 рік."
+            },
+            {
+              "_key": "en",
+              "value": "WIND is scheduled to be commissioned in Q4 2028. The current Product Concept states 2030 for ROCK and SUN."
+            }
+          ]
+        },
+        {
+          "_key": "q7",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "Хто є девелопером?"
+            },
+            {
+              "_key": "en",
+              "value": "Who is the developer?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "Perspektyva Group — компанія з 28-річним досвідом, 17 реалізованими проєктами та понад $300 млн залучених інвестицій."
+            },
+            {
+              "_key": "en",
+              "value": "Perspektyva Group is a company with 28 years of experience, 17 completed projects and over $300 million in investments raised."
+            }
+          ]
+        },
+        {
+          "_key": "q8",
+          "question": [
+            {
+              "_key": "uk",
+              "value": "У чому головна відмінність FORREST?"
+            },
+            {
+              "_key": "en",
+              "value": "What makes FORREST different?"
+            }
+          ],
+          "answer": [
+            {
+              "_key": "uk",
+              "value": "FORREST поєднує три автономні світи — Adults, Business і Family — у межах одного курорту та однієї інвестиційної моделі. Це дозволяє працювати з різними сценаріями попиту протягом року."
+            },
+            {
+              "_key": "en",
+              "value": "FORREST combines three autonomous worlds — Adults, Business and Family — within one resort and one investment model. This makes it possible to work with different demand scenarios throughout the year."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "formFinal",
+      "_key": "formFinal",
+      "anchor": "forma-final",
+      "title": [
+        {
+          "_key": "l1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Оберіть свій"
+            },
+            {
+              "_key": "en",
+              "value": "Choose your"
+            }
+          ],
+          "mutedText": [
+            {
+              "_key": "uk",
+              "value": "актив"
+            },
+            {
+              "_key": "en",
+              "value": "asset"
+            }
+          ]
+        },
+        {
+          "_key": "l2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "у FORREST"
+            },
+            {
+              "_key": "en",
+              "value": "in FORREST"
+            }
+          ]
+        }
+      ],
+      "text": [
+        {
+          "_key": "uk",
+          "value": "Отримайте персональну фінансову модель з актуальними апартаментами, вартістю, умовами оплати, прогнозованим доходом та строком окупності."
+        },
+        {
+          "_key": "en",
+          "value": "Get a personal financial model with current apartments, prices, payment terms, projected income and payback period."
+        }
+      ],
+      "bullets": [
+        {
+          "_key": "b1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Добірку актуальних планувань з цінами"
+            },
+            {
+              "_key": "en",
+              "value": "A selection of current floor plans with prices"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:catalog-plans.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок прогнозованої окупності"
+            },
+            {
+              "_key": "en",
+              "value": "A projected payback calculation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:final-form.jpg"
+            },
+            "hotspot": {
+              "x": 0.28,
+              "y": 0.22
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "b3",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Умови оплати та розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "Payment and instalment terms"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.45
+            },
+            "decorative": true
+          }
+        }
+      ],
+      "goalLabel": [
+        {
+          "_key": "uk",
+          "value": "Який формат інвестиції вас цікавить?"
+        },
+        {
+          "_key": "en",
+          "value": "Which investment format are you interested in?"
+        }
+      ],
+      "goals": [
+        {
+          "_key": "g1",
+          "value": "passive-income",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Пасивний дохід"
+            },
+            {
+              "_key": "en",
+              "value": "Passive income"
+            }
+          ]
+        },
+        {
+          "_key": "g2",
+          "value": "capital-growth",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Зростання вартості активу"
+            },
+            {
+              "_key": "en",
+              "value": "Asset value growth"
+            }
+          ]
+        },
+        {
+          "_key": "g3",
+          "value": "income-and-stays",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Дохід + власний відпочинок"
+            },
+            {
+              "_key": "en",
+              "value": "Income + your own holidays"
+            }
+          ]
+        },
+        {
+          "_key": "g4",
+          "value": "consultation",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Хочу отримати консультацію"
+            },
+            {
+              "_key": "en",
+              "value": "I'd like a consultation"
+            }
+          ]
+        }
+      ],
+      "contactLegend": [
+        {
+          "_key": "uk",
+          "value": "Куди надіслати матеріали?"
+        },
+        {
+          "_key": "en",
+          "value": "Where should we send the materials?"
+        }
+      ],
+      "contactOptions": [
+        {
+          "_key": "c1",
+          "value": "telegram",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Telegram"
+            },
+            {
+              "_key": "en",
+              "value": "Telegram"
+            }
+          ]
+        },
+        {
+          "_key": "c2",
+          "value": "viber",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Viber"
+            },
+            {
+              "_key": "en",
+              "value": "Viber"
+            }
+          ]
+        },
+        {
+          "_key": "c3",
+          "value": "whatsapp",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "WhatsApp"
+            },
+            {
+              "_key": "en",
+              "value": "WhatsApp"
+            }
+          ]
+        },
+        {
+          "_key": "c4",
+          "value": "call",
+          "label": [
+            {
+              "_key": "uk",
+              "value": "Телефонний дзвінок"
+            },
+            {
+              "_key": "en",
+              "value": "Phone call"
+            }
+          ]
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Отримати фінансову модель"
+        },
+        {
+          "_key": "en",
+          "value": "Get the financial model"
+        }
+      ],
+      "note": [
+        {
+          "_key": "uk",
+          "value": "Без зобов’язань. Менеджер допоможе порівняти доступні формати апартаментів."
+        },
+        {
+          "_key": "en",
+          "value": "No obligation. A manager will help you compare the available apartment formats."
+        }
+      ]
+    }
+  ]
+}

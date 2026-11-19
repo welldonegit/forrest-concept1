@@ -1,0 +1,46 @@
+---
+/**
+ * Stats (4.2): четыре карточки-цифры на фото. На мобильном — сетка 2×2 (выгрузка 2026-11-17).
+ * Тексты и фото — из Sanity (блок stats документа landing).
+ * Появление карточек: src/scripts/anim/blocks/stats.js + stats.css.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type StatsBlock } from '../../lib/content';
+
+interface Props {
+  block: StatsBlock;
+}
+
+const { block } = Astro.props;
+const cards = await Promise.all(
+  block.cards.map(async (card) => ({ ...card, photo: await resolveImage(card.image) })),
+);
+---
+<section class="stats" data-anim-block="stats">
+  <ul class="stats__grid" role="list">
+    {cards.map((card, i) => (
+      <li class="stats__card" style={`--i:${i}`}>
+        <Image
+          class="stats__img"
+          src={card.photo.src}
+          alt={card.photo.alt}
+          widths={[480, 720, 960]}
+          sizes="(max-width: 767px) 50vw, (max-width: 1279px) 33vw, 25vw"
+          format="avif"
+          loading="lazy"
+          decoding="async"
+          style={`--focus:${card.photo.position}`}
+        />
+        <div class="stats__body">
+          <p class="stats__value text-stats-stat-lg">
+            <span class="stats__number">{card.value}</span>{card.unit && <span class="stats__unit text-stats-stat-sm">{card.unit}</span>}
+          </p>
+          <p class="stats__text text-stats-text">
+            {card.text.split('\n').map((line, k) => <>{k > 0 && <br />}{line}</>)}
+          </p>
+          <span class="stats__chip text-stats-chip">{card.chip}</span>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>

@@ -1,0 +1,131 @@
+---
+/**
+ * Worlds (4.4): сцена прокрутки «Три аудиторії, три сценарії попиту, один актив».
+ * Заголовок и три карточки → центральная карточка разворачивается на весь экран,
+ * боковые уходят под неё → волной открываются ROCK и SUN, слайды текста сменяются.
+ * Тексты и фото — из Sanity (блок worlds документа landing): ровно три мира.
+ *
+ * Сцена: src/scripts/ui/worlds.js (без JS — статичный вариант, см. worlds.css).
+ * Карточки не меняют ширину и высоту: они всегда размером с развёрнутый кадр,
+ * видимая часть задаётся clip-path, фото внутри двигается transform (как FLIP).
+ */
+import { getImage } from 'astro:assets';
+import { resolveImage, type WorldsBlock } from '../../lib/content';
+
+interface Props {
+  block: WorldsBlock;
+}
+
+const { block } = Astro.props;
+const titleId = `${block.anchor}-title`;
+
+// Фото карточек заполняют весь экран (cover): по высоте на узких/высоких окнах.
+const cardSizes = '(max-aspect-ratio: 3/2) 150vh, 100vw';
+const cardWidths = (w: number) => [640, 960, 1280, 1920].filter((x) => x < w).concat(w);
+const worlds = await Promise.all(
+  block.worlds.map(async (w) => {
+    const photo = await resolveImage(w.image);
+    const img = await getImage({ src: photo.src, widths: cardWidths(photo.src.width), format: 'avif' });
+    const [fx, fy] = photo.position.split(' ').map((v) => parseFloat(v) / 100);
+    return {
+      ...w,
+      photo,
+      attrs: {
+        src: img.src,
+        srcset: img.srcSet.attribute,
+        sizes: cardSizes,
+        width: photo.src.width,
+        height: photo.src.height,
+        'data-fx': fx,
+        'data-fy': fy,
+      },
+    };
+  }),
+);
+const lines = await Promise.all(
+  block.title.map(async (line) => {
+    if (!line.image) return { ...line, pill: null };
+    const photo = await resolveImage(line.image);
+    const img = await getImage({ src: photo.src, widths: [240, 480], format: 'avif' });
+    return { ...line, pill: { photo, img } };
+  }),
+);
+const [w0, w1, w2] = worlds;
+---
+<section class="worlds" id={block.anchor} aria-labelledby={titleId} data-worlds>
+  <div class="worlds__stage" data-worlds-stage data-active="0">
+    <div class="worlds__intro">
+      <h2 class="worlds__title text-worlds-display" id={titleId} data-worlds-head>
+        {lines.map((line) => (
+          <span class:list={['worlds__line', line.muted && 'worlds__line--muted']}>
+            {line.before}{line.pill && (<span class="worlds__pill" aria-hidden="true"><img
+                  class="worlds__pill-img"
+                  src={line.pill.img.src}
+                  srcset={line.pill.img.srcSet.attribute}
+                  sizes="(max-width: 767px) 48px, 184px"
+                  width={line.pill.photo.src.width}
+                  height={line.pill.photo.src.height}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  style={`--focus:${line.pill.photo.position}`}
+                /></span>)}{line.after}
+          </span>
+        ))}
+      </h2>
+      <!-- Места карточек в стартовом кадре: отсюда карточки разворачиваются. -->
+      <div class="worlds__grid" aria-hidden="true">
+        <div class="worlds__slot" data-slot="l"></div>
+        <div class="worlds__slot" data-slot="c"></div>
+        <div class="worlds__slot" data-slot="r"></div>
+      </div>
+    </div>
+
+    <!-- Боковые карточки — повтор фото ROCK и SUN, декор. -->
+    {[['l', w1], ['r', w2]].map(([side, w]) => (
+      <div class={`worlds__card worlds__card--side worlds__card--${side}`} data-card={side} aria-hidden="true">
+        <div class="worlds__media" data-media>
+          <img class="worlds__img" {...(w as typeof w1).attrs} alt="" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    ))}
+
+    <div class="worlds__card worlds__card--c" data-card="c">
+      <div class="worlds__media" data-media>
+        <img class="worlds__img" {...w0.attrs} alt={w0.photo.alt} loading="lazy" decoding="async" />
+      </div>
+      {[w1, w2].map((w, i) => (
+        <div class="worlds__reveal" data-reveal-layer={i + 1}>
+          <div class="worlds__media" data-media>
+            <img class="worlds__img" {...w.attrs} alt={w.photo.alt} loading="lazy" decoding="async" />
+          </div>
+          <div class="worlds__dim" aria-hidden="true"></div>
+        </div>
+      ))}
+
+      <div class="worlds__text" data-worlds-text>
+        <div class="worlds__scrim" aria-hidden="true"></div>
+        <div class="worlds__slides">
+          {worlds.map((w, i) => (
+            <div class="worlds__slide" data-slide={i}>
+              <span class="worlds__overline text-worlds-overline">{w.overline}</span>
+              <h3 class="worlds__name">
+                <span class="worlds__name-main text-worlds-decor">{w.name}</span>
+                <span class="worlds__subtitle text-title-sm text-w-500">{w.subtitle}</span>
+              </h3>
+              <a class="worlds__btn text-body-lg text-w-600" href={w.cta.href}>
+                {w.cta.label}
+                <span class="worlds__btn-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+              </a>
+            </div>
+          ))}
+        </div>
+        <div class="worlds__dots text-worlds-body" aria-hidden="true">
+          {worlds.map((w, i) => <span class="worlds__dot" data-dot={i}>{w.name}</span>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

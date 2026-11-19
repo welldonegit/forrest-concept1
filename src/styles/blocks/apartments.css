@@ -1,0 +1,131 @@
+/* ===== Apartments (4.6) — лента карточек апартаментов =====
+   Значения — из рендера design-export, только через tokens.css.
+   Конечное состояние — в базовых правилах. Стартовые состояния — только при [data-reveal]
+   (ставит anim/blocks/apartments.js). */
+
+.apts{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--apts-pad-block-start) var(--apts-pad-block-end);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.apts__head{
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end;
+  gap:var(--space-24) var(--space-48);
+  padding-inline:var(--apts-pad-inline);
+}
+.apts__title{margin:0}
+.apts__mask{display:block; overflow:hidden; padding-block-end:.08em; margin-block-end:-.08em}
+.apts__line{display:block}
+.apts__line--muted{color:var(--text-muted)}
+
+.apts__nav{display:flex; gap:var(--space-10)}
+.apts__arrow{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-56); block-size:var(--control-h-56);
+  padding:0;
+  border:var(--border-1) solid var(--apts-arrow-border); border-radius:var(--radius-pill);
+  background:transparent; color:var(--text-primary);
+  cursor:pointer;
+  transition:background-color var(--apts-hover-dur), color var(--apts-hover-dur), border-color var(--apts-hover-dur);
+}
+.apts__arrow:hover{background:var(--text-primary); border-color:var(--text-primary); color:var(--air)}
+.apts__arrow-icon{inline-size:var(--icon-20); block-size:var(--icon-20)}
+.apts__arrow-icon--prev{transform:scaleX(-1)}
+[dir="rtl"] .apts__arrow-icon{transform:scaleX(-1)}
+[dir="rtl"] .apts__arrow-icon--prev{transform:none}
+
+/* ---------- Лента ---------- */
+.apts__track{
+  display:flex; gap:var(--apts-gap);
+  overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory; scroll-padding-inline:var(--apts-pad-inline);
+  padding:var(--apts-track-pad-top) var(--apts-pad-inline) var(--space-4);
+  scrollbar-width:none;
+}
+.apts__track::-webkit-scrollbar{display:none}
+.apts__track[data-js]{cursor:grab}
+.apts__track[data-drag]{scroll-snap-type:none; cursor:grabbing}
+.apts__end{flex:0 0 1px}
+
+.apts__card{
+  flex:0 0 var(--apts-card-w);
+  display:flex; flex-direction:column; gap:var(--apts-card-gap);
+  scroll-snap-align:start;
+}
+.apts__media{
+  position:relative; overflow:hidden;
+  aspect-ratio:var(--apts-img-ratio);
+  border-radius:var(--radius-32);
+  background:var(--path-sand);
+  cursor:pointer;
+}
+.apts__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+  transition:transform var(--apts-img-hover-dur) var(--ease-out-expo);
+}
+.apts__media:hover .apts__img{transform:scale(var(--apts-img-hover-scale))}
+.apts__body{
+  display:flex; flex-direction:column; gap:var(--apts-body-gap);
+  padding-inline:var(--apts-body-pad);
+}
+.apts__name{margin:0}
+.apts__row{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:var(--space-12) var(--space-16);
+}
+.apts__plan{
+  min-block-size:var(--control-h-48);
+  padding:0 var(--space-24);
+  border:var(--border-1) solid var(--text-primary); border-radius:var(--radius-pill);
+  background:transparent; color:var(--text-primary);
+  cursor:pointer;
+  transition:background-color var(--apts-hover-dur), color var(--apts-hover-dur);
+}
+.apts__plan:hover{background:var(--text-primary); color:var(--air)}
+
+/* ---------- Полоса прогресса ---------- */
+.apts__foot{
+  display:flex; align-items:center; gap:var(--space-24);
+  margin-block-start:var(--apts-foot-mt);
+  padding-inline:var(--apts-pad-inline);
+}
+.apts__bar{position:relative; flex:1; block-size:var(--space-24); cursor:pointer; touch-action:none}
+.apts__bar-line{
+  position:absolute; inset-inline:0; inset-block-start:50%;
+  block-size:var(--border-1); background:var(--apts-bar-bg);
+}
+.apts__thumb{
+  position:absolute; inset-inline-start:0; inset-block-start:50%;
+  inline-size:calc(100% / var(--n)); block-size:var(--apts-thumb-h); margin-block-start:calc(var(--apts-thumb-h) / -2);
+  border-radius:var(--radius-pill); background:var(--text-primary);
+  transition:transform var(--apts-thumb-dur) var(--ease-out-expo);
+}
+
+@media (max-width:767px){
+  .apts__card{flex-basis:100%; min-inline-size:0}
+  .apts__plan{flex:none}
+}
+
+/* ---------- Появление (anim/blocks/apartments.js) ---------- */
+.apts[data-reveal] .apts__line{transition:transform var(--apts-title-dur) var(--ease-out-expo)}
+.apts[data-reveal] .apts__mask:nth-child(1) .apts__line{transition-delay:var(--apts-title-delay-1)}
+.apts[data-reveal] .apts__mask:nth-child(2) .apts__line{transition-delay:var(--apts-title-delay-2)}
+.apts[data-reveal] .apts__nav{transition:opacity var(--apts-fade-dur) ease var(--apts-nav-delay), transform var(--apts-rise-dur) var(--ease-out-expo) var(--apts-nav-delay)}
+.apts[data-reveal] .apts__foot{transition:opacity var(--apts-fade-dur) ease var(--apts-foot-delay), transform var(--apts-rise-dur) var(--ease-out-expo) var(--apts-foot-delay)}
+.apts[data-reveal] .apts__card{
+  --d:calc(var(--i, 0) * var(--apts-card-step));
+  transition:
+    opacity var(--apts-fade-dur) ease var(--d),
+    transform var(--apts-card-dur) var(--ease-out-expo) var(--d),
+    clip-path var(--apts-card-dur) var(--ease-out-expo) var(--d);
+}
+.apts[data-reveal="pre"] .apts__line{transform:translateY(110%)}
+.apts[data-reveal="pre"] .apts__nav,
+.apts[data-reveal="pre"] .apts__foot{opacity:0; transform:translateY(var(--apts-rise-shift))}
+/* конечная маска чуть шире карточки: не срезает обводку фокуса кнопки */
+.apts[data-reveal] .apts__card{clip-path:inset(calc(-1 * var(--space-8)) round var(--radius-32))}
+.apts[data-reveal="pre"] .apts__card{
+  opacity:0; transform:translateY(var(--apts-card-shift));
+  clip-path:inset(0 0 100% 0 round var(--radius-32));
+}

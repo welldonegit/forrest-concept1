@@ -1,0 +1,225 @@
+---
+/**
+ * Numbers (4.10): «Тепер — про головне. Ваш актив у цифрах.» — три карточки с цифрами и графиками,
+ * затем калькулятор дохода на панораме. Выгрузка 2026-11-17, секция «Numbers v2» (cyfry-2).
+ * Тексты, числа калькулятора, форматы, фото — из Sanity (блок numbers документа landing).
+ *
+ * ≥900 (и движение разрешено): сцена прокрутки, как в выгрузке — блок прилипает, карточки
+ * переворачиваются и показывают части панорамы, панорама раскрывается на весь экран, поверх
+ * появляется калькулятор. Раскладка сцены — CSS с первой отрисовки (html.js), движение —
+ * anim/blocks/numbers.js. <900, без JS, при reduced motion — карточки и калькулятор друг за другом.
+ * Калькулятор — src/scripts/ui/numbers.js; формулы — src/lib/calc.ts (начальные значения считаются при сборке).
+ *
+ * Графики карточек — декоративные (aria-hidden), как в выгрузке; цифры карточек — текст из Sanity.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type NumbersBlock } from '../../lib/content';
+import { calc as compute, fill, formatNumber } from '../../lib/calc';
+
+interface Props {
+  block: NumbersBlock;
+  lang: string;
+}
+
+const { block, lang } = Astro.props;
+const id = block.anchor;
+const pano = await resolveImage(block.panorama);
+const c = block.calc;
+const fmtIdx = 0;
+const payIdx = Math.max(0, c.payments.findIndex((p) => p.isDefault));
+const f0 = c.formats[fmtIdx];
+const p0 = c.payments[payIdx];
+const r = compute({ area: f0.area, yieldPercent: f0.yieldPercent, pricePerM2: c.pricePerM2, firstPercent: p0.firstPercent, months: p0.months });
+const dec = (n: number) => (n % 1 ? 1 : 0);
+const money = (n: number) => `${c.currency}${formatNumber(n, lang)}`;
+const years = Array.from({ length: c.years }, (_, k) => k + 1);
+
+const gb = [26, 38, 52, 66, 82, 100];
+const dots = [0, 21.4, 42.9, 64.3, 85.7, 107.1, 128.6, 150, 171.4, 192.9, 214.3, 235.7, 257.1, 278.6, 300];
+const ticks = Array.from({ length: 24 }, (_, j) => j);
+const curve = 'M0,121.2 C90,118.6 150,104.3 215,90 S282,56.2 300,44.5';
+const icons = {
+  format: '<path d="M4 4h16v16H4z"/><path d="M4 12h6"/><path d="M13 4v6.5"/><path d="M13 20v-4"/><path d="M13 16a3.5 3.5 0 0 1 3.5-3.5"/><path d="M16.5 12.5H20"/><circle cx="7" cy="7" r=".9" fill="currentColor" stroke="none"/>',
+  payment: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 7.6 10.5"/><path d="M12 4v8l5.6 2.5" stroke-width="1.6"/>',
+};
+const cards = ['yield', 'payback', 'payment'] as const;
+---
+<section class="nums" id={id} aria-labelledby={`${id}-title`} data-anim-block="numbers">
+  <h2 class="nums__title text-display-sm" id={`${id}-title`}>
+    {block.title.map((line, i) => (
+      <span class="nums__mask"><span class:list={['nums__line', line.muted && 'nums__line--muted']} style={`--d:${0.1 + i * 0.1}s`}>{line.text}</span></span>
+    ))}
+  </h2>
+
+  <div class="nums__track" data-nums-track>
+    <div class="nums__stick">
+      <div class="nums__stage" data-nums-stage>
+        {cards.map((kind, i) => (
+          <div class="nums__card" style={`--i:${i}`} data-nums-card>
+            <div class="nums__flip" data-nums-flip>
+              <article class="nums__front">
+                <div class="nums__txt">
+                  {kind === 'yield' && (
+                    <div class="nums__graph nums__graph--bars" aria-hidden="true">
+                      <div class="nums__gbars">
+                        {gb.map((h, j) => <span class="nums__gb" style={`--h:${h}%;--c:var(--nums-bar-${j + 1});--d:${(1.1 + j * 0.09).toFixed(2)}s`}></span>)}
+                      </div>
+                    </div>
+                  )}
+                  {kind === 'payback' && (
+                    <div class="nums__graph" aria-hidden="true">
+                      <div class="nums__curve">
+                        <svg class="nums__curve-svg" viewBox="0 36 300 92" focusable="false">
+                          <defs>
+                            <linearGradient id={`${id}-npg`} x1="0" y1="0" x2="0" y2="1"><stop class="nums__stop-a" offset="0" /><stop class="nums__stop-b" offset="1" /></linearGradient>
+                            <clipPath id={`${id}-up`}><rect x="0" y="-20" width="300" height="110" /></clipPath>
+                            <clipPath id={`${id}-dn`}><rect x="0" y="90" width="300" height="70" /></clipPath>
+                          </defs>
+                          <path class="nums__gs nums__area-dn" style="--d:1.4s" d={`${curve} L300,90 L0,90 Z`} clip-path={`url(#${id}-dn)`} />
+                          <path class="nums__gs nums__area-up" style="--d:2.3s" d={`${curve} L300,90 L0,90 Z`} clip-path={`url(#${id}-up)`} fill={`url(#${id}-npg)`} />
+                          {dots.map((x, j) => <circle class:list={['nums__gs nums__dot', j > 10 && 'nums__dot--after']} style={`--d:${(1.3 + j * 0.06).toFixed(2)}s`} cx={x} cy="90" r={j === 10 ? 0 : 2} />)}
+                          <path class="nums__np nums__line-path" d={curve} pathLength="1" />
+                          <g class="nums__gs nums__point" style="--d:2.1s">
+                            <circle class="nums__pulse" cx="215" cy="90" r="9" />
+                            <circle class="nums__point-c" cx="215" cy="90" r="7" />
+                          </g>
+                        </svg>
+                        <span class="nums__point-tag"><span class="nums__gs nums__tag text-num-tag" style="--d:2.35s">{block.paybackCard.pointLabel}</span></span>
+                      </div>
+                      <div class="nums__axis text-num-axis">
+                        <span>{block.paybackCard.start}</span>
+                        <span class="nums__axis-mid">{block.paybackCard.point}</span>
+                        <span class="nums__axis-end">{block.paybackCard.end}</span>
+                      </div>
+                    </div>
+                  )}
+                  {kind === 'payment' && (
+                    <div class="nums__graph nums__graph--ring" aria-hidden="true">
+                      <div class="nums__ring">
+                        <svg class="nums__ring-svg" viewBox="0 0 200 200" focusable="false">
+                          <circle class="nums__ring-track" cx="100" cy="100" r="78" />
+                          <circle class="nums__np nums__ring-arc" cx="100" cy="100" r="78" pathLength="360" />
+                          {ticks.map((j) => <circle class="nums__gs nums__tick" style={`--d:${(2 + j * 0.04).toFixed(2)}s`} cx="100" cy="100" r="78" pathLength="360" stroke-dasharray="7.25 352.75" stroke-dashoffset={-(90 + j * 11.25)} />)}
+                        </svg>
+                        <div class="nums__gs nums__ring-center" style="--d:1.7s">
+                          <span class="nums__ring-num text-num-ring">{block.paymentCard.months}</span>
+                          <span class="nums__ring-label text-num-tag">{block.paymentCard.monthsLabel}</span>
+                        </div>
+                      </div>
+                      <div class="nums__steps">
+                        {block.paymentCard.steps.map((s, j) => (
+                          <div class="nums__gs nums__step" style={`--d:${j ? 2.1 : 1.6}s`}>
+                            <span class="nums__step-head"><span class:list={['nums__step-dot', j && 'nums__step-dot--2']}></span><span class="nums__step-title text-num-chip">{s.title}</span></span>
+                            <span class="nums__step-text text-num-small">{s.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <h3 class="nums__chip text-num-chip">{block[`${kind}Card`].label}</h3>
+                  <p class="nums__value text-num-value">
+                    {block[`${kind}Card`].value}
+                    {kind === 'payback' && <span class="nums__unit text-num-unit">{block.paybackCard.unit}</span>}
+                  </p>
+                </div>
+              </article>
+              <div class="nums__back" aria-hidden="true" data-nums-back>
+                <Image class="nums__back-img" src={pano.src} alt="" widths={[960, 1672]} sizes="100vw" format="avif" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div class="nums__pano" style={`--pano-ratio:${pano.src.width}/${pano.src.height}`} data-nums-pano>
+          <Image class="nums__pano-img" src={pano.src} alt={pano.alt} widths={[960, 1672]} sizes="100vw" format="avif" loading="lazy" decoding="async" data-nums-pano-img />
+          <span class="nums__dark" aria-hidden="true" data-nums-dark></span>
+          <div class="nums__form" data-nums-form>
+            <div class="calc" data-calc
+              data-lang={lang} data-price-m2={c.pricePerM2} data-currency={c.currency} data-no-monthly={c.noMonthly}
+              data-area-unit={c.areaUnit} data-payback-format={c.paybackFormat} data-break-even-format={c.breakEvenFormat}>
+              <div class="calc__grid">
+                <div class="calc__panel">
+                  <h3 class="calc__title text-calc-title">
+                    {c.title.map((line) => <span class:list={['calc__title-line', line.muted && 'calc__title-line--muted']}>{line.text}</span>)}
+                  </h3>
+                  {([['format', c.formatLabel], ['payment', c.paymentLabel]] as const).map(([kind, label]) => (
+                    <div class="calc__field">
+                      <span class="calc__label" id={`${id}-${kind}-label`}>
+                        <span class="calc__label-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" focusable="false" set:html={icons[kind]} /></span>
+                        <span class="text-calc-label">{label}</span>
+                      </span>
+                      <div class="calc__sel" data-calc-sel={kind}>
+                        <button class="calc__trig" type="button" aria-expanded="false" aria-controls={`${id}-${kind}-list`} aria-describedby={`${id}-${kind}-label`} data-calc-trig>
+                          <span class="calc__trig-text">
+                            <span class="calc__trig-name text-calc-choice" data-calc-name>{kind === 'format' ? f0.format.name : p0.title}</span>
+                            <span class="calc__trig-sub text-calc-sub" data-calc-sub>{kind === 'format' ? f0.format.area : p0.note}</span>
+                          </span>
+                          <span class="calc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 9l6 6 6-6" /></svg></span>
+                        </button>
+                        <ul class="calc__list" id={`${id}-${kind}-list`} role="list" aria-labelledby={`${id}-${kind}-label`}>
+                          {kind === 'format'
+                            ? c.formats.map((f, j) => (
+                                <li><button class="calc__opt" type="button" aria-pressed={j === fmtIdx ? 'true' : 'false'} data-calc-opt data-area={f.area} data-yield={f.yieldPercent}>
+                                  <span class="calc__opt-name text-calc-opt" data-calc-opt-name>{f.format.name}</span><span class="calc__opt-sub text-calc-small" data-calc-opt-sub>{f.format.area}</span>
+                                </button></li>
+                              ))
+                            : c.payments.map((p, j) => (
+                                <li><button class="calc__opt" type="button" aria-pressed={j === payIdx ? 'true' : 'false'} data-calc-opt data-first={p.firstPercent} data-months={p.months}>
+                                  <span class="calc__opt-name text-calc-opt" data-calc-opt-name>{p.title}</span><span class="calc__opt-sub text-calc-small" data-calc-opt-sub>{p.note}</span>
+                                </button></li>
+                              ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
+                  <dl class="calc__params">
+                    <div class="calc__param"><dt class="text-caption text-w-600">{c.areaLabel}</dt><dd class="calc__num text-calc-param" data-calc-v="area">{formatNumber(f0.area, lang, dec(f0.area))} {c.areaUnit}</dd></div>
+                    <div class="calc__param"><dt class="text-caption text-w-600">{c.priceM2Label}</dt><dd class="calc__num text-calc-param">{money(c.pricePerM2)}</dd></div>
+                    <div class="calc__param"><dt class="text-caption text-w-600">{c.rentLabel}</dt><dd class="calc__num text-calc-param">{c.rentValue}<span class="calc__per">{c.rentUnit}</span></dd></div>
+                  </dl>
+                </div>
+
+                <div class="calc__res">
+                  <div class="calc__res-top">
+                    <div class="calc__price-row">
+                      <div class="calc__price">
+                        <span class="text-calc-small">{c.priceLabel}</span>
+                        <span class="calc__num text-calc-price" data-calc-v="price">{money(r.price)}</span>
+                      </div>
+                      <span class="calc__yield text-calc-small">{c.yieldLabel}<span class="calc__yield-val" data-calc-v="yield">{formatNumber(f0.yieldPercent, lang, dec(f0.yieldPercent))}%</span></span>
+                    </div>
+                    <dl class="calc__tiles">
+                      <div class="calc__tile"><dt class="text-calc-tile-label">{c.firstLabel}</dt><dd class="calc__num calc__nowrap text-calc-tile" data-calc-v="first">{money(r.first)}</dd></div>
+                      <div class="calc__tile"><dt class="text-calc-tile-label">{c.monthLabel}</dt><dd class="calc__num calc__nowrap text-calc-tile" data-calc-v="month">{r.month ? money(r.month) : c.noMonthly}</dd></div>
+                      <div class="calc__tile"><dt class="text-calc-tile-label">{c.incomeLabel}</dt><dd class="calc__num calc__nowrap text-calc-tile" data-calc-v="income">{money(r.income)}</dd></div>
+                      <div class="calc__tile"><dt class="text-calc-tile-label">{c.paybackLabel}</dt><dd class="calc__num calc__nowrap text-calc-tile" data-calc-v="payback">{fill(c.paybackFormat, formatNumber(r.payback, lang, 1))}</dd></div>
+                    </dl>
+                  </div>
+                  <div class="calc__chart">
+                    <div class="calc__chart-head text-calc-small"><span>{c.chartTitle}</span><span class="calc__be" data-calc-v="be">{fill(c.breakEvenFormat, String(r.breakEvenYear))}</span></div>
+                    <div class="calc__bars" aria-hidden="true">
+                      {years.map((y, k) => (
+                        <span class="calc__bar" style={`--k:${k};--h:${((y / c.years) * 100).toFixed(2)}%`} data-paid={y >= r.breakEvenYear ? '' : undefined}><span class="calc__bf"></span></span>
+                      ))}
+                    </div>
+                    <div class="calc__axis text-calc-axis"><span>{c.axisStart}</span><span>{c.axisEnd}</span></div>
+                    <div class="calc__legend text-calc-small">
+                      <span class="calc__legend-item"><span class="calc__swatch" aria-hidden="true"></span>{c.legendBefore}</span>
+                      <span class="calc__legend-item"><span class="calc__swatch calc__swatch--paid" aria-hidden="true"></span>{c.legendAfter}</span>
+                    </div>
+                  </div>
+                  <div class="calc__foot">
+                    <a class="calc__cta text-calc-cta" href={c.cta.href}>
+                      {c.cta.label}
+                      <span class="calc__cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

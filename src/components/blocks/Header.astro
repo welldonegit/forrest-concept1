@@ -1,0 +1,174 @@
+---
+/**
+ * Header (4.0): бар поверх первого экрана, переключатель языка, полноэкранное меню.
+ * Все тексты и ссылки — из siteSettings (Sanity); логотип — SVG из выгрузки.
+ * Поведение: src/scripts/ui/menu.js, lang-switch.js, anchor-nav.js.
+ */
+import { Image } from 'astro:assets';
+import logo from '../../assets/brand/logo-forrest-full.svg';
+import SocialIcon from '../ui/SocialIcon.astro';
+import LangOptions from '../ui/LangOptions.astro';
+import { getLanguage } from '../../lib/languages';
+import { resolveImage, type SiteSettings } from '../../lib/content';
+
+interface Props {
+  lang: string;
+  settings: SiteSettings;
+}
+
+const { lang, settings } = Astro.props;
+const { header, menu, contacts } = settings;
+const current = getLanguage(lang);
+const photo = await resolveImage(menu.image);
+const logoSrc = logo.src;
+const logoW = logo.width;
+const logoH = logo.height;
+---
+<header class="site-header">
+  <div class="site-header__bar">
+    <button
+      class="site-header__burger"
+      type="button"
+      aria-label={header.menuOpenLabel}
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-menu-open
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+    </button>
+
+    <a class="site-header__logo" href={header.homeHref}>
+      <img class="site-header__logo-img" src={logoSrc} width={logoW} height={logoH} alt={header.logoAlt} />
+    </a>
+
+    <div class="site-header__actions">
+      <div class="lang-switch" data-lang-switch>
+        <button
+          class="lang-switch__toggle"
+          type="button"
+          aria-label={header.languageButtonLabel}
+          aria-expanded="false"
+          aria-controls="lang-switch-panel"
+          data-lang-toggle
+        >
+          <span class="lang-switch__current text-label">{current.label}</span>
+          <svg class="lang-switch__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+        </button>
+        <div class="lang-switch__panel" id="lang-switch-panel">
+          <LangOptions lang={lang} label={header.languageListLabel} />
+        </div>
+      </div>
+
+      <a class="site-header__cta" href={header.cta.href}>
+        <span class="site-header__cta-label text-header-body-sm">{header.cta.label}</span>
+        <span class="site-header__cta-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div
+  class="site-menu"
+  id="site-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label={header.menuDialogLabel}
+  aria-hidden="true"
+  data-menu
+>
+  <div class="site-menu__panel">
+    <div class="site-menu__inner">
+      <div class="site-menu__top">
+        <a class="site-menu__logo" href={header.homeHref}>
+          <img class="site-menu__logo-img" src={logoSrc} width={logoW} height={logoH} alt={header.logoAlt} loading="lazy" />
+        </a>
+        <button class="site-menu__close" type="button" aria-label={header.menuCloseLabel} data-menu-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+
+      <div class="site-menu__main">
+        <nav class="site-menu__nav" aria-label={menu.navLabel}>
+          <ul class="site-menu__list" role="list">
+            {menu.primary.map((item, i) => (
+              <li class="site-menu__item">
+                <a class="site-menu__link text-header-menu-link" href={item.href} style={`--i:${i}`}>
+                  {item.label}
+                  <svg class="site-menu__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5h11v11" /></svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ul class="site-menu__sublist" role="list">
+            {menu.secondary.map((item, i) => (
+              <li>
+                <a class="site-menu__sublink text-header-menu-sub" href={item.href} style={`--i:${i}`}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <figure class="site-menu__figure">
+          <Image
+            class="site-menu__img"
+            src={photo.src}
+            alt={photo.alt}
+            widths={[480, 744, 1112, 1488]}
+            sizes="(min-width: 901px) 39vw, 100vw"
+            format="avif"
+            loading="lazy"
+            decoding="async"
+            style={`--focus:${photo.position}`}
+          />
+          <figcaption class="site-menu__caption text-header-menu-sub">{menu.imageCaption}</figcaption>
+        </figure>
+      </div>
+
+      <!-- Язык на ширине <900: в баре переключателя нет, список — в меню перед контактами (4.0a).
+           Плашки и состояния — те же, что в списке языков бара. -->
+      <div class="site-menu__langs">
+        <span class="site-menu__label text-label" id="site-menu-langs-label">{header.languageButtonLabel}</span>
+        <div class="site-menu__langpanel">
+          <LangOptions lang={lang} labelledby="site-menu-langs-label" />
+        </div>
+      </div>
+
+      <div class="site-menu__foot">
+        <div class="site-menu__col" style="--i:0">
+          <span class="site-menu__label text-label">{menu.salesLabel}</span>
+          <a class="site-menu__phone text-header-menu-phone" href={contacts.phoneHref}>{contacts.phone}</a>
+        </div>
+        <div class="site-menu__col" style="--i:1">
+          <span class="site-menu__label text-label">{menu.messengersLabel}</span>
+          <ul class="site-menu__socials" role="list">
+            {contacts.messengers.map((m) => (
+              <li>
+                <a class="site-menu__social" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
+                  <SocialIcon network={m.network} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="site-menu__col" style="--i:2">
+          <span class="site-menu__label text-label">{menu.addressLabel}</span>
+          <p class="site-menu__address text-header-menu-sub">{contacts.address}</p>
+        </div>
+        <div class="site-menu__col" style="--i:3">
+          <span class="site-menu__label text-label">{menu.socialsLabel}</span>
+          <ul class="site-menu__socials" role="list">
+            {contacts.socials.map((m) => (
+              <li>
+                <a class="site-menu__social" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
+                  <SocialIcon network={m.network} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

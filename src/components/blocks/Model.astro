@@ -1,0 +1,50 @@
+---
+/**
+ * Model (4.5): инвестиционная модель — абзац, который проявляется по словам при прокрутке,
+ * и пять шагов на линии прогресса. На десктопе шаги в строку, линия заполняется слева
+ * направо и «включает» шаги; на 768–900 — столбцом с вертикальной линией; на <768 —
+ * колода карточек, которые при прокрутке улетают влево и вправо (выгрузка 2026-11-17).
+ * Тексты — из Sanity (блок model документа landing). Номер шага — по порядку.
+ *
+ * Сцена: src/scripts/anim/blocks/model.js. Без JS и при prefers-reduced-motion —
+ * конечное состояние: текст целиком, все шаги видны, на <768 шаги столбцом.
+ * Заголовок h2 — только для экранных дикторов (в выгрузке его нет, решение 2026-11-17).
+ * TODO: текст «Інвестиційна модель Trinity» / «Trinity investment model» — черновик, ждёт подтверждения.
+ */
+import type { ModelBlock } from '../../lib/content';
+
+interface Props {
+  block: ModelBlock;
+}
+
+const { block } = Astro.props;
+const number = (i: number) => String(i + 1).padStart(2, '0');
+---
+<section class="model" id={block.anchor} aria-labelledby={`${block.anchor}-title`} data-anim-block="model" style={`--model-count:${block.steps.length};--model-moves:${block.steps.length - 1}`}>
+  <div class="model__wrap" data-model-wrap>
+    <div class="model__stick" data-model-stick>
+      <h2 class="visually-hidden" id={`${block.anchor}-title`}>{block.title}</h2>
+      <p class="model__lead text-model-lead" data-model-lead>{block.text}</p>
+      <div class="model__deck" data-model-deck>
+        <div class="model__line" aria-hidden="true">
+          <span class="model__fill" data-model-fill></span>
+          <span class="model__head" data-model-head></span>
+        </div>
+        <ol class="model__steps" role="list" data-model-steps>
+          {block.steps.map((step, i) => (
+            <li class="model__step" style={`--k:${i}`} data-model-step>
+              <span class="model__dot" aria-hidden="true"></span>
+              <span class="model__num-wrap" aria-hidden="true" data-model-num>
+                <span class="model__num text-model-num">{number(i)}</span>
+              </span>
+              <div class="model__card">
+                <h3 class="model__title text-model-title text-w-600"><span class="model__title-inner">{step.title}</span></h3>
+                <p class="model__text text-model-text">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

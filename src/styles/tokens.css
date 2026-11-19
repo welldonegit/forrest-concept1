@@ -1,0 +1,1281 @@
+/* FORREST Trinity Resort — токены проекта.
+   Источник значений — реальный рендер design-export/index.html (решение Р1).
+   Из Системы А (design-export/tokens/*.css) — имена ролей, структура, палитра примитивов.
+   Правила: docs/LAYOUT_RULES.md. Не редактировать «сырыми» значениями в компонентах — только var().
+*/
+:root{
+/* ===== Примитивы (бренд-палитра; из рендера, п.12) ===== */
+--bark:#322512;        --spruce:#182820;     --forest:#5B756A;     --stone:#928C8E;
+--path-sand:#E1D4CB;   --white-sand:#F2EAD8; --sea-wave:#7ABFB2;   --sea-fog:#DDEBE6;
+--air:#FFFFFF;         --night-bark:#0C0C0C;
+/* новые примитивы из рендера */
+--sage:#9DBAAA;        /* обводка SVG-линий/иконок */
+--clay:#C9BBAE;        /* заливка декоративных точек */
+--pine:#2F5A48;        /* тёмно-зелёный: фон :disabled, стопы градиентов */
+--moss:#3A4A3C;        /* тёмная приглушённая поверхность секций */
+--linen:#F7F2E8;       /* тёплая светлая поверхность полей (#f4f1ea слит сюда, ΔE 1.74) */
+--ash:#2B2E2D;         /* тёмный нейтральный фон (панели форм; для будущих блоков) */
+--brick:#B4533C;       /* ошибка поля формы (выгрузка, 4.7) */
+
+/* ===== Семантика цвета (светлая тема — единственная) ===== */
+--bg-page:var(--air);
+--bg-surface-warm:var(--white-sand);
+--bg-surface-mist:var(--sea-fog);
+--bg-surface-sand:var(--path-sand);
+--bg-surface-moss:var(--moss);
+--bg-inverse:var(--spruce);
+--bg-inverse-warm:var(--bark);
+--bg-field:var(--linen);
+--bg-disabled:var(--pine);
+
+--text-primary:var(--spruce);
+--text-secondary:var(--forest);
+--text-on-inverse:var(--white-sand);
+--text-on-inverse-2:var(--sea-fog);
+--text-muted:var(--stone);
+--danger:var(--brick);
+
+--accent:var(--sea-wave);
+--accent-deep:var(--forest);
+--accent-earth:var(--stone);
+
+--border-hairline:var(--path-sand);
+--border-strong:var(--stone);
+--border-on-inverse:rgba(242,234,216,.24);
+
+--stroke-illustration:var(--sage);   /* stroke SVG-иллюстраций/иконок */
+--dot-fill:var(--clay);              /* fill декоративных точек */
+
+/* Скримы/вуали над фото добавляются по блокам (значения α — из рендера, п.16). */
+
+/* -- подложки Header и меню (рендер; база — примитив, α как в рендере) -- */
+--header-glass-bg:color-mix(in srgb, var(--air) 32%, transparent);          /* rgba(255,255,255,.32) */
+--header-glass-border:color-mix(in srgb, var(--air) 55%, transparent);      /* rgba(255,255,255,.55) */
+--header-control-bg:color-mix(in srgb, var(--air) 35%, transparent);        /* rgba(255,255,255,.35) */
+--header-control-bg-hover:color-mix(in srgb, var(--air) 70%, transparent);  /* rgba(255,255,255,.7) */
+--header-control-border:color-mix(in srgb, var(--spruce) 18%, transparent); /* rgba(24,40,32,.18) */
+--menu-social-border:color-mix(in srgb, var(--spruce) 20%, transparent);    /* rgba(24,40,32,.2) */
+--menu-caption-bg:color-mix(in srgb, var(--spruce) 34%, transparent);       /* rgba(24,40,32,.34) */
+--menu-caption-border:color-mix(in srgb, var(--air) 28%, transparent);      /* rgba(255,255,255,.28) */
+
+/* -- Hero (рендер) -- */
+--hero-season-bg:color-mix(in srgb, var(--spruce) 38%, transparent);       /* rgba(24,40,32,.38) */
+--hero-season-border:color-mix(in srgb, var(--air) 35%, transparent);      /* rgba(255,255,255,.35) */
+--hero-season-ring:color-mix(in srgb, var(--air) 70%, transparent);        /* rgba(255,255,255,.7) */
+--hero-play-border:color-mix(in srgb, var(--air) 75%, transparent);        /* rgba(255,255,255,.75) */
+--hero-text-shadow:0 2px 18px rgba(0,0,0,.35);                             /* чёрный, как в рендере (п.16) */
+/* вуаль под текстом: радиальная на десктопе, линейная на мобильном (градиент — один токен, п.13) */
+--hero-shade:radial-gradient(ellipse 100% 100% at 0% 100%,rgba(6,8,7,.94) 0%,rgba(6,8,7,.86) 25%,rgba(6,8,7,.68) 45%,rgba(6,8,7,.4) 65%,rgba(6,8,7,.14) 84%,rgba(6,8,7,0) 100%);
+--hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.62) 0%,rgba(6,8,7,.42) 30%,rgba(6,8,7,.16) 65%,rgba(6,8,7,0) 100%);
+
+/* -- Stats (рендер) -- */
+--stats-overlay:linear-gradient(180deg,
+  color-mix(in srgb, var(--night-bark) 62%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 28%, transparent) 34%,
+  color-mix(in srgb, var(--night-bark) 12%, transparent) 60%,
+  color-mix(in srgb, var(--night-bark) 38%, transparent) 100%);           /* rgba(12,12,12,…) */
+--stats-chip-bg:color-mix(in srgb, var(--air) 14%, transparent);           /* rgba(255,255,255,.14) */
+--stats-chip-border:color-mix(in srgb, var(--air) 22%, transparent);       /* rgba(255,255,255,.22) */
+
+/* -- Footer (рендер) -- */
+--footer-overlay:color-mix(in srgb, var(--night-bark) 78%, transparent);   /* rgba(12,12,12,.78) */
+--footer-divider:color-mix(in srgb, var(--air) 28%, transparent);          /* rgba(255,255,255,.28) */
+
+/* -- Season (рендер) -- */
+--season-scrim:linear-gradient(180deg,
+  color-mix(in srgb, var(--night-bark) 28%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 30%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 70%,
+  color-mix(in srgb, var(--night-bark) 25%, transparent) 100%);           /* rgba(12,12,12,…) */
+--season-chip-bg:color-mix(in srgb, var(--spruce) 45%, transparent);       /* rgba(24,40,32,.45) */
+--season-chip-border:color-mix(in srgb, var(--air) 30%, transparent);      /* rgba(255,255,255,.3) */
+--season-ring:color-mix(in srgb, var(--white-sand) 22%, transparent);      /* rgba(242,234,216,.22) */
+--season-ring-static:color-mix(in srgb, var(--white-sand) 18%, transparent); /* rgba(242,234,216,.18) */
+--model-line-bg:linear-gradient(90deg,rgba(24,40,32,.14),rgba(24,40,32,.14) 60%,rgba(24,40,32,0));
+--model-line-color:color-mix(in srgb, var(--spruce) 14%, transparent);     /* rgba(24,40,32,.14) */
+--model-dot-border:color-mix(in srgb, var(--spruce) 28%, transparent);     /* rgba(24,40,32,.28) */
+--model-head-bg:linear-gradient(90deg,rgba(24,40,32,0),#182820);
+--model-head-glow:0 0 0 6px rgba(24,40,32,.08),0 0 24px 6px rgba(24,40,32,.18);
+--model-card-shadow:0 30px 50px -30px rgba(24,40,32,.55),0 2px 8px rgba(24,40,32,.08);
+--apts-arrow-border:color-mix(in srgb, var(--spruce) 20%, transparent);    /* rgba(24,40,32,.2) */
+--apts-bar-bg:color-mix(in srgb, var(--spruce) 14%, transparent);         /* rgba(24,40,32,.14) */
+--form-input-border:rgba(255,255,255,.18);
+--form-input-border-hover:rgba(255,255,255,.4);
+--form-input-bg:rgba(255,255,255,.05);
+--form-input-placeholder:rgba(255,255,255,.5);
+--form-input-ring:0 0 0 4px rgba(255,255,255,.08);
+--form-chip-border-hover:rgba(255,255,255,.5);
+
+/* -- Worlds (рендер) -- */
+--worlds-scrim:radial-gradient(ellipse 85% 95% at 0% 100%,
+  color-mix(in srgb, var(--night-bark) 90%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 80%, transparent) 20%,
+  color-mix(in srgb, var(--night-bark) 62%, transparent) 38%,
+  color-mix(in srgb, var(--night-bark) 38%, transparent) 56%,
+  color-mix(in srgb, var(--night-bark) 16%, transparent) 74%,
+  color-mix(in srgb, var(--night-bark) 4%, transparent) 88%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 100%),
+  linear-gradient(to top,
+  color-mix(in srgb, var(--night-bark) 35%, transparent) 0%,
+  color-mix(in srgb, var(--night-bark) 0%, transparent) 40%);             /* rgba(12,12,12,…) */
+--worlds-dim:var(--night-bark);   /* вуаль вместо filter: brightness() в волне (чёрный с α = 1 − яркость) */
+
+/* ===== Тени и размытие (рендер) ===== */
+--shadow-popover:0 24px 60px -18px color-mix(in srgb, var(--night-bark) 28%, transparent),
+                 0 2px 8px color-mix(in srgb, var(--night-bark) 6%, transparent);
+--blur-header:blur(18px) saturate(1.2);
+--blur-control:blur(10px);
+--blur-caption:blur(14px);
+--blur-chip:blur(12px);          /* плашка «60 сек» в Season */
+--blur-glass:blur(16px) saturate(1.3); /* стеклянные круги Infrastructure (номер, «i») */
+
+/* ===== Радиусы (решения Р2 + п.14; 40 — рамка Hero, приёмка 4.1) ===== */
+--radius-0:0;      --radius-4:4px;   --radius-12:12px; --radius-16:16px;
+--radius-20:20px;  --radius-24:24px; --radius-28:28px; --radius-32:32px;
+--radius-40:40px;   --radius-pill:999px;
+
+/* ===== Отступы (решения Р4 + п.11) ===== */
+--space-2:2px;   --space-4:4px;   --space-6:6px;   --space-8:8px;   --space-10:10px;
+--space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-28:28px;
+--space-32:32px; --space-36:36px; --space-40:40px; --space-44:44px; --space-48:48px;
+--space-56:56px; --space-64:64px; --space-72:72px; --space-80:80px; --space-96:96px;
+--space-128:128px;
+
+/* ===== Контролы, иконки, границы (п.9) ===== */
+--control-h-24:24px; --control-h-32:32px; --control-h-40:40px;
+--control-h-44:44px; --control-h-48:48px; --control-h-56:56px;
+--control-h-60:60px; --control-h-64:64px;   /* 64 — CTA Hero ≥1600, 60 — кнопка Worlds (приёмка 4.1) */
+--tap-target:44px;
+--icon-12:12px; --icon-16:16px; --icon-20:20px; --icon-24:24px; --icon-32:32px; --icon-40:40px;
+--border-1:1px; --border-2:2px;
+--stroke-icon:1.5px;
+--focus-width:2px; --focus-offset:2px;
+--ls-chip:.04em; --ls-chip-wide:.06em; --ls-caps:.16em;
+
+/* ===== Семейства ===== */
+--font-display:"Unbounded","Arial Black",sans-serif;
+--font-text:"Mulish","Segoe UI",Arial,sans-serif;
+
+/* ===== Страница ===== */
+--page-max:1920px;   /* ширина страницы вместе с полями (п.1) */
+
+/* ===== Header (рендер; база = ≥1600, ступени ниже) ===== */
+--header-bar-h:54px;                 /* 52 + рамка 1+1; п.13 — промежуток блока, не ступень шкалы */
+--header-offset-block:var(--space-24);        /* рендер 22 (поле кадра 12 + 10) */
+--header-offset-inline-start:var(--space-28); /* рендер 26 (12 + 14): 28/24 — ширина бара не меняется, */
+--header-offset-inline-end:var(--space-24);   /* правые контролы совпадают с рендером с учётом их округления */
+--header-logo-h:var(--space-36);
+--header-langpanel-w:236px;          /* ширина выпадающего списка языков, как в рендере */
+--header-chev:var(--icon-12);         /* шеврон переключателя языка */
+--header-langlist-max:min(360px, 60vh);
+--menu-item-pad:.06em;               /* запас под выносные элементы букв в строке меню */
+
+/* ===== Hero (рендер; база = ≥1600, ступени ниже) ===== */
+--hero-frame-pad:var(--space-12);
+--hero-frame-radius:var(--radius-40);      /* рендер 40 (приёмка 4.1; прежнее «→ 32» отменено) */
+--hero-min-h:620px;                         /* min-height первого экрана, как в выгрузке */
+--hero-min-h-mobile:520px;                  /* <768: меньше любого реального окна телефона, контент первого экрана помещается */
+--hero-inset:var(--space-96);               /* поля заголовка и текста справа (рендер 5vw ≤96) */
+--hero-title-top:calc(max(104px, 15%) - 20px);  /* формула выгрузки: от высоты кадра */
+--hero-content-start:var(--space-44);       /* рендер 43 (14 + 29) */
+--hero-content-bottom:var(--space-36);      /* рендер 38: 36 — кнопки и текст ближе к рендеру (−0.5…+1.5) */
+--hero-content-gap:var(--space-28);
+--hero-buttons-gap:var(--space-28);
+--hero-cta-h:var(--control-h-64);           /* рендер 64 */
+--hero-cta-pad-start:var(--space-28);
+--hero-cta-pad-end:var(--space-6);
+--hero-cta-gap:var(--space-28);
+--hero-cta-icon:52px;                       /* круг со стрелкой: собственный размер, рендер 52 */
+--hero-play-gap:var(--space-12);            /* рендер 14; подпись после круга — как в рендере (±1) */
+--hero-season-size:120px;                   /* круглая кнопка сезона: иконочный размер (рендер 120/117/84) */
+--hero-season-offset:var(--space-40);
+--hero-season-gap:var(--space-6);
+--hero-season-icon:var(--icon-24);          /* рендер 26 */
+--hero-shade-w:72%; --hero-shade-h:62%;
+
+/* ===== Stats (рендер) ===== */
+--stats-pad-block-start:var(--space-36);
+--stats-pad-block-end:var(--space-72);
+--stats-pad-inline:var(--space-28);         /* рендер 26; с промежутком 24 карточки стоят на месте (±1.5), уже на 2.5 */
+--stats-gap:var(--space-24);                /* рендер 22 */
+--stats-card-min:260px;                     /* minmax колонок, как в выгрузке */
+--stats-card-pad:var(--space-32);           /* рендер 34 */
+--stats-num-gap:var(--space-20);            /* рендер 18; с полем 32 подпись — как в рендере */
+--stats-chip-h:var(--control-h-48);
+--stats-chip-pad-start:var(--space-20);     /* рендер 22 с двух сторон: 20/24 — ширина плашки та же */
+--stats-chip-pad-end:var(--space-24);
+--stats-card-ratio:2 / 3;
+--stats-card-radius:var(--radius-28);
+--stats-chip-pad-block:0px;                 /* высоту плашки на десктопе задаёт min-height */
+
+/* ===== Footer (рендер) ===== */
+--footer-pad-block-start:var(--space-128);
+--footer-pad-inline:var(--space-48);
+--footer-pad-block-end:var(--space-40);
+--footer-logo-gap:160px;                    /* промежуток до логотипа (п.13, крупный, поблочно): рендер 160 */
+--footer-grid-gap:var(--space-32) var(--space-24);
+--footer-addr-gap:var(--space-16);
+--footer-addr-max:340px;                    /* max-width адреса, как в выгрузке */
+--footer-list-gap:var(--space-16);
+--footer-list-pad:var(--space-24);
+--footer-link-pad:var(--space-4);
+--footer-legal-gap:var(--space-16) var(--space-32);
+--footer-credit-gap:var(--space-12);
+--footer-credit-logo:96px;                  /* ширина логотипа студии, как в выгрузке */
+
+/* ===== Season (рендер; база = ≥1600) ===== */
+--season-pad-block-start:var(--space-96);
+--season-pad-block-end:var(--space-72);
+--season-pad-inline:var(--space-28);        /* рендер 26, как у Stats: края блоков совпадают */
+--season-head-gap:var(--space-48);
+--season-head-mb:var(--space-40);
+--season-col-basis:420px;                   /* flex-basis колонок шапки, как в выгрузке */
+--season-text-max:720px;
+--season-video-radius:var(--radius-28);
+--season-video-min:420px;                   /* max-height кадра = max(420px, 100vh − отступ), как в выгрузке */
+--season-video-offset:280px;                /* 380 − 100 */
+--season-chip-inset:var(--space-24);
+--season-chip-h:var(--control-h-44);
+--season-chip-pad-start:var(--space-12);    /* рендер 14/16: 12/16 — плашка уже на 2 */
+--season-chip-pad-end:var(--space-16);
+--season-chip-gap:var(--space-10);
+--season-chip-icon-w:10px; --season-chip-icon-h:12px;   /* треугольник, как в выгрузке */
+--season-play-size:104px;
+--season-play-ring:18px;                    /* кольца выходят за кнопку на 18 */
+--season-play-icon-w:22px; --season-play-icon-h:26px;
+--season-play-icon-shift:var(--space-4);
+--season-word-pad:.06em;                    /* запас маски слова под выносные элементы, как в выгрузке */
+
+/* ===== Worlds (рендер; база = ≥1600) ===== */
+--worlds-scroll-h:440vh;                    /* длина сцены, как в выгрузке */
+--worlds-stage-min:560px;
+--worlds-pad-inline:84px;                   /* рендер 84.48 (п.13, крупный, поблочно): вне шкалы, см. отчёт */
+--worlds-gap:clamp(var(--space-32), 6vh, var(--space-72));   /* зависит от высоты окна, как в выгрузке */
+--worlds-grid-max:1640px;
+--worlds-grid-gap:var(--space-24);
+--worlds-ph-ratio:2.16 / 1;
+--worlds-ph-ratio-c:var(--worlds-ph-ratio); --worlds-ph-ratio-side:var(--worlds-ph-ratio);
+--worlds-pill-w:1.9em; --worlds-pill-h:.92em; --worlds-pill-gap:.22em; --worlds-pill-shift:-.06em; /* фото в строке заголовка */
+--worlds-card-inset:var(--space-12);        /* поле развёрнутой карточки */
+--worlds-card-radius-start:var(--radius-28);
+--worlds-card-radius-end:var(--radius-40);
+--worlds-text-pad-bottom:var(--space-72);
+--worlds-slide-max:760px;
+--worlds-slide-gap:var(--space-24);
+--worlds-name-gap:var(--space-20);
+--worlds-btn-h:var(--control-h-60);
+--worlds-btn-pad-start:var(--space-28);
+--worlds-btn-pad-end:var(--space-6);
+--worlds-btn-gap:var(--space-28);
+--worlds-btn-mt:var(--space-8);
+--worlds-btn-icon:var(--space-48);
+--worlds-btn-svg:18px;
+--worlds-dots-gap:var(--space-32);
+--worlds-dot-pad:var(--space-6);
+
+/* Model (4.5): рендер 1920 */
+--model-pad-block-start:var(--space-96);
+--model-pad-block-end:var(--space-72);
+--model-pad-inline:var(--space-32);         /* рендер 34 */
+--model-lead-mb:140px;                      /* >80, кратно 4 */
+--model-cols:5;
+--model-steps-gap:var(--space-40);
+--model-step-gap:var(--space-20);           /* рендер 18 */
+--model-dot:13px; --model-dot-on-scale:1.2;  /* 11 + рамка (content-box в выгрузке) */
+--model-dot-mb:var(--space-48);
+--model-line-top:5px;                       /* как в выгрузке */
+--model-card-min:300px;
+--model-card-pad:var(--space-32);
+--model-card-gap:var(--space-12);           /* рендер 14 */
+--model-card-lift:-6px;
+--model-tilt-1:-2.4deg; --model-tilt-2:1.6deg; --model-tilt-3:-1.1deg; --model-tilt-4:2.2deg; --model-tilt-5:-1.7deg;
+--model-head-w:120px; --model-head-dot:9px;
+--model-steps-gap-col:var(--space-48);      /* 768–900: столбец */
+--model-col-indent:var(--space-36);
+--model-col-line-x:5px; --model-col-line-inset:6px;
+--model-col-dot-top:var(--space-16);        /* рендер clamp(14px,2vw,26px): 15–18 на 768–900 */
+--model-deck-step:62svh;                    /* <768: прокрутка на один шаг колоды */
+--model-deck-h:360px;
+--model-deck-card-min:260px;
+
+/* Apartments (4.6): рендер 1920 */
+--apts-pad-block-start:var(--space-96);
+--apts-pad-block-end:var(--space-36);
+--apts-pad-inline:var(--space-32);          /* рендер 34, как у Model */
+--apts-track-pad-top:var(--space-56);
+--apts-gap:var(--space-24);
+--apts-card-w:clamp(280px, 33vw, 640px);    /* плавная, как в выгрузке */
+--apts-card-gap:var(--space-24);
+--apts-img-ratio:16 / 10;
+--apts-body-gap:var(--space-12);            /* рендер 14 */
+--apts-body-pad:var(--space-12);
+--apts-foot-mt:var(--space-36);
+--apts-thumb-h:3px;
+--apts-img-hover-scale:1.04;
+
+/* Form (4.7): рендер 1920 */
+--form-pad-block-start:var(--space-32);
+--form-pad-block-end:var(--space-72);
+--form-pad-inline:var(--space-32);          /* рендер 34 */
+--form-grid-gap:var(--space-16);
+--form-panel-pad:var(--space-56);
+--form-info-gap:var(--space-24);            /* рендер 26 */
+--form-text-max:560px;
+--form-bullets-mt:var(--space-12);
+--form-bullet-ratio:16 / 10;
+--form-bullet-pad:var(--space-16);
+--form-bullet-row-w-md:128px;               /* 901–1100: фото слева, как в выгрузке */
+--form-bullet-row-w-sm:136px;               /* ≤560 */
+--form-bullet-hover-scale:1.06;
+--form-bullet-img-from:1.3;
+--form-mgr-gap:var(--space-20);             /* рендер 22 */
+--form-mgr-pad:var(--space-20);             /* рендер 18 */
+--form-mgr-photo:76px;                      /* собственный размер фото эксперта */
+--form-mgr-who-basis:160px;
+--form-msg-icon:19px;
+--form-fields-gap:var(--space-28);
+--form-field-gap:var(--space-12);            /* подпись → поле, подпись группы → чипы */
+--form-input-h:var(--control-h-60);
+--form-chip-h:var(--control-h-48);
+--form-chip-pad:var(--space-24);            /* рендер 22 */
+--form-chevron:18px;
+--form-submit-icon:52px;                    /* круг со стрелкой в кнопке: собственный размер */
+--form-done-check:26px;
+--form-done-text-max:440px;
+--form-rise-shift:18px;
+
+/* ===== Location 4.8 (рендер; база = ≥1600). Поля секции и кнопка — те же формулы выгрузки, что у Model и CTA Hero ===== */
+--loc-pad-block-start:var(--model-pad-block-start);
+--loc-pad-block-end:var(--model-pad-block-end);
+--loc-pad-inline:var(--model-pad-inline);
+--loc-gap:var(--space-72);
+--loc-left-gap:var(--space-28);
+--loc-left-basis:340px;  --loc-map-basis:520px; --loc-map-grow:1.7;  /* flex: 1 1 340px / 1.7 1 520px — перенос колонок как в выгрузке */
+--loc-text-max:460px;
+--loc-map-dim:saturate(.55) brightness(.8);                                  /* стартовый вид карты (статичный слой) */
+--loc-pin-size:min(1.364cqw, 13px);                                          /* подписи меток: доля ширины карты, ≤13 */
+--loc-pin-edge:var(--space-4);             /* подпись метки не ближе 4px к краю карты */
+--loc-pin-shadow:0 6px 16px -8px rgba(0,0,0,.55);
+--loc-dot-shadow:0 10px 24px -10px rgba(0,0,0,.6);
+--loc-tag-shadow:0 12px 28px -14px rgba(0,0,0,.6);
+--loc-tag-ls:-.01em;
+--loc-ring-border:color-mix(in srgb, var(--white-sand) 90%, transparent);   /* rgba(242,234,216,.9) */
+--loc-ring-bg:color-mix(in srgb, var(--white-sand) 28%, transparent);       /* rgba(242,234,216,.28) */
+--loc-card-w:min(38cqw, 420px);
+--loc-card-max-w:420px;                     /* карточка в окне <768: ширина как у карточки на 1920 */
+--loc-modal-backdrop:color-mix(in srgb, var(--night-bark) 60%, transparent); /* подложка окна карточки <768 */
+--loc-card-shadow:0 40px 80px -30px rgba(12,12,12,.75),0 2px 6px rgba(12,12,12,.08);
+--loc-card-scrim:linear-gradient(180deg, rgba(12,12,12,0) 45%, rgba(12,12,12,.72) 100%);
+--loc-badge-bg:color-mix(in srgb, var(--air) 92%, transparent);             /* rgba(255,255,255,.92); backdrop-filter выгрузки не переносим */
+--loc-badge-h:28px; --loc-badge-size:11px; --loc-badge-ls:.08em;
+--loc-card-ls:-.02em;
+--loc-card-title-size:min(1.8cqw, 20px); --loc-card-sub-size:min(1.1cqw, 12.5px);
+--loc-fact-size:min(1.6cqw, 18px); --loc-card-small-size:min(1.05cqw, 12px);
+/* движение (выгрузка) */
+--loc-hover-dur:.3s;
+--loc-line-dur:1.35s; --loc-up-fade-dur:1.1s; --loc-up-shift:26px; --loc-up-blur:6px;
+--loc-map-dur:1.9s; --loc-map-ease:cubic-bezier(.77,0,.18,1);
+--loc-img-dur:2.8s; --loc-dim-dur:2.2s;
+--loc-pin-fade-dur:.9s; --loc-pin-move-dur:1.1s; --loc-pin-pop-ease:cubic-bezier(.34,1.45,.5,1); --loc-pin-blur:5px;
+--loc-pulse-dur:3.2s; --loc-pulse-gap:1.6s; --loc-pulse-ease:cubic-bezier(.22,.61,.36,1);
+--loc-card-fade-dur:.35s; --loc-card-move-dur:.5s;
+
+/* ===== Infrastructure 4.9 (рендер; база = ≥1600). Поля секции — та же формула выгрузки, что у Model ===== */
+--infra-pad-block-start:var(--model-pad-block-start);
+--infra-pad-block-end:var(--model-pad-block-end);
+--infra-pad-inline:var(--model-pad-inline);
+--infra-title-mb:var(--space-64);
+--infra-gap:var(--space-24);             /* рендер 22 */
+--infra-card-w:429px;                    /* собственный размер: clamp(312px,24.7vw,429px) */
+--infra-corner:18px;                     /* положение номера и кнопки «i» от угла */
+--infra-head-inset:24px;                 /* положение заголовка от краёв */
+--infra-plate-pad-start:var(--space-20); --infra-plate-pad-end:var(--space-24); /* рендер 22 с двух сторон: 20/24 — габарит тот же */
+--infra-edge-mask:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+--infra-scrim:linear-gradient(180deg, rgba(12,12,12,.45) 0%, rgba(12,12,12,0) 26%, rgba(12,12,12,0) 46%, rgba(12,12,12,.78) 100%);
+--infra-glass-bg:color-mix(in srgb, var(--air) 14%, transparent);        /* rgba(255,255,255,.14) */
+--infra-glass-border:color-mix(in srgb, var(--air) 28%, transparent);    /* rgba(255,255,255,.28) */
+--infra-info-border:color-mix(in srgb, var(--air) 32%, transparent);     /* rgba(255,255,255,.32) */
+--infra-num-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 8px 24px -10px rgba(0,0,0,.35);
+--infra-info-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px -10px rgba(0,0,0,.4);
+--infra-dim:.2;                          /* = brightness(.8) выгрузки */
+/* движение (выгрузка) */
+--infra-img-dur:1.4s; --infra-dim-dur:1s; --infra-head-fade-dur:.5s; --infra-head-move-dur:.8s; --infra-plate-move-dur:.9s;
+--infra-info-dur:.5s; --infra-icon-dur:.6s; --infra-icon-fade-dur:.35s;
+--infra-line-dur:1.3s;
+--infra-ribbon-fade-dur:1.2s; --infra-ribbon-move-dur:1.8s; --infra-ribbon-delay:.3s; --infra-ribbon-shift:-80px;
+--infra-speed:.028;                      /* автопрокрутка, px/мс (ui/infra.js читает) */
+
+/* ===== Numbers (4.10) + калькулятор (рендер; база = ≥1600) ===== */
+--nums-pad-block-start:var(--model-pad-block-start);
+--nums-pad-block-end:var(--model-pad-block-end);
+--nums-pad-inline:var(--model-pad-inline);
+--nums-title-mb:var(--space-56);
+--nums-stack-gap:var(--space-12);          /* <900: карточки и калькулятор столбцом */
+--nums-scene-gap:var(--space-16);          /* ≥900: промежуток карточек (в выгрузке 16 на всех ширинах) */
+--nums-track-h:360vh;                      /* длина сцены прокрутки, как в выгрузке */
+--nums-card-max-w:56vh;                    /* ширина карточки ≤ 0.7·высоты окна / 1.25 (выгрузка) */
+--nums-pano-inset:48px;                    /* панорама в конце сцены: высота окна − 48 */
+--nums-form-pad:max(16px, 2.5cqw);         /* поле калькулятора в сцене: max(16, 2.5% ширины), как в выгрузке */
+--nums-pano-pad:var(--space-32);           /* без сцены, ≥900: поле панорамы вокруг калькулятора */
+--nums-dark:.6; --nums-dark-static:.55;
+--nums-card-pad:var(--space-40);
+--nums-card-gap:var(--space-20);
+--nums-chip-h:var(--control-h-32);
+--nums-chip-pad-start:var(--space-12); --nums-chip-pad-end:var(--space-16);  /* рендер 14 с двух сторон */
+--nums-graph-pb:var(--space-36);
+--nums-gbars-h:170px;                      /* собственный размер: clamp(120px,10vw,170px) */
+--nums-gbars-gap:var(--space-12);          /* рендер 14 */
+--nums-gbar-radius:var(--radius-12);
+--nums-tag-h:28px; --nums-tag-pad:var(--space-12); --nums-tag-gap:var(--space-16); /* «Точка окупності»: 14 ниже точки */
+--nums-axis-mt:var(--space-10); --nums-axis-h:16px;
+--nums-ring-w:260px;                       /* собственный размер: min(62%, clamp(190px,16vw,260px)) */
+--nums-ring-pb:var(--space-24);
+--nums-ring-gap:var(--space-20);
+--nums-ring-center-gap:var(--space-4);
+--nums-steps-gap:var(--space-12);          /* рендер 14 */
+--nums-step-gap:var(--space-6);
+--nums-step-dot:12px; --nums-step-dot-gap:var(--space-8);
+--nums-bar-1:#D6E2DA; --nums-bar-2:#B4CABD; --nums-bar-3:#8FAE9D; --nums-bar-4:#6E9784; --nums-bar-5:#4E7A66; --nums-bar-6:var(--pine); /* столбики «Річна дохідність» */
+--nums-gbar-fade:linear-gradient(180deg, #000 0%, rgba(0,0,0,.8) 45%, transparent 100%); /* цвет → прозрачный вниз (CC = .8) */
+--nums-area-stop:var(--nums-bar-5); --nums-area-stop-opacity:.38;
+--nums-card-shadow:0 1px 0 rgba(255,255,255,.8) inset, 0 30px 60px -40px rgba(50,37,18,.28);
+--nums-pulse-scale:2.6; --nums-pulse-opacity:.35;
+
+--calc-grid-gap:var(--space-16);
+--calc-panel-pad:var(--space-40);
+--calc-panel-gap:var(--space-36);
+--calc-field-gap:var(--space-12);          /* рендер 14 */
+--calc-label-gap:var(--space-12);          /* рендер 14 */
+--calc-icon-box:var(--control-h-44); --calc-icon:22px; --calc-chev-box:var(--control-h-40); --calc-chev:18px;
+--calc-trig-pad:var(--space-12) var(--space-16) var(--space-16) var(--space-20); /* рендер 14 14 14 22: габарит тот же */
+--calc-trig-gap:var(--space-16);
+--calc-trig-text-gap:var(--space-4);
+--calc-trig-radius:var(--radius-24);       /* рендер 22 */
+--calc-trig-bg:#FBF7F0;
+--calc-trig-ring:0 0 0 5px rgba(24,40,32,.06);
+--calc-list-offset:var(--space-10); --calc-list-pad:var(--space-6); --calc-list-radius:var(--radius-24);
+--calc-list-shadow:0 0 0 1px var(--path-sand), 0 40px 80px -36px rgba(24,40,32,.5);
+--calc-list-shift:-10px; --calc-list-scale:.98;
+--calc-opt-pad:var(--space-10) var(--space-16) var(--space-10) var(--space-12); /* рендер 10 14 */
+--calc-opt-radius:var(--radius-16);        /* рендер 14 */
+--calc-opt-gap:var(--space-16); --calc-opt-text-gap:var(--space-12);
+--calc-radio:20px;
+--calc-radio-on:radial-gradient(circle at center, var(--air) 0 3.5px, var(--spruce) 4px);
+--calc-params-gap:var(--space-12); --calc-params-pt:var(--space-8); --calc-param-gap:var(--space-6);
+--calc-res-pad:var(--space-32);
+--calc-res-gap:var(--space-24);            /* рендер 26 */
+--calc-res-top-gap:var(--space-20);
+--calc-price-row-gap:var(--space-12) var(--space-24);
+--calc-price-gap:var(--space-8);
+--calc-yield-h:var(--control-h-40); --calc-yield-pad-start:var(--space-16); --calc-yield-pad-end:var(--space-6); --calc-yield-gap:var(--space-10);
+--calc-yield-val-h:30px; --calc-yield-val-pad:var(--space-12);
+--calc-tiles-gap:var(--space-8); --calc-tile-min:150px;
+--calc-tile-pad-block-start:var(--space-16); --calc-tile-pad-block-end:var(--space-20); --calc-tile-pad-inline:var(--space-20); /* рендер 18 / 20: 16+20 — габарит тот же */
+--calc-tile-radius:var(--radius-20);       /* рендер 18 */
+--calc-tile-gap:var(--space-10);
+--calc-chart-gap:var(--space-12);
+--calc-bars-h:100px;                       /* собственный размер: clamp(72px,6.4vw,100px) */
+--calc-bars-gap:var(--space-4);
+--calc-bar-radius:6px 6px 2px 2px;         /* столбик графика, как в выгрузке */
+--calc-legend-gap:var(--space-8) var(--space-20); --calc-legend-item-gap:var(--space-8);
+--calc-swatch:12px; --calc-swatch-radius:3px;
+--calc-foot-mt:var(--space-4);
+--calc-cta-gap:var(--space-24);
+--calc-cta-h:var(--control-h-64); --calc-cta-pad-start:var(--space-28); --calc-cta-pad-end:var(--space-6); --calc-cta-icon-box:52px; /* 64/52 на всех ширинах, как в рендере */
+--calc-cta-icon:18px;
+/* движение (рендер) */
+--nums-line-dur:1.3s;
+--nums-clip-dur:1.5s; --nums-step:.15s;
+--nums-txt-fade-dur:1s; --nums-txt-move-dur:1.3s; --nums-txt-delay:.5s; --nums-txt-shift:-18px;
+--nums-gb-dur:1.2s; --nums-gs-dur:.5s; --nums-gs-fade-dur:.6s; --nums-gs-move-dur:.8s; --nums-area-dur:1s; --nums-tick-dur:.4s;
+--nums-line-draw-dur:1.8s; --nums-ring-draw-dur:1.1s; --nums-draw-delay:1.3s;
+--nums-pulse-dur:2.4s; --nums-pulse-delay:3s;
+--nums-hover-dur:.4s; --nums-ring-dur:.5s; --nums-chev-dur:.6s; --nums-list-fade-dur:.3s; --nums-list-move-dur:.5s; --nums-opt-dur:.35s;
+--calc-bar-dur:1.6s; --calc-bar-step:70ms; --calc-bar-fast-dur:.9s; --calc-bar-fast-step:25ms;
+--calc-paid-dur:.6s; --calc-paid-delay:.4s;
+--calc-bar-fade-dur:.8s; --calc-bar-move-dur:1.2s; --calc-be-delay:1.8s; --calc-be-move-dur:1s;
+--calc-tween-dur:1600ms; --calc-tween-fast-dur:900ms; --calc-tick-dur:.3s; --calc-tick-blur:1.5px;   /* пересчёт чисел (ui/numbers.js читает) */
+
+/* ---------- Team v3 (4.13): ≥1600 — рендер 1920 ---------- */
+--team-pad-block:var(--space-128); --team-pad-inline:var(--space-12);
+--team-head-pad-inline:var(--space-20);    /* рендер 22 */
+--team-head-pb:var(--space-48);            /* рендер 52 */
+--team-head-gap-row:var(--space-24); --team-head-gap-col:var(--space-96);
+--team-sub-max:420px;
+--team-tabs-w:460px; --team-col-gap:var(--space-12); --team-tab-gap:var(--space-10);
+--team-tab-pad:var(--space-24);            /* рендер 26 */
+--team-tab-min:170px; --team-tab-min-open:170px; --team-tab-inner-gap:var(--space-24);
+--team-tab-grow:1fr; --team-tab-rest:0fr; /* выбранная вкладка забирает остаток высоты панели (flex-grow 2.2 выгрузки при min-height остальных даёт то же) */
+--team-radius:var(--radius-24);            /* рендер 22: вкладки, фото, цитата */
+--team-tab-bg:var(--forest); --team-tab-bg-hover:color-mix(in srgb, var(--forest) 90%, var(--night-bark)); /* #536C61 */
+--team-tab-bg-open:var(--spruce);
+--team-chip-bg:color-mix(in srgb, var(--air) 16%, transparent);          /* rgba(255,255,255,.16) */
+--team-role-h:40px; --team-role-pad:var(--space-16);                     /* рендер 18 */
+--team-arrow:34px; --team-arrow-icon:14px;
+--team-logo-h:44px; --team-logo-max:78%;
+--team-panel-radius:var(--radius-32);
+--team-panel-min:clamp(560px, calc(100vh - 160px), 780px);              /* как в выгрузке (vh) */
+--team-photo-w:380px; --team-page-gap:var(--space-40);
+--team-page-pad:14px;                      /* рендер 14: фото у края белой панели */
+--team-body-gap:var(--space-24);
+--team-body-pad-top:var(--space-40); --team-body-pad-end:var(--space-36); --team-body-pad-bottom:var(--space-24);
+--team-stat-min-h:38px; --team-stat-pad-block:var(--space-8); --team-stat-pad-inline:var(--space-16); --team-stat-gap:var(--space-6); --team-stats-gap:var(--space-8);
+--team-q-col:180px; --team-q-gap:var(--space-24); --team-q-pad:14px; --team-q-body-gap:var(--space-12); /* рендер 14 */
+--team-q-body-pad:14px; --team-qmark-mb:var(--space-4); /* рендер 14 + 14: 12 + 4 и 12 */ --team-q-photo-min:140px; --team-q-photo-min-sm:150px; --team-q-photo-ratio:4 / 5; /* портрет в цитате на ≤900 — как исходные фото и рамка на десктопе */ --team-q-photo-radius:var(--radius-16);
+--team-qmark-h:22px; --team-qcap-gap:var(--space-2);
+--team-mob-gap:var(--space-10); --team-mob-radius:var(--radius-28);
+--team-fade-out:.45s; --team-fade-in:.6s; --team-fade-delay:.1s; --team-shift:14px; --team-shift-dur:.8s;
+--team-grow-dur:.8s; --team-bg-dur:.5s; --team-arrow-dur:.6s;
+--team-acc-dur:.75s; --team-acc-ease:cubic-bezier(.65,0,.35,1); --team-acc-shift:-10px; --team-acc-fade-delay:.12s;
+
+/* ---------- Construction B (4.12): ≥1600 — рендер 1920 ---------- */
+--ct-pad-block:var(--space-128);
+--ct-pad-inline:var(--space-32);           /* рендер 34 (как Model) */
+--ct-head-gap-row:var(--space-24); --ct-head-gap-col:var(--space-96);
+--ct-head-mb:var(--space-64);
+--ct-btn:52px; --ct-btn-photo:var(--control-h-48); --ct-icon:18px; --ct-nav-gap:var(--space-8);
+--ct-row-gap:var(--space-16); --ct-item-gap:var(--space-16);
+--ct-item-max:1180px;                      /* ширина карточки, как в выгрузке */
+--ct-col-min:420px;                        /* колонки карточки (auto-fit) */
+--ct-item-head-gap:var(--space-12); --ct-item-head-pad:var(--space-4);
+--ct-chip-h:28px; --ct-chip-pad:var(--space-12);
+--ct-card-pad:var(--space-10); --ct-card-radius:var(--radius-32); --ct-media-radius:var(--radius-24);
+--ct-media-min:520px;
+--ct-photo-nav-inset:14px;                 /* рендер 14 (у края фото) */
+--ct-glass-bg:color-mix(in srgb, var(--air) 92%, transparent);           /* rgba(255,255,255,.92) */
+--ct-video-bg:color-mix(in srgb, var(--night-bark) 55%, transparent);    /* rgba(12,12,12,.55) */
+--ct-glass-blur:blur(10px); --ct-video-blur:blur(12px);
+--ct-video-h:var(--control-h-48); --ct-video-pad-start:var(--space-6); --ct-video-pad-end:var(--space-20); --ct-video-gap:var(--space-10);
+--ct-play:36px; --ct-play-icon:var(--icon-12);
+--ct-body-pad-start:var(--space-44); --ct-body-pad-inline:var(--space-40); --ct-body-pad-inline-end:var(--ct-body-pad-inline); --ct-body-pad-end:var(--space-32);
+--ct-body-gap:var(--space-16); --ct-text-mb:var(--space-4); /* рендер 18 + 18: 16 и 16 + 4 — список на месте */
+--ct-text-max:560px;
+--ct-works-gap:var(--space-8);
+--ct-work-min-h:36px; --ct-work-pad-block:var(--space-6); --ct-work-pad-start:var(--space-10); --ct-work-pad-end:var(--space-12); /* рендер 6 14 6 10 */
+--ct-work-gap:var(--space-8); --ct-check:14px;
+--ct-arch-w:360px; --ct-arch-pad:var(--space-40); --ct-arch-gap:var(--space-32); --ct-arch-text-gap:var(--space-12); /* рендер 14 */
+--ct-arch-arrow:var(--control-h-64); --ct-arch-icon:22px;
+--ct-hover-dur:.5s; --ct-arrow-dur:.7s; --ct-hover-scale:1.08; --ct-arrow-shift:var(--space-4);
+
+/* ---------- Investor Service (4.11): ≥1600 — рендер 1920 ---------- */
+--svc-pad-inline:var(--space-12);          /* поля секции вокруг тёмной рамки */
+--svc-radius:var(--radius-40);
+--svc-head-pad-start:140px;                /* рендер 140: промежуток >80, кратен 4 */
+--svc-head-pad-inline:var(--space-40);
+--svc-head-pad-end:var(--space-24);
+--svc-head-gap-row:var(--space-24); --svc-head-gap-col:var(--space-96);
+--svc-lead-max:460px;
+--svc-track-h:243vh;                       /* длина сцены, как в выгрузке */
+--svc-stick-min-h:640px;
+--svc-stick-pad-block:clamp(20px, 4vh, 48px); /* как в выгрузке: от высоты окна (исключение для vh) */
+--svc-stick-pad-inline:var(--space-40);
+--svc-lap-w:min(42vw, (88vh - 140px) * 1.5); /* ширина ноутбука ≥900, как в выгрузке */
+--svc-lap-w-mob:calc(100vw - 76px);       /* <900, как в выгрузке */
+--svc-card-min-h:168px;                    /* карточка в столбце <900 */
+--svc-grid-gap:var(--space-44);
+--svc-col-gap:var(--space-16);
+--svc-center-gap:clamp(28px, 4.5vh, 56px); /* как в выгрузке (vh) */
+--svc-card-pad:var(--space-28); --svc-card-pad-end:var(--svc-card-pad);
+--svc-card-radius:var(--radius-24);
+--svc-card-gap:var(--space-16); --svc-card-text-gap:var(--space-10);
+--svc-card-bg:color-mix(in srgb, var(--air) 3.5%, transparent);   /* rgba(255,255,255,.035) */
+--svc-card-border:color-mix(in srgb, var(--air) 8%, transparent); /* inset 1px rgba(255,255,255,.08) */
+--svc-num-h:28px; --svc-num-pad:var(--space-12);
+--svc-num-border:color-mix(in srgb, var(--air) 16%, transparent);
+--svc-cap-max:480px; --svc-cap-gap:var(--space-12); --svc-cap-head-gap:var(--space-10);
+/* мок дашборда: цвета корпуса и экрана вне палитры — декоративная иллюстрация (Р1) */
+--svc-device:#1C1C1E; --svc-device-edge:#2E2E30; --svc-screen:#0F1311; --svc-island:#000000;
+--svc-avatar:linear-gradient(135deg, #3A3F3C, #22272A);
+--svc-base:linear-gradient(#4A4A4D, #232325 60%, #161618); --svc-base-notch:#161618;
+--svc-accent:var(--sea-wave);
+--svc-glow:radial-gradient(closest-side, color-mix(in srgb, var(--sea-wave) 16%, transparent), transparent);
+--svc-glare:linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--air) 7%, transparent) 45%, transparent 60%);
+--svc-lid-shadow:inset 0 0 0 .12em var(--svc-device-edge), 0 4em 9em -2em rgba(0,0,0,.9);
+--svc-phone-shadow:drop-shadow(0 3em 4em rgba(0,0,0,.7));
+/* движение */
+--svc-line-dur:1.4s; --svc-lead-fade-dur:1.2s; --svc-lead-delay:.3s; --svc-lead-shift:24px;
+--svc-par-dur:1.2s; --svc-pulse-dur:2s;
+--svc-card-blur:14px;                      /* размытие карточек при появлении (≥1280, как Model) */
+
+/* ===== Меню (рендер) ===== */
+--menu-pad-block-start:var(--space-24);
+--menu-pad-inline:var(--space-48);
+--menu-pad-block-end:var(--space-48);
+--menu-gap:clamp(var(--space-32), 5vh, var(--space-64));   /* зависит от высоты окна, как в выгрузке */
+--menu-nav-gap:clamp(var(--space-24), 3vh, var(--space-40));
+--menu-main-gap:var(--space-80);     /* рендер 76.8 */
+--menu-foot-col-gap:var(--space-48);
+--menu-foot-row-gap:var(--space-28);
+
+/* ===== Движение (Р6; длительности/кривые из Системы А) ===== */
+--dur-hover:150ms; --dur-accordion:200ms; --dur-menu:250ms; --dur-entrance:400ms;
+--ease-out:cubic-bezier(.2,.6,.3,1);
+
+/* -- кривые из рендера -- */
+--ease-out-quint:cubic-bezier(.22,1,.36,1);
+--ease-out-expo:cubic-bezier(.16,1,.3,1);
+--ease-in-out-quart:cubic-bezier(.76,0,.24,1);
+--ease-in-quart:cubic-bezier(.5,0,.75,0);
+
+/* -- Header и меню: длительности и задержки из рендера -- */
+--header-enter-dur:1.1s;  --header-enter-delay:.25s;  --header-enter-shift:-24px;
+--header-control-dur:.3s; --header-chev-dur:.45s;
+--langpanel-fade-dur:.35s; --langpanel-move-dur:.5s; --langopt-dur:.25s;
+--menu-hide-delay:1.15s;
+--menu-panel-open-dur:1.05s; --menu-panel-close-dur:.85s; --menu-panel-close-delay:.3s;
+--menu-link-open-dur:1.1s;   --menu-link-open-delay:.42s; --menu-link-open-step:.07s;
+--menu-link-close-dur:.45s;  --menu-link-close-step:.03s; --menu-link-fade-dur:.3s;
+--menu-sub-fade-dur:.8s;     --menu-sub-move-dur:1s;      --menu-sub-delay:.8s;  --menu-sub-step:.05s;
+--menu-col-delay:.95s;       --menu-col-step:.07s;
+--menu-top-fade-dur:.6s;     --menu-top-move-dur:.8s;     --menu-top-delay:.35s;
+--menu-out-fade-dur:.25s;    --menu-out-move-dur:.35s;
+--menu-img-open-dur:1.3s;    --menu-img-close-dur:.5s;    --menu-img-delay:.5s;
+--menu-img-zoom-dur:2s;
+--menu-cap-delay:1.3s;       --menu-cap-close-dur:.2s;
+--menu-arrow-dur:.5s;        --menu-arrow-fade-dur:.35s;
+--menu-close-rotate-dur:.5s; --menu-hover-dur:.25s;
+--menu-shift:16px; --menu-cap-shift:12px;
+--menu-img-scale:1.25; --menu-link-dim:.28;
+--langpanel-shift:-8px; --langpanel-scale:.96;
+
+/* -- Hero: появление, сезон (рендер) -- */
+--ease-out-back:cubic-bezier(.34,1.4,.64,1);      /* hsPop */
+--ease-in-out-cubic:cubic-bezier(.65,0,.35,1);    /* iris, звезда */
+--hero-img-dur:2.2s;
+--hero-rise-dur:2s;  --hero-rise1-delay:.5s; --hero-rise2-delay:.7s;
+--hero-rise1-from:62vh; --hero-rise2-from:58vh;
+--hero-fade-dur:.9s; --hero-fade1-delay:2.9s; --hero-fade2-delay:3.05s;
+--hero-up-dur:1.2s;  --hero-up1-delay:1.05s; --hero-up2-delay:1.25s; --hero-up-shift:28px;
+--hero-pop-dur:1.1s; --hero-pop-delay:1.45s;
+--hero-pulse-dur:2.8s; --hero-pulse1-delay:2.6s; --hero-pulse2-delay:4s;
+--hero-breath-dur:2.8s; --hero-breath-delay:2.6s; --hero-breath-scale:1.04;
+--hero-iris-dur:1.2s;
+--hero-hover-dur:.3s;
+--hero-img-scale:1.08; --hero-pop-scale:.6; --hero-pulse-scale:1.55; --hero-pulse-opacity:.55;
+
+/* -- Stats: появление карточек (рендер) -- */
+--stats-clip-dur:1.6s; --stats-img-dur:2.2s; --stats-txt-fade-dur:1s; --stats-txt-move-dur:1.3s;
+--stats-step:.22s; --stats-txt-delay:.7s;
+--stats-txt-shift:-18px; --stats-img-shift:-8%; --stats-img-scale:1.15;
+--swipe-hand-dur:2.4s; --swipe-hand-ease:cubic-bezier(.45,0,.55,1); --swipe-fade-dur:.5s;
+--swipe-hand-shift:9px; --swipe-hand-turn:6deg;
+
+/* -- Footer (рендер) -- */
+--footer-underline-dur:.7s;
+--footer-acc-dur:.5s; --footer-acc-fade-in:.5s; --footer-acc-fade-delay:.12s; --footer-acc-fade-out:.3s;
+--footer-chev-dur:.4s;
+
+/* -- Season: появление (рендер) -- */
+--season-word-dur:1.3s; --season-word-delay:.25s; --season-word-step:.08s;
+--season-word-shift:110%; --season-word-turn:4deg;
+--season-text-fade-dur:1.2s; --season-text-move-dur:1.4s; --season-text-delay:.55s; --season-text-shift:24px;
+--season-clip-dur:1.8s; --season-clip-delay:.35s; --season-clip-from:18% 10% 18% 10%;
+--season-chip-fade-dur:.9s; --season-chip-move-dur:1.1s; --season-chip-delay:1.4s; --season-chip-shift:-10px;
+--model-head-dur:.6s; --model-dot-dur:1.1s; --model-num-dur:1.4s; --model-title-dur:1.2s; --model-title-delay:.14s;
+--model-text-fade-dur:1.2s; --model-text-move-dur:1.4s; --model-text-delay:.28s; --model-text-shift:18px; --model-text-blur:8px;
+--model-dot-fill-dur:.9s; --model-shadow-dur:1.4s;
+--model-card-fade-dur:.9s; --model-card-move-dur:1.4s; --model-card-delay:.25s; --model-card-shift:48px;
+--model-hover-dur:.8s; --model-ring-dur:1.6s; --model-ring-scale:4.2; --model-deck-fade-dur:.6s;
+--apts-hover-dur:.3s; --apts-img-hover-dur:1.2s; --apts-thumb-dur:.35s;
+--apts-title-dur:1.3s; --apts-title-delay-1:.1s; --apts-title-delay-2:.2s;
+--apts-fade-dur:1s; --apts-rise-dur:1.2s; --apts-rise-shift:12px; --apts-nav-delay:.5s; --apts-foot-delay:.9s;
+--apts-card-dur:1.5s; --apts-card-step:.12s; --apts-card-shift:-48px;
+--form-title-dur:1.3s; --form-title-delay-1:.1s; --form-title-delay-2:.2s;
+--form-text-fade:1.1s; --form-text-move:1.3s; --form-text-delay:.35s; --form-text-blur:6px;
+--form-bullet-dur:1.4s; --form-bullet-img-dur:2.2s; --form-bullet-delay:.5s; --form-bullet-step:.15s; --form-bullet-hover-dur:1.2s;
+--form-fade-dur:1s; --form-rise-dur:1.2s; --form-mgr-delay:1s; --form-panel-dur:1.5s; --form-panel-delay:.2s;
+--form-phone-dur:.5s; --form-msg-dur:.35s; --form-input-dur:.3s; --form-chip-dur:.35s; --form-shake-dur:.5s; --form-submit-icon-dur:.6s;
+--form-done-out-dur:.6s; --form-done-in-dur:.8s; --form-done-icon-dur:1s; --form-done-fade-dur:.6s; --form-done-icon-delay:.2s;
+--form-done-text-fade:.9s; --form-done-text-move:1.1s; --form-done-text-delay:.4s;
+--season-play-fade-dur:.8s; --season-play-pop-dur:1.2s; --season-play-delay:1.2s; --season-play-scale:.4;
+--ease-out-back-strong:cubic-bezier(.34,1.5,.64,1);
+--season-pulse-dur:2.8s; --season-pulse-delay:2.4s;
+
+/* -- Worlds: сцена прокрутки (рендер) -- */
+--worlds-slide-fade-dur:700ms; --worlds-slide-move-dur:900ms; --worlds-slide-shift:8px;
+--worlds-dot-dur:400ms; --worlds-btn-dur:150ms;
+
+/* ===== Типографика — набор ролей утверждён в 4.U (2026-11-16), эталон для следующих блоков =====
+   Новый блок берёт существующую роль, если рендер совпадает в пределах 2px на всех ступенях;
+   иначе заводит временную роль и предлагает сведение в отчёте (LAYOUT_RULES.md, «Шрифтовые роли»).
+   Роль задаёт шрифт, кегль и межстрочный; вес и заглавные — у элемента (классы .text-w-*, .text-caps-*).
+   База :root = ступень ≥1600 (значения с рендера 1920). Ниже — медиазапросы
+   1280–1599 (1440), 768–1279 (1024), <768 (390). Плавные роли — clamp как в выгрузке. */
+
+/* -- плавные роли (clamp из выгрузки, десктоп ≥768; мобильное — фикс с 390) --
+   Верхняя граница clamp = значение рендера на 1920 (страница ограничена 1920,
+   шире текст не растёт). Нижняя граница и наклон vw — как в выгрузке. */
+--type-hero-h1-ff:var(--font-display); --type-hero-h1-size:clamp(30px,5.6vw,108px); --type-hero-h1-lh:1.08; /* Hero «Три світи» (ренд. 108/81/57/34); потолок выгрузки 144 → 108 */
+--type-hero-lead-ff:var(--font-display); --type-hero-lead-size:clamp(14px,1.38vw,27px); --type-hero-lead-lh:1.5; /* Hero лид «Інвестиційні апартаменти» (27/20/14/14); потолок 28 → 27 */
+--type-worlds-display-ff:var(--font-display); --type-worlds-display-size:clamp(24px,5.4vw,96px); --type-worlds-display-lh:1.08; /* Worlds «Три аудиторії» (96/78/55/24) */
+--type-worlds-decor-ff:var(--font-display); --type-worlds-decor-size:clamp(56px,11vw,200px); --type-worlds-decor-lh:0.9; /* Worlds «WIND/ROCK/SUN», декоративный (200/158/113/56) */
+--type-stats-stat-lg-ff:var(--font-display); --type-stats-stat-lg-size:clamp(40px,4vw,72px); --type-stats-stat-lg-lh:1; /* Stats число «460+» (72/58/41/40) */
+--type-display-sm-ff:var(--font-display); --type-display-sm-size:clamp(28px,3.4vw,56px); --type-display-sm-lh:1.1; /* Season «Дохідність/365/днів» (56/49/35/28) */
+--type-stats-stat-sm-ff:var(--font-display); --type-stats-stat-sm-size:0.42em; --type-stats-stat-sm-lh:1; /* Stats единицы «років/$/міс» — em от stats-stat-lg (как в выгрузке) */
+--type-header-menu-link-ff:var(--font-display); --type-header-menu-link-size:clamp(32px,4.4vw,74px); --type-header-menu-link-lh:1.12; --type-header-menu-link-ls:-.045em; /* Меню, пункты «Три світи…» (74/63/45/32); потолок = рендер 1920 */
+--type-header-menu-phone-ff:var(--font-display); --type-header-menu-phone-size:clamp(18px,1.5vw,24px); --type-header-menu-phone-lh:1.25; --type-header-menu-phone-ls:-.02em; /* Меню, телефон (24/21.6/18/18); потолок = рендер 1920 */
+--type-hero-h1-ls:-.035em; --type-hero-lead-ls:-.01em; --type-stats-stat-lg-ls:-.045em; --type-stats-stat-sm-ls:-.02em; --type-stats-stat-sm-gap:.2em; /* межбуквенные и отступ единиц — из выгрузки */
+--ls-caps-sm:.06em; --ls-caps-md:.08em;     /* заглавные: заголовки колонок Footer (.06), «Гортайте» (.08) */
+--type-display-sm-ls:-.03em; --type-worlds-display-ls:-.03em; --type-worlds-decor-ls:-.04em; /* из выгрузки */
+
+/* -- дискретные роли: база = ≥1600 -- */
+/* общие роли (4.U) */
+--type-body-ff:var(--font-text); --type-body-size:17px; --type-body-lh:26px;          /* текст Stats (плашки) */
+--type-body-lg-ff:var(--font-text); --type-body-lg-size:18px; --type-body-lg-lh:26px;  /* текст карточек Stats, кнопка Worlds */
+/* Stats: текст и плашка карточки — составные роли: на ≥768 body-lg / body; на <768 — временная 13/18 и label (сетка 2×2, 2026-11-17) */
+--type-stats-text-ff:var(--type-body-lg-ff); --type-stats-text-size:var(--type-body-lg-size); --type-stats-text-lh:var(--type-body-lg-lh);
+--type-stats-chip-ff:var(--type-body-ff); --type-stats-chip-size:var(--type-body-size); --type-stats-chip-lh:var(--type-body-lh);
+--type-season-text-ff:var(--font-text); --type-season-text-size:18px; --type-season-text-lh:28px; /* абзац Season (решение 2026-11-17: отдельная роль, значения рендера) */
+--type-model-lead-ff:var(--font-display); --type-model-lead-size:32px; --type-model-lead-lh:42px; --type-model-lead-ls:-.025em; /* временная, до сведения: абзац Model (рендер 32/41.6) */
+--type-model-num-ff:var(--font-display); --type-model-num-size:clamp(44px,4.6vw,80px); --type-model-num-lh:1; --type-model-num-ls:-.05em; /* временная: номер шага, плавная (80/66/47/44) */
+--type-model-title-ff:var(--font-display); --type-model-title-size:16px; --type-model-title-lh:22px; /* временная: заголовок шага (рендер 16/21.6) */
+--type-model-text-ff:var(--font-text); --type-model-text-size:17px; --type-model-text-lh:26px; /* временная: текст шага (рендер 17/26.35); body-lg в пределах 2px, но даёт +1 строку */
+--type-apts-name-ff:var(--font-display); --type-apts-name-size:28px; --type-apts-name-lh:1.1; --type-apts-name-ls:-.02em; /* временная: название апартаментов (28/26/20/20) */
+--type-apts-area-ff:var(--font-text); --type-apts-area-size:24px; --type-apts-area-lh:1.2; /* временная: площадь (24/22/18/18) */
+--type-apts-button-ff:var(--font-text); --type-apts-button-size:15px; --type-apts-button-lh:20px; /* временная: кнопка «Планування» (15 на всех ступенях) */
+--type-form-title-ff:var(--font-display); --type-form-title-size:clamp(20px,2.05vw,36px); --type-form-title-lh:1.1; --type-form-title-ls:-.03em; /* временная, плавная: заголовок Form (36/30/21/20) */
+--type-infra-num-ff:var(--font-display); --type-infra-num-size:26px; --type-infra-num-ls:-.02em;   /* временная: номер карточки Infrastructure (26 на всех ширинах) */
+--type-infra-title-ff:var(--font-display); --type-infra-title-size:24px; --type-infra-title-lh:1.2; --type-infra-title-ls:-.01em; /* временная: заголовок карточки (24/21/17) */
+--type-infra-lead-ff:var(--font-text); --type-infra-lead-size:18px; --type-infra-lead-lh:1.4;   /* временная: строка карточки (18/17/15) */
+--type-infra-plate-title-ff:var(--font-display); --type-infra-plate-title-size:16px; --type-infra-plate-title-lh:1.25; /* временная (16/15/14) */
+--type-infra-plate-text-ff:var(--font-text); --type-infra-plate-text-size:15px; --type-infra-plate-text-lh:1.55;       /* временная (15/14) */
+--type-num-chip-ff:var(--font-text); --type-num-chip-size:12px; --type-num-chip-lh:16px; --type-num-chip-ls:.12em;   /* временная: плашка карточки Numbers */
+--type-num-step-ls:.1em;
+--type-num-value-ff:var(--font-display); --type-num-value-size:76px; --type-num-value-ls:-.045em;   /* временная: цифра карточки (76/63/45/44) */
+--type-num-unit-ff:var(--font-text); --type-num-unit-size:18px;                                     /* «років» (18/17/15) */
+--type-num-ring-ff:var(--font-display); --type-num-ring-size:44px; --type-num-ring-ls:-.04em;      /* «24» в кольце (44/39/30) */
+--type-num-tag-ff:var(--font-text); --type-num-tag-size:11px; --type-num-tag-ls:.1em; --type-num-ring-label-ls:.12em;
+--type-num-axis-ff:var(--font-text); --type-num-axis-size:13px;
+--type-num-small-ff:var(--font-text); --type-num-small-size:13px; --type-num-small-lh:1.35;
+--type-calc-title-ff:var(--font-display); --type-calc-title-size:32px; --type-calc-title-lh:1.1; --type-calc-title-ls:-.03em; /* (32/27/20) */
+--type-calc-label-ff:var(--font-display); --type-calc-label-size:12px; --type-calc-label-ls:.18em;
+--type-calc-choice-ff:var(--font-display); --type-calc-choice-size:18px; --type-calc-choice-lh:1.2;  /* (18/17/15) */
+--type-calc-sub-ff:var(--font-text); --type-calc-sub-size:14px; --type-calc-sub-lh:1.3;
+--type-calc-opt-ff:var(--font-display); --type-calc-opt-size:16px; --type-calc-opt-lh:1.2;         /* (16/15/14) */
+--type-calc-small-ff:var(--font-text); --type-calc-small-size:13px; --type-calc-small-lh:1.3;
+--type-calc-param-ff:var(--font-display); --type-calc-param-size:26px; --type-calc-num-ls:-.045em;  /* (26/23/20) */
+--type-calc-price-size:48px;                                                                        /* (48/40/30) */
+--type-calc-tile-size:22px; --type-calc-tile-ls:-.04em;                                             /* (22/19/17) */
+--type-calc-tile-label-size:12px;
+--type-calc-yield-size:13px; --type-calc-yield-ls:-.02em;
+--type-calc-axis-size:12px;
+--type-calc-cta-ff:var(--font-text); --type-calc-cta-size:17px;
+--type-team-sub-size:18px; --type-team-role-size:14px; --type-team-name-size:48px; --type-team-quote-size:19px; /* Team v3 (18/16/14 · 14/14/12 · 48/40/29/26 · 19/17/15) */
+--type-team-stat-size:13px; --type-team-qmark-size:44px; --type-team-qname-size:14px; --type-team-qpos-size:13px; /* на всех ширинах */
+--type-ct-month-ff:var(--font-display); --type-ct-month-size:24px; --type-ct-month-lh:1.2;     /* Construction B (24/23/18) */
+--type-ct-queue-size:11px; --type-ct-work-size:13px; --type-ct-video-size:14px;  /* на всех ширинах */
+--type-ct-title-size:28px; --type-ct-text-size:17px;                                          /* (28/24/20 · 17/16/15) */
+--type-ct-arch-title-size:44px; --type-ct-arch-text-size:16px;                                 /* (44/40/28 · 16/14/14) */
+--type-svc-lead-ff:var(--font-text); --type-svc-lead-size:18px; --type-svc-lead-lh:1.55;       /* Investor Service (18/16/15) */
+--type-svc-num-ff:var(--font-text); --type-svc-num-size:12px; --type-svc-num-ls:.08em;          /* номер сервиса, 12 на всех ширинах */
+--type-svc-card-title-ff:var(--font-display); --type-svc-card-title-size:18px; --type-svc-card-title-lh:1.2; --type-svc-card-title-ls:-.01em; /* (18/15/14) */
+--type-svc-card-text-ff:var(--font-text); --type-svc-card-text-size:15px; --type-svc-card-text-lh:1.5;  /* (15/13/13) */
+--type-svc-cap-title-size:20px; --type-svc-cap-text-size:15px;                                   /* подпись мока (20/17/15 · 15/14/13) */
+--type-loc-text-ff:var(--type-form-text-ff); --type-loc-text-size:var(--type-form-text-size); --type-loc-text-lh:var(--type-form-text-lh); /* временная: абзац Location = абзац Form (та же формула выгрузки) */
+--type-form-text-ff:var(--font-text); --type-form-text-size:18px; --type-form-text-lh:29px; /* временная: абзац Form (рендер 18/28.8) */
+--type-form-bullet-ff:var(--font-display); --type-form-bullet-size:13px; --type-form-bullet-lh:18px; --type-form-bullet-ls:-.02em; /* временная: подпись карточки (рендер 13/17.55) */
+--type-form-label-ff:var(--font-text); --type-form-label-size:15px; --type-form-label-lh:20px; /* временная: подпись поля; совпадает с apts-button — кандидат на общую роль */
+--type-form-input-ff:var(--font-text); --type-form-input-size:17px; --type-form-input-lh:24px; /* временная: текст в поле */
+--type-form-chip-ff:var(--font-text); --type-form-chip-size:16px; --type-form-chip-lh:24px; /* временная: способ связи */
+--type-form-submit-ff:var(--font-text); --type-form-submit-size:17px; --type-form-submit-lh:24px; /* временная: кнопка отправки */
+--type-form-done-title-ff:var(--font-display); --type-form-done-title-size:clamp(22px,2vw,32px); --type-form-done-title-lh:1.15; --type-form-done-title-ls:-.02em; /* временная, плавная: «Дякуємо» */
+--type-form-done-text-ff:var(--font-text); --type-form-done-text-size:17px; --type-form-done-text-lh:27px; /* временная: текст успеха (рендер 17/27.2) */
+--type-manager-name-ff:var(--font-display); --type-manager-name-size:16px; --type-manager-name-lh:20px; --type-manager-name-ls:-.02em; /* временная: имя эксперта (16/14.4/14) */
+--type-manager-phone-ff:var(--font-display); --type-manager-phone-size:17px; --type-manager-phone-lh:21px; --type-manager-phone-ls:-.01em; /* временная: телефон эксперта (17/14.4/14) */
+--type-caption-ff:var(--font-text); --type-caption-size:14px; --type-caption-lh:20px;  /* юридическая строка Footer, плашка «60 сек» */
+--type-label-ff:var(--font-text); --type-label-size:12px; --type-label-lh:16px;        /* подписи меню, язык, «Гортайте» */
+--type-title-sm-ff:var(--font-display); --type-title-sm-size:28px; --type-title-sm-lh:36px; /* контакты Footer, подпись мира Worlds */
+/* роли отдельных блоков */
+--type-header-body-sm-ff:var(--font-text); --type-header-body-sm-size:15px; --type-header-body-sm-lh:22px;
+--type-header-label-2xs-ff:var(--font-text); --type-header-label-2xs-size:11px; --type-header-label-2xs-lh:14px;
+--type-header-menu-sub-ff:var(--font-text); --type-header-menu-sub-size:17px; --type-header-menu-sub-lh:26px; /* Меню: второстепенные пункты, адрес, подпись фото (рендер 17/25.5 на всех ступенях) */
+--type-footer-h5-ff:var(--font-display); --type-footer-h5-size:18px; --type-footer-h5-lh:26px;
+--type-footer-body-ff:var(--font-text); --type-footer-body-size:17px; --type-footer-body-lh:26px;
+--type-hero-button-lg-ff:var(--font-text); --type-hero-button-lg-size:20px; --type-hero-button-lg-lh:28px;
+--type-hero-caption-ff:var(--font-text); --type-hero-caption-size:14px; --type-hero-caption-lh:17px;
+--type-worlds-overline-ff:var(--font-display); --type-worlds-overline-size:17px; --type-worlds-overline-lh:24px;
+--type-worlds-body-ff:var(--font-display); --type-worlds-body-size:17px; --type-worlds-body-lh:24px; /* метки WIND/ROCK/SUN справа внизу */
+}
+
+@media (max-width:1599px){:root{
+--type-infra-title-size:21px; --type-infra-lead-size:17px; --type-infra-plate-title-size:15px; --type-infra-plate-text-size:14px; /* рендер 20.9 · 16.6 · 15.1 · 13.7→14 */
+--type-num-value-size:63px; --type-num-unit-size:17px; --type-num-ring-size:39px;   /* рендер 63.4 · 16.6 · 38.9 */
+--type-calc-title-size:27px; --type-calc-choice-size:17px; --type-calc-opt-size:15px; --type-calc-param-size:23px; --type-calc-price-size:40px; --type-calc-tile-size:19px;
+--nums-card-pad:var(--space-36); --nums-gbars-h:144px; --nums-ring-w:230px; --nums-ring-gap:var(--space-16); /* рендер 34.6 · 144 · 230 · 17.3 */
+--calc-panel-pad:var(--space-32); --calc-res-pad:var(--space-28); --calc-bars-h:92px; /* панель: рендер 34.6; 36 переносит «Гарантована оренда» */
+--infra-title-mb:var(--space-56);   /* рендер 57.6 */
+--infra-gap:var(--space-20);
+--infra-card-w:356px; --infra-corner:17px; --infra-head-inset:23px;
+--loc-gap:var(--space-56);          /* рендер 57.6 */
+/* 1280–1599 (рендер 1440) */
+--menu-pad-inline:var(--space-36);   /* рендер 37.4: видимые элементы сдвигаются ≤1.4px */
+--menu-pad-block-end:var(--space-44);/* рендер 43.2 */
+--menu-main-gap:var(--space-56);     /* рендер 57.6 */
+--menu-foot-col-gap:var(--space-44); /* рендер 43.2 */
+--hero-inset:var(--space-72);
+--hero-cta-h:59px;                          /* рендер 59: собственный размер (решение 2026-11-16, «кнопка 60» отменена) */
+--hero-cta-icon:46px;                       /* круг со стрелкой: рендер 46, собственный размер */
+--hero-content-bottom:var(--space-36);      /* рендер 38; с CTA 60 текст и кнопки стоят как в рендере */
+--hero-season-size:116px;                   /* рендер 116.6 */
+--stats-chip-h:var(--control-h-44);         /* рендер 43.2 */
+--stats-num-gap:var(--space-16);            /* рендер 17.3 */
+--stats-chip-pad-start:var(--space-20); --stats-chip-pad-end:var(--space-20); /* рендер 20.2 */
+--footer-pad-block-start:100px;             /* рендер 100.8 (п.13, крупный): вне шкалы, см. отчёт */
+--footer-pad-inline:var(--space-36);        /* рендер 37.4 */
+--footer-pad-block-end:var(--space-36);     /* рендер 34.6 */
+--footer-logo-gap:var(--space-128);         /* рендер 129.6 */
+--season-pad-block-start:88px;              /* рендер 86.4: между ступенями 80 и 96 (сдвиг больше 2) — вне шкалы, см. отчёт */
+--season-head-gap:var(--space-44);          /* рендер 43.2 */
+--season-video-offset:246px;                /* 345.6 − 100 */
+--season-chip-h:36px;                       /* рендер 36 (+рамка), собственный размер */
+--season-play-size:94px;                    /* рендер 93.6 */
+--worlds-pad-inline:var(--space-64);        /* рендер 63.4 */
+--worlds-text-pad-bottom:var(--space-64);
+--type-footer-h5-size:17px; /* footer-h5 */
+--type-hero-button-lg-size:19px; /* hero-button-lg */
+--type-body-size:16px; --type-body-lh:24px;
+--type-body-lg-size:17px; --type-body-lg-lh:25px;
+--type-season-text-size:16px; --type-season-text-lh:25px;
+--type-title-sm-size:27px; --type-title-sm-lh:35px;
+--type-worlds-overline-size:16px; /* worlds-overline */
+--model-pad-block-start:88px;               /* рендер 86.4: >80, кратно 4 */
+--model-lead-mb:116px;                      /* рендер 115.2 */
+--model-steps-gap:var(--space-36);          /* рендер 34.6 */
+--model-step-gap:var(--space-16);           /* рендер 17.3 */
+--model-dot-mb:var(--space-44);             /* рендер 43.2 */
+--model-card-min:259px;                     /* рендер 259.2 (18vw) */
+--model-card-pad:var(--space-28);           /* рендер 28.8 */
+--type-model-title-size:14px; --type-model-title-lh:20px;   /* рендер 14.4/19.4 */
+--type-model-text-size:15px; --type-model-text-lh:23px;     /* рендер 15.1/23.4 */
+--apts-pad-block-start:88px;                /* рендер 86.4, как у Model */
+--apts-body-gap:var(--space-16);            /* рендер 14.4 */
+--type-apts-name-size:26px;                 /* рендер 25.9 */
+--type-apts-area-size:22px;                 /* рендер 21.6 */
+--form-pad-block-start:var(--space-28);     /* рендер 28.8 */
+--form-panel-pad:var(--space-48);           /* рендер 49 */
+--form-mgr-pad:var(--space-16);             /* рендер 17.3 */
+--type-form-text-size:17px; --type-form-text-lh:28px;       /* рендер 17.3/27.6 */
+--type-form-bullet-size:11px; --type-form-bullet-lh:15px;   /* рендер 11.2/15.2 */
+--type-manager-name-size:14px; --type-manager-name-lh:18px; /* рендер 14.4/18 */
+--type-manager-phone-size:14px; --type-manager-phone-lh:18px;
+/* Investor Service — рендер 1440 */
+--svc-head-pad-start:var(--space-128);     /* рендер 129.6 */
+--svc-head-pad-inline:var(--space-36);     /* 37.4 */
+--svc-head-gap-col:var(--space-72);
+--svc-stick-pad-inline:var(--space-36);
+--svc-grid-gap:var(--space-36);            /* 34.6 */
+--svc-card-pad:var(--space-24);            /* 23 */
+--type-svc-lead-size:16px; --type-svc-card-title-size:15px; --type-svc-card-text-size:13px;
+--type-svc-cap-title-size:17px; --type-svc-cap-text-size:14px;
+/* Construction B — рендер 1440 */
+--ct-pad-block:116px;                      /* 115.2: промежуток >80, кратен 4 */
+--ct-head-gap-col:var(--space-72); --ct-head-mb:var(--space-56);
+--ct-media-min:490px;
+--ct-body-pad-start:var(--space-36); --ct-body-pad-inline:var(--space-36); --ct-body-pad-end:var(--space-28);
+--ct-arch-w:346px; --ct-arch-pad:var(--space-36);
+--type-ct-month-size:23px; --type-ct-title-size:24px; --type-ct-text-size:16px;
+--type-ct-arch-title-size:40px; --type-ct-arch-text-size:14px;
+/* Team v3 — рендер 1440 */
+--team-pad-block:116px;                    /* 115.2: промежуток >80, кратен 4 */
+--team-head-gap-col:var(--space-72);
+--team-tabs-w:432px; --team-tab-min:158px; --team-role-h:37px; --team-logo-h:37px;
+--team-photo-w:346px; --team-page-gap:var(--space-32);
+--team-body-pad-top:var(--space-36); --team-body-pad-end:var(--space-28); --team-body-pad-bottom:var(--space-20);
+--team-q-col:158px;
+--type-team-sub-size:16px; --type-team-name-size:40px; --type-team-quote-size:17px;
+}}
+
+@media (max-width:1279px){:root{
+--type-infra-title-size:17px; --type-infra-lead-size:15px; --type-infra-plate-title-size:14px;
+--type-num-value-size:45px; --type-num-unit-size:15px; --type-num-ring-size:30px;
+--type-calc-title-size:20px; --type-calc-choice-size:15px; --type-calc-opt-size:14px; --type-calc-param-size:20px; --type-calc-price-size:30px; --type-calc-tile-size:17px;
+--nums-title-mb:var(--space-40);           /* рендер 41 */
+--nums-card-pad:var(--space-24); --nums-card-gap:var(--space-12); --nums-graph-pb:var(--space-24);
+--nums-gbars-h:120px; --nums-gbars-gap:var(--space-8); --nums-ring-w:164px; --nums-ring-pb:var(--space-16); --nums-ring-gap:var(--space-12);
+--calc-grid-gap:var(--space-12); --calc-panel-pad:var(--space-24); --calc-panel-gap:var(--space-24); --calc-params-pt:var(--space-6);
+--calc-res-pad:var(--space-20); --calc-res-gap:var(--space-20); --calc-res-top-gap:var(--space-16);
+--calc-tile-pad-block-start:var(--space-12); --calc-tile-pad-block-end:var(--space-16); --calc-tile-pad-inline:var(--space-16); --calc-bars-h:72px; /* плитки: рендер 14 */
+--infra-title-mb:var(--space-40);   /* рендер 41 */
+--infra-gap:var(--space-16);        /* рендер 14.3 */
+--infra-card-w:312px; --infra-corner:14px; --infra-head-inset:18px;
+--infra-plate-pad-start:var(--space-16); --infra-plate-pad-end:var(--space-20); /* рендер 18 */
+--loc-gap:var(--space-40);          /* рендер 41 */
+--loc-left-gap:var(--space-20);     /* рендер 20.5 */
+/* 768–1279 (рендер 1024) */
+--header-offset-block:var(--space-20);        /* рендер 18.4 */
+--header-offset-inline-start:var(--space-20); /* рендер 21.5 */
+--header-offset-inline-end:var(--space-20);
+--header-logo-h:var(--space-28);
+--menu-pad-block-start:var(--space-16);
+--menu-pad-inline:var(--space-28);   /* рендер 26.6 */
+--menu-pad-block-end:var(--space-32);/* рендер 30.7 */
+--menu-main-gap:var(--space-40);     /* рендер 41 */
+--menu-foot-col-gap:var(--space-32); /* рендер 30.7 */
+--hero-frame-pad:var(--space-10);
+--hero-inset:var(--space-48);               /* рендер 51.2 */
+--hero-content-start:var(--space-40);       /* рендер 40.3 */
+--hero-content-bottom:var(--space-28);      /* рендер 28.8 */
+--hero-content-gap:var(--space-24);         /* рендер 22.5 */
+--hero-buttons-gap:var(--space-24);
+--hero-cta-h:var(--control-h-48);
+--hero-cta-icon:var(--space-40);            /* рендер 38 */
+--hero-cta-pad-start:var(--space-20);
+--hero-cta-gap:var(--space-20);             /* рендер 20.5 */
+--hero-season-size:84px;
+--hero-season-offset:var(--space-32);       /* справа 32.8, снизу 40 */
+--stats-pad-block-start:var(--space-28);    /* рендер 27.6 */
+--stats-pad-block-end:var(--space-48);      /* рендер 51.2 */
+--stats-pad-inline:var(--space-20);
+--stats-gap:var(--space-16);                /* рендер 17.4 */
+--stats-card-pad:var(--space-24);           /* рендер 22.5 */
+--stats-num-gap:var(--space-12);
+--stats-chip-h:var(--control-h-40);
+--stats-chip-pad-start:var(--space-16); --stats-chip-pad-end:var(--space-16);
+--footer-pad-block-start:var(--space-72);   /* рендер 71.7 */
+--footer-pad-inline:var(--space-28);        /* рендер 26.6 */
+--footer-pad-block-end:var(--space-24);
+--footer-logo-gap:92px;                     /* рендер 92.2 (п.13, крупный): вне шкалы, см. отчёт */
+--season-pad-block-start:var(--space-64);   /* рендер 61.4 */
+--season-pad-block-end:var(--space-48);     /* рендер 51.2 */
+--season-pad-inline:var(--space-20);
+--season-head-gap:var(--space-32);          /* рендер 30.7 */
+--season-head-mb:var(--space-28);           /* рендер 28.7 */
+--season-video-offset:160px;                /* 260 − 100 */
+--season-chip-inset:var(--space-20);        /* рендер 18.4 */
+--season-play-size:72px;
+--worlds-pad-inline:var(--space-44);        /* рендер 45.1 */
+--worlds-grid-gap:var(--space-16);          /* рендер 16.4 */
+--worlds-text-pad-bottom:var(--space-44);
+--worlds-slide-gap:var(--space-20);         /* рендер 20.5 */
+--worlds-name-gap:var(--space-16);          /* рендер 14.3 */
+--worlds-btn-h:52px;                        /* рендер 52, собственный размер */
+--worlds-btn-pad-start:var(--space-24);     /* рендер 22 */
+--worlds-btn-gap:var(--space-20);           /* рендер 20.5 */
+--worlds-btn-icon:var(--space-40);
+--type-footer-h5-size:15px; /* footer-h5 */
+--type-hero-button-lg-size:15px; --type-hero-button-lg-lh:24px; /* hero-button-lg */
+--type-hero-caption-size:11px; --type-hero-caption-lh:14px; /* hero-caption */
+--type-body-size:14px; --type-body-lh:20px;
+--type-body-lg-size:15px; --type-body-lg-lh:22px;
+--type-season-text-size:15px; --type-season-text-lh:23px;
+--type-title-sm-size:20px; --type-title-sm-lh:26px;
+--type-worlds-overline-size:13px; /* worlds-overline; lh 24 на всех ступенях, как в рендере */
+--model-pad-block-start:var(--space-64);    /* рендер 61.4 */
+--model-pad-block-end:var(--space-48);      /* рендер 51.2 */
+--model-pad-inline:var(--space-28);         /* рендер 26.6 */
+--model-lead-mb:var(--space-80);            /* рендер 81.9 */
+--model-steps-gap:var(--space-24);          /* рендер 24.6 */
+--model-step-gap:var(--space-12);
+--model-dot-mb:var(--space-32);             /* рендер 30.7 */
+--model-card-min:220px;
+--model-card-pad:var(--space-24);           /* рендер 22 */
+--model-card-gap:var(--space-10);           /* рендер 10.2 */
+--type-model-title-size:13px; --type-model-title-lh:18px;   /* рендер 13/17.55 */
+--apts-pad-block-start:var(--space-64);     /* рендер 61.4 */
+--apts-pad-block-end:var(--space-24);       /* рендер 24.6 */
+--apts-pad-inline:var(--space-28);          /* рендер 26.6 */
+--apts-track-pad-top:var(--space-40);       /* рендер 41 */
+--apts-gap:var(--space-16);                 /* рендер 17.4 */
+--apts-card-gap:var(--space-16);
+--apts-body-gap:var(--space-10);
+--apts-body-pad:var(--space-8);
+--apts-foot-mt:var(--space-28);             /* рендер 26.6 */
+--type-apts-name-size:20px;
+--type-apts-area-size:18px;
+--form-pad-block-start:var(--space-20);     /* рендер 20.5 */
+--form-pad-block-end:var(--space-48);       /* рендер 51.2 */
+--form-pad-inline:var(--space-28);          /* рендер 26.6 */
+--form-grid-gap:var(--space-12);
+--form-panel-pad:var(--space-36);           /* рендер 34.8 */
+--form-info-gap:var(--space-20);            /* рендер 18.4 */
+--form-bullets-mt:var(--space-8);
+--form-bullet-pad:var(--space-12);
+--form-mgr-gap:var(--space-16);             /* рендер 14.3 */
+--form-fields-gap:var(--space-20);
+--type-form-text-size:16px; --type-form-text-lh:26px;       /* рендер 16/25.6 */
+/* Investor Service — 768–1279 (читаемость, опорная 1024) */
+--svc-pad-inline:var(--space-10);
+--svc-radius:var(--radius-32);
+--svc-head-pad-start:92px;                 /* 9vw на 1024 */
+--svc-head-pad-inline:var(--space-28);
+--svc-head-pad-end:var(--space-20);
+--svc-head-gap-col:var(--space-48);
+--svc-stick-pad-inline:var(--space-28);
+--svc-grid-gap:var(--space-24);
+--svc-col-gap:var(--space-10);
+--svc-card-pad:var(--space-16);
+--type-svc-lead-size:15px; --type-svc-card-title-size:14px;
+--type-svc-cap-title-size:15px; --type-svc-cap-text-size:13px;
+/* Construction B — 768–1279 (опорная 1024) */
+--ct-pad-block:var(--space-80); --ct-pad-inline:var(--space-28);
+--ct-head-gap-col:var(--space-48); --ct-head-mb:var(--space-40);
+--ct-media-min:348px;
+--ct-body-pad-start:var(--space-28); --ct-body-pad-inline:var(--space-24); --ct-body-pad-end:var(--space-20);
+--ct-arch-w:260px; --ct-arch-pad:var(--space-24);
+--type-ct-month-size:18px; --type-ct-title-size:20px; --type-ct-text-size:15px;
+--type-ct-arch-title-size:29px;
+/* Team v3 — 768–1279 (опорная 1024) */
+--team-pad-block:var(--space-80); --team-pad-inline:var(--space-10);
+--team-head-pad-inline:var(--space-16); --team-head-pb:var(--space-36); --team-head-gap-col:var(--space-48);
+--team-tabs-w:308px; --team-tab-pad:var(--space-16); --team-tab-min:140px; --team-tab-inner-gap:var(--space-16);
+--team-role-h:34px; --team-role-pad:var(--space-12); --team-logo-h:32px;
+--team-photo-w:244px; --team-page-gap:var(--space-24); --team-page-pad:var(--space-10);
+--team-body-gap:var(--space-16);
+--team-body-pad-top:var(--space-24); --team-body-pad-end:var(--space-20); --team-body-pad-bottom:var(--space-16);
+--team-q-col:112px; --team-q-gap:var(--space-16); --team-q-pad:var(--space-10); --team-q-body-pad:var(--space-10);
+--type-team-sub-size:14px; --type-team-role-size:12px; --type-team-name-size:29px; --type-team-quote-size:15px;
+}}
+
+@media (max-width:767px){:root{
+--infra-title-mb:var(--space-32);
+--nums-title-mb:var(--space-32);
+--nums-ring-w:min(62%, 190px);
+--nums-graph-pb:var(--space-20);
+--nums-pano-pad:var(--space-10);
+--calc-res-gap:var(--space-16);          /* рендер 18 */
+--calc-params-pt:var(--space-4);
+--loc-gap:var(--space-28);
+--loc-left-gap:var(--space-20);     /* рендер 18: 20 (+2 на промежуток) */
+--type-form-title-size:18px; /* решение 2026-11-17: <768 — 18px, две строки (выгрузка 20px, три строки на 390) */
+/* <768 (рендер 390) */
+--hero-frame-pad:var(--space-8);
+--hero-frame-radius:var(--radius-24);
+--hero-inset:var(--space-20);
+--hero-title-top:calc(max(104px, 15%) + 20px);
+--hero-min-h:var(--hero-min-h-mobile);      /* первый экран целиком в окне телефона (решение 2026-11-16) */
+--hero-content-start:var(--space-36);       /* рендер 37 */
+--hero-content-bottom:var(--space-12);      /* рендер 14 (см. --hero-content-gap) */
+--hero-content-gap:var(--space-20);         /* рендер 18; вместе с низом 12 лид и кнопки стоят как в рендере */
+--hero-buttons-gap:var(--space-12);         /* рендер 14; CTA на 2 шире (круг 40) */
+--hero-cta-gap:var(--space-16);
+--hero-season-icon:var(--icon-20);
+--hero-shade-w:100%; --hero-shade-h:40%;
+--stats-pad-block-start:var(--space-24);
+--stats-pad-inline:var(--space-16);          /* рендер 16 (решение 2026-11-17: мобильные поля как в выгрузке) */
+--stats-pad-block-end:var(--space-40);
+/* сетка 2×2 (выгрузка 2026-11-17) */
+--stats-gap:var(--space-8);
+--stats-card-ratio:3 / 4;
+--stats-card-radius:var(--radius-20);
+--stats-card-pad:var(--space-12);           /* рендер 14 → 12 (решение 2026-11-17) */
+--stats-num-gap:var(--space-8);
+--stats-chip-h:var(--control-h-32);         /* min-height содержимого, как в выгрузке */
+--stats-chip-pad-block:var(--space-8);      /* рендер 7 → 8: плашка 50 вместо 48, верх на месте (с полем 12) */
+--stats-chip-pad-start:var(--space-12); --stats-chip-pad-end:var(--space-12);
+--type-stats-text-ff:var(--font-text); --type-stats-text-size:13px; --type-stats-text-lh:18px; /* временная, до сведения: рендер 13/17.55; caption 14/20 добавляет строку на 360 */
+--type-stats-chip-ff:var(--type-label-ff); --type-stats-chip-size:var(--type-label-size); --type-stats-chip-lh:var(--type-label-lh);       /* рендер 12/15 → label 12/16 */
+--footer-pad-block-start:var(--space-56);
+--footer-pad-inline:var(--space-20);
+--footer-logo-gap:var(--space-64);
+--season-pad-block-start:var(--space-48);
+--season-pad-block-end:var(--space-40);
+--season-pad-inline:var(--space-16);         /* рендер 16 (решение 2026-11-17) */
+--season-head-gap:var(--space-20);
+--season-head-mb:var(--space-24);
+--season-chip-inset:var(--space-16);
+--worlds-pad-inline:var(--space-20);
+--worlds-grid-gap:var(--space-8);
+--worlds-ph-ratio-c:1.5 / 1; --worlds-ph-ratio-side:1.3 / 1;   /* центральное фото первым на всю ширину, боковые в два столбца (2026-11-17) */
+--worlds-text-pad-bottom:var(--space-24);
+--worlds-slide-gap:var(--space-16);
+--worlds-name-gap:var(--space-12);
+--worlds-btn-gap:var(--space-16);
+/* h1 как в выгрузке (2026-11-17): по ширине окна, 38 на 390 */
+--type-hero-h1-size:calc((100vw - 40px) / 9.2);
+--type-hero-h1-lh:1.04;
+--type-hero-lead-size:14px;
+--type-worlds-display-size:9.2vw; --type-worlds-display-lh:1.06; /* плавная, как в выгрузке (2026-11-17): 36 на 390 */
+--type-worlds-decor-size:56px;
+--type-stats-stat-lg-size:clamp(28px,8.4vw,40px); /* плавная, как в выгрузке (2026-11-17): 33 на 390 */
+--type-display-sm-size:28px;
+--type-hero-caption-lh:13px; /* hero-caption */
+--type-header-menu-link-size:32px;
+--type-header-menu-phone-size:18px;
+--header-offset-block:var(--space-16);        /* рендер 16 (8 + 8) */
+--header-offset-inline-start:var(--space-16);
+--header-offset-inline-end:var(--space-16);
+--menu-pad-inline:var(--space-20);
+--menu-pad-block-end:var(--space-24);
+--menu-main-gap:var(--space-24);
+--model-pad-block-start:var(--space-48);
+--model-pad-block-end:var(--space-40);
+--model-pad-inline:var(--space-16);
+--model-lead-mb:var(--space-28);
+--type-model-lead-size:22px; --type-model-lead-lh:28px;     /* рендер 22/28.6 */
+--type-model-num-size:44px;
+--apts-pad-block-start:var(--space-48);
+--apts-pad-block-end:var(--space-20);
+--apts-pad-inline:var(--space-16);
+--apts-track-pad-top:var(--space-32);
+--apts-gap:var(--space-12);
+--apts-foot-mt:var(--space-24);
+--form-pad-block-start:var(--space-16);
+--form-pad-block-end:var(--space-40);
+--form-pad-inline:var(--space-16);
+--form-panel-pad:var(--space-24);
+--form-bullets-mt:var(--space-6);
+/* Investor Service — рендер 390 */
+--svc-pad-inline:var(--space-8);
+--svc-radius:var(--radius-24);
+--svc-head-pad-start:var(--space-56);
+--svc-head-pad-inline:var(--space-16);
+--svc-head-pad-end:var(--space-8);
+--svc-head-gap-col:var(--space-32);
+--svc-card-pad:var(--space-20); --svc-card-pad-end:var(--space-16); /* рендер 18: 20 в начале и 16 в конце — габарит как в рендере */
+/* Construction B — рендер 390 */
+--ct-pad-block:var(--space-64); --ct-pad-inline:var(--space-16);
+--ct-head-gap-col:var(--space-32); --ct-head-mb:var(--space-32);
+--ct-media-min:300px;
+--ct-body-pad-start:var(--space-20); --ct-body-pad-inline:var(--space-16); --ct-body-pad-inline-end:var(--space-12); --ct-body-pad-end:var(--space-16); /* рендер 20 14 16: 16/12 по бокам */
+--type-ct-arch-title-size:28px;
+/* Team v3 — рендер 390 */
+--team-pad-block:var(--space-64); --team-pad-inline:var(--space-8);
+--team-head-pad-inline:var(--space-8); --team-head-pb:var(--space-28); --team-head-gap-col:var(--space-32);
+--team-body-pad-top:var(--space-20); --team-body-pad-end:var(--space-16);
+--team-q-body-pad:var(--space-8); --team-page-gap:var(--space-16);
+--type-team-name-size:26px;
+}}
+
+/* Worlds: перестроение карточек на 600, как в выгрузке (W < 600) */
+@media (max-width:599px){:root{
+--worlds-card-inset:var(--space-8);
+--worlds-card-radius-start:var(--radius-20);
+--worlds-card-radius-end:var(--radius-24);
+}}
+
+@media (prefers-reduced-motion:reduce){:root{
+--dur-hover:0ms; --dur-accordion:0ms; --dur-menu:0ms; --dur-entrance:0ms;
+}}
+
+/* ===== FAQ 4.14 (рендер; база = ≥1600 с 1920, ступени 1280–1599 / 768–1279 / <768) ===== */
+:root{
+--faq-pad-block-start:var(--space-128);
+--faq-pad-block-end:var(--space-72);
+--faq-pad-inline:var(--form-pad-inline);     /* та же формула выгрузки, что у Form (рендер 34) */
+--faq-head-mb:var(--space-48);               /* рендер 52, как шапка Team (решение 2026-11-19) */
+--faq-grid-gap:var(--space-20);
+--faq-aside-top:var(--space-24);
+--faq-aside-pad:var(--space-44);
+--faq-aside-gap:var(--space-32);
+--faq-aside-ratio:4 / 5;
+--faq-aside-w:min(100%, calc((100vh - 48px) * .8));  /* как в выгрузке: карточка 4:5 помещается в окно */
+--faq-docs-mt:var(--space-16);
+--faq-doc-pad:var(--space-12);               /* рендер 12 12 12 14 */
+--faq-doc-pad-start:var(--space-16);         /* рендер 14: с промежутком 12 и полем плашки 10 название стоит как в рендере */
+--faq-doc-gap:var(--space-12);               /* рендер 14 */
+--faq-doc-badge-h:26px;                      /* собственный размер плашки PDF */
+--faq-doc-badge-pad:var(--space-10);         /* рендер 9 */
+--faq-doc-icon:36px;                         /* рендер 35.3 */
+--faq-cta-gap:var(--space-24);
+--faq-cta-pad-start:var(--space-28);
+--faq-cta-icon:48px;
+--faq-icon:16px;
+--faq-arrow:18px;
+--faq-list-gap:var(--space-8);
+--faq-q-pad-start:var(--space-24);           /* рендер 26 сверху и снизу → 24 + 28, высота строки не меняется */
+--faq-q-pad-end:var(--space-28);
+--faq-q-pad-inline:var(--space-28);          /* рендер 30 */
+--faq-q-gap:var(--space-24);
+--faq-num-h:30px; --faq-num-w:44px;          /* собственные размеры номера */
+--faq-x:48px;
+--faq-x-line:14px;
+--faq-a-pad-end:var(--space-32);
+--faq-a-max:640px;
+
+--faq-cta-text-max:380px;
+
+--faq-doc-bg:color-mix(in srgb, var(--air) 6%, transparent);        /* rgba(255,255,255,.06) */
+--faq-doc-bg-hover:color-mix(in srgb, var(--air) 12%, transparent); /* rgba(255,255,255,.12) */
+--faq-doc-badge-ring:color-mix(in srgb, var(--air) 28%, transparent); /* rgba(255,255,255,.28) */
+--faq-doc-icon-bg:color-mix(in srgb, var(--air) 10%, transparent);  /* rgba(255,255,255,.1) */
+--faq-glow:radial-gradient(closest-side,rgba(122,191,178,.22),rgba(122,191,178,0)); /* sea-wave */
+--faq-item-bg:color-mix(in srgb, var(--air) 42%, transparent);      /* rgba(255,255,255,.42) */
+--faq-item-shadow:0 30px 60px -40px rgba(24,40,32,.35);
+--faq-num-ring:color-mix(in srgb, var(--spruce) 18%, transparent);  /* rgba(24,40,32,.18) */
+--faq-x-bg:color-mix(in srgb, var(--spruce) 6%, transparent);       /* rgba(24,40,32,.06) */
+
+--faq-open-dur:.7s; --faq-bg-dur:.5s; --faq-answer-fade:.4s; --faq-answer-move:.6s; --faq-answer-delay:.15s;
+--faq-answer-shift:8px; --faq-hover-dur:.3s; --faq-glow-dur:1.4s;
+--faq-glow-step-x:-6%; --faq-glow-step-y:9%;
+--faq-title-dur:1.4s; --faq-title-delay-2:.12s;
+--faq-item-fade:1s; --faq-item-move:1.2s; --faq-item-step:.07s; --faq-item-shift:32px;
+--faq-aside-fade:1.2s; --faq-aside-move:1.4s; --faq-aside-shift:40px; --faq-aside-scale:.98;
+
+/* роли FAQ — временные, до сведения */
+--type-faq-docs-title-size:15px; --type-faq-docs-title-lh:20px;     /* Unbounded 500, caps (15/14.4/13 · 13) */
+--type-faq-tag-size:11px; --type-faq-tag-lh:16px;                   /* плашка PDF, Mulish 700 */
+--type-faq-doc-title-size:16px; --type-faq-doc-title-lh:21px;       /* Mulish 600 (16/14.4/14 · 14) */
+--type-faq-cta-title-size:clamp(18px,1.5vw,24px); --type-faq-cta-title-lh:1.2; /* плавная, Unbounded 500, caps (24/21.6/18 · 18) */
+--type-faq-cta-text-size:16px; --type-faq-cta-text-lh:24px;         /* Mulish (16/14.4/14 · 14), межстрочный 1.5 */
+--type-faq-cta-button-size:18px; --type-faq-cta-button-lh:24px;     /* Mulish 600 (18/17.3/15 · 15) */
+--type-faq-q-size:clamp(14px,1.15vw,19px); --type-faq-q-lh:1.3;     /* плавная, Unbounded 500, caps (19/16.6/14 · 14) */
+--type-faq-a-size:18px; --type-faq-a-lh:29px;                       /* Mulish (18/15.8/15 · 15), межстрочный 1.6 */
+}
+@media (max-width:1599px){:root{
+--faq-pad-block-start:116px;                 /* рендер 115.2, кратно 4 (>80 вне шкалы) */
+--faq-aside-pad:var(--space-36);             /* рендер 37.4 */
+--faq-cta-pad-start:var(--space-24);         /* рендер 25.9 */
+--faq-cta-icon:43px;                         /* рендер 43.2 */
+--faq-x:43px;
+--type-faq-docs-title-size:14px; --type-faq-docs-title-lh:19px;
+--type-faq-doc-title-size:14px; --type-faq-doc-title-lh:19px;
+--type-faq-cta-text-size:14px; --type-faq-cta-text-lh:22px;
+--type-faq-cta-button-size:17px;
+--type-faq-a-size:16px; --type-faq-a-lh:25px;
+}}
+@media (max-width:1279px){:root{
+--faq-pad-block-start:var(--space-80);       /* рендер 81.9 */
+--faq-pad-block-end:var(--space-48);         /* рендер 51.2, как у Form */
+--faq-head-mb:var(--space-36);               /* рендер 34.8 */
+--faq-grid-gap:var(--space-16);              /* рендер 14.3 */
+--faq-aside-top:var(--space-20);             /* рендер 20.5 */
+--faq-aside-pad:var(--space-28);             /* рендер 26.6 */
+--faq-docs-mt:var(--space-10);               /* рендер 10.2 */
+--faq-cta-gap:var(--space-20);               /* рендер 20.5 */
+--faq-cta-pad-start:var(--space-20);
+--faq-cta-icon:38px;
+--faq-q-pad-start:var(--space-20);           /* рендер 18.4 сверху и снизу → 20 + 16 */
+--faq-q-pad-end:var(--space-16);
+--faq-q-pad-inline:var(--space-20);          /* рендер 20.5 */
+--faq-q-gap:var(--space-16);                 /* рендер 16.4 */
+--faq-x:40px;
+--faq-a-pad-end:var(--space-24);             /* рендер 22.5 */
+--type-faq-docs-title-size:13px; --type-faq-docs-title-lh:17px;
+--type-faq-cta-text-lh:21px;
+--type-faq-cta-button-size:15px; --type-faq-cta-button-lh:20px;
+--type-faq-a-size:15px; --type-faq-a-lh:24px;
+}}
+@media (max-width:767px){:root{
+--faq-pad-block-start:var(--space-64);
+--faq-pad-block-end:var(--space-40);
+--faq-head-mb:var(--space-28);
+--faq-grid-gap:var(--space-12);
+--faq-docs-mt:var(--space-8);
+--faq-q-pad-start:var(--space-20);           /* рендер 18 → 20 + 16 */
+--faq-q-pad-inline:var(--space-20);          /* рендер 18 */
+--faq-q-gap:var(--space-12);                 /* рендер 14; с полем 20 вместо 18 ширина текста вопроса как в рендере */
+}}
+
+/* ===== Final Form 4.15 (рендер): та же секция, что Form, — переопределяются только эти значения (.form--final) ===== */
+:root{
+--ff-pad-block-start:var(--space-48);
+--ff-fields-gap:var(--space-20);
+--ff-field-gap:var(--space-10);
+--ff-input-h:var(--control-h-56);            /* рендер 54 */
+--ff-chip-h:var(--control-h-44);
+--ff-chip-pad:var(--space-20);               /* рендер 18, как у Form 22 → 24 */
+--ff-note-basis:200px; --ff-note-max:320px;  /* подпись рядом с кнопкой: как в выгрузке */
+--type-form-note-size:13px; --type-form-note-lh:20px; /* временная: подпись у кнопки Final Form (Mulish 13/19.5) */
+}
+@media (max-width:1599px){:root{
+--ff-pad-block-start:var(--space-44);        /* рендер 43.2 */
+}}
+@media (max-width:1279px){:root{
+--ff-pad-block-start:var(--space-32);        /* рендер 30.7 */
+--ff-fields-gap:var(--space-16);             /* рендер 14.3 */
+}}
+@media (max-width:767px){:root{
+--ff-pad-block-start:var(--space-24);
+--ff-fields-gap:var(--space-12);             /* рендер 14; вниз — поля 56 вместо 54, высота панели как в рендере */
+--ff-title-size:20px;                        /* как в выгрузке: заголовок Final Form помещается в 2 строки до 360 (у Form — 18, решение 2026-11-17) */
+}}

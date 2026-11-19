@@ -1,0 +1,349 @@
+/* ===== Numbers (4.10) — «Ваш актив у цифрах» + калькулятор =====
+   Значения — из рендера design-export, только через tokens.css.
+   Базовые правила — статичная раскладка (без JS, <900, reduced motion): карточки, под ними панорама
+   с калькулятором. Сцена прокрутки ≥900 включается CSS-ом с первой отрисовки (html.js), чтобы
+   высота страницы не менялась при запуске сцены; движение — anim/blocks/numbers.js.
+   Конечный вид — в базовых правилах; стартовые состояния — при [data-motion]. */
+
+.nums{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--nums-pad-block-start) var(--nums-pad-block-end);
+  padding-inline:var(--nums-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.nums__title{margin:0 0 var(--nums-title-mb)}
+.nums__mask{display:block; overflow:hidden; padding-block-end:.08em; margin-block-end:-.08em}
+.nums__line{display:block}
+.nums__line--muted{color:var(--text-muted)}
+
+/* ---------- Статичная раскладка ---------- */
+.nums__stage{display:grid; gap:var(--nums-stack-gap)}
+/* Без сцены карточка растёт по содержимому (длинный перевод), минимум — 4:5, как в выгрузке */
+.nums__card{display:flex; aspect-ratio:4/5; perspective:1800px}
+.nums__flip{position:relative; flex:1; display:flex; transform-style:preserve-3d}
+.nums__back{display:none}
+@media (min-width:900px){
+  .nums__stage{grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--nums-scene-gap)}
+  .nums__pano{grid-column:1 / -1}
+}
+
+/* ---------- Карточка ---------- */
+.nums__front{
+  position:relative; flex:1; display:flex; flex-direction:column;
+  padding:var(--nums-card-pad);
+  border-radius:var(--radius-28);
+  background:var(--air); box-shadow:var(--nums-card-shadow);
+  clip-path:inset(0 round var(--radius-28));
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+}
+.nums__txt{display:flex; flex-direction:column; gap:var(--nums-card-gap); flex:1}
+.nums__graph{margin-block:auto; padding-block-end:var(--nums-graph-pb)}
+.nums__chip{
+  align-self:flex-start; display:flex; align-items:center;
+  min-block-size:var(--nums-chip-h); margin:0;
+  padding-inline:var(--nums-chip-pad-start) var(--nums-chip-pad-end);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm);
+}
+.nums__value{margin:0; display:flex; align-items:baseline; gap:.28em; white-space:nowrap}
+
+/* Столбики «Річна дохідність» */
+.nums__gbars{display:flex; align-items:flex-end; gap:var(--nums-gbars-gap); block-size:var(--nums-gbars-h)}
+.nums__gb{
+  flex:1; block-size:var(--h); border-radius:var(--nums-gbar-radius);
+  background:var(--c); -webkit-mask-image:var(--nums-gbar-fade); mask-image:var(--nums-gbar-fade);
+  transform-origin:50% 100%;
+}
+
+/* Кривая «Окупність» */
+.nums__curve{position:relative}
+.nums__curve-svg{display:block; inline-size:100%; block-size:auto; overflow:visible}
+.nums__stop-a{stop-color:var(--nums-area-stop); stop-opacity:var(--nums-area-stop-opacity)}
+.nums__stop-b{stop-color:var(--nums-area-stop); stop-opacity:0}
+.nums__area-dn{fill:var(--bg-surface-warm)}
+.nums__dot{fill:var(--dot-fill)}
+.nums__dot--after{fill:var(--pine)}
+.nums__line-path{fill:none; stroke:var(--pine); stroke-width:3; stroke-linecap:round; stroke-dasharray:1}
+.nums__pulse{fill:var(--pine); opacity:.18; transform-box:fill-box; transform-origin:center}
+.nums__point{transform-box:view-box; transform-origin:215px 90px}
+.nums__point-c{fill:var(--air); stroke:var(--pine); stroke-width:3}
+.nums__point-tag{position:absolute; inset-inline-start:71.67%; inset-block-start:calc(58.7% + var(--nums-tag-gap) - 2px); translate:-50% 0}
+.nums__tag{
+  display:flex; align-items:center; block-size:var(--nums-tag-h); padding-inline:var(--nums-tag-pad);
+  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air); white-space:nowrap;
+}
+.nums__axis{position:relative; block-size:var(--nums-axis-h); margin-block-start:var(--nums-axis-mt); color:var(--text-muted)}
+.nums__axis > span{position:absolute; inset-inline-start:0; white-space:nowrap}
+.nums__axis > .nums__axis-mid{inset-inline-start:71.67%; translate:-50% 0; color:var(--text-primary); font-weight:700}
+.nums__axis > .nums__axis-end{inset-inline:auto 0}
+
+/* Кольцо «Перший внесок» */
+.nums__graph--ring{display:flex; align-items:center; gap:var(--nums-ring-gap); padding-block-end:var(--nums-ring-pb)}
+.nums__ring{position:relative; flex:none; inline-size:min(62%, var(--nums-ring-w)); aspect-ratio:1}
+.nums__ring-svg{display:block; inline-size:100%; block-size:100%; rotate:-90deg}
+.nums__ring-svg circle{fill:none; stroke-width:16}
+.nums__ring-track{stroke:var(--linen)}
+.nums__ring-arc{stroke:var(--pine); stroke-dasharray:86 360; stroke-dashoffset:0}
+.nums__tick{stroke:var(--stroke-illustration)}
+.nums__ring-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--nums-ring-center-gap)}
+.nums__ring-label{color:var(--text-muted); letter-spacing:var(--type-num-ring-label-ls)}
+.nums__steps{display:flex; flex-direction:column; gap:var(--nums-steps-gap); min-inline-size:0}
+.nums__step{display:flex; flex-direction:column; gap:var(--nums-step-gap)}
+.nums__step-head{display:flex; align-items:center; gap:var(--nums-step-dot-gap)}
+.nums__step-dot{flex:none; inline-size:var(--nums-step-dot); block-size:var(--nums-step-dot); border-radius:var(--radius-pill); background:var(--pine)}
+.nums__step-dot--2{background:var(--stroke-illustration)}
+.nums__step-title{letter-spacing:var(--type-num-step-ls)}
+.nums__step-text{padding-inline-start:calc(var(--nums-step-dot) + var(--nums-step-dot-gap)); color:var(--text-muted)}
+
+/* ---------- Панорама и калькулятор ---------- */
+.nums__pano{
+  position:relative; overflow:hidden;
+  padding:var(--nums-pano-pad);
+  border-radius:var(--radius-28);
+  background:var(--bg-surface-moss);
+}
+.nums__pano-img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover}
+.nums__dark{position:absolute; inset:0; background:var(--night-bark); opacity:var(--nums-dark-static)}
+.nums__form{position:relative}
+
+.calc__grid{display:grid; grid-template-columns:minmax(0, 5fr) minmax(0, 7fr); gap:var(--calc-grid-gap); align-items:stretch}
+@media (max-width:1000px){ .calc__grid{grid-template-columns:minmax(0, 1fr)} }
+.calc__panel,
+.calc__res{border-radius:var(--radius-28); background:var(--air); color:var(--text-primary)}
+.calc__panel{display:flex; flex-direction:column; gap:var(--calc-panel-gap); padding:var(--calc-panel-pad)}
+.calc__title{margin:0}
+.calc__title-line{display:block}
+.calc__title-line--muted{color:var(--text-muted)}
+
+.calc__field{display:flex; flex-direction:column; gap:var(--calc-field-gap)}
+.calc__label{display:flex; align-items:center; gap:var(--calc-label-gap); color:var(--text-muted)}
+.calc__label-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--calc-icon-box); block-size:var(--calc-icon-box);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.calc__label-icon svg{inline-size:var(--calc-icon); block-size:var(--calc-icon)}
+
+.calc__sel{position:relative}
+.calc__trig{
+  inline-size:100%; display:flex; align-items:center; justify-content:space-between; gap:var(--calc-trig-gap);
+  padding:var(--calc-trig-pad);
+  border:var(--border-1) solid var(--border-hairline); border-radius:var(--calc-trig-radius);
+  background:var(--calc-trig-bg); color:var(--text-primary); text-align:start; cursor:pointer;
+  transition:border-color var(--nums-hover-dur) ease, box-shadow var(--nums-ring-dur) var(--ease-out-expo), background-color var(--nums-hover-dur) ease;
+}
+.calc__trig:hover,
+.calc__trig[aria-expanded="true"]{border-color:var(--text-primary); background:var(--air)}
+.calc__trig[aria-expanded="true"]{box-shadow:var(--calc-trig-ring)}
+.calc__trig-text{display:flex; flex-direction:column; gap:var(--calc-trig-text-gap); min-inline-size:0}
+.calc__trig-sub{color:var(--text-muted)}
+.calc__chev{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--calc-chev-box); block-size:var(--calc-chev-box);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm);
+  transition:transform var(--nums-chev-dur) var(--ease-out-expo);
+}
+.calc__chev svg{inline-size:var(--calc-chev); block-size:var(--calc-chev)}
+.calc__trig[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
+
+.nums .calc__list{ /* .nums впереди: сброс ul[role=list] в reset.css сильнее одного класса */
+  position:absolute; inset-inline:0; inset-block-start:calc(100% + var(--calc-list-offset)); z-index:30;
+  display:flex; flex-direction:column; margin:0; padding:var(--calc-list-pad);
+  border-radius:var(--calc-list-radius); background:var(--air); box-shadow:var(--calc-list-shadow);
+  opacity:0; visibility:hidden; transform:translateY(var(--calc-list-shift)) scale(var(--calc-list-scale)); transform-origin:50% 0;
+  transition:opacity var(--nums-list-fade-dur) ease, transform var(--nums-list-move-dur) var(--ease-out-expo), visibility 0s linear var(--nums-list-move-dur);
+}
+.calc__trig[aria-expanded="true"] + .calc__list{
+  opacity:1; visibility:visible; transform:none;
+  transition:opacity var(--nums-list-fade-dur) ease, transform var(--nums-list-move-dur) var(--ease-out-expo), visibility 0s;
+}
+.calc__opt{
+  inline-size:100%; display:flex; align-items:center; gap:var(--calc-opt-gap);
+  padding:var(--calc-opt-pad); border:0; border-radius:var(--calc-opt-radius);
+  background:transparent; color:var(--text-primary); text-align:start; cursor:pointer;
+  transition:background-color var(--nums-opt-dur) ease, transform var(--nums-opt-dur) var(--ease-out-expo);
+}
+.calc__opt-name{flex:1}
+.calc__opt-sub{white-space:nowrap; opacity:.7}
+.calc__opt::after{
+  content:""; flex:none; inline-size:var(--calc-radio); block-size:var(--calc-radio);
+  border-radius:var(--radius-pill); box-shadow:inset 0 0 0 var(--border-1) var(--border-hairline);
+}
+.calc__opt:hover{background:var(--bg-field)}
+.calc__opt:active{transform:scale(.985)}
+.calc__opt[aria-pressed="true"]{background:var(--bg-surface-warm)}
+.calc__opt[aria-pressed="true"]::after{background:var(--calc-radio-on); box-shadow:none}
+
+.calc__params{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--calc-params-gap); margin:0; padding-block-start:var(--calc-params-pt)}
+.calc__param{display:flex; flex-direction:column; gap:var(--calc-param-gap)}
+.calc__param dt{color:var(--text-muted); line-height:normal}
+.calc__param dd{margin:0}
+.calc__num{display:inline-block; transition:filter var(--calc-tick-dur) ease}
+/* число докручивается после выбора — лёгкое размытие, как в выгрузке (действие пользователя) */
+.calc__num[data-tick]{filter:blur(var(--calc-tick-blur))}
+.calc__nowrap{white-space:nowrap}
+.calc__per{font-size:.6em; letter-spacing:-.01em; margin-inline-start:.15em}
+
+.calc__res{position:relative; display:flex; flex-direction:column; gap:var(--calc-res-gap); padding:var(--calc-res-pad); overflow:hidden}
+.calc__res-top{display:flex; flex-direction:column; gap:var(--calc-res-top-gap)}
+.calc__price-row{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:var(--calc-price-row-gap)}
+.calc__price{display:flex; flex-direction:column; gap:var(--calc-price-gap); min-inline-size:0}
+.calc__price > .text-calc-small,
+.calc__tile dt{color:var(--text-muted)}
+.calc__yield{
+  display:flex; align-items:center; gap:var(--calc-yield-gap);
+  block-size:var(--calc-yield-h); padding-inline:var(--calc-yield-pad-start) var(--calc-yield-pad-end);
+  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air);
+}
+.calc__yield-val{
+  display:flex; align-items:center; block-size:var(--calc-yield-val-h); padding-inline:var(--calc-yield-val-pad);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm); color:var(--text-primary);
+  font-family:var(--type-calc-param-ff); font-size:var(--type-calc-yield-size); letter-spacing:var(--type-calc-yield-ls); font-weight:600;
+}
+.calc__tiles{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, var(--calc-tile-min)), 1fr)); gap:var(--calc-tiles-gap); margin:0}
+.calc__tile{
+  display:flex; flex-direction:column; gap:var(--calc-tile-gap); min-inline-size:0;
+  padding-block:var(--calc-tile-pad-block-start) var(--calc-tile-pad-block-end); padding-inline:var(--calc-tile-pad-inline);
+  border-radius:var(--calc-tile-radius); background:var(--bg-field);
+}
+.calc__tile dd{margin:0}
+
+.calc__chart{display:flex; flex-direction:column; gap:var(--calc-chart-gap)}
+.calc__chart-head{display:flex; justify-content:space-between; gap:var(--calc-chart-gap); color:var(--text-muted)}
+.calc__be{display:inline-block}
+.calc__bars{display:flex; align-items:flex-end; gap:var(--calc-bars-gap); block-size:var(--calc-bars-h)}
+.calc__bar{position:relative; flex:1; block-size:100%}
+/* Высота столбика — clip-path (в выгрузке переход height), цвет «после окупаемости» — слой с opacity */
+.calc__bf{
+  position:absolute; inset:0; background:var(--border-hairline);
+  clip-path:inset(calc(100% - var(--h)) 0 0 0 round var(--calc-bar-radius));
+  transition:clip-path var(--calc-bar-dur) var(--ease-out-expo) calc(var(--k) * var(--calc-bar-step));
+}
+.calc__bf::after{
+  content:""; position:absolute; inset:0; background:var(--bg-inverse); opacity:0;
+  transition:opacity var(--calc-paid-dur) ease calc(var(--k) * var(--calc-bar-step) + var(--calc-paid-delay));
+}
+.calc__bar[data-paid] .calc__bf::after{opacity:1}
+.calc__axis{display:flex; justify-content:space-between; color:var(--text-muted)}
+.calc__legend{display:flex; flex-wrap:wrap; gap:var(--calc-legend-gap); margin-block-start:var(--space-4)}
+.calc__legend-item{display:flex; align-items:center; gap:var(--calc-legend-item-gap)}
+.calc__swatch{inline-size:var(--calc-swatch); block-size:var(--calc-swatch); border-radius:var(--calc-swatch-radius); background:var(--border-hairline)}
+.calc__swatch--paid{background:var(--bg-inverse)}
+
+.calc__foot{display:flex; flex-wrap:wrap; align-items:center; margin-block-start:var(--calc-foot-mt)}
+.calc__cta{
+  display:flex; align-items:center; gap:var(--calc-cta-gap);
+  min-block-size:var(--calc-cta-h);
+  padding-inline:var(--calc-cta-pad-start) var(--calc-cta-pad-end);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air); text-decoration:none;
+}
+.calc__cta-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--calc-cta-icon-box); block-size:var(--calc-cta-icon-box);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm); color:var(--text-primary);
+  transition:transform var(--nums-chev-dur) var(--ease-out-expo);
+}
+.calc__cta-icon svg{inline-size:var(--calc-cta-icon); block-size:var(--calc-cta-icon)}
+.calc__cta:hover .calc__cta-icon{transform:rotate(-45deg)}
+
+/* Смена формата: короткие переходы столбиков (как data-fast в выгрузке) */
+.calc[data-fast] .calc__bf{transition-duration:var(--calc-bar-fast-dur); transition-delay:calc(var(--k) * var(--calc-bar-fast-step))}
+.calc[data-fast] .calc__bf::after{transition-delay:0s}
+
+/* ---------- Сцена прокрутки ≥900 ---------- */
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){
+  .js .nums__track{block-size:var(--nums-track-h)}
+  .js .nums__stick{
+    position:sticky; inset-block-start:0; block-size:100vh;
+    display:flex; align-items:center;
+    container-type:inline-size;
+  }
+  .js .nums__stage{
+    --cw:min((100cqw - 2 * var(--nums-scene-gap)) / 3, var(--nums-card-max-w));
+    --ch:calc(var(--cw) * 1.25);
+    --hf:max(var(--ch), 100vh - var(--nums-pano-inset));
+    position:relative; display:block; inline-size:100%; block-size:var(--ch);
+  }
+  .js .nums__card{
+    position:absolute; inset-block-start:0;
+    inset-inline-start:calc(50% - 1.5 * var(--cw) - var(--nums-scene-gap) + var(--i) * (var(--cw) + var(--nums-scene-gap)));
+    inline-size:var(--cw); block-size:var(--ch); aspect-ratio:auto;
+  }
+  .js .nums__flip{display:block; block-size:100%; will-change:transform}
+  .js .nums__front{position:absolute; inset:0}
+  .js .nums__back{
+    display:block; position:absolute; inset:0; overflow:hidden;
+    background:var(--bg-surface-moss);
+    transform:rotateY(180deg);
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    clip-path:inset(0 round var(--radius-28));
+  }
+  /* Часть панорамы: картинка шириной в три карточки, сдвинута на номер карточки (background-size:300% в выгрузке) */
+  .js .nums__back-img{
+    position:absolute; inset-block-start:50%; inset-inline-start:calc(-100% * var(--i));
+    inline-size:300%; max-inline-size:none; block-size:auto; translate:0 -50%;
+  }
+  /* Панорама — сразу полного размера, рамку раскрытия задаёт clip-path (в выгрузке — left/width/height) */
+  .js .nums__pano{
+    position:absolute; inset-inline:0; inset-block-start:calc((var(--ch) - var(--hf)) / 2);
+    block-size:var(--hf); padding:0; border-radius:0; opacity:0;
+  }
+  /* фото — размером «cover» без обрезки: масштаб в numbers.js даёт кадр рамки раскрытия */
+  .js .nums__pano-img{
+    inset:50% auto auto 50%; translate:-50% -50%;
+    inline-size:max(100%, var(--hf) * var(--pano-ratio)); max-inline-size:none; block-size:auto;
+  }
+  .js .nums__dark{opacity:0}
+  .js .nums__form{
+    position:absolute; inset-inline-start:50%; inset-block-start:50%;
+    inline-size:calc(100cqw - 2 * var(--nums-form-pad));
+    translate:-50% -50%; opacity:0; pointer-events:none;
+  }
+}
+
+/* ---------- Появление (как в выгрузке) ---------- */
+.nums[data-motion] .nums__line{transition:transform var(--nums-line-dur) var(--ease-out-expo) var(--d, 0s)}
+.nums[data-motion]:not([data-in]) .nums__line{transform:translateY(110%)}
+
+.nums[data-motion] .nums__front{transition:clip-path var(--nums-clip-dur) var(--ease-in-out-quart) calc(var(--i) * var(--nums-step))}
+.nums[data-motion] .nums__txt{
+  transition:opacity var(--nums-txt-fade-dur) ease calc(var(--nums-txt-delay) + var(--i) * var(--nums-step)),
+             transform var(--nums-txt-move-dur) var(--ease-out-quint) calc(var(--nums-txt-delay) + var(--i) * var(--nums-step));
+}
+.nums[data-motion] .nums__gb{transition:transform var(--nums-gb-dur) var(--ease-out-quint) var(--d)}
+.nums[data-motion] .nums__gs{transition:opacity var(--nums-gs-dur) ease var(--d)}
+.nums[data-motion] .nums__point{transition:opacity var(--nums-gs-dur) ease var(--d), transform var(--nums-gs-move-dur) var(--ease-out-quint) var(--d)}
+.nums[data-motion] :is(.nums__tag, .nums__ring-center, .nums__step){
+  transition:opacity var(--nums-gs-fade-dur) ease var(--d), transform var(--nums-gs-move-dur) var(--ease-out-quint) var(--d);
+}
+.nums[data-motion] :is(.nums__area-dn, .nums__area-up){transition-duration:var(--nums-area-dur)}
+.nums[data-motion] .nums__tick{transition-duration:var(--nums-tick-dur)}
+.nums[data-motion] .nums__line-path{transition:stroke-dashoffset var(--nums-line-draw-dur) var(--ease-in-out-cubic) var(--nums-draw-delay)}
+.nums[data-motion] .nums__ring-arc{transition:stroke-dashoffset var(--nums-ring-draw-dur) var(--ease-in-out-cubic) var(--nums-draw-delay)}
+
+.nums[data-motion]:not([data-on]) .nums__front{clip-path:inset(0 0 100% 0 round var(--radius-28))}
+.nums[data-motion]:not([data-on]) .nums__txt{opacity:0; transform:translateY(var(--nums-txt-shift))}
+.nums[data-motion]:not([data-on]) .nums__gb{transform:scaleY(0)}
+.nums[data-motion]:not([data-on]) .nums__gs{opacity:0}
+.nums[data-motion]:not([data-on]) .nums__point{transform:scale(.4)}
+.nums[data-motion]:not([data-on]) .nums__tag{transform:translateY(8px)}
+.nums[data-motion]:not([data-on]) .nums__ring-center{transform:scale(.85)}
+.nums[data-motion]:not([data-on]) .nums__step{transform:translateX(-10px)}
+.nums[data-motion]:not([data-on]) .nums__line-path{stroke-dashoffset:1}
+.nums[data-motion]:not([data-on]) .nums__ring-arc{stroke-dashoffset:86}
+
+/* Точка окупаемости пульсирует (как в выгрузке) */
+@media (prefers-reduced-motion:no-preference){
+  .nums[data-motion] .nums__pulse{animation:nums-pulse var(--nums-pulse-dur) ease-out var(--nums-pulse-delay) infinite}
+}
+@keyframes nums-pulse{
+  from{transform:scale(1); opacity:var(--nums-pulse-opacity)}
+  to{transform:scale(var(--nums-pulse-scale)); opacity:0}
+}
+
+/* Столбики калькулятора растут, когда калькулятор показан (data-bars ставит numbers.js) */
+.nums[data-motion] .calc__bar{transition:opacity var(--calc-bar-fade-dur) ease calc(var(--k) * var(--calc-bar-step)), transform var(--calc-bar-move-dur) var(--ease-out-expo) calc(var(--k) * var(--calc-bar-step))}
+.nums[data-motion] .calc__be{transition:opacity var(--calc-bar-fade-dur) ease var(--calc-be-delay), transform var(--calc-be-move-dur) var(--ease-out-expo) var(--calc-be-delay)}
+.nums[data-motion] .calc:not([data-bars]) .calc__bar{opacity:0; transform:translateY(8px)}
+.nums[data-motion] .calc:not([data-bars]) .calc__bf{clip-path:inset(100% 0 0 0 round var(--calc-bar-radius))}
+.nums[data-motion] .calc:not([data-bars]) .calc__be{opacity:0; transform:translateY(6px)}

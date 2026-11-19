@@ -1,0 +1,21 @@
+/* ===== Подсказка «Гортайте» (общий компонент SwipeHint): под горизонтальными лентами на <768 ===== */
+.swipe-hint{
+  display:none; align-items:center; justify-content:center; gap:var(--space-10);
+  margin-block-start:var(--space-16);
+  color:var(--text-muted);
+  pointer-events:none;
+  transition:opacity var(--swipe-fade-dur) ease;
+}
+.swipe-hint[data-gone]{opacity:0}
+.swipe-hint__hand{display:flex; inline-size:var(--icon-24); block-size:var(--icon-24); color:var(--text-primary)}
+@media (max-width:767px){
+  .swipe-hint{display:flex}
+}
+@media (prefers-reduced-motion:no-preference){
+  .swipe-hint__hand{animation:swipe-hand var(--swipe-hand-dur) var(--swipe-hand-ease) infinite}
+}
+@keyframes swipe-hand{
+  0%,100%{transform:translateX(calc(-1 * var(--swipe-hand-shift))) rotate(calc(-1 * var(--swipe-hand-turn)))}
+  50%{transform:translateX(var(--swipe-hand-shift)) rotate(var(--swipe-hand-turn))}
+}
+

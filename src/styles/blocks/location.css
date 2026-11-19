@@ -1,0 +1,262 @@
+/* ===== Location (4.8) — «Природа навколо та Буковель поруч» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Конечное состояние — в базовых правилах; стартовые — при [data-motion] (ставит anim/blocks/location.js).
+   Внутри карты размеры — доли её ширины (cqw), как в выгрузке: карта — иллюстрация. */
+
+.loc{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--loc-pad-block-start) var(--loc-pad-block-end);
+  padding-inline:var(--loc-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.loc__row{display:flex; flex-wrap:wrap; align-items:center; gap:var(--loc-gap)}
+
+/* ---------- Текст ---------- */
+.loc__left{
+  flex:1 1 var(--loc-left-basis); min-inline-size:0;
+  display:flex; flex-direction:column; align-items:flex-start; gap:var(--loc-left-gap);
+}
+.loc__title{margin:0; text-wrap:balance}
+.loc__mask{display:block; overflow:hidden; padding-block-end:.08em; margin-block-end:-.08em}
+.loc__line{display:block}
+.loc__line--muted{color:var(--text-muted)}
+.loc__text{margin:0; max-inline-size:var(--loc-text-max); text-wrap:pretty}
+
+.loc__link{
+  display:flex; align-items:center; gap:var(--hero-cta-gap);
+  min-block-size:var(--hero-cta-h);
+  padding-inline:var(--hero-cta-pad-start) var(--hero-cta-pad-end);
+  border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air); text-decoration:none;
+  transition:background-color var(--loc-hover-dur) ease;
+}
+.loc__link:hover{background:var(--night-bark)}
+.loc__link-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--hero-cta-icon); block-size:var(--hero-cta-icon);
+  border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.loc__link-icon svg{inline-size:var(--icon-16); block-size:var(--icon-16)}
+
+/* ---------- Карта ---------- */
+.loc__frame{flex:var(--loc-map-grow) 1 var(--loc-map-basis); min-inline-size:0; border-radius:var(--radius-24); overflow:hidden}
+.loc__map{
+  position:relative; inline-size:100%; aspect-ratio:var(--ratio);
+  border-radius:var(--radius-24); overflow:hidden;
+  background:var(--bg-surface-moss);
+  container-type:inline-size;
+}
+.loc__media{position:absolute; inset:0}
+.loc__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; display:block}
+.loc__img--dim{filter:var(--loc-map-dim); opacity:0}
+
+.loc .loc__pins{margin:0; padding:0} /* .loc впереди: сброс ul[role=list] в reset.css сильнее одного класса */
+.loc__pin,
+.loc__resort{position:absolute; inset-inline-start:var(--x); inset-block-start:var(--y); inline-size:0; block-size:0}
+.loc__pin-label{
+  position:absolute; inset-block-start:0; transform:translateY(-50%);
+  display:flex; align-items:center; gap:.4em;
+  block-size:1.9em;
+  border-radius:var(--radius-pill);
+  background:var(--air); box-shadow:var(--loc-pin-shadow);
+  font-family:var(--font-text); font-weight:600; font-size:var(--loc-pin-size); line-height:1;
+  color:var(--text-primary);
+  /* Ширина — по тексту, но не дальше края карты (длинный перевод переносится внутри метки);
+     --xn — положение точки в % ширины карты без единиц, cqw — доля ширины карты */
+  inline-size:max-content; min-block-size:1.9em; block-size:auto; padding-block:.2em;
+  max-inline-size:calc(var(--loc-pin-room) * 1cqw + .95em - var(--loc-pin-edge));
+}
+/* подпись справа от точки: точка — круг значка слева */
+.loc__pin-label--right{--loc-pin-room:calc(100 - var(--xn)); inset-inline-start:-.95em; padding-inline:.2em .75em}
+/* подпись слева: круг значка справа */
+.loc__pin-label--left{--loc-pin-room:var(--xn); inset-inline-end:-.95em; flex-direction:row-reverse; padding-inline:.75em .2em}
+.loc__pin-icon{
+  flex:none; inline-size:1.5em; block-size:1.5em; border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+  display:flex; align-items:center; justify-content:center;
+}
+.loc__pin-icon svg{inline-size:62%; block-size:62%}
+
+/* ---------- Метка курорта ---------- */
+.loc__resort{z-index:2}
+.loc__resort:has(.loc__dot:hover, .loc__dot:focus-visible, .loc__dot[aria-expanded="true"]){z-index:5}
+.loc__ring{
+  position:absolute; inset-inline-start:-3cqw; inset-block-start:-3cqw;
+  inline-size:6cqw; block-size:6cqw;
+  border:var(--border-1) solid var(--loc-ring-border); border-radius:var(--radius-pill);
+  background:var(--loc-ring-bg);
+}
+.loc__dot{
+  position:absolute; inset-inline-start:-2.18cqw; inset-block-start:-2.18cqw;
+  inline-size:4.36cqw; block-size:4.36cqw;
+  display:flex; align-items:center; justify-content:center;
+  padding:0; border:var(--border-2) solid var(--air); border-radius:var(--radius-pill);
+  background:var(--air); box-shadow:var(--loc-dot-shadow);
+  cursor:pointer;
+}
+/* область нажатия не меньше 44px (точка на мобильном ~16px), вид не меняется */
+.loc__dot::before{content:""; position:absolute; inset:50% auto auto 50%; inline-size:var(--control-h-44); block-size:var(--control-h-44); transform:translate(-50%,-50%)}
+.loc__mark{inline-size:56%; block-size:auto; display:block; transform:translateY(-4%)}
+.loc__tag{
+  position:absolute; inset-inline-start:-3cqw; inset-block-start:4.36cqw;
+  display:flex; align-items:center; block-size:2.6em; padding-inline:1em;
+  border-radius:var(--radius-12);
+  background:var(--air); box-shadow:var(--loc-tag-shadow);
+  font-family:var(--font-display); font-weight:600; font-size:var(--loc-pin-size); letter-spacing:var(--loc-tag-ls);
+  color:var(--text-primary); white-space:nowrap;
+}
+
+/* Карточка курорта: наведение и фокус на точке, нажатие (aria-expanded), Esc — ui/location.js */
+.loc__card{
+  position:absolute; inset-inline-start:0; inset-block-end:3.4cqw;
+  inline-size:var(--loc-card-w);
+  display:flex; flex-direction:column;
+  padding:var(--space-8);
+  border-radius:var(--radius-28);
+  background:var(--air); box-shadow:var(--loc-card-shadow);
+  visibility:hidden; opacity:0; pointer-events:none;
+  transform:translate(-50%, var(--space-10)) scale(.94); transform-origin:50% 100%;
+  transition:
+    opacity var(--loc-card-fade-dur) ease,
+    transform var(--loc-card-move-dur) var(--ease-out-quint),
+    visibility 0s linear var(--loc-card-move-dur);
+}
+@media (min-width:768px){
+  .loc__dot:hover ~ .loc__card,
+  .loc__dot:focus-visible:not([data-dismissed]) ~ .loc__card,
+  .loc__dot[aria-expanded="true"] ~ .loc__card{
+    visibility:visible; opacity:1; transform:translate(-50%, 0) scale(1);
+    transition-delay:0s;
+  }
+}
+.loc__card-media{position:relative; display:block; border-radius:var(--radius-20); overflow:hidden; aspect-ratio:16/10}
+.loc__card-img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; display:block}
+.loc__card-media::after{content:""; position:absolute; inset:0; background:var(--loc-card-scrim)}
+.loc__card-badge{
+  position:absolute; z-index:1; inset-inline-start:var(--space-12); inset-block-start:var(--space-12);
+  display:inline-flex; align-items:center; block-size:var(--loc-badge-h); padding-inline:var(--space-12);
+  border-radius:var(--radius-pill); background:var(--loc-badge-bg);
+  font-family:var(--font-text); font-weight:700; font-size:var(--loc-badge-size); letter-spacing:var(--loc-badge-ls); text-transform:uppercase;
+  color:var(--text-primary);
+}
+.loc__card-head{
+  position:absolute; z-index:1; inset-inline:var(--space-16); inset-block-end:var(--space-12);
+  display:flex; flex-direction:column; gap:var(--space-4);
+}
+.loc__card-title{font-family:var(--font-display); font-weight:600; font-size:var(--loc-card-title-size); line-height:1.1; letter-spacing:var(--loc-card-ls); color:var(--air)}
+.loc__card-sub{font-family:var(--font-text); font-size:var(--loc-card-sub-size); line-height:1.35; color:var(--air)}
+.loc__facts{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--space-12); padding:var(--space-16) var(--space-12)}
+.loc__fact{display:flex; flex-direction:column; gap:var(--space-6); min-inline-size:0}
+.loc__fact-value{font-family:var(--font-display); font-weight:600; font-size:var(--loc-fact-size); line-height:1.1; letter-spacing:var(--loc-card-ls); white-space:nowrap}
+.loc__fact-label{font-family:var(--font-text); font-size:var(--loc-card-small-size); line-height:1.35; color:var(--text-muted); text-wrap:pretty}
+.loc__chips{display:flex; flex-wrap:wrap; gap:var(--space-6); padding:0 var(--space-6) var(--space-6)}
+.loc__chip{
+  display:inline-flex; align-items:center; block-size:var(--control-h-32); padding-inline:var(--space-12);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm);
+  font-family:var(--font-text); font-weight:600; font-size:var(--loc-card-small-size); white-space:nowrap;
+}
+
+/* ---------- <768: карточка в окне по центру экрана (решение 2026-11-17) ----------
+   Та же карточка (ui/location.js переносит её в <dialog>), но не в долях карты: размеры шрифтов —
+   из существующих ролей (title-sm, calc-tile, label), ширина — до 420px, как у карточки на 1920. */
+.loc__modal{
+  inline-size:min(var(--loc-card-max-w), 100% - 2 * var(--space-16));
+  max-inline-size:none; max-block-size:calc(100% - 2 * var(--space-16));
+  margin:auto; padding:0; border:0; overflow:auto; overscroll-behavior:contain;
+  background:transparent; color:var(--text-primary);
+  --loc-card-w:100%;
+  --loc-card-title-size:var(--type-title-sm-size);
+  --loc-card-sub-size:var(--type-label-size);
+  --loc-fact-size:var(--type-calc-tile-size);
+  --loc-card-small-size:var(--type-label-size);
+}
+.loc__modal::backdrop{background:var(--loc-modal-backdrop)}
+.loc__modal .loc__card{
+  position:relative; inset:auto;
+  visibility:visible; opacity:1; pointer-events:auto; transform:none; transition:none;
+  box-shadow:none;
+}
+/* значения переносятся по словам; колонка не уже самого длинного слова (слова не рвутся) */
+.loc__modal .loc__facts{grid-template-columns:repeat(3, minmax(min-content, 1fr))}
+.loc__modal .loc__fact-value{white-space:normal}
+.loc__modal-close{
+  position:absolute; z-index:2;
+  inset-inline-end:var(--space-16); inset-block-start:var(--space-16);
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-44); block-size:var(--control-h-44);
+  padding:0; border:0; border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary); box-shadow:var(--loc-tag-shadow);
+  cursor:pointer;
+}
+.loc__modal-close svg{inline-size:var(--icon-20); block-size:var(--icon-20)}
+@media (prefers-reduced-motion:no-preference){
+  .loc__modal[open] .loc__card{animation:loc-modal-in var(--loc-card-move-dur) var(--ease-out-quint) both}
+  .loc__modal[open]::backdrop{animation:loc-modal-fade var(--loc-card-fade-dur) ease both}
+}
+@keyframes loc-modal-in{from{opacity:0; transform:translateY(var(--space-10)) scale(.94)}}
+@keyframes loc-modal-fade{from{opacity:0}}
+
+/* ---------- Появление (как в выгрузке) ---------- */
+.loc[data-motion] .loc__line{transition:transform var(--loc-line-dur) var(--ease-out-expo) var(--d, 0s)}
+.loc[data-motion] .loc__up{
+  transition:
+    opacity var(--loc-up-fade-dur) var(--ease-out-expo) var(--d, 0s),
+    transform var(--loc-line-dur) var(--ease-out-expo) var(--d, 0s);
+}
+.loc[data-motion]:not([data-text-in]) .loc__line{transform:translateY(112%)}
+.loc[data-motion]:not([data-text-in]) .loc__up{opacity:0; transform:translateY(var(--loc-up-shift))}
+
+.loc[data-motion] .loc__map{transition:clip-path var(--loc-map-dur) var(--loc-map-ease) var(--md, 0s)}
+.loc[data-motion]:not([data-map-in]) .loc__map{clip-path:inset(14% 10% 14% 10% round var(--radius-24))}
+.loc[data-motion][data-map-in] .loc__map{clip-path:inset(0 round var(--radius-24))}
+.loc[data-motion] .loc__media{transition:transform var(--loc-img-dur) var(--ease-out-expo) var(--md, 0s)}
+.loc[data-motion]:not([data-map-in]) .loc__media{transform:scale(1.2)}
+.loc[data-motion] .loc__img--dim{transition:opacity var(--loc-dim-dur) ease var(--md, 0s)}
+.loc[data-motion]:not([data-map-in]) .loc__img--dim{opacity:1}
+
+.loc[data-motion] .loc__pin-label,
+.loc[data-motion] .loc__dot,
+.loc[data-motion] .loc__tag{
+  transition:
+    opacity var(--loc-pin-fade-dur) var(--ease-out-expo),
+    translate var(--loc-pin-move-dur) var(--ease-out-expo),
+    scale var(--loc-pin-move-dur) var(--loc-pin-pop-ease);
+  transition-delay:calc(var(--md, 0s) + var(--d, 0s));
+}
+.loc[data-motion]:not([data-map-in]) .loc__pin-label{opacity:0; translate:0 var(--space-12); scale:.9}
+.loc[data-motion]:not([data-map-in]) .loc__dot{opacity:0; scale:.2}
+.loc[data-motion]:not([data-map-in]) .loc__tag{opacity:0; translate:0 var(--space-10)}
+.loc[data-motion] .loc__dot{--d:.9s}
+.loc[data-motion] .loc__tag{--d:1.1s}
+
+.loc[data-motion] .loc__ring{opacity:0}
+.loc[data-motion][data-map-in] .loc__ring{animation:loc-pulse var(--loc-pulse-dur) var(--loc-pulse-ease) calc(var(--md, 0s) + var(--loc-map-dur) + var(--pd, 0s)) infinite both}
+.loc__ring--late{--pd:var(--loc-pulse-gap)}
+@keyframes loc-pulse{
+  0%{transform:scale(.6); opacity:0}
+  14%{opacity:.85}
+  100%{transform:scale(2.3); opacity:0}
+}
+
+/* Размытие текста и меток при появлении — как в выгрузке, только на десктопе (решение 2026-11-17 для Model/Form). */
+@media (min-width:1280px){
+  .loc[data-motion] .loc__up{
+    transition:
+      opacity var(--loc-up-fade-dur) var(--ease-out-expo) var(--d, 0s),
+      transform var(--loc-line-dur) var(--ease-out-expo) var(--d, 0s),
+      filter var(--loc-up-fade-dur) ease var(--d, 0s);
+  }
+  .loc[data-motion]:not([data-text-in]) .loc__up{filter:blur(var(--loc-up-blur))}
+  .loc[data-motion] .loc__pin-label,
+  .loc[data-motion] .loc__tag{
+    transition:
+      opacity var(--loc-pin-fade-dur) var(--ease-out-expo),
+      translate var(--loc-pin-move-dur) var(--ease-out-expo),
+      scale var(--loc-pin-move-dur) var(--loc-pin-pop-ease),
+      filter var(--loc-pin-fade-dur) ease;
+    transition-delay:calc(var(--md, 0s) + var(--d, 0s));
+  }
+  .loc[data-motion]:not([data-map-in]) .loc__pin-label,
+  .loc[data-motion]:not([data-map-in]) .loc__tag{filter:blur(var(--loc-pin-blur))}
+}

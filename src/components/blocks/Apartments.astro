@@ -1,0 +1,84 @@
+---
+/**
+ * Apartments (4.6): заголовок из двух строк, стрелки и бесконечная лента карточек апартаментов
+ * с полосой прогресса. На <768 — карточка во всю ширину и подсказка «Гортайте».
+ * Тексты и фото — из Sanity (блок apartments документа landing).
+ *
+ * Поведение ленты (зацикливание, стрелки, перетаскивание мышью, полоса прогресса) —
+ * src/scripts/ui/apartments.js: работает и при prefers-reduced-motion.
+ * Появление — src/scripts/anim/blocks/apartments.js + apartments.css.
+ * Без JS — обычная лента с прокруткой и привязкой к карточкам.
+ * TODO(4.17): фото и кнопка «Планування» открывают попап планировок (data-plan-open).
+ */
+import { Image } from 'astro:assets';
+import SwipeHint from '../ui/SwipeHint.astro';
+import { resolveImage, type ApartmentsBlock } from '../../lib/content';
+
+interface Props {
+  block: ApartmentsBlock;
+  swipeHint: string;
+}
+
+const { block, swipeHint } = Astro.props;
+const items = await Promise.all(
+  block.items.map(async (item) => ({ ...item, photo: await resolveImage(item.image) })),
+);
+const trackId = `${block.anchor}-track`;
+const titleId = `${block.anchor}-title`;
+const arrow = 'M5 12h14M13 6l6 6-6 6';
+---
+<section class="apts" id={block.anchor} aria-labelledby={titleId} data-anim-block="apartments" data-apts>
+  <div class="apts__head">
+    <h2 class="apts__title text-display-sm" id={titleId}>
+      {block.title.map((line) => (
+        <span class="apts__mask"><span class:list={['apts__line', { 'apts__line--muted': line.muted }]}>{line.text}</span></span>
+      ))}
+    </h2>
+    <div class="apts__nav" data-apts-reveal>
+      <button class="apts__arrow" type="button" aria-label={block.prevLabel} aria-controls={trackId} data-apts-dir="-1">
+        <svg class="apts__arrow-icon apts__arrow-icon--prev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow} /></svg>
+      </button>
+      <button class="apts__arrow" type="button" aria-label={block.nextLabel} aria-controls={trackId} data-apts-dir="1">
+        <svg class="apts__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrow} /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="apts__track" id={trackId} data-apts-track>
+    {items.map((item, i) => (
+      <article class="apts__card" style={`--i:${i}`} data-apts-card>
+        <div class="apts__media" data-plan-open={i}>
+          <Image
+            class="apts__img"
+            src={item.photo.src}
+            alt={item.photo.alt}
+            widths={[480, 720, 960, 1280]}
+            sizes="(max-width: 767px) calc(100vw - 32px), clamp(280px, 33vw, 640px)"
+            format="avif"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+            style={`--focus:${item.photo.position}`}
+          />
+        </div>
+        <div class="apts__body">
+          <h3 class="apts__name text-apts-name">{item.format.name}</h3>
+          <div class="apts__row">
+            <span class="apts__area text-apts-area">{item.format.area}</span>
+            <button class="apts__plan text-apts-button" type="button" data-plan-open={i}>{block.planLabel}</button>
+          </div>
+        </div>
+      </article>
+    ))}
+    <div class="apts__end" aria-hidden="true"></div>
+  </div>
+
+  <SwipeHint track={trackId} label={swipeHint} />
+
+  <div class="apts__foot" data-apts-reveal>
+    <div class="apts__bar" aria-hidden="true" data-apts-bar>
+      <span class="apts__bar-line"></span>
+      <span class="apts__thumb" data-apts-thumb style={`--n:${items.length}`}></span>
+    </div>
+  </div>
+</section>

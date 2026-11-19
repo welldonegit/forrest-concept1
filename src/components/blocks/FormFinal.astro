@@ -1,0 +1,31 @@
+---
+/**
+ * Final Form (4.15): «Оберіть свій актив у FORREST». Та же секция с формой, что у Form
+ * (src/components/ui/LeadSection.astro): те же поля, проверка, тексты ошибок, успех и эксперт.
+ * Отличаются раскладка (модификатор form--final: компактные поля, подпись рядом с кнопкой)
+ * и контент — из Sanity (блок formFinal документа landing): заголовок, текст, карточки,
+ * вопрос о цели инвестиции с вариантами, способы связи, кнопка и подпись.
+ */
+import LeadSection from '../ui/LeadSection.astro';
+import type { FormFinalBlock, SiteSettings } from '../../lib/content';
+
+interface Props {
+  block: FormFinalBlock;
+  settings: SiteSettings;
+}
+
+const { block, settings } = Astro.props;
+---
+<LeadSection
+  id={block.anchor}
+  variant="final"
+  title={block.title}
+  text={block.text}
+  bullets={block.bullets}
+  select={{ label: block.goalLabel, name: 'goal', options: block.goals }}
+  contactLegend={block.contactLegend}
+  contactOptions={block.contactOptions}
+  submitLabel={block.submitLabel}
+  note={block.note}
+  settings={settings}
+/>

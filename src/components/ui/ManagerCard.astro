@@ -1,0 +1,46 @@
+---
+/**
+ * Картка експерта у формах: фото, ім'я, посада, телефон і месенджери.
+ * Фото, ім'я, посада — siteSettings.manager; телефон і месенджери — siteSettings.contacts.
+ * Вигляд задає блок через class (Form: на ≥901 — у лівій панелі, на ≤900 — під формою).
+ */
+import { Image } from 'astro:assets';
+import SocialIcon from './SocialIcon.astro';
+import { resolveImage, type SiteSettings } from '../../lib/content';
+
+interface Props {
+  settings: SiteSettings;
+  class?: string;
+}
+
+const { settings, class: className } = Astro.props;
+const { manager, contacts } = settings;
+const photo = await resolveImage(manager.photo);
+---
+<div class:list={['manager', className]}>
+  <Image
+    class="manager__photo"
+    src={photo.src}
+    alt={photo.alt}
+    widths={[76, 152]}
+    sizes="76px"
+    format="avif"
+    loading="lazy"
+    decoding="async"
+    style={`--focus:${photo.position}`}
+  />
+  <div class="manager__who">
+    <span class="manager__name text-manager-name">{manager.name}</span>
+    <span class="manager__role text-caption">{manager.role}</span>
+  </div>
+  <div class="manager__contacts">
+    <a class="manager__phone text-manager-phone" href={contacts.phoneHref}>{contacts.phone}</a>
+    <div class="manager__msgs">
+      {contacts.messengers.map((m) => (
+        <a class="manager__msg" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
+          <SocialIcon network={m.network} />
+        </a>
+      ))}
+    </div>
+  </div>
+</div>

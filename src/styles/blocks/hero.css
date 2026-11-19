@@ -1,0 +1,190 @@
+/* ===== Hero (4.1) — первый экран =====
+   Значения — из рендера design-export, только через tokens.css.
+   Слои кадра (как в выгрузке): 0 летнее фото · 1 зимнее (iris) · 2 заголовок ·
+   3 передний план (фото по контуру зданий) · 4 копия заголовка · 5 вуаль · 6 текст и кнопки. */
+
+.hero{
+  position:relative;
+  /* svh: высота окна с панелями браузера — на телефоне низ первого экрана не уходит под панель */
+  block-size:100vh; block-size:100svh; min-block-size:var(--hero-min-h);
+  padding:var(--hero-frame-pad);
+  background:var(--bg-surface-warm);
+}
+.hero__frame{
+  position:relative; isolation:isolate; overflow:hidden;
+  block-size:100%;
+  max-inline-size:calc(var(--page-max) - 2 * var(--hero-frame-pad)); margin-inline:auto;
+  border-radius:var(--hero-frame-radius);
+  background:var(--bg-inverse);
+}
+
+/* ---------- Фото, заголовок, передний план ---------- */
+.hero__media{position:absolute; inset:0}
+.hero__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%;
+  object-fit:cover; object-position:var(--focus, 50% 50%);
+}
+.hero__iris{
+  position:absolute; inset:0; z-index:1;
+  clip-path:circle(0% at var(--iris-x, 92%) var(--iris-y, 85%));
+  transition:clip-path var(--hero-iris-dur) var(--ease-in-out-cubic);
+  pointer-events:none;
+}
+.hero__frame[data-season="winter"] .hero__iris{clip-path:circle(160% at var(--iris-x, 92%) var(--iris-y, 85%))}
+/* Передний план: то же фото, обрезанное по контуру зданий (hero.js ставит --skyline).
+   До расчёта контура — нижние 60% кадра, как в выгрузке. */
+.hero__fg{position:absolute; inset:0; z-index:3; pointer-events:none}
+.hero__fg .hero__img{clip-path:var(--skyline, inset(40% 0 0 0))}
+.hero__iris:has(.hero__fg){z-index:3}
+
+.hero__title{
+  position:absolute; z-index:2;
+  inset-inline:var(--hero-inset); inset-block-start:var(--hero-title-top);
+  display:flex; flex-direction:column;
+  pointer-events:none;
+  font-kerning:normal;
+}
+.hero__title--front{z-index:4}
+.hero__line{display:block}
+.hero__line--dark{color:var(--text-primary)}
+.hero__line--light{color:var(--air); text-align:end}
+
+.hero__shade{
+  position:absolute; z-index:5; inset-inline-start:0; inset-block-end:0;
+  inline-size:var(--hero-shade-w); block-size:var(--hero-shade-h);
+  background:var(--hero-shade);
+  pointer-events:none;
+}
+
+/* ---------- Текст и кнопки ---------- */
+.hero__content{
+  position:absolute; z-index:6;
+  inset-inline:var(--hero-content-start) var(--hero-inset);
+  inset-block-end:var(--hero-content-bottom);
+  display:flex; flex-direction:column; align-items:flex-start; gap:var(--hero-content-gap);
+}
+.hero__lead{max-inline-size:100%; color:var(--air); text-shadow:var(--hero-text-shadow)}
+.hero__buttons{display:flex; flex-wrap:wrap; align-items:center; gap:var(--hero-buttons-gap)}
+
+.hero__cta{
+  display:inline-flex; align-items:center; gap:var(--hero-cta-gap);
+  min-block-size:var(--hero-cta-h);
+  padding-inline:var(--hero-cta-pad-start) var(--hero-cta-pad-end);
+  border-radius:var(--radius-pill);
+  background:var(--bg-surface-warm); color:var(--text-primary); text-decoration:none;
+  transition:background-color var(--hero-hover-dur) ease;
+}
+.hero__cta:hover{background:var(--air)}
+.hero__cta-icon,
+.hero__play-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--hero-cta-icon); block-size:var(--hero-cta-icon);
+  border-radius:var(--radius-pill);
+}
+.hero__cta-icon{background:var(--bg-inverse); color:var(--air)}
+.hero__cta-icon svg,
+.hero__play-icon svg{inline-size:var(--icon-16); block-size:var(--icon-16)}
+
+.hero__play{
+  display:inline-flex; align-items:center; gap:var(--hero-play-gap);
+  padding:0; border:0; background:none; color:var(--air);
+}
+.hero__play-icon{
+  /* в выгрузке рамка снаружи круга (content-box): круг на 2 рамки больше, чем у CTA */
+  inline-size:calc(var(--hero-cta-icon) + 2 * var(--border-1)); block-size:calc(var(--hero-cta-icon) + 2 * var(--border-1));
+  border:var(--border-1) solid var(--hero-play-border);
+}
+
+/* ---------- Кнопка сезона ---------- */
+.hero__season{
+  position:absolute; z-index:6;
+  inset-inline-end:var(--hero-season-offset); inset-block-end:var(--hero-season-offset);
+  inline-size:var(--hero-season-size); block-size:var(--hero-season-size);
+  padding:0; border:0; border-radius:var(--radius-pill);
+  background:none;
+  color:var(--air); text-align:center;
+}
+/* Стекло: размытие фона. Не масштабируется — иначе backdrop-filter пересчитывается каждый кадр. */
+.hero__season-glass{
+  position:absolute; inset:0;
+  border-radius:var(--radius-pill);
+  background:var(--hero-season-bg);
+  -webkit-backdrop-filter:var(--blur-caption); backdrop-filter:var(--blur-caption);
+}
+/* Обводка и содержимое: появление (0.6 → 1) и «дыхание» — только transform/opacity. */
+.hero__season-face{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--hero-season-gap);
+  border:var(--border-1) solid var(--hero-season-border);
+  border-radius:var(--radius-pill);
+}
+.hero__star{
+  inline-size:var(--hero-season-icon); block-size:var(--hero-season-icon);
+  transition:transform var(--hero-iris-dur) var(--ease-in-out-cubic);
+}
+.hero__frame[data-season="winter"] .hero__star{transform:rotate(180deg)}
+.hero__ring{
+  position:absolute; inset:calc(-1 * var(--border-1));
+  border:var(--border-1) solid var(--hero-season-ring);
+  border-radius:var(--radius-pill);
+  pointer-events:none;
+}
+
+/* ---------- Ступени ---------- */
+@media (max-width:899px){
+  .hero__play-label{position:absolute; inline-size:1px; block-size:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+}
+/* Перенос лида — только на десктопе (кадр уже 640px — без переноса, как в выгрузке). */
+@media (max-width:655px){
+  .hero__br{display:none}
+  .hero__lead{text-wrap:pretty}
+}
+@media (max-width:767px){
+  .hero__shade{background:var(--hero-shade-mobile)}
+  /* h1: обе строки от начала (как в выгрузке) */
+  .hero__line--light{text-align:start}
+  /* Передний план по контуру и копия заголовка над ним не показываются: на мобильном фото
+     заголовок целиком на небе, контур задан для десктопного фото (решение 2026-11-17). */
+  .hero__fg,.hero__title--front{display:none}
+  /* Кнопка сезона над текстом, слева. Высоту считает hero.js (--hero-season-bottom). */
+  .hero__season{
+    inset-inline:var(--hero-content-start) auto;
+    inset-block-end:var(--hero-season-bottom, 170px);
+  }
+}
+
+/* ---------- Появление (первый экран: старт задан через .js, п.«Без JS контент виден») ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js .hero__media{animation:hero-img var(--hero-img-dur) var(--ease-out-quint) both}
+  .js .hero__title:not(.hero__title--front) .hero__line--dark{animation:hero-rise1 var(--hero-rise-dur) var(--ease-out-expo) var(--hero-rise1-delay) both}
+  .js .hero__title:not(.hero__title--front) .hero__line--light{animation:hero-rise2 var(--hero-rise-dur) var(--ease-out-expo) var(--hero-rise2-delay) both}
+  .js .hero__title--front .hero__line--dark{animation:hero-fade var(--hero-fade-dur) ease var(--hero-fade1-delay) both}
+  .js .hero__title--front .hero__line--light{animation:hero-fade var(--hero-fade-dur) ease var(--hero-fade2-delay) both}
+  .js .hero__lead{animation:hero-up var(--hero-up-dur) var(--ease-out-quint) var(--hero-up1-delay) both}
+  .js .hero__buttons{animation:hero-up var(--hero-up-dur) var(--ease-out-quint) var(--hero-up2-delay) both}
+  .js .hero__season-glass{animation:hero-fade var(--hero-pop-dur) ease var(--hero-pop-delay) both}
+  .js .hero__season-face{
+    animation:
+      hero-pop var(--hero-pop-dur) var(--ease-out-back) var(--hero-pop-delay) both,
+      hero-breath var(--hero-breath-dur) ease-in-out var(--hero-breath-delay) infinite;
+  }
+  .js .hero__ring{animation:hero-pulse var(--hero-pulse-dur) var(--ease-out-quint) var(--hero-pulse1-delay) infinite both}
+  .js .hero__ring--late{animation-delay:var(--hero-pulse2-delay)}
+}
+@keyframes hero-img{from{opacity:0; transform:scale(var(--hero-img-scale))}}
+@keyframes hero-rise1{from{transform:translateY(var(--hero-rise1-from))}}
+@keyframes hero-rise2{from{transform:translateY(var(--hero-rise2-from))}}
+@keyframes hero-fade{from{opacity:0}}
+@keyframes hero-up{from{opacity:0; transform:translateY(var(--hero-up-shift))}}
+@keyframes hero-pop{from{opacity:0; transform:scale(var(--hero-pop-scale))}}
+@keyframes hero-breath{50%{transform:scale(var(--hero-breath-scale))}}
+@keyframes hero-pulse{
+  0%{opacity:var(--hero-pulse-opacity); transform:scale(1)}
+  100%{opacity:0; transform:scale(var(--hero-pulse-scale))}
+}
+/* Hero вне экрана — бесконечные анимации на паузе (hero.js ставит data-offscreen). */
+.hero__frame[data-offscreen] .hero__season-face,
+.hero__frame[data-offscreen] .hero__ring{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+  .hero__iris,.hero__star{transition-duration:1ms}
+}

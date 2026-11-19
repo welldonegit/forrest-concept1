@@ -1,0 +1,80 @@
+---
+/**
+ * Footer (4.16): адрес и телефон, четыре колонки ссылок (на мобильном — аккордеон),
+ * крупный логотип-надпись, юридическая строка. Фон — фото с тёмной вуалью.
+ * Тексты и ссылки — из siteSettings (Sanity). Логотипы — SVG из выгрузки (маска, белым, как в выгрузке).
+ * Аккордеон: src/scripts/ui/footer.js.
+ */
+import { Image } from 'astro:assets';
+import { resolveImage, type SiteSettings } from '../../lib/content';
+
+interface Props {
+  settings: SiteSettings;
+}
+
+const { settings } = Astro.props;
+const { footer, contacts } = settings;
+const bg = await resolveImage(footer.image);
+---
+<footer class="site-footer" id="kontakty">
+  <Image
+    class="site-footer__bg"
+    src={bg.src}
+    alt={bg.alt}
+    widths={[640, 1024, 1153]}
+    sizes="100vw"
+    format="avif"
+    loading="lazy"
+    decoding="async"
+    style={`--focus:${bg.position}`}
+  />
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__address">
+        <p class="site-footer__address-text text-title-sm">{footer.address}</p>
+        <a class="site-footer__link text-title-sm" href={contacts.phoneHref}>{contacts.phone}</a>
+      </div>
+
+      {footer.groups.map((group, i) => (
+        <nav class="site-footer__group" aria-labelledby={`footer-title-${group._key}`} data-footer-group>
+          <h2 class="site-footer__title">
+            <button
+              class="site-footer__toggle"
+              type="button"
+              aria-expanded="true"
+              aria-controls={`footer-list-${group._key}`}
+              data-footer-toggle
+            >
+              <span class="text-footer-h5" id={`footer-title-${group._key}`}>{group.title}</span>
+              <svg class="site-footer__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+          </h2>
+          <div class="site-footer__body" id={`footer-list-${group._key}`}>
+            <div class="site-footer__clip">
+              <ul class="site-footer__list text-footer-body" role="list">
+                {group.links.map((link) => (
+                  <li><a class="site-footer__link" href={link.href}>{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </nav>
+      ))}
+    </div>
+
+    <div class="site-footer__wordmark" role="img" aria-label={footer.wordmarkLabel}></div>
+
+    <div class="site-footer__legal text-caption">
+      <span>{footer.copyright}</span>
+      <ul class="site-footer__legal-links" role="list">
+        {footer.legalLinks.map((link) => (
+          <li><a class="site-footer__link" href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+      <a class="site-footer__link site-footer__credit" href={footer.credit.href}>
+        <span>{footer.credit.label}</span>
+        <span class="site-footer__credit-logo" role="img" aria-label={footer.credit.logoLabel}></span>
+      </a>
+    </div>
+  </div>
+</footer>

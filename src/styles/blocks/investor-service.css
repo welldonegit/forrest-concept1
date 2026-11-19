@@ -1,0 +1,194 @@
+/* ===== Investor Service (4.11) — «Сервіс та контроль для інвестора» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Базовые правила — конечный вид: без JS, при reduced motion и до запуска сцены всё видно.
+   ≥900 — сетка «колонка — ноутбук — колонка» на высоту окна; со сценой (html.js, без reduced motion)
+   дорожка 243vh и прилипание — с первой отрисовки, чтобы высота страницы не менялась.
+   Стартовые состояния — при [data-motion] (anim/blocks/investor-service.js).
+   Мок дашборда — размеры в em от ширины ноутбука (--svc-lw / 76), в шкалы не входят (Р1). */
+
+.svc{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding:0 var(--svc-pad-inline) var(--svc-pad-inline);
+  background:var(--bg-surface-warm);
+}
+.svc__frame{
+  position:relative; overflow:clip;
+  border-radius:var(--svc-radius);
+  background:var(--night-bark); color:var(--air);
+}
+
+/* ---------- Заголовок ---------- */
+.svc__head{
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end;
+  gap:var(--svc-head-gap-row) var(--svc-head-gap-col);
+  padding:var(--svc-head-pad-start) var(--svc-head-pad-inline) var(--svc-head-pad-end);
+}
+.svc__title{margin:0; color:var(--air)}
+.svc__mask{display:block; overflow:hidden; padding-block-end:.08em}
+.svc__line{display:block}
+.svc__line--muted{color:var(--text-muted)}
+.svc__lead{margin:0; max-inline-size:var(--svc-lead-max); text-wrap:pretty}
+
+/* ---------- Сетка (статичная раскладка <900: мок сверху, карточки столбцом) ---------- */
+.svc__stick{padding:var(--space-24) var(--space-16) var(--space-40)}
+.svc__grid{--svc-lw:var(--svc-lap-w-mob); display:flex; flex-direction:column; gap:var(--space-12)}
+.svc__center{order:-1; margin-block-end:var(--space-28); display:flex; flex-direction:column; align-items:center; gap:var(--svc-center-gap); min-inline-size:0}
+.svc__col{display:contents}
+.svc__card{position:relative; flex:none}
+.svc__card-in{
+  position:relative; block-size:100%; min-block-size:var(--svc-card-min-h);
+  display:flex; flex-direction:column; justify-content:space-between; gap:var(--svc-card-gap);
+  padding-block:var(--svc-card-pad) var(--svc-card-pad-end); padding-inline:var(--svc-card-pad) var(--svc-card-pad-end);
+  border-radius:var(--svc-card-radius);
+  background:var(--svc-card-bg); box-shadow:inset 0 0 0 var(--border-1) var(--svc-card-border);
+  overflow:hidden;
+}
+.svc__num{
+  align-self:flex-start;
+  display:inline-flex; align-items:center; block-size:var(--svc-num-h); padding-inline:var(--svc-num-pad);
+  border-radius:var(--radius-pill); box-shadow:inset 0 0 0 var(--border-1) var(--svc-num-border);
+  color:var(--air);
+}
+.svc__card-text{display:flex; flex-direction:column; gap:var(--svc-card-text-gap)}
+.svc__card-title{margin:0; color:var(--air); text-wrap:balance}
+.svc__card-p{margin:0; color:var(--text-muted); text-wrap:pretty}
+
+.svc__cap{display:flex; flex-direction:column; align-items:center; gap:var(--svc-cap-gap); max-inline-size:var(--svc-cap-max); text-align:center}
+.svc__cap-head{display:flex; align-items:center; gap:var(--svc-cap-head-gap)}
+.svc__cap-head .svc__num{align-self:auto}
+.svc__cap-title{margin:0; color:var(--air)}
+.svc__cap-text{margin:0; color:var(--text-muted); text-wrap:pretty}
+
+@media (min-width:900px){
+  .svc__stick{
+    block-size:100vh; min-block-size:var(--svc-stick-min-h); box-sizing:border-box;
+    padding:var(--svc-stick-pad-block) var(--svc-stick-pad-inline);
+  }
+  .svc__grid{
+    --svc-lw:var(--svc-lap-w);
+    display:grid; grid-template-columns:minmax(0, 1fr) var(--svc-lw) minmax(0, 1fr);
+    gap:var(--svc-grid-gap); block-size:100%; align-items:stretch;
+  }
+  .svc__center{order:0; margin:0; justify-content:center}
+  .svc__col{display:flex; flex-direction:column; gap:var(--svc-col-gap); min-inline-size:0; block-size:100%}
+  .svc__card{flex:1 1 0; min-block-size:0}
+  .svc__card-in{min-block-size:0}
+}
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){
+  .js .svc__track{position:relative; block-size:var(--svc-track-h)}
+  .js .svc__stick{position:sticky; inset-block-start:0}
+}
+
+/* ---------- Мок: ноутбук ---------- */
+.svc__par{position:relative; inline-size:var(--svc-lw); transform-style:preserve-3d; transition:transform var(--svc-par-dur) var(--ease-out-quint)}
+.svc__lap{position:relative; font-size:calc(var(--svc-lw) / 76); perspective:2200px}
+.svc__glow{
+  position:absolute; inset-inline-start:50%; inset-block-start:45%;
+  inline-size:130%; aspect-ratio:1.6; transform:translate(-50%, -50%);
+  background:var(--svc-glow); pointer-events:none;
+}
+.svc__lid{position:relative; transform-origin:50% 100%}
+.svc__bezel{
+  position:relative; overflow:hidden;
+  padding:1.1em 1.1em 1.5em; border-radius:1.8em 1.8em .5em .5em;
+  background:var(--svc-device); box-shadow:var(--svc-lid-shadow);
+}
+.svc__screen{position:relative; aspect-ratio:16/10; border-radius:.6em; overflow:hidden}
+.svc__ui{
+  position:absolute; inset:0; display:grid; grid-template-columns:11em minmax(0, 1fr);
+  background:var(--svc-screen); color:var(--air);
+  font-family:var(--font-text);
+}
+.svc__side{display:flex; flex-direction:column; gap:2.4em; padding:2em 1.4em; box-shadow:inset -.08em 0 0 color-mix(in srgb, var(--air) 6%, transparent)}
+.svc__brand{font-family:var(--font-display); font-weight:600; font-size:1.25em; letter-spacing:.12em}
+.svc__nav{display:flex; flex-direction:column; gap:.5em}
+.svc__nav-item{display:flex; align-items:center; gap:.8em; padding:.75em .9em; border-radius:.7em; font-weight:500; font-size:1.05em; color:var(--text-muted)}
+.svc__nav-item--on{font-weight:700; color:var(--air); background:color-mix(in srgb, var(--air) 8%, transparent)}
+.svc__nav-ico{inline-size:.9em; block-size:.9em; border-radius:.3em; box-shadow:inset 0 0 0 .12em color-mix(in srgb, var(--air) 25%, transparent)}
+.svc__nav-item--on .svc__nav-ico{box-shadow:inset 0 0 0 .12em var(--air)}
+.svc__main{display:flex; flex-direction:column; gap:1.4em; padding:2em 2.2em; min-inline-size:0}
+.svc__top{display:flex; justify-content:space-between; align-items:center; gap:1em}
+.svc__top-text{display:flex; flex-direction:column; gap:.4em}
+.svc__unit{font-size:1.05em; color:var(--text-muted)}
+.svc__dash-title{font-family:var(--font-display); font-weight:500; font-size:1.9em; letter-spacing:-.02em}
+.svc__top-right{display:flex; align-items:center; gap:.8em}
+.svc__status{display:inline-flex; align-items:center; gap:.6em; block-size:2.6em; padding:0 1.1em; border-radius:99em; box-shadow:inset 0 0 0 .08em color-mix(in srgb, var(--air) 14%, transparent); font-weight:600; font-size:1em}
+.svc__live{position:relative; inline-size:.6em; block-size:.6em; border-radius:50%; background:var(--svc-accent)}
+/* Пульс точки «Онлайн»: в выгрузке анимируется box-shadow — здесь отдельный круг, transform и opacity (Р6) */
+.svc__live::after{content:""; position:absolute; inset:0; border-radius:50%; background:var(--svc-accent); opacity:0}
+.svc__avatar{inline-size:2.8em; block-size:2.8em; border-radius:50%; background:var(--svc-avatar); box-shadow:inset 0 0 0 .08em color-mix(in srgb, var(--air) 14%, transparent)}
+.svc__kpis{display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1em}
+.svc__tile{padding:1.4em 1.5em; border-radius:1em; background:color-mix(in srgb, var(--air) 4%, transparent); box-shadow:inset 0 0 0 .08em color-mix(in srgb, var(--air) 7%, transparent); min-inline-size:0}
+.svc__kpi{display:flex; flex-direction:column; justify-content:space-between; gap:1.2em}
+.svc__kpi-label{font-size:1.05em; color:var(--text-muted); white-space:nowrap}
+.svc__kpi-row{display:flex; align-items:baseline; gap:.5em; flex-wrap:wrap}
+.svc__kpi-value{font-family:var(--font-display); font-weight:500; font-size:2.4em; letter-spacing:-.03em; white-space:nowrap}
+.svc__kpi-note{font-size:.95em; color:var(--text-muted)}
+.svc__bottom{flex:1 1 auto; min-block-size:0; display:grid; grid-template-columns:minmax(0, 1.7fr) minmax(0, 1fr); gap:1em}
+.svc__chart{display:flex; flex-direction:column; gap:1em; min-block-size:0}
+.svc__chart-head{display:flex; justify-content:space-between; align-items:center}
+.svc__chart-title,
+.svc__reports-title{font-weight:600; font-size:1.1em}
+.svc__chip{display:inline-flex; align-items:center; block-size:2.2em; padding:0 .9em; border-radius:99em; background:color-mix(in srgb, var(--air) 8%, transparent); font-weight:600; font-size:.9em}
+.svc__chart-svg{flex:1 1 auto; inline-size:100%; min-block-size:0; overflow:visible}
+.svc__grad-top{stop-color:var(--svc-accent); stop-opacity:.35}
+.svc__grad-bottom{stop-color:var(--svc-accent); stop-opacity:0}
+.svc__path{fill:none; stroke:var(--svc-accent); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; stroke-dasharray:1}
+.svc__axis{display:flex; justify-content:space-between; font-size:.9em; color:var(--text-muted)}
+.svc__reports{display:flex; flex-direction:column; gap:.7em}
+.svc__reports-title{margin-block-end:.3em}
+.svc__row{display:flex; justify-content:space-between; align-items:center}
+.svc__report{gap:.6em; padding:.75em .9em; border-radius:.7em; background:color-mix(in srgb, var(--air) 4%, transparent); font-size:1em}
+.svc__tag{display:inline-flex; align-items:center; block-size:2em; padding:0 .8em; border-radius:99em; box-shadow:inset 0 0 0 .08em color-mix(in srgb, var(--air) 20%, transparent); font-weight:700; font-size:.8em; letter-spacing:.06em}
+/* Блик по экрану: в выгрузке сдвигается background-position, здесь — слой шириной 250% и transform (Р6) */
+.svc__glare{position:absolute; inset:0; overflow:hidden; pointer-events:none; border-radius:inherit}
+.svc__glare-in{position:absolute; inset-block:0; inset-inline-start:0; inline-size:250%; background:var(--svc-glare); transform:translateX(-60%)}
+.svc__base{
+  position:relative; inset-inline-start:-7%; inline-size:114%; block-size:1.7em;
+  background:var(--svc-base); border-radius:.2em .2em 2.2em 2.2em / .2em .2em 1.6em 1.6em;
+}
+.svc__notch{position:absolute; inset-inline-start:50%; inset-block-start:0; inline-size:13em; block-size:.65em; transform:translateX(-50%); background:var(--svc-base-notch); border-radius:0 0 .7em .7em}
+
+/* ---------- Мок: телефон ---------- */
+.svc__phone{position:absolute; inset-inline-end:-7%; inset-block-end:-1em; z-index:3; inline-size:17em; filter:var(--svc-phone-shadow)}
+.svc__phone-body{position:relative; box-sizing:content-box; aspect-ratio:9/19.5; border-radius:2.8em; background:var(--svc-device); padding:.55em; box-shadow:inset 0 0 0 .12em var(--svc-device-edge)}
+.svc__phone-screen{
+  position:relative; block-size:100%; box-sizing:border-box; overflow:hidden;
+  display:flex; flex-direction:column; gap:1.3em; padding:3.4em 1.4em 1.4em;
+  border-radius:2.3em; background:var(--svc-screen); color:var(--air); font-family:var(--font-text);
+}
+.svc__island{position:absolute; inset-inline-start:50%; inset-block-start:.9em; inline-size:5.6em; block-size:1.6em; transform:translateX(-50%); border-radius:99em; background:var(--svc-island)}
+.svc__payout{display:flex; flex-direction:column; gap:.5em}
+.svc__payout-label{font-size:1em; color:var(--text-muted)}
+.svc__payout-value{font-family:var(--font-display); font-weight:500; font-size:2.5em; letter-spacing:-.03em}
+.svc__ring{position:relative; align-self:center; inline-size:9.5em; block-size:9.5em}
+.svc__ring svg{position:absolute; inset:0; inline-size:100%; block-size:100%; transform:rotate(-90deg)}
+.svc__ring circle{fill:none; stroke-width:7}
+.svc__ring-bg{stroke:color-mix(in srgb, var(--air) 8%, transparent)}
+.svc__ring-fg{stroke:var(--svc-accent); stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--ring))}
+.svc__ring-text{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.2em}
+.svc__ring-value{font-family:var(--font-display); font-weight:500; font-size:1.9em}
+.svc__ring-label{font-size:.85em; color:var(--text-muted)}
+.svc__stays{display:flex; flex-direction:column; gap:.6em}
+.svc__stay{padding:.8em .9em; border-radius:.8em; background:color-mix(in srgb, var(--air) 5%, transparent); font-size:.95em}
+.svc__stay-tag{display:inline-flex; align-items:center; block-size:1.9em; padding:0 .75em; border-radius:99em; background:color-mix(in srgb, var(--air) 10%, transparent); font-weight:700; font-size:.78em; letter-spacing:.04em}
+@media (max-width:899px){
+  .svc__phone{inset-inline-end:-3%}
+}
+
+/* ---------- Движение (как в выгрузке) ---------- */
+/* Заголовок и лид — когда заголовок виден на 25% */
+.svc[data-motion] .svc__line{transition:transform var(--svc-line-dur) var(--ease-out-expo) var(--d, 0s)}
+.svc[data-motion] .svc__lead{transition:opacity var(--svc-lead-fade-dur) ease var(--svc-lead-delay), transform var(--svc-line-dur) var(--ease-out-expo) var(--svc-lead-delay)}
+.svc[data-motion]:not([data-in]) .svc__line{transform:translateY(110%)}
+.svc[data-motion]:not([data-in]) .svc__lead{opacity:0; transform:translateY(var(--svc-lead-shift))}
+/* До первого кадра сцены — стартовые состояния (дальше их ведёт скрипт) */
+.svc[data-motion] :is(.svc__lap, .svc__card, .svc__cap, .svc__phone, .svc__glow, .svc__area, .svc__row){opacity:0}
+.svc[data-motion] .svc__lid{transform:rotateX(-88deg)}
+.svc[data-motion] .svc__path,
+.svc[data-motion] .svc__ring-fg{stroke-dashoffset:1}
+.svc[data-motion] .svc__live::after{animation:svc-pulse var(--svc-pulse-dur) ease-in-out infinite}
+@keyframes svc-pulse{
+  0%, 100%{opacity:.6; transform:scale(1)}
+  50%{opacity:0; transform:scale(2.667)} /* точка .6em + тень .5em с двух сторон */
+}
