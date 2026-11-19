@@ -55,13 +55,23 @@ function i18nArray(typeName, byLang, path) {
 
 /* ---------- Файлы ---------- */
 
+/**
+ * Файл для ссылки фикстуры. В выгрузке есть одноимённые файлы в разных папках, и они не всегда
+ * одинаковые (hero-winter-mob.jpg: assets/photos — 940×1672, корень — 941×1672). Берём тот,
+ * что брал сайт: список fixturePhotos в src/lib/content.ts. Нет в списке и имя встречается
+ * в нескольких папках с разным содержимым — ошибка, а не выбор наугад.
+ */
+const sitePhotos = [...readFileSync(join(root, 'src/lib/content.ts'), 'utf8').matchAll(/'\/(design-export\/[^']+)'/g)].map((m) => m[1]);
 function assetFile(ref) {
   const file = ref.replace(/^fixture:/, '');
-  for (const p of [`design-export/assets/photos/${file}`, `design-export/${file}`, `design-export/assets/logos/${file}`, `studio/import/icons/${file}`]) {
-    const abs = join(root, p);
-    if (existsSync(abs)) return abs;
-  }
-  throw new Error(`Нет файла для ${ref}`);
+  const fromSite = sitePhotos.find((p) => p.split('/').pop() === file);
+  if (fromSite) return join(root, fromSite);
+  const found = [`design-export/assets/photos/${file}`, `design-export/${file}`, `design-export/assets/logos/${file}`, `studio/import/icons/${file}`]
+    .map((p) => join(root, p)).filter(existsSync);
+  if (!found.length) throw new Error(`Нет файла для ${ref}`);
+  if (new Set(found.map((f) => readFileSync(f).toString('base64'))).size > 1)
+    throw new Error(`${file}: в выгрузке несколько разных файлов с этим именем (${found.join(', ')}) — укажите нужный`);
+  return found[0];
 }
 
 /* ---------- Проход по схеме ---------- */
