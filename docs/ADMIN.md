@@ -67,5 +67,5 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 
 ## Для розробника: збірка
 
-- Збірка читає опубліковане з датасету `production`. Оригінали фото Sanity віддає тільки з ключем читання: змінна збірки **`SANITY_READ_TOKEN`** (токен з роллю Viewer; у Cloudflare — секрет збірки, локально — файл `.env`, який не потрапляє в git).
+- Збірка читає опубліковане з публічного датасету `production` без ключів. Фото береться без втрат (`?fm=png` — ті самі пікселі, що в завантаженому оригіналі), далі `astro:assets` робить AVIF; SVG і PDF — як є.
 - `CONTENT_SOURCE=fixtures` — збірка з тимчасових фікстур `src/content-fixtures/` (для звірки).
