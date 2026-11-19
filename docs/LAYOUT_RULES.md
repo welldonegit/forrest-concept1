@@ -254,7 +254,7 @@
 
 # content-visibility (решение 2026-11-17)
 
-`content-visibility:auto` — для секций ниже первых экранов (`src/styles/layout.css`). Сейчас: Apartments, Form, Location, Infrastructure, Numbers, Footer.
+`content-visibility:auto` — для секций ниже первых экранов (`src/styles/layout.css`). Сейчас: Apartments, Form, Location, Infrastructure, Numbers (дорожка), Investor Service (дорожка), Construction, Team, FAQ (только с JS), Final Form, Footer.
 
 - **Блоки без прилипания** — по правилам ниже, с измеренной заглушкой.
 - **Сцены с прилипанием (`position:sticky`) — только если высота задана жёстко в CSS** (решение 2026-11-17), и `content-visibility` ставится на элемент с этой высотой: тогда заглушка и есть высота, замеры не нужны. Пример — дорожка сцены Numbers (`.nums__track`, `--nums-track-h`) на ≥900; на <900 у Numbers сцены нет — обычное правило. Обязательная проверка: якоря попадают в цель, точки срабатывания анимаций не смещаются, высота страницы при прокрутке не прыгает, кадры сцены совпадают с вариантом без `content-visibility`.
