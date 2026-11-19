@@ -340,11 +340,11 @@
           "chip": [
             {
               "_key": "uk",
-              "value": "капіталізація 20%"
+              "value": "капіталізація 30%"
             },
             {
               "_key": "en",
-              "value": "20% capitalisation"
+              "value": "30% capitalisation"
             }
           ],
           "image": {
@@ -860,11 +860,11 @@
           "text": [
             {
               "_key": "uk",
-              "value": "Професійний оператор забезпечує бронювання, сервіс, операційне управління та фінансову звітність."
+              "value": "Професійний оператор забезпечує дохідність, бронювання, сервіс, операційне управління та фінансову звітність."
             },
             {
               "_key": "en",
-              "value": "A professional operator handles bookings, service, operations and financial reporting."
+              "value": "A professional operator handles yield, bookings, service, operations and financial reporting."
             }
           ]
         },
