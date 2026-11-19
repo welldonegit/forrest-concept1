@@ -1,0 +1,19 @@
+---
+/** Фрагмент видео-попапа (4.17): см. layouts/PopupPage.astro. */
+import PopupPage from '../../../layouts/PopupPage.astro';
+import VideoPopup from '../../../components/popups/VideoPopup.astro';
+import '../../../styles/popups/popup.css';
+import '../../../styles/popups/video.css';
+import { languages } from '../../../lib/languages';
+import { getSiteSettings } from '../../../lib/content';
+
+export function getStaticPaths() {
+  return languages.map((l) => ({ params: { lang: l.id } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const settings = await getSiteSettings(lang);
+---
+<PopupPage lang={lang} title={settings.seo.title}>
+  <VideoPopup texts={settings.popups.video} />
+</PopupPage>

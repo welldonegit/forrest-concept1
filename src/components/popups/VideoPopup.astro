@@ -1,0 +1,22 @@
+---
+/**
+ * Видео-попап (4.17): кнопка Season «Дивитися відео» и кнопка презентации в Hero.
+ * Плеер YouTube создаётся только после нажатия (scripts/popups/video.js), до этого запросов к YouTube нет;
+ * режим без cookie (youtube-nocookie.com), как в выгрузке. Открытие без анимации, как в выгрузке.
+ */
+import type { SiteSettings } from '../../lib/content';
+
+interface Props {
+  texts: SiteSettings['popups']['video'];
+}
+
+const { texts } = Astro.props;
+---
+<dialog class="pop vpop" data-popup-root data-vpop aria-label={texts.dialogLabel}>
+  <div class="vpop__back" data-popup-backdrop>
+    <button class="pop-close vpop__close" type="button" aria-label={texts.closeLabel} data-popup-close autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+    <div class="vpop__frame" data-vpop-frame data-title={texts.frameTitle}></div>
+  </div>
+</dialog>

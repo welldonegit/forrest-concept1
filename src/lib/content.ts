@@ -281,6 +281,8 @@ export interface HeroBlock {
   skyline: { width: number; height: number; points: [number, number][] };
   cta: { label: string; href: string };
   presentationLabel: string;
+  /** Видео презентации (YouTube): открывается в видео-попапе. Пусто — кнопка без действия. TODO: адрес от клиента. */
+  presentationVideoUrl?: string;
   season: { prefix: string; toWinter: string; toSummer: string };
 }
 
@@ -307,11 +309,11 @@ export interface SeasonBlock {
   /** Строки заголовка: первая — приглушённая, остальные — основным цветом. */
   title: string[];
   text: string;
-  /** Кадр видео; само видео открывается в попапе (4.17). */
+  /** Кадр видео; само видео открывается в видео-попапе (4.17). */
   poster: SanityImage;
   durationLabel: string;
   playLabel: string;
-  /** TODO(4.17): видео-попап. Адрес из выгрузки (YouTube, без cookies). */
+  /** Видео (YouTube) для видео-попапа, адрес из выгрузки; ссылка youtube.com превращается в режим без cookie (youtube-nocookie.com). */
   videoUrl: string;
 }
 

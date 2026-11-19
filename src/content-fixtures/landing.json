@@ -240,6 +240,7 @@
           "value": "Watch the presentation"
         }
       ],
+      "presentationVideoUrl": "",
       "season": {
         "prefix": [
           {

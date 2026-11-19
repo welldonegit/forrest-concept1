@@ -7,6 +7,7 @@
  */
 const modules = {
   apartments: () => import('../popups/apartments.js'),
+  video: () => import('../popups/video.js'),
 };
 const cache = {};
 
