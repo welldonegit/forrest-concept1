@@ -8,35 +8,7 @@
  * после проверки никуда не отправляется.
  */
 import { within } from './lazy.js';
-const PHONE_DIGITS = 12;
-
-function formatPhone(value) {
-  let d = value.replace(/\D/g, '');
-  if (d.startsWith('380')) d = d.slice(3);
-  else if (d.startsWith('0')) d = d.slice(1);
-  d = d.slice(0, 9);
-  if (!d) return '';
-  const [a, b, c, e] = [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)];
-  return `+380 (${a}${d.length >= 2 ? ') ' : ''}${b}${c ? `-${c}` : ''}${e ? `-${e}` : ''}`;
-}
-
-function setError(input, on, kind = 'required') {
-  const err = document.getElementById(input.getAttribute('aria-describedby'));
-  // у телефона два текста: пустое поле и неполный номер (siteSettings.form.errors)
-  if (on && err) {
-    const msg = err.dataset[kind === 'invalid' ? 'msgInvalid' : 'msgRequired'];
-    if (msg) err.textContent = msg;
-  }
-  if (on) {
-    // перезапуск встряски при повторной ошибке
-    input.removeAttribute('aria-invalid');
-    void input.offsetWidth;
-    input.setAttribute('aria-invalid', 'true');
-  } else {
-    input.removeAttribute('aria-invalid');
-  }
-  if (err) err.hidden = !on;
-}
+import { formatPhone, setError, PHONE_DIGITS } from './form-fields.js';
 
 function initForm(form) {
   const { name, phone } = form.elements;

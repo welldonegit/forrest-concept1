@@ -9,7 +9,10 @@ import { initWorlds } from './ui/worlds.js';
 import { initLocation } from './ui/location.js';
 import { initAnimations } from './anim/core.js';
 import { whenNear } from './ui/lazy.js';
+import { initPopups } from './ui/popups.js';
 
+// попапы — до якорей: вкладка «Розрахувати дохід» (ссылка #forma) открывает квиз, а не прокрутку
+initPopups();
 initMenu();
 initLangSwitch();
 initAnchorNav();

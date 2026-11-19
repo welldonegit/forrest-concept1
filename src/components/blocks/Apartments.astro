@@ -8,7 +8,8 @@
  * src/scripts/ui/apartments.js: работает и при prefers-reduced-motion.
  * Появление — src/scripts/anim/blocks/apartments.js + apartments.css.
  * Без JS — обычная лента с прокруткой и привязкой к карточкам.
- * TODO(4.17): фото и кнопка «Планування» открывают попап планировок (data-plan-open).
+ * Фото и кнопка «Планування» открывают попап апартамента (4.17): data-popup="apartments",
+ * data-plan-open — номер карточки (components/popups/ApartmentPopup.astro, scripts/ui/popups.js).
  */
 import { Image } from 'astro:assets';
 import SwipeHint from '../ui/SwipeHint.astro';
@@ -47,7 +48,7 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
   <div class="apts__track" id={trackId} data-apts-track>
     {items.map((item, i) => (
       <article class="apts__card" style={`--i:${i}`} data-apts-card>
-        <div class="apts__media" data-plan-open={i}>
+        <div class="apts__media" data-popup="apartments" data-plan-open={i}>
           <Image
             class="apts__img"
             src={item.photo.src}
@@ -65,7 +66,7 @@ const arrow = 'M5 12h14M13 6l6 6-6 6';
           <h3 class="apts__name text-apts-name">{item.format.name}</h3>
           <div class="apts__row">
             <span class="apts__area text-apts-area">{item.format.area}</span>
-            <button class="apts__plan text-apts-button" type="button" data-plan-open={i}>{block.planLabel}</button>
+            <button class="apts__plan text-apts-button" type="button" aria-haspopup="dialog" data-popup="apartments" data-plan-open={i}>{block.planLabel}</button>
           </div>
         </div>
       </article>

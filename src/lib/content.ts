@@ -131,6 +131,11 @@ const fixturePhotos = import.meta.glob<ImageMetadata>(
     '/design-export/assets/photos/team-filimonov-kashirina.webp',
     '/design-export/assets/photos/team-rezhinsky.webp',
     '/design-export/assets/photos/team-makhno.webp',
+    // попап апартамента (4.17)
+    '/design-export/superior-plan.jpg',
+    '/design-export/family-plan.jpg',
+    '/design-export/assets/photos/plan-room.jpg',
+    '/design-export/assets/photos/wind-interior-reading.jpg',
     // логотипы партнёров (SVG из выгрузки, без изменений)
     '/design-export/assets/logos/perspektyva-group-dark.svg',
     '/design-export/assets/logos/filimonov-kashirina-architects-dark.svg',
@@ -178,6 +183,25 @@ export interface FooterGroup { _key: string; title: string; links: Link[] }
 export interface SiteSettings {
   seo: { title: string; description: string };
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
+  /** Тексты попапов (4.17). {n} — подстановка. */
+  popups: {
+    apartment: {
+      dialogLabel: string; areaLabel: string; priceLabel: string; incomeLabel: string; yieldLabel: string;
+      fromFormat: string; yieldFormat: string; descriptionLabel: string; phoneLabel: string;
+      submitLabel: string; successLabel: string; planLabel: string; photoLabel: string; prevLabel: string; nextLabel: string;
+    };
+    video: { dialogLabel: string; closeLabel: string; frameTitle: string };
+    quiz: {
+      tabLabel: string; tabAriaLabel: string; eyebrow: string;
+      formatTitle: string; budgetTitle: string; budgets: { _key: string; label: string }[];
+      contactTitle: string; contactText: string; nameLabel: string; countryLabel: string;
+      /** code — телефонный код страны (+380); не переводится. */
+      countries: { _key: string; code: string; label: string }[];
+      phonePlaceholder: string; emailLabel: string; consentText: string; consentLinkLabel: string;
+      backLabel: string; nextLabel: string; submitLabel: string;
+      successTitle: string; successText: string; returnLabel: string;
+    };
+  };
   header: {
     homeHref: string;
     logoAlt: string;
@@ -225,8 +249,8 @@ export interface SiteSettings {
     submitLabel: string;
     successTitle: string;
     successText: string;
-    /** Тексты ошибок: пустое обязательное поле, неверный телефон, Turnstile не пройден, ошибка отправки. */
-    errors: { required: string; phone: string; turnstile: string; send: string };
+    /** Тексты ошибок: пустое обязательное поле, неверный телефон, Turnstile не пройден, ошибка отправки, нет согласия (квиз). */
+    errors: { required: string; phone: string; turnstile: string; send: string; consent: string };
   };
   footer: {
     address: string;
@@ -352,6 +376,14 @@ export interface ApartmentFormat {
   name: string;
   /** Площадь, например «29,5–34,5 м²». */
   area: string;
+  /** Попап апартамента (4.17): плашки, первая — залитая. */
+  tags: { _key: string; label: string }[];
+  /** Попап апартамента: текст «Опис». */
+  description: string;
+  /** Попап: фото после фото карточки Apartments; может быть пустым. */
+  gallery: SanityImage[];
+  /** Попап: последний слайд «Планування» (вписывается целиком, на белом). */
+  plan: SanityImage;
 }
 
 export interface ApartmentItem {
@@ -369,7 +401,7 @@ export interface ApartmentsBlock {
   /** Подписи кнопок-стрелок для экранных дикторов. */
   prevLabel: string;
   nextLabel: string;
-  /** Кнопка «Планування». TODO(4.17): открывает попап планировок. */
+  /** Кнопка «Планування»: открывает попап апартамента (4.17). */
   planLabel: string;
   items: ApartmentItem[];
 }

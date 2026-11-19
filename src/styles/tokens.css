@@ -1279,3 +1279,285 @@
 --ff-fields-gap:var(--space-12);             /* рендер 14; вниз — поля 56 вместо 54, высота панели как в рендере */
 --ff-title-size:20px;                        /* как в выгрузке: заголовок Final Form помещается в 2 строки до 360 (у Form — 18, решение 2026-11-17) */
 }}
+
+/* ===== Попапы 4.17 (рендер выгрузки; база = ≥1600 с 1920, ступени 1280–1599 / 768–1279 / <768).
+   Раскладка попапа апартамента меняется на 900, квиза — на 767, как в выгрузке. ===== */
+:root{
+/* общее */
+--pop-close:52px;                            /* круглая кнопка «Закрити» (собственный размер) */
+--pop-close-icon:var(--icon-20);
+--pop-blur:12px;                             /* стекло кнопок над фото */
+--pop-glass:color-mix(in srgb, var(--air) 86%, transparent);       /* rgba(255,255,255,.86) */
+--pop-glass-dots:color-mix(in srgb, var(--air) 72%, transparent);  /* rgba(255,255,255,.72) */
+--pop-close-shadow:0 10px 30px -12px rgba(24,40,32,.35);
+--pop-ls-caps:.12em;                         /* плашки, подписи и кнопки попапов */
+
+/* апартамент */
+--apop-inset:var(--space-12);                /* поле белой карточки от края окна (рендер clamp(8,1vw,12)) */
+--apop-radius:var(--radius-40);
+--apop-close-offset:var(--space-32);
+--apop-info-pad:var(--space-56);
+--apop-info-gap:var(--space-24);
+--apop-scroll-gap:var(--space-28);           /* рендер 30 */
+--apop-title-pad-end:var(--space-64);        /* заголовок не заходит под кнопку «Закрити» */
+--apop-stats-gap:var(--space-8);
+--apop-stat-pad-block:var(--space-20);
+--apop-stat-pad-inline:var(--space-24);      /* рендер 22 */
+--apop-stat-gap:var(--space-8);
+--apop-stat-radius:var(--radius-20);
+--apop-tags-gap:var(--space-8);
+--apop-tag-h:38px;                           /* собственная высота плашки */
+--apop-tag-pad-block:var(--space-6);
+--apop-tag-pad-inline:var(--space-16);
+--apop-desc-max:560px;
+--apop-desc-gap:var(--space-10);
+--apop-cta-max:560px;
+--apop-cta-pad:var(--space-6);
+--apop-cta-pad-start:var(--space-24);
+--apop-cta-gap:var(--space-8);
+--apop-cta-field-h:52px;                     /* поле и кнопка внутри капсулы 64 */
+--apop-cta-btn-pad:var(--space-28);
+--apop-frame-margin:var(--space-12);
+--apop-frame-radius:var(--radius-32);
+--apop-frame-ratio:6 / 5;                    /* <900: кадр над текстом */
+--apop-ctrl-offset:var(--space-32);          /* стрелки, точки и плашка «Планування» от края кадра */
+--apop-ctrl-gap:var(--space-16);
+--apop-arrow:52px;
+--apop-arrow-icon:18px;
+--apop-arrows-gap:var(--space-8);
+--apop-dots-pad-block:var(--space-10);
+--apop-dots-pad-inline:var(--space-12);
+--apop-dot:8px; --apop-dot-active:28px; --apop-dot-gap:var(--space-6);
+--apop-plantag-h:36px;
+--apop-plan-pad-block-start:var(--space-72);  /* слайд «Планування»: поля вокруг плана */
+--apop-plan-pad-inline:var(--space-56);
+--apop-plan-pad-block-end:120px;
+--apop-mobile-pad-block-start:var(--space-16);
+--apop-mobile-pad-inline:var(--space-20);
+--apop-mobile-pad-block-end:var(--space-40);
+--apop-dot-off:color-mix(in srgb, var(--spruce) 28%, transparent);   /* rgba(24,40,32,.28) */
+/* анимация: как в выгрузке (openPlan / fly / closePlan) */
+--apop-back-in:700ms; --apop-back-in-delay:150ms; --apop-back-out:450ms;
+--apop-grid-fade:300ms;
+--apop-info-fade:900ms; --apop-info-move:1100ms; --apop-info-delay:120ms; --apop-info-out:250ms; --apop-info-shift:16px;
+--apop-frame-fade:700ms; --apop-frame-delay:350ms; --apop-frame-out:200ms;
+--apop-slide-fade:.7s; --apop-slide-move:1.4s; --apop-slide-scale:1.06;
+--apop-plantag-fade:.4s; --apop-plantag-move:.5s; --apop-plantag-shift:-6px;
+--apop-dot-dur:.5s;
+--apop-arrow-hover-scale:1.06;
+--apop-hover-dur:.25s;
+--apop-cta-dur:.7s;
+--apop-btn-dur:.6s; --apop-btn-shine-dur:1.1s; --apop-btn-press:.97;
+--apop-btn-shine:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.2) 50%,transparent 75%);
+--apop-btn-shadow:0 12px 26px -14px rgba(24,40,32,.7);
+--apop-cta-shadow-hover:0 0 0 1px rgba(24,40,32,.12),0 20px 44px -26px rgba(24,40,32,.4);
+--apop-cta-shadow-focus:0 0 0 1.5px rgba(24,40,32,.85),0 24px 52px -26px rgba(24,40,32,.5);
+--apop-section-scale:1.05; --apop-section-blur:6px; --apop-section-dur:1.2s;
+/* значения JS (apartments.js читает их из CSS) */
+--apop-ready-delay:650;                      /* мс: проявление текста и кадра после старта перелёта */
+--apop-fly-in:1150; --apop-fly-img-in:1400; --apop-fly-hide:450; --apop-fly-out:900;
+--apop-fly-zoom-in:1.08; --apop-fly-zoom-out:1.04;
+--apop-fly-out-ease:cubic-bezier(.65,0,.15,1);  /* closePlan */
+
+/* видео */
+--vpop-pad:var(--space-64);
+--vpop-bg:color-mix(in srgb, var(--night-bark) 86%, transparent);   /* rgba(12,12,12,.86) */
+--vpop-blur:6px;
+--vpop-close-offset:var(--space-28);
+--vpop-radius:var(--radius-28);
+--vpop-max:1600px;
+--vpop-chrome:120px;                         /* как в выгрузке: кадр 16:9 помещается в окно минус 120 */
+--vpop-shadow:0 40px 80px -30px rgba(0,0,0,.6);
+
+/* квиз */
+--quiz-pad:var(--space-24);
+--quiz-max-w:1120px; --quiz-max-h:860px;
+--quiz-radius:36px;                          /* рендер 36 (собственный радиус панели) */
+--quiz-back:color-mix(in srgb, var(--spruce) 50%, transparent);     /* rgba(24,40,32,.5) */
+--quiz-back-blur:10px;
+--quiz-shadow:0 40px 90px -30px rgba(0,0,0,.5);
+--quiz-head-pad-block-start:var(--space-28);
+--quiz-pad-inline:var(--space-40);
+--quiz-head-gap:var(--space-16);             /* рендер 18 */
+--quiz-head-row-gap:var(--space-16);
+--quiz-x:var(--control-h-48);
+--quiz-x-icon:18px;
+--quiz-seg-h:3px; --quiz-seg-gap:var(--space-6);
+--quiz-body-pad-block-start:var(--space-56);
+--quiz-body-pad-block-end:var(--space-40);
+--quiz-step-gap:var(--space-40);
+--quiz-step0-max:1000px; --quiz-step1-max:860px; --quiz-step2-max:620px;
+--quiz-grid-gap:var(--space-16);
+--quiz-opt-pad:var(--space-8);
+--quiz-opt-pad-end:var(--space-16);          /* рендер 14 */
+--quiz-opt-gap:var(--space-12);
+--quiz-opt-radius:var(--radius-20);
+--quiz-img-radius:var(--radius-12);          /* рендер 14; концентрично радиусу карточки 20 − поле 8 */
+--quiz-img-ratio:4 / 3;
+--quiz-cap-pad:var(--space-6);
+--quiz-mark:22px; --quiz-mark-icon:var(--icon-12); --quiz-mark-border:1.5px; --quiz-sq-radius:7px;
+--quiz-undecided-icon:34px;
+--quiz-list-gap:var(--space-12);
+--quiz-row-h:72px;
+--quiz-row-pad-block:var(--space-16);       /* рендер 14; высота строки задана min 72 */
+--quiz-row-pad-inline:var(--space-24);       /* рендер 22 */
+--quiz-row-gap:var(--space-16);              /* рендер 14 */
+--quiz-row-radius:18px;                      /* рендер 18 (собственный) */
+--quiz-title-gap:var(--space-12);            /* рендер 14 */
+--quiz-step2-gap:var(--space-36);
+--quiz-form-gap:var(--space-12);
+--quiz-field-h:var(--control-h-60);
+--quiz-field-pad:var(--space-20);
+--quiz-field-radius:var(--radius-12);        /* рендер 14 */
+--quiz-code-pad-start:var(--space-20); /* рендер 18 */ --quiz-code-pad-end:var(--space-40); --quiz-code-gap:var(--space-10);
+--quiz-flag-w:22px; --quiz-flag-h:15px; --quiz-flag-radius:3px;
+--quiz-chev:14px;
+--quiz-consent-pad-top:var(--space-8);
+--quiz-consent-gap:var(--space-12);
+--quiz-err-pad:var(--space-4);
+--quiz-foot-pad-block-start:var(--space-16);
+--quiz-foot-pad-block-end:var(--space-28);
+--quiz-foot-gap:var(--space-12);
+--quiz-btn-h:52px;
+--quiz-back-pad-start:var(--space-16); --quiz-back-pad-end:var(--space-20); /* рендер 14 / 18 */ --quiz-back-gap:var(--space-10);
+--quiz-next-pad-start:var(--space-28); --quiz-next-pad-end:var(--space-24); /* рендер 26 / 22 */ --quiz-next-gap:var(--space-12);
+--quiz-btn-icon:18px;
+--quiz-ok:72px; --quiz-ok-icon:30px;
+--quiz-ret-h:var(--control-h-56); --quiz-ret-pad:var(--space-28);
+--quiz-done-gap:var(--space-24);
+--quiz-line:color-mix(in srgb, var(--spruce) 12%, transparent);       /* rgba(24,40,32,.12): рамка полей, дорожка шкалы */
+--quiz-line-soft:color-mix(in srgb, var(--spruce) 10%, transparent);  /* рамка вариантов */
+--quiz-line-strong:color-mix(in srgb, var(--spruce) 14%, transparent);/* кнопки «Назад», «Закрити» */
+--quiz-line-hover:color-mix(in srgb, var(--spruce) 28%, transparent);
+--quiz-line-foot:color-mix(in srgb, var(--spruce) 8%, transparent);
+--quiz-opt-bg:color-mix(in srgb, var(--air) 50%, transparent);
+--quiz-opt-shadow:0 18px 36px -24px rgba(24,40,32,.45);
+--quiz-focus-ring:0 0 0 4px color-mix(in srgb, var(--spruce) 8%, transparent);
+--quiz-img-bg:#E8DFCC;                       /* подложка фото варианта (рендер) */
+--quiz-flag-top:#0057B7; --quiz-flag-bottom:#FFD500;  /* флаг Украины у кода +380 (рендер) */
+--quiz-flag-ring:0 0 0 1px rgba(24,40,32,.08);
+/* анимация (qBg, qPan, qIn, qPop, qDraw) */
+--quiz-bg-in:.5s; --quiz-pan-in:.8s; --quiz-pan-shift:32px; --quiz-pan-scale:.985;
+--quiz-out:.4s; --quiz-out-shift:24px;
+--quiz-in:.85s; --quiz-in-shift:26px; --quiz-in-blur:6px; --quiz-in-step:.08s;
+--quiz-opt-in:.8s; --quiz-opt-delay:.14s; --quiz-opt-step:.05s;
+--quiz-leave:.3s; --quiz-leave-shift:-14px; --quiz-leave-blur:4px;
+--quiz-fill:.9s;
+--quiz-hover:.35s; --quiz-press:.985; --quiz-img-hover:1.1s; --quiz-img-scale:1.05;
+--quiz-mark-dur:.25s; --quiz-mark-pop:.35s; --quiz-mark-from:.5;
+--quiz-field-dur:.3s;
+--quiz-err-in:.4s;
+--quiz-btn-dur:.3s; --quiz-arrow-dur:.4s; --quiz-arrow-shift:4px; --quiz-disabled:.35;
+--quiz-pop:.7s; --quiz-pop-delay:.1s; --quiz-draw:.6s; --quiz-draw-delay:.5s;
+/* значения JS (quiz.js) */
+--quiz-pick-delay:420; --quiz-leave-ms:300; --quiz-out-ms:420;
+
+/* боковая вкладка «Розрахувати дохід» */
+--tab-w:56px; --tab-w-hover:64px;
+--tab-pad-block:var(--space-32);
+--tab-radius:var(--radius-20);               /* рендер 18 */
+--tab-z:60;
+--tab-ls:.08em;
+--tab-shadow:0 12px 32px -12px rgba(0,0,0,.45);
+--tab-dur:.3s;
+
+/* роли попапов — временные, до сведения */
+--type-pop-title-size:clamp(28px,2.6vw,44px); --type-pop-title-lh:1.05; --type-pop-title-ls:-.035em; /* плавная: Unbounded 600, caps (44/37.4/28 · 28) */
+--type-pop-h2-size:clamp(24px,2.6vw,40px); --type-pop-h2-lh:1.12; --type-pop-h2-ls:-.03em;          /* плавная: Unbounded 500 (40/37.4/26.6 · 24) */
+--type-pop-stat-size:22px; --type-pop-stat-lh:25px;          /* Unbounded 500 (22/19.4/17 · 17), как плитки калькулятора */
+--type-pop-label-size:11px; --type-pop-label-lh:14px;        /* Mulish 700, caps */
+--type-pop-caps-size:12px; --type-pop-caps-lh:16px;          /* Mulish 700, caps: плашки, кнопка цены, «Опис» */
+--type-pop-text-size:16px; --type-pop-text-lh:26px;          /* Mulish 400 (рендер 16/25.6 на всех ширинах) */
+--type-pop-input-size:16px; --type-pop-input-lh:20px;        /* Mulish 600/700: поле, название варианта, кнопка «Повернутися» */
+--type-pop-count-size:13px; --type-pop-count-lh:16px;        /* Unbounded 500, счётчик шага */
+--type-pop-small-size:14px; --type-pop-small-lh:20px;        /* Mulish 500: площадь варианта, согласие */
+--type-pop-row-size:16px; --type-pop-row-lh:22px;            /* Mulish 600: строки бюджета (рендер 16/21.6) */
+--type-pop-btn-size:15px; --type-pop-btn-lh:20px;            /* Mulish 600: «Назад», «Далі» */
+--type-pop-err-size:13px; --type-pop-err-lh:16px;            /* Mulish 600: ошибка поля квиза */
+--type-pop-sub-size:17px; --type-pop-sub-lh:25px;            /* Mulish 500: подзаголовок и текст успеха (рендер 17/25.5 · 17/26.4) */
+--type-tab-size:16px; --type-tab-lh:20px;                    /* Mulish 600, caps (16/15.1/13 · 13) */
+}
+@media (max-width:1599px){:root{
+--apop-close-offset:var(--space-28);         /* рендер 28.8 */
+--apop-info-pad:var(--space-48);             /* рендер 46.1 */
+--apop-stat-pad-inline:var(--space-20);      /* рендер 21.6 */
+--apop-frame-radius:var(--radius-32);
+--apop-ctrl-offset:var(--space-28);          /* рендер 28.8 */
+--apop-plan-pad-block-start:var(--space-56); /* рендер 57.6 */
+--apop-plan-pad-inline:var(--space-44);      /* рендер 43.2 */
+--apop-plan-pad-block-end:116px;             /* рендер 115.2, кратно 4 */
+--vpop-pad:var(--space-56);                  /* рендер 57.6 */
+--quiz-pad:var(--space-20);                  /* рендер 20.2 */
+--quiz-pad-inline:var(--space-36);           /* рендер 37.4 */
+--type-pop-stat-size:19px; --type-pop-stat-lh:22px;
+--tab-w:52px; --tab-w-hover:56px;            /* рендер 51.8 / 57.6 */
+--tab-pad-block:var(--space-28);             /* рендер 28.8 */
+--type-tab-size:15px;
+}}
+@media (max-width:1279px){:root{
+--apop-inset:var(--space-10);                /* рендер 10.2 */
+--apop-radius:var(--radius-32);              /* рендер 30.7 */
+--apop-close-offset:var(--space-20);         /* рендер 20.5 */
+--apop-info-pad:var(--space-32);             /* рендер 32.8 */
+--apop-info-gap:var(--space-16);             /* рендер 16.4 */
+--apop-scroll-gap:var(--space-20);           /* рендер 19.5 */
+--apop-stat-pad-block:var(--space-16);       /* рендер 14 */
+--apop-stat-pad-inline:var(--space-16);
+--apop-frame-margin:var(--space-10);         /* рендер 10.2 */
+--apop-frame-radius:var(--radius-24);        /* рендер 24.6 */
+--apop-ctrl-offset:var(--space-20);          /* рендер 20.5 */
+--apop-plan-pad-block-start:var(--space-40); /* рендер 41 */
+--apop-plan-pad-inline:var(--space-32);      /* рендер 30.7 */
+--apop-plan-pad-block-end:88px;              /* рендер 88, кратно 4 */
+--vpop-pad:var(--space-40);                  /* рендер 41 */
+--vpop-close-offset:var(--space-20);         /* рендер 20.5 */
+--vpop-radius:var(--radius-20);              /* рендер 20.5 */
+--quiz-pad:var(--space-16);                  /* рендер 14.3 */
+--quiz-radius:var(--radius-28);              /* рендер 26.6 */
+--quiz-head-pad-block-start:var(--space-20); /* рендер 20.5 */
+--quiz-pad-inline:var(--space-28);           /* рендер 26.6 */
+--quiz-body-pad-block-start:var(--space-40); /* рендер 41 */
+--quiz-body-pad-block-end:var(--space-32);   /* рендер 30.7 */
+--quiz-step-gap:var(--space-32);             /* рендер 30.7 */
+--quiz-step2-gap:var(--space-32);
+--quiz-grid-gap:var(--space-12);             /* рендер 12.3 */
+--quiz-foot-pad-block-end:var(--space-20);   /* рендер 20.5 */
+--type-pop-stat-size:17px; --type-pop-stat-lh:20px;
+--tab-w:var(--tap-target); --tab-w-hover:52px; /* рендер 44 / 50 */
+--tab-pad-block:var(--space-24);             /* рендер 22 */
+--type-tab-size:13px; --type-tab-lh:16px;
+}}
+@media (max-width:899px){:root{
+--apop-inset:0; --apop-radius:0;
+--apop-close-offset:var(--space-20);
+--apop-info-gap:var(--space-24);
+--apop-frame-margin:var(--space-8);
+--apop-frame-radius:var(--radius-20);
+--apop-ctrl-offset:var(--space-16);
+--apop-arrow:var(--tap-target);
+--apop-cta-pad-start:var(--space-20);
+--apop-cta-btn-pad:var(--space-20);
+}}
+@media (max-width:767px){:root{
+--apop-scroll-gap:var(--space-20);           /* рендер 18 */
+--apop-plan-pad-block-start:var(--space-24);
+--apop-plan-pad-inline:var(--space-16);
+--vpop-pad:var(--space-16);
+--vpop-close-offset:var(--space-16);         /* рендер 14 */
+--vpop-radius:var(--radius-16);
+--quiz-pad:0; --quiz-radius:0;
+--quiz-head-pad-block-start:var(--space-20); /* рендер 18 */
+--quiz-pad-inline:var(--space-20);
+--quiz-body-pad-block-start:var(--space-28);
+--quiz-body-pad-block-end:var(--space-24);
+--quiz-step-gap:var(--space-24);
+--quiz-step2-gap:var(--space-24);
+--quiz-grid-gap:var(--space-10);
+--quiz-img-ratio:1 / 1;
+--quiz-foot-pad-block-end:var(--space-20);   /* рендер 18 */
+--type-pop-title-size:28px;
+--type-pop-h2-size:24px;
+}}
+@media (prefers-reduced-motion:reduce){:root{
+--apop-ready-delay:0;
+}}

@@ -1,0 +1,28 @@
+---
+/**
+ * Страница-фрагмент попапа (4.17): /{lang}/popup/<имя>/. Не для посетителей и не для поиска:
+ * главная страница забирает отсюда разметку попапа при первом наведении или нажатии на его кнопку
+ * (src/scripts/ui/popups.js). Стили и код попапа грузятся вместе с его модулем, здесь их нет.
+ * Индексация закрыта: meta robots, X-Robots-Tag и robots.txt (src/integrations/indexing.ts).
+ */
+import { getLanguage } from '../lib/languages';
+
+interface Props {
+  lang: string;
+  title: string;
+}
+
+const { lang, title } = Astro.props;
+const language = getLanguage(lang);
+---
+<!doctype html>
+<html lang={language.id} dir={language.dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

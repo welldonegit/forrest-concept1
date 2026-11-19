@@ -1,0 +1,33 @@
+/* Общие стили попапов (4.17). Грузятся вместе с кодом попапа (scripts/popups/dialog.js), не с главной.
+   Роли текста попапов — временные (tokens.css, «роли попапов»); классы здесь, чтобы не утяжелять первую загрузку. */
+html.is-pop-locked{overflow:hidden}
+
+.pop{
+  position:fixed; inset:0;
+  inline-size:100%; block-size:100%; max-inline-size:none; max-block-size:none;
+  margin:0; padding:0; border:0; background:transparent; color:var(--text-primary);
+  overflow:hidden; overscroll-behavior:contain;
+}
+.pop::backdrop{background:transparent}
+.pop:focus{outline:none}
+
+.pop-close{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--pop-close); block-size:var(--pop-close);
+  border:0; border-radius:var(--radius-pill); cursor:pointer;
+}
+.pop-close svg{inline-size:var(--pop-close-icon); block-size:var(--pop-close-icon)}
+
+.text-pop-title{font-family:var(--font-display); font-size:var(--type-pop-title-size); line-height:var(--type-pop-title-lh); letter-spacing:var(--type-pop-title-ls); font-weight:600; text-transform:uppercase}
+.text-pop-h2{font-family:var(--font-display); font-size:var(--type-pop-h2-size); line-height:var(--type-pop-h2-lh); letter-spacing:var(--type-pop-h2-ls); font-weight:500}
+.text-pop-stat{font-family:var(--font-display); font-size:var(--type-pop-stat-size); line-height:var(--type-pop-stat-lh); letter-spacing:-.02em; font-weight:500}
+.text-pop-label{font-family:var(--font-text); font-size:var(--type-pop-label-size); line-height:var(--type-pop-label-lh); letter-spacing:var(--pop-ls-caps); font-weight:700; text-transform:uppercase}
+.text-pop-caps{font-family:var(--font-text); font-size:var(--type-pop-caps-size); line-height:var(--type-pop-caps-lh); letter-spacing:var(--pop-ls-caps); font-weight:700; text-transform:uppercase}
+.text-pop-text{font-family:var(--font-text); font-size:var(--type-pop-text-size); line-height:var(--type-pop-text-lh); font-weight:400}
+.text-pop-input{font-family:var(--font-text); font-size:var(--type-pop-input-size); line-height:var(--type-pop-input-lh); font-weight:600}
+.text-pop-count{font-family:var(--font-display); font-size:var(--type-pop-count-size); line-height:var(--type-pop-count-lh); letter-spacing:.02em; font-weight:500; font-variant-numeric:tabular-nums}
+.text-pop-small{font-family:var(--font-text); font-size:var(--type-pop-small-size); line-height:var(--type-pop-small-lh); font-weight:500}
+.text-pop-row{font-family:var(--font-text); font-size:var(--type-pop-row-size); line-height:var(--type-pop-row-lh); font-weight:600}
+.text-pop-btn{font-family:var(--font-text); font-size:var(--type-pop-btn-size); line-height:var(--type-pop-btn-lh); font-weight:600}
+.text-pop-err{font-family:var(--font-text); font-size:var(--type-pop-err-size); line-height:var(--type-pop-err-lh); font-weight:600}
+.text-pop-sub{font-family:var(--font-text); font-size:var(--type-pop-sub-size); line-height:var(--type-pop-sub-lh); font-weight:500}
