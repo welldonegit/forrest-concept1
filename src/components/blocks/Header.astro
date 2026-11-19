@@ -10,13 +10,18 @@ import SocialIcon from '../ui/SocialIcon.astro';
 import LangOptions from '../ui/LangOptions.astro';
 import { getLanguage } from '../../lib/languages';
 import { resolveImage, type SiteSettings } from '../../lib/content';
+import { onPage } from '../../lib/routes';
 
 interface Props {
   lang: string;
   settings: SiteSettings;
+  /** На внутренних страницах (архив) — адрес главной: якоря ведут на её блоки. */
+  base?: string;
+  /** Путь страницы после /{lang}/ — для переключателя языка («archive/»). */
+  path?: string;
 }
 
-const { lang, settings } = Astro.props;
+const { lang, settings, base, path = '' } = Astro.props;
 const { header, menu, contacts } = settings;
 const current = getLanguage(lang);
 const photo = await resolveImage(menu.image);
@@ -37,7 +42,7 @@ const logoH = logo.height;
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
     </button>
 
-    <a class="site-header__logo" href={header.homeHref}>
+    <a class="site-header__logo" href={onPage(header.homeHref, base)}>
       <img class="site-header__logo-img" src={logoSrc} width={logoW} height={logoH} alt={header.logoAlt} />
     </a>
 
@@ -55,11 +60,11 @@ const logoH = logo.height;
           <svg class="lang-switch__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
         </button>
         <div class="lang-switch__panel" id="lang-switch-panel">
-          <LangOptions lang={lang} label={header.languageListLabel} />
+          <LangOptions lang={lang} path={path} label={header.languageListLabel} />
         </div>
       </div>
 
-      <a class="site-header__cta" href={header.cta.href}>
+      <a class="site-header__cta" href={onPage(header.cta.href, base)}>
         <span class="site-header__cta-label text-header-body-sm">{header.cta.label}</span>
         <span class="site-header__cta-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -81,7 +86,7 @@ const logoH = logo.height;
   <div class="site-menu__panel">
     <div class="site-menu__inner">
       <div class="site-menu__top">
-        <a class="site-menu__logo" href={header.homeHref}>
+        <a class="site-menu__logo" href={onPage(header.homeHref, base)}>
           <img class="site-menu__logo-img" src={logoSrc} width={logoW} height={logoH} alt={header.logoAlt} loading="lazy" />
         </a>
         <button class="site-menu__close" type="button" aria-label={header.menuCloseLabel} data-menu-close>
@@ -94,7 +99,7 @@ const logoH = logo.height;
           <ul class="site-menu__list" role="list">
             {menu.primary.map((item, i) => (
               <li class="site-menu__item">
-                <a class="site-menu__link text-header-menu-link" href={item.href} style={`--i:${i}`}>
+                <a class="site-menu__link text-header-menu-link" href={onPage(item.href, base)} style={`--i:${i}`}>
                   {item.label}
                   <svg class="site-menu__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5h11v11" /></svg>
                 </a>
@@ -104,7 +109,7 @@ const logoH = logo.height;
           <ul class="site-menu__sublist" role="list">
             {menu.secondary.map((item, i) => (
               <li>
-                <a class="site-menu__sublink text-header-menu-sub" href={item.href} style={`--i:${i}`}>{item.label}</a>
+                <a class="site-menu__sublink text-header-menu-sub" href={onPage(item.href, base)} style={`--i:${i}`}>{item.label}</a>
               </li>
             ))}
           </ul>
@@ -131,7 +136,7 @@ const logoH = logo.height;
       <div class="site-menu__langs">
         <span class="site-menu__label text-label" id="site-menu-langs-label">{header.languageButtonLabel}</span>
         <div class="site-menu__langpanel">
-          <LangOptions lang={lang} labelledby="site-menu-langs-label" />
+          <LangOptions lang={lang} path={path} labelledby="site-menu-langs-label" />
         </div>
       </div>
 

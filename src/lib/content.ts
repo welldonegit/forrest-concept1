@@ -183,6 +183,8 @@ export interface FooterGroup { _key: string; title: string; links: Link[] }
 export interface SiteSettings {
   seo: { title: string; description: string };
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
+  /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
+  archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
   /** Тексты попапов (4.17). {n} — подстановка. */
   popups: {
     apartment: {
@@ -650,8 +652,8 @@ export interface ConstructionBlock {
   maxItems: number;
   maxAgeDays: number;
   updates: ConstructionUpdate[];
-  /** Карточка «Всі» — ссылка на архив (4.18). */
-  archive: { title: string; text: string; ariaLabel: string; href: string };
+  /** Карточка «Всі» — ссылка на страницу архива (4.18); адрес — маршрут сайта (lib/routes.ts), не контент. */
+  archive: { title: string; text: string; ariaLabel: string };
 }
 
 export interface TeamStat { _key: string; value?: string; label: string }

@@ -82,7 +82,7 @@
 }
 .ct__item-title{margin:0; text-wrap:balance}
 .ct__text{margin:0 0 var(--ct-text-mb); max-inline-size:var(--ct-text-max); text-wrap:pretty}
-.ct .ct__works{ /* .ct впереди: сброс ul[role=list] в reset.css сильнее одного класса */
+.ct__body .ct__works{ /* два класса: сброс ul[role=list] в reset.css сильнее одного */
   margin:auto 0 0; padding:0; list-style:none;
   display:flex; flex-wrap:wrap; gap:var(--ct-works-gap);
 }

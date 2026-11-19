@@ -1562,3 +1562,41 @@
 --apop-ready-delay:0;
 --quiz-leave-ms:0; --quiz-out-ms:0;
 }}
+
+/* ===== Страница архива хода строительства (4.18) — выгрузка archive.html =====
+   Ступени по рендеру 1920 / 1440 / 1024 / 390. Карточка месяца — та же, что в Construction (--ct-*). */
+:root{
+--arch-pad-block-start:164px;               /* рендер 164 (под шапкой) */
+--arch-pad-block-end:var(--space-128);
+--arch-pad-inline:var(--ct-pad-inline);
+--arch-max:var(--ct-item-max);              /* 1180 */
+--arch-head-mb:var(--space-80);
+--arch-head-gap:var(--space-32);            /* «На головну» → заголовок */
+--arch-list-gap:var(--space-72);
+--arch-back-h:var(--control-h-44);
+--arch-back-pad-start:var(--space-4); --arch-back-pad-end:18px; /* рендер 4 / 18 */
+--arch-back-gap:var(--space-12);
+--arch-back-icon:36px; --arch-back-svg:16px;
+--arch-back-dur:.5s; --arch-back-shift:-3px;
+--type-arch-title-ff:var(--font-display); --type-arch-title-size:clamp(32px,4.4vw,72px); --type-arch-title-lh:1.08; /* «Хід будівництва / Архів звітів» (72/63/45/32) */
+--type-arch-back-size:14px;
+}
+@media (max-width:1599px){:root{
+--arch-pad-block-start:152px;               /* рендер 152.8 */
+--arch-pad-block-end:116px;                 /* рендер 115.2 */
+--arch-head-mb:var(--space-72);
+}}
+@media (max-width:1279px){:root{
+--arch-pad-block-start:124px;               /* рендер 123.7 */
+--arch-pad-block-end:var(--space-80);       /* рендер 81.9 */
+--arch-head-mb:var(--space-48);             /* рендер 51.2 */
+--arch-head-gap:var(--space-24);
+--arch-list-gap:var(--space-48);            /* рендер 51.2 */
+}}
+@media (max-width:767px){:root{
+--arch-pad-block-start:108px;
+--arch-pad-block-end:var(--space-64);
+--arch-head-mb:var(--space-40);
+--arch-head-gap:var(--space-20);
+--arch-list-gap:var(--space-40);
+}}

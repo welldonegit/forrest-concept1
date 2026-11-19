@@ -29,5 +29,6 @@ whenNear('[data-lead-section]', (el) => import('./ui/lead-form.js').then((m) => 
 whenNear('.infra', (el) => import('./ui/infra.js').then((m) => m.initInfra(el)));
 whenNear('[data-calc]', (el) => import('./ui/numbers.js').then((m) => m.initNumbers(el)));
 whenNear('[data-ct]', (el) => import('./ui/construction.js').then((m) => m.initConstruction(el)));
+whenNear('[data-ct-archive] [data-ct-item]', (el) => import('./ui/construction.js').then((m) => m.initConstructionItem(el)));
 whenNear('[data-team]', (el) => import('./ui/team.js').then((m) => m.initTeam(el)));
 whenNear('[data-faq]', (el) => import('./ui/faq.js').then((m) => m.initFaq(el)));

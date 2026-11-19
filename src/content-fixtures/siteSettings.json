@@ -1610,5 +1610,57 @@
         }
       ]
     }
+  },
+  "archivePage": {
+    "seoTitle": [
+      {
+        "_key": "uk",
+        "value": "Хід будівництва. Архів звітів — FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "Construction progress. Reports archive — FORREST Trinity Resort"
+      }
+    ],
+    "seoDescription": [
+      {
+        "_key": "uk",
+        "value": "Архів звітів з фото та відео від початку будівництва."
+      },
+      {
+        "_key": "en",
+        "value": "Archive of reports with photos and videos since construction began."
+      }
+    ],
+    "title": [
+      {
+        "_key": "uk",
+        "value": "Хід будівництва"
+      },
+      {
+        "_key": "en",
+        "value": "Construction progress"
+      }
+    ],
+    "subtitle": [
+      {
+        "_key": "uk",
+        "value": "Архів звітів"
+      },
+      {
+        "_key": "en",
+        "value": "Reports archive"
+      }
+    ],
+    "backLabel": [
+      {
+        "_key": "uk",
+        "value": "На головну"
+      },
+      {
+        "_key": "en",
+        "value": "Back to home"
+      }
+    ]
   }
 }
