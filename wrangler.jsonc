@@ -1,0 +1,13 @@
+// Cloudflare Workers со статикой. Сайт собирается статически (astro build),
+// адаптер @astrojs/cloudflare по этому файлу пишет итоговую конфигурацию в
+// dist/client/wrangler.json, а `wrangler deploy` берёт её через .wrangler/deploy/config.json.
+// Кода Worker сейчас нет: /api/lead, D1 и секреты — этап 5.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "forrest-trinity-resort",
+  "compatibility_date": "2026-11-10",
+  "assets": {
+    "directory": "./dist/client"
+  },
+  "observability": { "enabled": true }
+}
