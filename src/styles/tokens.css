@@ -1143,3 +1143,114 @@
 @media (prefers-reduced-motion:reduce){:root{
 --dur-hover:0ms; --dur-accordion:0ms; --dur-menu:0ms; --dur-entrance:0ms;
 }}
+
+/* ===== FAQ 4.14 (рендер; база = ≥1600 с 1920, ступени 1280–1599 / 768–1279 / <768) ===== */
+:root{
+--faq-pad-block-start:var(--space-128);
+--faq-pad-block-end:var(--space-72);
+--faq-pad-inline:var(--form-pad-inline);     /* та же формула выгрузки, что у Form (рендер 34) */
+--faq-head-mb:var(--space-48);               /* рендер 52, как шапка Team (решение 2026-11-19) */
+--faq-grid-gap:var(--space-20);
+--faq-aside-top:var(--space-24);
+--faq-aside-pad:var(--space-44);
+--faq-aside-gap:var(--space-32);
+--faq-aside-ratio:4 / 5;
+--faq-aside-w:min(100%, calc((100vh - 48px) * .8));  /* как в выгрузке: карточка 4:5 помещается в окно */
+--faq-docs-mt:var(--space-16);
+--faq-doc-pad:var(--space-12);               /* рендер 12 12 12 14 */
+--faq-doc-pad-start:var(--space-16);         /* рендер 14: с промежутком 12 и полем плашки 10 название стоит как в рендере */
+--faq-doc-gap:var(--space-12);               /* рендер 14 */
+--faq-doc-badge-h:26px;                      /* собственный размер плашки PDF */
+--faq-doc-badge-pad:var(--space-10);         /* рендер 9 */
+--faq-doc-icon:36px;                         /* рендер 35.3 */
+--faq-cta-gap:var(--space-24);
+--faq-cta-pad-start:var(--space-28);
+--faq-cta-icon:48px;
+--faq-icon:16px;
+--faq-arrow:18px;
+--faq-list-gap:var(--space-8);
+--faq-q-pad-start:var(--space-24);           /* рендер 26 сверху и снизу → 24 + 28, высота строки не меняется */
+--faq-q-pad-end:var(--space-28);
+--faq-q-pad-inline:var(--space-28);          /* рендер 30 */
+--faq-q-gap:var(--space-24);
+--faq-num-h:30px; --faq-num-w:44px;          /* собственные размеры номера */
+--faq-x:48px;
+--faq-x-line:14px;
+--faq-a-pad-end:var(--space-32);
+--faq-a-max:640px;
+--faq-metric-pad-block:var(--space-10); --faq-metric-pad-inline:var(--space-16);
+--faq-cta-text-max:380px;
+
+--faq-doc-bg:color-mix(in srgb, var(--air) 6%, transparent);        /* rgba(255,255,255,.06) */
+--faq-doc-bg-hover:color-mix(in srgb, var(--air) 12%, transparent); /* rgba(255,255,255,.12) */
+--faq-doc-badge-ring:color-mix(in srgb, var(--air) 28%, transparent); /* rgba(255,255,255,.28) */
+--faq-doc-icon-bg:color-mix(in srgb, var(--air) 10%, transparent);  /* rgba(255,255,255,.1) */
+--faq-glow:radial-gradient(closest-side,rgba(122,191,178,.22),rgba(122,191,178,0)); /* sea-wave */
+--faq-item-bg:color-mix(in srgb, var(--air) 42%, transparent);      /* rgba(255,255,255,.42) */
+--faq-item-shadow:0 30px 60px -40px rgba(24,40,32,.35);
+--faq-num-ring:color-mix(in srgb, var(--spruce) 18%, transparent);  /* rgba(24,40,32,.18) */
+--faq-x-bg:color-mix(in srgb, var(--spruce) 6%, transparent);       /* rgba(24,40,32,.06) */
+
+--faq-open-dur:.7s; --faq-bg-dur:.5s; --faq-answer-fade:.4s; --faq-answer-move:.6s; --faq-answer-delay:.15s;
+--faq-answer-shift:8px; --faq-hover-dur:.3s; --faq-glow-dur:1.4s;
+--faq-glow-step-x:-6%; --faq-glow-step-y:9%;
+--faq-title-dur:1.4s; --faq-title-delay-2:.12s;
+--faq-item-fade:1s; --faq-item-move:1.2s; --faq-item-step:.07s; --faq-item-shift:32px;
+--faq-aside-fade:1.2s; --faq-aside-move:1.4s; --faq-aside-shift:40px; --faq-aside-scale:.98;
+
+/* роли FAQ — временные, до сведения */
+--type-faq-docs-title-size:15px; --type-faq-docs-title-lh:20px;     /* Unbounded 500, caps (15/14.4/13 · 13) */
+--type-faq-tag-size:11px; --type-faq-tag-lh:16px;                   /* плашка PDF, Mulish 700 */
+--type-faq-doc-title-size:16px; --type-faq-doc-title-lh:21px;       /* Mulish 600 (16/14.4/14 · 14) */
+--type-faq-cta-title-size:clamp(18px,1.5vw,24px); --type-faq-cta-title-lh:1.2; /* плавная, Unbounded 500, caps (24/21.6/18 · 18) */
+--type-faq-cta-text-size:16px; --type-faq-cta-text-lh:24px;         /* Mulish (16/14.4/14 · 14), межстрочный 1.5 */
+--type-faq-cta-button-size:18px; --type-faq-cta-button-lh:24px;     /* Mulish 600 (18/17.3/15 · 15) */
+--type-faq-q-size:clamp(14px,1.15vw,19px); --type-faq-q-lh:1.3;     /* плавная, Unbounded 500, caps (19/16.6/14 · 14) */
+--type-faq-a-size:18px; --type-faq-a-lh:29px;                       /* Mulish (18/15.8/15 · 15), межстрочный 1.6 */
+--type-faq-metric-size:13px; --type-faq-metric-lh:16px;             /* плашка с цифрой, Mulish (только <900) */
+--type-faq-metric-value-size:16px; --type-faq-metric-value-lh:20px; /* Unbounded 500 */
+}
+@media (max-width:1599px){:root{
+--faq-pad-block-start:116px;                 /* рендер 115.2, кратно 4 (>80 вне шкалы) */
+--faq-aside-pad:var(--space-36);             /* рендер 37.4 */
+--faq-cta-pad-start:var(--space-24);         /* рендер 25.9 */
+--faq-cta-icon:43px;                         /* рендер 43.2 */
+--faq-x:43px;
+--type-faq-docs-title-size:14px; --type-faq-docs-title-lh:19px;
+--type-faq-doc-title-size:14px; --type-faq-doc-title-lh:19px;
+--type-faq-cta-text-size:14px; --type-faq-cta-text-lh:22px;
+--type-faq-cta-button-size:17px;
+--type-faq-a-size:16px; --type-faq-a-lh:25px;
+}}
+@media (max-width:1279px){:root{
+--faq-pad-block-start:var(--space-80);       /* рендер 81.9 */
+--faq-pad-block-end:var(--space-48);         /* рендер 51.2, как у Form */
+--faq-head-mb:var(--space-36);               /* рендер 34.8 */
+--faq-grid-gap:var(--space-16);              /* рендер 14.3 */
+--faq-aside-top:var(--space-20);             /* рендер 20.5 */
+--faq-aside-pad:var(--space-28);             /* рендер 26.6 */
+--faq-docs-mt:var(--space-10);               /* рендер 10.2 */
+--faq-cta-gap:var(--space-20);               /* рендер 20.5 */
+--faq-cta-pad-start:var(--space-20);
+--faq-cta-icon:38px;
+--faq-q-pad-start:var(--space-20);           /* рендер 18.4 сверху и снизу → 20 + 16 */
+--faq-q-pad-end:var(--space-16);
+--faq-q-pad-inline:var(--space-20);          /* рендер 20.5 */
+--faq-q-gap:var(--space-16);                 /* рендер 16.4 */
+--faq-x:40px;
+--faq-a-pad-end:var(--space-24);             /* рендер 22.5 */
+--type-faq-docs-title-size:13px; --type-faq-docs-title-lh:17px;
+--type-faq-cta-text-lh:21px;
+--type-faq-cta-button-size:15px; --type-faq-cta-button-lh:20px;
+--type-faq-a-size:15px; --type-faq-a-lh:24px;
+}}
+@media (max-width:767px){:root{
+--faq-pad-block-start:var(--space-64);
+--faq-pad-block-end:var(--space-40);
+--faq-head-mb:var(--space-28);
+--faq-grid-gap:var(--space-12);
+--faq-docs-mt:var(--space-8);
+--faq-q-pad-start:var(--space-20);           /* рендер 18 → 20 + 16 */
+--faq-q-pad-inline:var(--space-20);          /* рендер 18 */
+--faq-q-gap:var(--space-12);                 /* рендер 14; с полем 20 вместо 18 ширина текста вопроса как в рендере */
+}}

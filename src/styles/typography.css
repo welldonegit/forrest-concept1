@@ -94,6 +94,18 @@
 .text-title-sm{font-family:var(--type-title-sm-ff);font-size:var(--type-title-sm-size);line-height:var(--type-title-sm-lh);font-weight:400}
 .text-display-sm{font-family:var(--type-display-sm-ff);font-size:var(--type-display-sm-size);line-height:var(--type-display-sm-lh);letter-spacing:var(--type-display-sm-ls);font-weight:600;text-transform:uppercase}
 
+/* FAQ (4.14) — временные роли, до сведения */
+.text-faq-docs-title{font-family:var(--font-display);font-size:var(--type-faq-docs-title-size);line-height:var(--type-faq-docs-title-lh);letter-spacing:.02em;font-weight:500}
+.text-faq-tag{font-family:var(--font-text);font-size:var(--type-faq-tag-size);line-height:var(--type-faq-tag-lh);letter-spacing:var(--ls-caps-md);font-weight:700}
+.text-faq-doc-title{font-family:var(--font-text);font-size:var(--type-faq-doc-title-size);line-height:var(--type-faq-doc-title-lh);font-weight:600}
+.text-faq-cta-title{font-family:var(--font-display);font-size:var(--type-faq-cta-title-size);line-height:var(--type-faq-cta-title-lh);letter-spacing:-.01em;font-weight:500}
+.text-faq-cta-text{font-family:var(--font-text);font-size:var(--type-faq-cta-text-size);line-height:var(--type-faq-cta-text-lh);font-weight:400}
+.text-faq-cta-button{font-family:var(--font-text);font-size:var(--type-faq-cta-button-size);line-height:var(--type-faq-cta-button-lh);font-weight:600}
+.text-faq-q{font-family:var(--font-display);font-size:var(--type-faq-q-size);line-height:var(--type-faq-q-lh);letter-spacing:-.01em;font-weight:500}
+.text-faq-a{font-family:var(--font-text);font-size:var(--type-faq-a-size);line-height:var(--type-faq-a-lh);font-weight:400}
+.text-faq-metric{font-family:var(--font-text);font-size:var(--type-faq-metric-size);line-height:var(--type-faq-metric-lh);font-weight:400}
+.text-faq-metric-value{font-family:var(--font-display);font-size:var(--type-faq-metric-value-size);line-height:var(--type-faq-metric-value-lh);font-weight:500}
+
 /* Модификаторы: вес и заглавные (стоят после ролей — перекрывают их вес). */
 .text-w-400{font-weight:400}
 .text-w-500{font-weight:500}

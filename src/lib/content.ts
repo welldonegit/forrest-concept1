@@ -643,7 +643,40 @@ export interface TeamBlock {
   members: TeamMember[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock;
+export interface FaqTitleLine { _key: string; text: string; muted?: boolean }
+export interface FaqDoc {
+  _key: string;
+  /** Подпись формата на плашке («PDF»). */
+  format: string;
+  title: string;
+  /** Подпись под названием (объём, назначение). */
+  note: string;
+  /** Файл для скачивания (поле file в Sanity). Нет файла — ссылка без адреса (TODO: файлы от заказчика). */
+  file: { url: string } | null;
+}
+export interface FaqItem {
+  _key: string;
+  question: string;
+  answer: string;
+  /** Плашка с цифрой под ответом — видна только на <900, как в выгрузке. */
+  metricValue: string;
+  metricText: string;
+}
+export interface FaqBlock {
+  _type: 'faq';
+  _key: string;
+  /** id секции (#faq): на него ведут меню и футер. */
+  anchor: string;
+  title: FaqTitleLine[];
+  docsTitle: string;
+  docs: FaqDoc[];
+  ctaTitle: string;
+  ctaText: string;
+  cta: { label: string; href: string };
+  items: FaqItem[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return localize<SiteSettings>(deref(siteSettingsFixture), lang, 'siteSettings');

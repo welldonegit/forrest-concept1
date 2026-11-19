@@ -1,0 +1,190 @@
+/* ===== FAQ (4.14) — «Відповіді на часті питання» =====
+   Значения — из рендера design-export, только через tokens.css.
+   Аккордеон (src/scripts/ui/faq.js): data-open на пункте. Без JS все ответы раскрыты —
+   сворачивание только при классе js на <html>.
+   Появление (anim/blocks/faq.js): стартовые состояния — только при [data-reveal="pre"]. */
+
+.faq{
+  max-inline-size:var(--page-max); margin-inline:auto;
+  padding-block:var(--faq-pad-block-start) var(--faq-pad-block-end);
+  padding-inline:var(--faq-pad-inline);
+  background:var(--bg-surface-warm); color:var(--text-primary);
+}
+.faq__head{
+  display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end;
+  margin-block-end:var(--faq-head-mb);
+}
+.faq__title{margin:0; text-transform:uppercase}
+.faq__mask{display:block; overflow:hidden; padding-block-end:.08em}
+.faq__line{display:block}
+.faq__line--muted{color:var(--text-muted)}
+
+.faq__grid{
+  display:grid; grid-template-columns:minmax(0, 5fr) minmax(0, 7fr);
+  gap:var(--faq-grid-gap); align-items:start;
+}
+
+/* ---------- Карточка: материалы и вопрос менеджеру ---------- */
+.faq__aside{
+  position:sticky; inset-block-start:var(--faq-aside-top);
+  inline-size:var(--faq-aside-w); aspect-ratio:var(--faq-aside-ratio);
+  display:flex; flex-direction:column; justify-content:space-between; gap:var(--faq-aside-gap);
+  padding:var(--faq-aside-pad);
+  border-radius:var(--radius-32);
+  background:var(--bg-inverse); color:var(--air);
+  /* clip, а не hidden: карточка растёт по содержимому (aspect-ratio — только минимум), свечение обрезается */
+  overflow:clip; isolation:isolate;
+}
+.faq__glow{
+  position:absolute; inset-inline-end:-30%; inset-block-start:-30%; z-index:-1;
+  inline-size:90%; aspect-ratio:1; border-radius:50%;
+  background:var(--faq-glow);
+  transform:translate(calc(var(--faq-k, 0) * var(--faq-glow-step-x)), calc(var(--faq-k, 0) * var(--faq-glow-step-y)));
+  transition:transform var(--faq-glow-dur) var(--ease-out-expo);
+}
+[dir="rtl"] .faq__glow{transform:translate(calc(var(--faq-k, 0) * var(--faq-glow-step-x) * -1), calc(var(--faq-k, 0) * var(--faq-glow-step-y)))}
+
+.faq__docs{display:flex; flex-direction:column; gap:var(--space-12); margin-block-start:var(--faq-docs-mt)}
+.faq__docs-title{margin:0; text-transform:uppercase}
+.faq .faq__doc-list{display:flex; flex-direction:column; gap:var(--space-6)}
+.faq__doc{
+  display:grid; grid-template-columns:auto minmax(0, 1fr) auto; align-items:center; gap:var(--faq-doc-gap);
+  padding:var(--faq-doc-pad); padding-inline-start:var(--faq-doc-pad-start);
+  border-radius:var(--radius-16);
+  background:var(--faq-doc-bg); color:var(--air); text-decoration:none;
+  transition:background-color var(--faq-hover-dur) ease;
+}
+.faq__doc[href]:hover{background:var(--faq-doc-bg-hover)}
+.faq__doc-badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  block-size:var(--faq-doc-badge-h); padding-inline:var(--faq-doc-badge-pad);
+  border-radius:var(--radius-pill); box-shadow:inset 0 0 0 var(--border-1) var(--faq-doc-badge-ring);
+  text-transform:uppercase;
+}
+.faq__doc-body{display:flex; flex-direction:column; gap:var(--space-2); min-inline-size:0}
+.faq__doc-note{color:var(--text-muted)}
+.faq__doc-icon{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--faq-doc-icon); block-size:var(--faq-doc-icon);
+  border-radius:var(--radius-pill); background:var(--faq-doc-icon-bg);
+}
+.faq__doc-icon svg{inline-size:var(--faq-icon); block-size:var(--faq-icon)}
+
+.faq__cta{flex:1 1 auto; display:flex; flex-direction:column; justify-content:flex-end; gap:var(--faq-cta-gap)}
+.faq__cta-text{display:flex; flex-direction:column; gap:var(--space-10)}
+.faq__cta-title{margin:0; text-transform:uppercase}
+.faq__cta-lead{margin:0; max-inline-size:var(--faq-cta-text-max); color:var(--text-muted)}
+.faq__cta-button{
+  align-self:flex-start;
+  display:inline-flex; align-items:center; gap:var(--space-12);
+  padding:var(--space-6) var(--space-6) var(--space-6) var(--faq-cta-pad-start);
+  border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary); text-decoration:none;
+  transition:background-color var(--faq-hover-dur) ease;
+}
+.faq__cta-button:hover{background:var(--white-sand)}
+.faq__cta-icon{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  inline-size:var(--faq-cta-icon); block-size:var(--faq-cta-icon);
+  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air);
+}
+.faq__cta-icon svg{inline-size:var(--faq-arrow); block-size:var(--faq-arrow)}
+[dir="rtl"] .faq__cta-icon svg{transform:scaleX(-1)}
+
+/* ---------- Аккордеон ---------- */
+.faq__list{display:flex; flex-direction:column; gap:var(--faq-list-gap); min-inline-size:0}
+.faq__item{position:relative; isolation:isolate; border-radius:var(--radius-24); background:var(--faq-item-bg)}
+/* Открытый пункт: белый фон и тень — отдельный слой с opacity (в выгрузке переход background и box-shadow) */
+.faq__item::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  border-radius:inherit; background:var(--air); box-shadow:var(--faq-item-shadow);
+  opacity:0; transition:opacity var(--faq-bg-dur) ease;
+}
+.faq__item[data-open]::before{opacity:1}
+.faq__q-wrap{margin:0}
+.faq__q{
+  display:grid; grid-template-columns:auto minmax(0, 1fr) auto; align-items:center; gap:var(--faq-q-gap);
+  inline-size:100%;
+  padding-block:var(--faq-q-pad-start) var(--faq-q-pad-end); padding-inline:var(--faq-q-pad-inline);
+  border:0; border-radius:var(--radius-24);
+  background:none; color:inherit; text-align:start;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.faq__q:focus-visible{outline:none; box-shadow:inset 0 0 0 var(--border-2) var(--spruce)}
+.faq__num{
+  display:inline-flex; align-items:center; justify-content:center;
+  block-size:var(--faq-num-h); min-inline-size:var(--faq-num-w); padding-inline:var(--space-10);
+  border-radius:var(--radius-pill); box-shadow:inset 0 0 0 var(--border-1) var(--faq-num-ring);
+}
+.faq__q-text{text-transform:uppercase; text-wrap:balance}
+.faq__x{
+  position:relative; flex:none; isolation:isolate;
+  inline-size:var(--faq-x); block-size:var(--faq-x); border-radius:var(--radius-pill);
+  background:var(--faq-x-bg); color:var(--text-primary);
+  transition:color var(--faq-bg-dur) ease, transform var(--faq-open-dur) var(--ease-out-expo);
+}
+/* тёмный круг открытого пункта — слой с opacity (в выгрузке переход background) */
+.faq__x::before{
+  content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit;
+  background:var(--bg-inverse); opacity:0; transition:opacity var(--faq-bg-dur) ease;
+}
+.faq__x-h,.faq__x-v{
+  position:absolute; inset-inline-start:50%; inset-block-start:50%;
+  inline-size:var(--faq-x-line); block-size:var(--space-2);
+  margin-block-start:calc(var(--space-2) / -2); margin-inline-start:calc(var(--faq-x-line) / -2);
+  border-radius:var(--space-2); background:currentColor;
+}
+.faq__x-v{transform:rotate(90deg); transition:transform var(--faq-open-dur) var(--ease-out-expo)}
+.faq__item[data-open] .faq__x{color:var(--air); transform:rotate(180deg)}
+.faq__item[data-open] .faq__x::before{opacity:1}
+.faq__item[data-open] .faq__x-v{transform:rotate(0deg)}
+
+.faq__panel{display:grid; grid-template-rows:1fr; transition:grid-template-rows var(--faq-open-dur) var(--ease-out-expo)}
+.faq__panel-in{overflow:hidden; min-block-size:0}
+.faq__answer{
+  display:flex; flex-direction:column; gap:var(--space-16);
+  padding-block:0 var(--faq-a-pad-end);
+  padding-inline:calc(var(--faq-q-pad-inline) + var(--faq-num-w) + var(--faq-q-gap)) var(--faq-q-pad-inline);
+  transition:opacity var(--faq-answer-fade) ease, transform var(--faq-answer-move) var(--ease-out-expo);
+}
+.faq__a{margin:0; max-inline-size:var(--faq-a-max); text-wrap:pretty}
+.faq__metric{
+  display:none; align-self:flex-start; flex-wrap:wrap; align-items:baseline; gap:var(--space-10);
+  margin:0; padding:var(--faq-metric-pad-block) var(--faq-metric-pad-inline);
+  border-radius:var(--radius-pill); background:var(--bg-inverse); color:var(--air);
+}
+.faq__metric-value{font-weight:500}
+
+/* Свёрнутые ответы — только с JS: без него весь текст виден */
+.js .faq__item:not([data-open]) .faq__panel{grid-template-rows:0fr}
+.js .faq__item:not([data-open]) .faq__answer{
+  opacity:0; transform:translateY(calc(-1 * var(--faq-answer-shift))); visibility:hidden;
+  transition:opacity var(--faq-answer-fade) ease, transform var(--faq-answer-move) var(--ease-out-expo), visibility 0s var(--faq-open-dur);
+}
+.js .faq__item[data-open] .faq__answer{transition-delay:var(--faq-answer-delay)}
+
+/* ---------- <900: одна колонка, карточка под вопросами, плашки с цифрой ---------- */
+@media (max-width:899px){
+  .faq__grid{grid-template-columns:minmax(0, 1fr)}
+  .faq__aside{
+    order:2; position:relative; inset-block-start:auto;
+    inline-size:auto; aspect-ratio:auto;
+    gap:var(--space-24); padding:var(--space-24) var(--space-20);
+    border-radius:var(--radius-28);
+  }
+  .faq__answer{padding-inline-start:var(--faq-q-pad-inline)}
+  .faq__metric{display:inline-flex}
+}
+
+/* ---------- Появление (anim/blocks/faq.js) ---------- */
+.faq[data-reveal] .faq__line{transition:transform var(--faq-title-dur) var(--ease-out-expo)}
+.faq[data-reveal] .faq__mask:nth-child(2) .faq__line{transition-delay:var(--faq-title-delay-2)}
+.faq[data-reveal] .faq__item{
+  transition:opacity var(--faq-item-fade) ease calc(var(--i, 0) * var(--faq-item-step)),
+    transform var(--faq-item-move) var(--ease-out-expo) calc(var(--i, 0) * var(--faq-item-step));
+}
+.faq[data-reveal] .faq__aside{transition:opacity var(--faq-aside-fade) ease, transform var(--faq-aside-move) var(--ease-out-expo)}
+
+.faq[data-reveal] .faq__head:not([data-in]) .faq__line{transform:translateY(110%)}
+.faq[data-reveal] .faq__list:not([data-in]) .faq__item{opacity:0; transform:translateY(var(--faq-item-shift))}
+.faq[data-reveal] .faq__aside:not([data-in]){opacity:0; transform:translateY(var(--faq-aside-shift)) scale(var(--faq-aside-scale))}

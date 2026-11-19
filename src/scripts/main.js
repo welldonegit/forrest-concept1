@@ -12,6 +12,7 @@ import { initInfra } from './ui/infra.js';
 import { initNumbers } from './ui/numbers.js';
 import { initConstruction } from './ui/construction.js';
 import { initTeam } from './ui/team.js';
+import { initFaq } from './ui/faq.js';
 import { initAnimations } from './anim/core.js';
 
 initMenu();
@@ -28,4 +29,5 @@ initInfra();
 initNumbers();
 initConstruction();
 initTeam();
+initFaq();
 initAnimations();
