@@ -1,0 +1,99 @@
+{
+ "landing": [
+  "blocks"
+ ],
+ "constructionReport": [
+  "slides",
+  "works"
+ ],
+ "apartmentFormat": [
+  "gallery",
+  "tags"
+ ],
+ "pricing": [
+  "formats",
+  "payments"
+ ],
+ "siteSettings": [
+  "contacts.messengers",
+  "contacts.socials",
+  "footer.groups",
+  "footer.legalLinks",
+  "form.contactOptions",
+  "form.formats",
+  "menu.primary",
+  "menu.secondary",
+  "popups.quiz.budgets",
+  "popups.quiz.countries"
+ ],
+ "hero": [
+  "skyline.points",
+  "title"
+ ],
+ "stats": [
+  "cards"
+ ],
+ "season": [
+  "title"
+ ],
+ "worlds": [
+  "title",
+  "worlds"
+ ],
+ "model": [
+  "steps"
+ ],
+ "apartments": [
+  "items",
+  "title"
+ ],
+ "form": [
+  "bullets",
+  "title"
+ ],
+ "location": [
+  "pins",
+  "resort.card.chips",
+  "resort.card.facts",
+  "title"
+ ],
+ "infrastructure": [
+  "items",
+  "title"
+ ],
+ "numbers": [
+  "calc.title",
+  "paymentCard.steps",
+  "title"
+ ],
+ "investorService": [
+  "dashboard.chartAxis",
+  "dashboard.chartPoints",
+  "dashboard.kpis",
+  "dashboard.nav",
+  "dashboard.phone.stays",
+  "dashboard.reports",
+  "services",
+  "title"
+ ],
+ "team": [
+  "members"
+ ],
+ "faq": [
+  "docs",
+  "items",
+  "title"
+ ],
+ "formFinal": [
+  "bullets",
+  "contactOptions",
+  "goals",
+  "title"
+ ],
+ "teamMember": [
+  "stats"
+ ],
+ "footerGroup": [
+  "links"
+ ]
+}
