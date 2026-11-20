@@ -155,7 +155,7 @@
 | fields.country (код страны телефона) | — | уже в номере |
 
 ## Настройки (2026-11-20, из npm run crm:explore)
-- TELEGRAM_CHAT_ID = -3990676609 (группа для заявок, 2026-11-20).
+- TELEGRAM_CHAT_ID = -1003990676609 (группа для заявок, 2026-11-20).
 - CRM_SOURCE = developer-site (источник «Сайт»); CRM_BUILDING_ID = 26458
   (FORREST TRINITY RESORT); CRM_STAGE_ID пусто — этапа для новых заявок
   в воронке нет, лид встаёт на первый этап CRM (accepted, «Не має зв'язку»).
