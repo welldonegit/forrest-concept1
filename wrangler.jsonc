@@ -27,8 +27,8 @@
       // Заявки (docs/LEADS.md). Схема создаётся самим Worker при первом обращении (worker/db/schema.ts).
       "binding": "DB",
       "database_name": "forrest-leads",
-      // TODO: ID базы из панели Cloudflare (D1 → forrest-leads → Database ID). Не секрет.
-      "database_id": "00000000-0000-0000-0000-000000000000"
+      // ID базы из панели Cloudflare (D1 → forrest-leads), создана 2026-11-20. Не секрет.
+      "database_id": "5fc6aabe-877d-46d4-96ab-ec85062feb40"
     }
   ],
   "ratelimits": [

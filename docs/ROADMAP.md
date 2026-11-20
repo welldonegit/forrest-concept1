@@ -24,7 +24,7 @@
 | Дата | Задача | Что мешает | Что нужно от человека |
 |---|---|---|---|
 | 2026-11-19 | 3.9 | Deploy Hook создаётся в панели Cloudflare | Создать хук и вебхук Sanity (инструкция в отчёте) |
-| 2026-11-20 | 5.1 | База D1 создаётся в панели; ID нужен в `wrangler.jsonc` до слияния stage → main. Команда выкладки в Workers Builds — `npx wrangler deploy --config wrangler.jsonc` | Создать D1, прислать ID, сменить команду (инструкция — отчёт 2026-11-20 и `docs/ADMIN.md`) |
+| 2026-11-20 | 5.1 | Команда выкладки в Workers Builds — `npx wrangler deploy --config wrangler.jsonc`; база D1 `forrest-leads` создана, ID в `wrangler.jsonc` | Сменить команду, слить stage → main, сообщить о зелёной сборке |
 
 ## Отложенные задачи
 
