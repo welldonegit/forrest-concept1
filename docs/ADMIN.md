@@ -125,3 +125,60 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 6. **Перевірити.** Надішліть тестову заявку з сайту: у групі має зʼявитися повідомлення «Заявка з лендінгу Forrest» з номером `FR-…`.
 
 Якщо Telegram недоступний: сайт усе одно приймає заявки (вони в базі), повторює доставку через 10 хвилин і через годину. Не вийшло — заявка позначається «не доставлена», у групу приходить одне службове повідомлення на всю серію збоїв, а коли канал запрацює — одне повідомлення з номерами недоставлених заявок.
+
+## Заявки: де дивитися і як вивантажити
+
+Кожна заявка спершу записується в базу сайту (Cloudflare D1 `forrest-leads`), потім іде в Telegram і CRM. Номер заявки `FR-000042` однаковий усюди: у Telegram, у полі «Нотатка» ліда в CRM і в базі.
+
+- **Щодня** — група Telegram і CRM. Там заявки зʼявляються за кілька секунд.
+- **Якщо заявки немає в Telegram чи CRM** — вона все одно є в базі. Сайт повторює доставку через 10 хвилин і через годину. Не вийшло — у групу приходить службове повідомлення «Збій доставки заявок», а коли канал запрацює, — повідомлення з номерами недоставлених заявок. Їх беруть з бази (нижче).
+- **Зберігання** — 90 днів, потім заявки видаляються автоматично. Ще 7 днів видалене можна відновити через D1 Time Travel (тільки розробник).
+
+**Подивитися в панелі Cloudflare:** Storage & Databases → D1 → `forrest-leads` → Console. Готові запити (скопіювати, Execute):
+
+| Що | Запит |
+|---|---|
+| Останні 50 заявок | `SELECT id, created_at, form, lang, json_extract(data, '$.fields.name') AS name, json_extract(data, '$.fields.phone') AS phone FROM leads ORDER BY id DESC LIMIT 50` |
+| Одна заявка за номером (FR-000042 → 42) | `SELECT * FROM leads WHERE id = 42` |
+| Недоставлені й ті, що чекають повтору | `SELECT lead_id, channel, status, attempts, next_attempt_at, last_error FROM lead_deliveries WHERE status IN ('failed', 'pending') ORDER BY lead_id DESC` |
+| Скільки заявок за днями | `SELECT substr(created_at, 1, 10) AS day, COUNT(*) FROM leads GROUP BY day ORDER BY day DESC` |
+
+Статуси каналу: `sent` — надіслано, `pending` — чекає повтору, `failed` — не доставлена (спроб більше не буде), `not_configured` — канал не був налаштований у момент заявки (не досилається).
+
+**Вивантажити в Excel (CSV)** — на компʼютері з проєктом:
+
+1. Один раз: `npx wrangler login` (вхід у Cloudflare в браузері).
+2. `npm run leads:export` — заявки за 30 днів у файл `leads-РРРР-ММ-ДД.csv` (кодування UTF-8, роздільник «;», Excel відкриває одразу). Інший період: `npm run leads:export -- --days 90`. Свій файл: `-- --out заявки.csv`.
+3. У файлі особисті дані: не пересилайте відкрито, видаліть після використання. У Git такі файли не потрапляють (`.gitignore`).
+
+## CRM G-PLUS: налаштування
+
+Сайт створює лід через Public API v1 (`POST /api/v1/leads`). Що в які поля ліда — таблиця в `docs/LEADS.md`, розділ «CRM».
+
+1. **Токен.** У CRM створіть технічного користувача «Сайт» (не живого менеджера) і токен API для нього з правами на ліди (створення й читання; для `crm:delete` — видалення) і `buildings.read` (список будинків). Токен — у Cloudflare: Worker `forrest-trinity-resort` → Settings → Variables and Secrets → Add → тип **Secret**, імʼя `CRM_TOKEN`. У чат і в файли проєкту не вставляти.
+2. **Розвідка** — що є в CRM (нічого не змінює): `CRM_TOKEN=… npm run crm:explore`. Друкує власника токена, воронки й етапи, джерела, кастомні поля ліда, будинки й позначає ✓/✗, чи знайдено значення з `wrangler.jsonc`.
+3. **Налаштування** — у `wrangler.jsonc` → `vars` (через коміт): `CRM_SOURCE` — ключ джерела (наприклад, `website`), `CRM_STAGE_ID` — id етапу для нових лідів, `CRM_BUILDING_ID` — id будинку FORREST. Порожнє значення — поле не передається.
+4. **Перевірка** — `CRM_TOKEN=… CRM_TEST_PHONE=+380… npm run crm:check`. Створює один лід «ТЕСТ сайт Forrest — не обробляти» з вашим телефоном тим самим кодом, що й сайт, читає його назад і показує етап, менеджера, чи збереглися `data.utm` і поля `note_*`, чи працює пошук дубля за номером. Якщо `data.utm` не зберігся — запасний варіант: ID кастомних полів у `CRM_UTM_FIELDS` (з розвідки), наприклад `{"utm_source":"<id>","utm_campaign":"<id>"}`.
+5. **Видалення тестового ліда** — `CRM_TOKEN=… npm run crm:delete -- <id>` (id друкує `crm:check`). Видаляє лише лід з іменем «ТЕСТ сайт Forrest — не обробляти»; живі ліди не чіпає.
+
+Канал CRM вмикається, щойно зʼявився секрет `CRM_TOKEN`. Заявки, що прийшли раніше, у CRM не досилаються — вони в базі й у Telegram.
+
+## Секрети й змінні: повний список
+
+| Назва | Що це | Куди вписати |
+|---|---|---|
+| `TURNSTILE_SECRET_KEY` | Секретний ключ Turnstile | Cloudflare → Worker → Variables and Secrets → **Secret**. Локально — `.dev.vars` |
+| `TELEGRAM_BOT_TOKEN` | Токен бота від @BotFather | там само, **Secret** |
+| `CRM_TOKEN` | Токен API користувача «Сайт» у G-PLUS | там само, **Secret** |
+| `TURNSTILE_SITE_KEY` | Публічний ключ Turnstile для бойового домену | `wrangler.jsonc` → `vars` (коміт) |
+| `TURNSTILE_PREVIEW_SITE_KEY` | Публічний ключ для превʼю (`*.workers.dev`), зараз тестовий | `wrangler.jsonc` → `vars` |
+| `TELEGRAM_CHAT_ID` | ID групи для заявок | `wrangler.jsonc` → `vars` |
+| `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID` | Джерело, етап, будинок у CRM (з `npm run crm:explore`) | `wrangler.jsonc` → `vars` |
+| `CRM_UTM_FIELDS` | Запасний варіант для UTM: ID кастомних полів | `wrangler.jsonc` → `vars` |
+| `SITE_INDEXING` | `allow` — дозволити індексацію пошуковикам | Workers Builds → змінні **збірки**, лише на бойовій збірці |
+| `CRM_TEST_PHONE` | Ваш телефон для `npm run crm:check` | лише у вашому терміналі під час запуску |
+
+- Секрети (перші три) ніде в репозиторії, HTML і клієнтському JS не лежать. Після збереження в панелі Worker одразу бере нове значення, пересборка не потрібна.
+- `vars` у панелі не задавати: кожна викладка бере їх з `wrangler.jsonc` і перезапише панель.
+- `TELEGRAM_API_BASE`, `CRM_API_BASE` — лише для тестів (підробні сервери). На бойовому Worker їх немає.
+- ID контейнера GTM — у Sanity (Налаштування сайту → Технічне), не тут.
