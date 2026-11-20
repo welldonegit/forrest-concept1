@@ -81,15 +81,23 @@ export const faqTitleLine = titleLinesType('faqTitleLine', 'muted');
 
 export const faqDoc = defineType({
   name: 'faqDoc', title: 'Документ', type: 'object',
+  description: 'Посилання на сторінку документа сайту; відкривається в новій вкладці.',
   fields: [
-    texts('faqDocTexts', [S('title', 'Назва'), S('note', 'Підпис під назвою', 'Обсяг, призначення.')]),
-    str('format', 'Формат на плашці', { description: 'Наприклад «PDF».' }),
     defineField({
-      name: 'file', title: 'Файл', type: 'file', options: { accept: '.pdf,application/pdf' },
-      description: 'PDF для завантаження. Поки файлу немає — посилання без адреси. TODO: файл від замовника.',
+      name: 'document', title: 'Документ', type: 'reference', to: [{ type: 'legalDocument' }],
+      description: 'Сторінка з розділу «Документи». Назва на плашці — назва документа.',
+      validation: (r) => r.required(),
     }),
+    texts('faqDocTexts', [
+      S('title', 'Інша назва на плашці', 'Порожньо — назва документа (рекомендовано).'),
+      S('note', 'Підпис під назвою', 'Номер, дата або інше з документа.'),
+      S('format', 'Мітка на плашці', 'Коротке слово в рамці зліва, наприклад «Дозвіл».'),
+    ], { optional: ['title', 'note'] }),
   ],
-  preview: { select: { g: 'texts', f: 'file.asset.originalFilename' }, prepare: ({ g, f }) => ({ title: ukOf(g, 'title'), subtitle: f ?? 'файл не завантажено' }) },
+  preview: {
+    select: { g: 'texts', d: 'document.texts' },
+    prepare: ({ g, d }) => ({ title: ukOf(g, 'title') ?? ukOf(d, 'title') ?? 'Документ не вибрано', subtitle: ukOf(g, 'note') }),
+  },
 });
 
 export const faqItem = defineType({

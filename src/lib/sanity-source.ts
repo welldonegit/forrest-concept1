@@ -4,7 +4,8 @@
  * - тексты, переведённые группой (texts), раскладываются по отдельным полям;
  * - переводы v5 ({ language, value }) → { _key: язык, value };
  * - заголовки по строкам, контур зданий, отчёты стройки, «Ціни та дохідність» — обратно на места блоков;
- * - ссылки на файлы → «sanity:<id>» (фото и иконки берёт content.ts, PDF — адрес файла).
+ * - ссылки на файлы → «sanity:<id>» (фото и иконки берёт content.ts);
+ * - документы сайта (legalDocument) — списком, на них ссылаются FAQ, футер и согласие квиза.
  * Скрытые блоки («Приховати блок») отбрасываются.
  */
 import { languageIds } from './languages.ts';
@@ -100,17 +101,12 @@ export function fromSanity(snapshot: SanitySnapshot) {
         pricePerM2: pricing.pricePerM2, currency: pricing.currency, years: pricing.years,
       });
     }
-    if (b._type === 'faq') {
-      for (const d of b.docs as Obj[]) {
-        const ref = ((d.file as Obj | undefined)?.asset as Obj | undefined)?._ref as string | undefined;
-        d.file = ref ? { url: files[ref.slice('sanity:'.length)]?.url } : null;
-      }
-    }
   }
 
   return {
     landing: { ...landing, blocks },
     siteSettings: one('siteSettings'),
     apartmentFormats: byType('apartmentFormat'),
+    legalDocuments: byType('legalDocument'),
   };
 }
