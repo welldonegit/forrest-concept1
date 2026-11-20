@@ -7,7 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "acceptance": "node scripts/acceptance/compare.mjs"
+    "acceptance": "node scripts/acceptance/compare.mjs",
+    "test:api": "node --experimental-strip-types --no-warnings --test scripts/api-test.mjs",
+    "deploy": "wrangler deploy --config wrangler.jsonc",
+    "dev:api": "wrangler dev --config wrangler.jsonc",
+    "test:e2e": "node --test --test-concurrency=1 scripts/leads-e2e.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

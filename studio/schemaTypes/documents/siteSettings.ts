@@ -187,7 +187,17 @@ export const siteSettings = defineType({
       name: 'thanksPage', title: 'Сторінка «Дякуємо»', type: 'object', group: 'pages',
       fields: [texts('thanksPageTexts', [
         T('message', 'Повідомлення', 'Замість заголовка першого екрана. Перенос рядка (Enter) — перенос на компʼютері.'),
+        S('homeButton', 'Кнопка «На головну»', 'Єдина кнопка першого екрана, веде на головну сторінку цією мовою.'),
         S('seoTitle', 'SEO: заголовок вкладки'), T('seoDescription', 'SEO: опис'),
+      ])],
+    }),
+    defineField({
+      name: 'notFoundPage', title: 'Сторінка 404 («Сторінку не знайдено»)', type: 'object', group: 'pages',
+      description: 'Показується, коли відвідувач відкрив адресу, якої на сайті немає.',
+      fields: [texts('notFoundPageTexts', [
+        T('message', 'Повідомлення', 'Замість заголовка першого екрана. Перенос рядка (Enter) — перенос на компʼютері.'),
+        S('homeButton', 'Кнопка «На головну»', 'Єдина кнопка першого екрана, веде на головну сторінку цією мовою.'),
+        S('seoTitle', 'Заголовок вкладки браузера'),
       ])],
     }),
     defineField({

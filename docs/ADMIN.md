@@ -71,3 +71,38 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 
 - Збірка читає опубліковане з публічного датасету `production` без ключів. Фото береться без втрат (`?fm=png` — ті самі пікселі, що в завантаженому оригіналі), далі `astro:assets` робить AVIF; SVG і PDF — як є.
 - `CONTENT_SOURCE=fixtures` — збірка з тимчасових фікстур `src/content-fixtures/` (для звірки).
+
+## Для розробника: одне поле з фікстур у Sanity
+
+Повний імпорт (`dataset import --replace`) перезаписує документи цілком, разом із правками зі Studio. Щоб перенести одне нове поле:
+
+`npm --prefix studio run import:build && npm --prefix studio run sanity -- exec import/patch-field.mjs --with-user-token -- siteSettings notFoundPage`
+
+Поле записується, лише якщо в Sanity його ще немає; `--force` — перезаписати, `--dry` — тільки показати.
+
+## Для розробника: локальний запуск — сайт і API
+
+Сайт і API заявок запускаються окремо: дев-сервер Astro не виконує код Worker.
+
+| Що | Команда | Адреса |
+|---|---|---|
+| Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
+| Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
+| Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
+| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
+
+- Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестова пара ключів Turnstile Cloudflare. Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
+- Локальна база D1 — у `.wrangler/state`, створюється сама: таблиці Worker створює при першому запиті. Подивитись заявки: `npx wrangler d1 execute DB --local --config wrangler.jsonc --command "SELECT id, created_at, form FROM leads"`.
+- `npm run test:api` потребує зібраної сторінки 404. Поки її тексти не заповнені в Sanity, збирайте з фікстур: `CONTENT_SOURCE=fixtures npm run build`. Тестам потрібен інтернет: капчу перевіряє сервер Cloudflare (тестові ключі).
+- Після зміни `wrangler.jsonc` оновіть типи для редактора: `npx wrangler types worker/worker-configuration.d.ts --config wrangler.jsonc` (файл поза Git).
+- Викладка — **тільки** `npm run deploy` (= `npx wrangler deploy --config wrangler.jsonc`). Звичайний `npx wrangler deploy` бере конфіг адаптера Astro без коду Worker і падає з помилкою `run_worker_first`.
+
+## Заявки: налаштування Cloudflare
+
+Що де лежить (докладно — `docs/LEADS.md`):
+
+- **Секрети** — Worker `forrest-trinity-resort` → Settings → Variables and Secrets → тип *Secret*: `TURNSTILE_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `CRM_TOKEN`. Після збереження Worker одразу бере нове значення, правки коду не потрібні.
+- **Несекретні налаштування** — `vars` у `wrangler.jsonc` (через коміт; збірка сайту бере звідти ж публічний ключ Turnstile): `TURNSTILE_SITE_KEY`, `TELEGRAM_CHAT_ID`, `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID`. У панелі їх не задавати: викладка перезапише.
+- **База** — D1 `forrest-leads`, ID у `wrangler.jsonc`. Таблиці створює сам Worker.
+- Канал без ключів — статус «не налаштований»; заявки, що прийшли до появи ключів, не досилаються.
+- Без ключів Turnstile на бойовому домені форма показує помилку і заявок не приймає. Тестові ключі Cloudflare працюють лише на localhost і `*.workers.dev`.

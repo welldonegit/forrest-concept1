@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import { languages, defaultLanguage } from './src/lib/languages.ts';
 import indexing from './src/integrations/indexing.ts';
+import notFound from './src/integrations/not-found.ts';
+import { wranglerVar } from './src/integrations/wrangler-vars.ts';
 import sanityContent from './src/integrations/sanity.ts';
 
 export default defineConfig({
@@ -10,7 +12,7 @@ export default defineConfig({
   // Сессии Astro не используются: без них адаптер не требует хранилища KV.
   session: false,
   // sanityContent — первым: снимок контента и оригиналы фото нужны до старта Vite.
-  integrations: [sanityContent(), indexing()],
+  integrations: [sanityContent(), indexing(), notFound()],
   adapter: cloudflare({
     // Фото обрабатываются при сборке (sharp → AVIF), рантайм не трогает картинки.
     imageService: 'compile',
@@ -28,7 +30,14 @@ export default defineConfig({
   build: { format: 'directory' },
   vite: {
     // Источник контента: sanity (по умолчанию) | fixtures — константа сборки (src/lib/content.ts).
-    define: { __CONTENT_SOURCE__: JSON.stringify(process.env.CONTENT_SOURCE ?? 'sanity') },
+    define: {
+      __CONTENT_SOURCE__: JSON.stringify(process.env.CONTENT_SOURCE ?? 'sanity'),
+      // Публичный ключ Turnstile: wrangler.jsonc → vars (или переменная окружения TURNSTILE_SITE_KEY).
+      // Пусто — капча не настроена, форма показывает ошибку отправки.
+      __TURNSTILE_SITE_KEY__: JSON.stringify(wranglerVar('TURNSTILE_SITE_KEY')),
+      // Ключ для адреса превью (*.workers.dev, localhost); на боевом домене не используется (captcha.js).
+      __TURNSTILE_PREVIEW_SITE_KEY__: JSON.stringify(wranglerVar('TURNSTILE_PREVIEW_SITE_KEY')),
+    },
   },
   // Дев-сервер в контейнере: слушать все адреса IPv4 — иначе Astro садится на [::1],
   // и проброс порта VS Code (идёт на 127.0.0.1) страницу не открывает.

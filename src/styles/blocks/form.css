@@ -158,6 +158,17 @@
 .form__submit-icon svg{inline-size:var(--form-chevron); block-size:var(--form-chevron)}
 .form__submit:hover .form__submit-icon{transform:translateX(var(--space-4)) rotate(-45deg)}
 [dir="rtl"] .form__submit-icon svg,[dir="rtl"] .form__chevron{transform:scaleX(-1)}
+/* Без JS: кнопка отправки скрыта, вместо неё — телефон (вид кнопки) и мессенджеры. С JS — наоборот. */
+.form__nojs{display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-12)}
+.js .form__nojs{display:none}
+html:not(.js) .form__actions > .form__submit{display:none}
+.form__nojs .form__submit{text-decoration:none}
+.form__nojs-msg{background:var(--white-sand); color:var(--text-primary)}
+/* Ошибка отправки: под кнопкой; шрифт — роль ошибки поля квиза (text-pop-err), цвет — текст панели. */
+.form__status{margin:0}
+.form__status[hidden]{display:none}
+/* Капча: виден, только когда Cloudflare просит действие посетителя (captcha.js ставит data-interactive). */
+.form__captcha:not([data-interactive]){display:none}
 
 /* Успех: после записи заявки (TODO 5.4) lead-form.js ставит data-sent на секцию */
 .form__done{

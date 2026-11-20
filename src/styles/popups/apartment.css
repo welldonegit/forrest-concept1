@@ -67,6 +67,9 @@
 .apop__desc-text{margin:0; text-wrap:pretty}
 
 .apop__ctaw{flex:none}
+/* Ошибка отправки под полем с кнопкой: как ошибки полей квиза (text-pop-err, цвет текста), отступы — поля плашки. */
+.apop__status{margin:0; margin-block-start:var(--apop-cta-gap); padding-inline-start:var(--apop-cta-pad-start); color:var(--text-primary)}
+.apop__status[hidden]{display:none}
 .apop__cta{
   display:flex; align-items:center; gap:var(--apop-cta-gap); max-inline-size:var(--apop-cta-max);
   padding:var(--apop-cta-pad); padding-inline-start:var(--apop-cta-pad-start);

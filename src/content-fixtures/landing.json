@@ -340,11 +340,11 @@
           "chip": [
             {
               "_key": "uk",
-              "value": "капіталізація 20%"
+              "value": "капіталізація 30%"
             },
             {
               "_key": "en",
-              "value": "20% capitalisation"
+              "value": "30% capitalisation"
             }
           ],
           "image": {
@@ -860,11 +860,11 @@
           "text": [
             {
               "_key": "uk",
-              "value": "Професійний оператор забезпечує бронювання, сервіс, операційне управління та фінансову звітність."
+              "value": "Професійний оператор забезпечує дохідність, бронювання, сервіс, операційне управління та фінансову звітність."
             },
             {
               "_key": "en",
-              "value": "A professional operator handles bookings, service, operations and financial reporting."
+              "value": "A professional operator handles yield, bookings, service, operations and financial reporting."
             }
           ]
         },
@@ -1290,11 +1290,11 @@
       "text": [
         {
           "_key": "uk",
-          "value": "Підйомники, ресторани, SPA та озеро Молодості в кількох хвилинах від FORREST. Відкрийте карту, щоб побудувати маршрут."
+          "value": "Оглядовий підйомник, ярмарок, карусель, ресторани, озеро Молодості, колесо огляду, Гуцул Ленд та аквапарк «Мавка» — усього за кілька хвилин від FORREST.\nВідкрийте карту, щоб побудувати маршрут."
         },
         {
           "_key": "en",
-          "value": "Lifts, restaurants, SPA and the Lake of Youth are minutes away from FORREST. Open the map to plan your route."
+          "value": "The sightseeing lift, the fair, the carousel, restaurants, the Lake of Youth, the Ferris wheel, Hutsul Land and the Mavka water park are just minutes away from FORREST.\nOpen the map to plan your route."
         }
       ],
       "mapLink": {

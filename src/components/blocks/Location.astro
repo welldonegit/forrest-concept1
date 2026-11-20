@@ -47,7 +47,7 @@ const pinIcon = Object.fromEntries((Object.keys(icons) as (keyof typeof icons)[]
           <span class="loc__mask"><span class:list={['loc__line', line.muted && 'loc__line--muted']} style={`--d:${i * 0.12}s`}>{line.text}</span></span>
         ))}
       </h2>
-      <p class="loc__text text-loc-text loc__up" style="--d:.3s">{block.text}</p>
+      <p class="loc__text text-loc-text loc__up" style="--d:.3s">{block.text.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</p>
       <div class="loc__up" style="--d:.44s">
         <a class="loc__link text-hero-button-lg" href={block.mapLink.href} target="_blank" rel="noopener">
           {block.mapLink.label}

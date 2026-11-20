@@ -1,3 +1,4 @@
+import { trackAttribution } from './ui/attribution.js';
 import { initMenu } from './ui/menu.js';
 import { initLangSwitch } from './ui/lang-switch.js';
 import { initAnchorNav } from './ui/anchor-nav.js';
@@ -11,6 +12,8 @@ import { initAnimations } from './anim/core.js';
 import { whenNear } from './ui/lazy.js';
 import { initPopups } from './ui/popups.js';
 
+// источник визита (UTM) — первым и на любой странице: cookie gp_utm читает сервер при заявке
+trackAttribution();
 // попапы — до якорей: вкладка «Розрахувати дохід» (ссылка #forma) открывает квиз, а не прокрутку
 initPopups();
 initMenu();

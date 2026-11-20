@@ -6,10 +6,13 @@
  * и контентом. Подписи имени и телефона, успех, ошибки и эксперт — siteSettings;
  * проверка полей и маска телефона — src/scripts/ui/lead-form.js (одна для всех форм);
  * появление — src/scripts/anim/blocks/form.js + form.css.
- * TODO(5.2–5.4): отправка в POST /api/lead, Turnstile, UTM; data-sent — после записи заявки.
+ * Отправка — POST /api/lead (lead-form.js → lead-api.js): капча Turnstile ([data-turnstile]),
+ * поле-ловушка, UTM из cookie gp_utm. Без JS вместо кнопки — телефон и мессенджеры (contacts).
  */
 import { Image } from 'astro:assets';
 import ManagerCard from './ManagerCard.astro';
+import Honeypot from './Honeypot.astro';
+import SocialIcon from './SocialIcon.astro';
 import { thanksPath } from '../../lib/routes';
 import { resolveImage, type FormBullet, type FormTitleLine, type SiteSettings } from '../../lib/content';
 
@@ -31,6 +34,7 @@ interface Props {
 
 const { id, variant, title, text, select, contactLegend, contactOptions, submitLabel, note, settings } = Astro.props;
 const f = settings.form;
+const { contacts } = settings;
 const bullets = await Promise.all(
   Astro.props.bullets.map(async (b) => ({ ...b, photo: await resolveImage(b.image) })),
 );
@@ -69,7 +73,7 @@ const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
     </div>
 
     <div class="form__panel">
-      <form class="form__form" novalidate data-lead-form data-thanks={thanksPath((Astro.params as { lang: string }).lang)}>
+      <form class="form__form" novalidate method="post" action="/api/lead" data-lead-form={variant === 'final' ? 'final' : 'finmodel'} data-thanks={thanksPath((Astro.params as { lang: string }).lang)}>
         <div class="form__field">
           <label class="form__label text-form-label" for={`${id}-name`}>{f.nameLabel}</label>
           <input class="form__input text-form-input" id={`${id}-name`} name="name" type="text" autocomplete="name" required placeholder={f.namePlaceholder} aria-describedby={`${id}-err-name`} />
@@ -106,10 +110,28 @@ const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </span>
           </button>
+          {/* Без JS отправить форму нельзя: вместо кнопки — телефон и мессенджеры (siteSettings.contacts). */}
+          <div class="form__nojs">
+            <a class="form__submit text-form-submit" href={contacts.phoneHref}>
+              {contacts.phone}
+              <span class="form__submit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </a>
+            <span class="manager__msgs">
+              {contacts.messengers.map((m) => (
+                <a class="manager__msg form__nojs-msg" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
+                  <SocialIcon network={m.network} icon={m.icon} />
+                </a>
+              ))}
+            </span>
+          </div>
           {note && <p class="form__note text-form-note">{note}</p>}
         </div>
-        <!-- TODO(5.4): вид сообщения об ошибке отправки — в выгрузке нет; пока только для экранных дикторов. -->
-        <p class="form__status visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
+        <Honeypot />
+        <div class="form__captcha" data-turnstile></div>
+        <!-- Ошибка отправки — видимо под кнопкой, оформление как у ошибок полей квиза (решение человека 2026-11-20). -->
+        <p class="form__status text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
       </form>
       <div class="form__done" aria-live="polite" data-lead-done>
         <span class="form__done-icon" aria-hidden="true">

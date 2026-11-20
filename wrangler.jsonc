@@ -1,13 +1,58 @@
-// Cloudflare Workers со статикой. Сайт собирается статически (astro build),
-// адаптер @astrojs/cloudflare по этому файлу пишет итоговую конфигурацию в
-// dist/client/wrangler.json, а `wrangler deploy` берёт её через .wrangler/deploy/config.json.
-// Кода Worker сейчас нет: /api/lead, D1 и секреты — этап 5.
+// Cloudflare Worker со статикой. Сайт собирается статически (astro build) в dist/client.
+// Код Worker — только для /api/* (worker/index.ts); остальные адреса отдаёт сервер статики.
+//
+// ВЫКЛАДКА: только `npx wrangler deploy --config wrangler.jsonc`.
+// Адаптер @astrojs/cloudflare при статической сборке пишет свой конфиг
+// (dist/client/wrangler.json, через .wrangler/deploy/config.json) без `main`;
+// по нему обычный `npx wrangler deploy` падает с ошибкой run_worker_first.
+// Явный --config берёт этот файл целиком: Worker + статика + D1.
+//
+// Секреты (TURNSTILE_SECRET_KEY, TELEGRAM_BOT_TOKEN, CRM_TOKEN) здесь НЕ лежат:
+// в Cloudflare — Worker → Settings → Variables and Secrets; локально — .dev.vars (вне Git).
+// Несекретные настройки — в "vars" ниже; пустое значение = не задано.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "forrest-trinity-resort",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-11-10",
   "assets": {
-    "directory": "./dist/client"
+    "directory": "./dist/client",
+    // Worker вызывается первым только для API; файлы статики идут мимо него.
+    "run_worker_first": ["/api/*"],
+    // Ненайденная страница — 404 от сервера статики, без вызова Worker.
+    "not_found_handling": "404-page"
+  },
+  "d1_databases": [
+    {
+      // Заявки (docs/LEADS.md). Схема создаётся самим Worker при первом обращении (worker/db/schema.ts).
+      "binding": "DB",
+      "database_name": "forrest-leads",
+      // ID базы из панели Cloudflare (D1 → forrest-leads), создана 2026-11-20. Не секрет.
+      "database_id": "5fc6aabe-877d-46d4-96ab-ec85062feb40"
+    }
+  ],
+  "ratelimits": [
+    {
+      // Лимит частоты заявок: 5 за 60 секунд с одного IP (приблизительный, по дата-центру).
+      "name": "LEAD_RATE_LIMIT",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ],
+  "vars": {
+    // Публичный ключ Turnstile (site key). Пусто — капча не настроена, форма показывает ошибку.
+    "TURNSTILE_SITE_KEY": "",
+    // Ключ для превью: действует только на *.workers.dev и localhost (выбирает captcha.js по адресу),
+    // на боевом домене — TURNSTILE_SITE_KEY. Сейчас — тестовый ключ Cloudflare «всегда успех»;
+    // пара к нему — секрет TURNSTILE_SECRET_KEY = 1x0000000000000000000000000000000AA (Worker принимает
+    // тестовый секрет тоже только на превью). До боевого домена заменить оба ключа (ROADMAP, 8.12).
+    "TURNSTILE_PREVIEW_SITE_KEY": "1x00000000000000000000AA",
+    // Telegram: ID чата для заявок.
+    "TELEGRAM_CHAT_ID": "",
+    // G-PLUS CRM: ключ источника (/api/v1/lead_sources), ID этапа (/api/v1/pipelines), ID здания (/api/v1/buildings).
+    "CRM_SOURCE": "",
+    "CRM_STAGE_ID": "",
+    "CRM_BUILDING_ID": ""
   },
   "observability": { "enabled": true }
 }

@@ -240,7 +240,9 @@ export interface SiteSettings {
   /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
   /** Страница «Дякуємо» после отправки формы: первый экран главной, вместо заголовка и лида — сообщение (h1). Перенос строки — перенос на десктопе. */
-  thanksPage: { seoTitle: string; seoDescription: string; message: string };
+  thanksPage: { seoTitle: string; seoDescription: string; message: string; homeButton: string };
+  /** Страница 404 (/{lang}/404.html): сообщение (h1) и кнопка «На головну». */
+  notFoundPage: { seoTitle: string; message: string; homeButton: string };
   /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
   analytics?: { gtmId?: string };
   /** Тексты попапов (4.17). {n} — подстановка. */

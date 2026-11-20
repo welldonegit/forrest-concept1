@@ -7,6 +7,7 @@
  * квиз считает стоимость и доход той же функцией calc() и кладёт их в заявку (этап 5).
  * Поведение — src/scripts/popups/quiz.js, стили — src/styles/popups/quiz.css.
  */
+import Honeypot from '../ui/Honeypot.astro';
 import { Image } from 'astro:assets';
 import { resolveImage, type ApartmentsBlock, type NumbersCalc, type SiteSettings } from '../../lib/content';
 
@@ -106,7 +107,7 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
           <h2 class="quiz__title text-pop-h2" id={`${id}-t2`} tabindex="-1">{q.contactTitle}</h2>
           <p class="quiz__sub text-pop-sub">{q.contactText}</p>
         </div>
-        <form class="quiz__form" id={`${id}-form`} novalidate data-quiz-form>
+        <form class="quiz__form" id={`${id}-form`} novalidate method="post" action="/api/lead" data-quiz-form>
           <label class="visually-hidden" for={`${id}-name`}>{q.nameLabel}</label>
           <input class="quiz__field text-pop-input" id={`${id}-name`} name="name" type="text" autocomplete="name" placeholder={q.nameLabel} />
           <div class="quiz__phone">
@@ -132,7 +133,9 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
             </label>
             <span class="quiz__err quiz__err--consent text-pop-err" id={`${id}-err-consent`} hidden data-msg-required={errors.consent}>{errors.consent}</span>
           </div>
-          <p class="visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
+          <Honeypot />
+          <div class="pop-captcha" data-turnstile></div>
+          <p class="quiz__err text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
         </form>
       </section>
 

@@ -5,12 +5,15 @@
  * Переход: текущий шаг гаснет (300 мс), новый появляется по элементам; «Назад» — сверху вниз.
  * Проверка контактов — общие правила и тексты ошибок форм (form-fields.js, siteSettings.form.errors):
  * пустой или неполный телефон, нет согласия. Расчёт — calc() калькулятора Numbers с его числами.
+ * Отправка — POST /api/lead (lead-api.js): ответы шагов и расчёт в quiz; успех — шаг «Дякуємо».
  * prefers-reduced-motion: без анимаций, шаги сменяются сразу.
  */
 import { createModal } from './dialog.js';
 import { cssNum } from './ease.js';
 import { formatNational, nationalOk, setError } from '../ui/form-fields.js';
 import { calc } from '../../lib/calc';
+import { preloadCaptcha } from '../ui/captcha.js';
+import { leadSender, pushLeadEvent } from '../ui/lead-api.js';
 
 export function init(dlg) {
   const t = (name) => cssNum(dlg, name);
@@ -32,6 +35,8 @@ export function init(dlg) {
   let busy = false;
   let pick = 0;
   let format = null;
+  const send = leadSender(form, 'quiz');
+  const stepTitle = (n) => steps[n].querySelector('h2')?.textContent.trim() ?? '';
 
   const modal = createModal(dlg, {
     beforeClose: () => {
@@ -118,7 +123,7 @@ export function init(dlg) {
     return { price: r.price, income: r.income, first: r.first, month: r.month };
   }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const digits = phone.value.replace(/\D/g, '').length;
     const badPhone = !nationalOk(phone.value, code.value);
@@ -127,22 +132,33 @@ export function init(dlg) {
     setError(consent, badConsent);
     if (badPhone) { phone.focus(); return; }
     if (badConsent) { consent.focus(); return; }
-    const lead = {
-      form: 'quiz',
-      format: format?.dataset.quizFormat,
-      budget: budgets.filter((b) => b.checked).map((b) => b.value),
-      name: form.elements.name.value.trim(),
-      phone: `${code.value} ${phone.value}`,
-      email: form.elements.email.value.trim(),
-      estimate: estimate(),
-    };
-    // TODO(5.4): отправка lead в POST /api/lead, как у форм. При успехе — go(3) («Дякуємо»);
-    // при ошибке — текст из [data-form-status] (data-msg-turnstile / data-msg-send).
-    void lead;
+    const formatName = format?.querySelector('.quiz__opt-name')?.textContent.trim() ?? '';
+    const budget = budgets.filter((b) => b.checked).map((b) => b.value).join(', ');
+    const est = estimate();
+    const result = await send({
+      fields: {
+        name: form.elements.name.value.trim() || undefined,
+        phone: `${code.value} ${phone.value}`,
+        email: form.elements.email.value.trim() || undefined,
+        consent: true,
+        format: formatName || undefined,
+        budget: budget || undefined,
+        country: code.value,
+      },
+      quiz: {
+        answers: [
+          { question: stepTitle(0), answer: formatName },
+          { question: stepTitle(1), answer: budget },
+        ],
+        calc: est ? Object.fromEntries(Object.entries(est).map(([k, v]) => [k, Math.round(v)])) : {},
+      },
+    });
+    if (result) pushLeadEvent('quiz', () => go(3));
   });
 
   return {
     open(opener) {
+      preloadCaptcha().catch(() => {});
       reset();
       modal.open(opener);
     },
