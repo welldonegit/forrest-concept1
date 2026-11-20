@@ -13,7 +13,7 @@ import { cssNum } from './ease.js';
 import { formatNational, nationalOk, setError } from '../ui/form-fields.js';
 import { calc } from '../../lib/calc';
 import { preloadCaptcha } from '../ui/captcha.js';
-import { leadSender, pushLeadEvent } from '../ui/lead-api.js';
+import { leadSender, pushLeadEvent, ukText } from '../ui/lead-api.js';
 
 export function init(dlg) {
   const t = (name) => cssNum(dlg, name);
@@ -36,7 +36,8 @@ export function init(dlg) {
   let pick = 0;
   let format = null;
   const send = leadSender(form, 'quiz');
-  const stepTitle = (n) => steps[n].querySelector('h2')?.textContent.trim() ?? '';
+  // вопросы и ответы — по-украински при любом языке страницы (data-uk, docs/LEADS.md)
+  const stepTitle = (n) => { const h = steps[n].querySelector('h2'); return h ? ukText(h) : ''; };
 
   const modal = createModal(dlg, {
     beforeClose: () => {
@@ -132,8 +133,9 @@ export function init(dlg) {
     setError(consent, badConsent);
     if (badPhone) { phone.focus(); return; }
     if (badConsent) { consent.focus(); return; }
-    const formatName = format?.querySelector('.quiz__opt-name')?.textContent.trim() ?? '';
-    const budget = budgets.filter((b) => b.checked).map((b) => b.value).join(', ');
+    const nameEl = format?.querySelector('.quiz__opt-name');
+    const formatName = nameEl ? ukText(nameEl) : '';
+    const budget = budgets.filter((b) => b.checked).map((b) => b.dataset.uk ?? b.value).join(', ');
     const est = estimate();
     const result = await send({
       fields: {
@@ -142,7 +144,10 @@ export function init(dlg) {
         email: form.elements.email.value.trim() || undefined,
         consent: true,
         format: formatName || undefined,
+        areaFrom: format?.dataset.areaFrom,
+        areaTo: format?.dataset.areaTo,
         budget: budget || undefined,
+        budgetCurrency: budget.includes('$') ? 'usd' : undefined,
         country: code.value,
       },
       quiz: {

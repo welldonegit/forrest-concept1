@@ -10,12 +10,17 @@
 import { within } from './lazy.js';
 import { formatPhone, setError, PHONE_DIGITS } from './form-fields.js';
 import { preloadCaptcha } from './captcha.js';
-import { leadSender, pushLeadEvent } from './lead-api.js';
+import { leadSender, pushLeadEvent, ukText } from './lead-api.js';
 
 function initForm(form) {
+  if (form.dataset.leadReady !== undefined) return;
+  form.dataset.leadReady = '';
   const formId = form.dataset.leadForm;
-  const { name, phone, format, contact } = form.elements;
+  // «Фінмодель»: format — формат и площадь; финальная: goal — цель покупки.
+  const { name, phone, format, goal, contact } = form.elements;
   const send = leadSender(form, formId);
+  // номер, введённый до загрузки модуля, — в тот же вид, что при наборе
+  if (phone.value) phone.value = formatPhone(phone.value);
   phone.addEventListener('input', () => {
     phone.value = formatPhone(phone.value);
     setError(phone, false);
@@ -32,17 +37,28 @@ function initForm(form) {
     if (badName) { name.focus(); return; }
     if (badPhone) { phone.focus(); return; }
 
+    // Значения — по-украински при любом языке страницы (data-uk, docs/LEADS.md).
+    const opt = format?.selectedOptions[0];
+    const goalOpt = goal?.selectedOptions[0];
+    const checked = form.querySelector('input[name=contact]:checked');
     const result = await send({
       fields: {
         name: name.value.trim(),
         phone: phone.value,
-        // подпись выбранного пункта — то, что видел посетитель (в CRM — note_section)
-        format: format?.selectedOptions[0]?.textContent.trim() || undefined,
-        contactMethod: contact?.value || undefined,
+        format: opt ? opt.dataset.format ?? ukText(opt) : undefined,
+        areaFrom: opt?.dataset.areaFrom,
+        areaTo: opt?.dataset.areaTo,
+        purpose: goalOpt ? ukText(goalOpt) : undefined,
+        contactMethod: checked ? ukText(checked.parentElement) : undefined,
       },
     });
     if (result) pushLeadEvent(formId, () => window.location.assign(form.dataset.thanks));
   });
+  // посетитель нажал кнопку до загрузки модуля (main.js) — отправляем сейчас
+  if (form.dataset.leadPending !== undefined) {
+    delete form.dataset.leadPending;
+    form.requestSubmit();
+  }
 }
 
 export function initLeadForms(root = document) {

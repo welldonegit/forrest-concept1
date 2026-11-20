@@ -4,13 +4,14 @@
  *   а виджет формы создаётся при первом касании её полей или при отправке — не на загрузке страницы.
  * - Вид «interaction-only»: виджет виден, только если Cloudflare попросит действие посетителя.
  * - Истёкший токен обновляется сам (refresh-expired: auto); после каждой отправки — новый токен.
- * - Ключ — wrangler.jsonc → vars: на адресе превью (*.workers.dev, localhost) — TURNSTILE_PREVIEW_SITE_KEY
- *   (если задан), на остальных адресах — только TURNSTILE_SITE_KEY. Нет ключа — token() отклоняется,
+ * - Ключ — wrangler.jsonc → vars → TURNSTILE_SITE_KEY: одна настоящая пара на боевом домене и превью.
+ *   На localhost — TURNSTILE_LOCAL_SITE_KEY, если сборка сделана с ним (тестовый ключ Cloudflare,
+ *   npm run build:test); в обычную сборку он не попадает. Нет ключа — token() отклоняется,
  *   форма показывает ошибку отправки (заявка без капчи не уходит).
  */
 const host = location.hostname;
-const isPreview = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.workers.dev');
-const SITE_KEY = (isPreview && __TURNSTILE_PREVIEW_SITE_KEY__) || __TURNSTILE_SITE_KEY__;
+const isLocal = host === 'localhost' || host === '127.0.0.1';
+const SITE_KEY = (isLocal && __TURNSTILE_LOCAL_SITE_KEY__) || __TURNSTILE_SITE_KEY__;
 const API = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__forrestTurnstile';
 const TOKEN_TIMEOUT_MS = 20000;
 

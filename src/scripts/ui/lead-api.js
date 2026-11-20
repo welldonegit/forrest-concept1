@@ -12,6 +12,12 @@
  */
 import { attachCaptcha } from './captcha.js';
 
+/** Украинская подпись варианта (data-uk) или показанная, если страница украинская. */
+export function ukText(el) {
+  const input = el.matches?.('input') ? el : el.querySelector?.('input[data-uk]');
+  return (el.dataset.uk ?? input?.dataset.uk ?? el.textContent).trim();
+}
+
 /** UUID v4: randomUUID есть только в защищённом контексте (https, localhost), getRandomValues — везде. */
 function uuid() {
   if (crypto.randomUUID) return crypto.randomUUID();

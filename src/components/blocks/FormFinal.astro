@@ -7,7 +7,7 @@
  * вопрос о цели инвестиции с вариантами, способы связи, кнопка и подпись.
  */
 import LeadSection from '../ui/LeadSection.astro';
-import type { FormFinalBlock, SiteSettings } from '../../lib/content';
+import { getBlockUk, ukIfDiffers, type FormFinalBlock, type SiteSettings } from '../../lib/content';
 
 interface Props {
   block: FormFinalBlock;
@@ -15,6 +15,12 @@ interface Props {
 }
 
 const { block, settings } = Astro.props;
+// Вопрос «Який формат інвестиції…» — цель покупки (в заявке purpose, в CRM note_purpose).
+const uk = await getBlockUk(block);
+const withUk = <T extends { _key: string; label: string }>(items: T[], ukItems: T[]) =>
+  items.map((o) => ({ ...o, uk: ukIfDiffers(o.label, ukItems.find((u) => u._key === o._key)?.label) }));
+const goals = withUk(block.goals, uk.goals);
+const contactOptions = withUk(block.contactOptions, uk.contactOptions);
 ---
 <LeadSection
   id={block.anchor}
@@ -22,9 +28,9 @@ const { block, settings } = Astro.props;
   title={block.title}
   text={block.text}
   bullets={block.bullets}
-  select={{ label: block.goalLabel, name: 'goal', options: block.goals }}
+  select={{ label: block.goalLabel, name: 'goal', options: goals }}
   contactLegend={block.contactLegend}
-  contactOptions={block.contactOptions}
+  contactOptions={contactOptions}
   submitLabel={block.submitLabel}
   note={block.note}
   settings={settings}

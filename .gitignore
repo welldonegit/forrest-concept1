@@ -15,3 +15,6 @@ studio/.sanity/
 studio/import/out/
 src/content-sanity/
 worker/worker-configuration.d.ts
+
+# Выгрузка заявок (личные данные): npm run leads:export
+leads-*.csv

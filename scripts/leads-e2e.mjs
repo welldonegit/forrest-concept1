@@ -4,13 +4,14 @@
  * в D1 — заявка из каждого источника с метками из cookie gp_utm. Плюс: событие dataLayer без
  * личных данных, ошибка отправки сохраняет введённое, без JS вместо кнопки — телефон.
  *
- * Запуск: CONTENT_SOURCE=fixtures npm run build (тестовый ключ превью — из wrangler.jsonc)
+ * Запуск: npm run build:test (фикстуры + тестовый ключ Turnstile для localhost)
  *         → npm run test:e2e   (нужен интернет: капча Cloudflare с тестовыми ключами)
  */
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { chromium } from 'playwright';
+import { wranglerVar } from '../src/integrations/wrangler-vars.ts';
 import { startWorker, TEST_SITE_KEY } from './lib/local-worker.mjs';
 
 const PORT = 8794;
@@ -18,7 +19,7 @@ const UTM = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'e2e-spring
 
 const chunks = readdirSync('dist/client/_astro').filter((f) => f.endsWith('.js'));
 if (!chunks.some((f) => readFileSync(`dist/client/_astro/${f}`, 'utf8').includes(TEST_SITE_KEY))) {
-  console.error('В сборке нет тестового ключа Turnstile (wrangler.jsonc → TURNSTILE_PREVIEW_SITE_KEY): CONTENT_SOURCE=fixtures npm run build');
+  console.error('В сборке нет тестового ключа Turnstile для localhost: npm run build:test');
   process.exit(1);
 }
 
@@ -63,13 +64,35 @@ test('«Фінмодель» (en): заявка в D1 с UTM, переход н�
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Finmodel');
   await form.locator('input[name=phone]').pressSequentially(PHONE);
-  await form.locator('label.form__chip').first().click();
+  await form.locator('label.form__chip').last().click();
   await Promise.all([page.waitForURL('**/en/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
   const data = checkLead('finmodel', 'en');
   assert.equal(data.fields.phone, '+380671234567');
   assert.equal(data.fields.name, 'E2E Finmodel');
-  assert.ok(data.fields.format);
-  assert.ok(data.fields.contactMethod);
+  // выбранные значения — по-украински на английской странице
+  assert.equal(data.fields.format, 'Ще не визначився, потрібна консультація');
+  assert.equal(data.fields.contactMethod, 'Дзвінок');
+  await page.close();
+});
+
+test('клик раньше загрузки скрипта формы: заявка уходит через API, без перезагрузки', async () => {
+  const page = await context.newPage();
+  // скрипт формы приходит с задержкой 2 с — посетитель успевает заполнить и нажать
+  await page.route(/\/_astro\/lead-form\.[^/]+\.js$/, async (r) => { await new Promise((ok) => setTimeout(ok, 2000)); await r.continue(); });
+  const posts = [];
+  page.on('request', (r) => { if (r.url().endsWith('/api/lead')) posts.push(r.headers()['content-type']); });
+  await page.goto(`${worker.base}/en/`);
+  const before = leadsOf('finmodel').length;
+  const form = page.locator('form[data-lead-form="finmodel"]');
+  await form.scrollIntoViewIfNeeded();
+  await form.locator('input[name=name]').fill('E2E Early');
+  await form.locator('input[name=phone]').fill(PHONE);
+  assert.equal(await form.evaluate((f) => f.dataset.leadReady), undefined, 'модуль уже загружен — тест не проверяет ранний клик');
+  await Promise.all([page.waitForURL('**/en/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
+  assert.deepEqual(posts, ['application/json']);
+  const rows = leadsOf('finmodel');
+  assert.equal(rows.length, before + 1);
+  assert.equal(JSON.parse(rows.at(-1).data).fields.phone, '+380671234567');
   await page.close();
 });
 
@@ -81,8 +104,12 @@ test('финальная форма (uk): заявка в D1 с UTM, перех�
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Final');
   await form.locator('input[name=phone]').pressSequentially(PHONE);
+  await form.locator('select[name=goal]').selectOption({ index: 1 });
   await Promise.all([page.waitForURL('**/uk/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
-  checkLead('final', 'uk');
+  const data = checkLead('final', 'uk');
+  // вопрос «Який формат інвестиції…» — цель покупки
+  assert.equal(data.fields.purpose, 'Зростання вартості активу');
+  assert.equal(data.fields.format, undefined);
   await page.close();
 });
 
@@ -150,12 +177,23 @@ test('ошибка отправки: текст из Sanity, введённое 
   await page.close();
 });
 
-test('боевой адрес: тестовый ключ превью не используется — заявка не уходит, видна ошибка', async () => {
+test('боевой адрес: виджет с боевым ключом, тестовый секрет сервер не принимает — заявки нет, видна ошибка', async () => {
   const b = await chromium.launch({ args: [`--host-resolver-rules=MAP forrest-prod.test 127.0.0.1`] });
   const page = await b.newPage({ viewport: { width: 1440, height: 900 } });
-  let posted = 0;
-  page.on('request', (r) => { if (r.url().includes('/api/lead')) posted++; });
+  // свой «IP»: предыдущие тесты с того же адреса уже исчерпали лимит 5 заявок в минуту
+  await page.setExtraHTTPHeaders({ 'cf-connecting-ip': '198.51.100.250' });
+  // Turnstile подменён заглушкой: запоминает ключ виджета и сразу выдаёт токен.
+  await page.route('https://challenges.cloudflare.com/**', (r) => r.fulfill({
+    contentType: 'application/javascript',
+    body: `window.__sitekeys = []; window.turnstile = {
+      render(el, o) { window.__sitekeys.push(o.sitekey); setTimeout(() => o.callback('stub-token')); return 'w1'; },
+      reset() {}, remove() {} };
+      window.__forrestTurnstile && window.__forrestTurnstile();`,
+  }));
+  const responses = [];
+  page.on('response', async (r) => { if (r.url().includes('/api/lead')) responses.push(await r.json().catch(() => null)); });
   await page.goto(`http://forrest-prod.test:${PORT}/uk/`);
+  const before = leadsOf('finmodel').length;
   const form = page.locator('form[data-lead-form="finmodel"]');
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Prod');
@@ -163,9 +201,12 @@ test('боевой адрес: тестовый ключ превью не ис�
   await form.locator('button[type=submit]').click();
   const status = form.locator('[data-form-status]');
   await status.waitFor({ state: 'visible' });
+  const siteKey = wranglerVar('TURNSTILE_SITE_KEY');
+  assert.ok(siteKey && !siteKey.startsWith('1x'), 'в wrangler.jsonc боевой ключ');
+  assert.deepEqual(await page.evaluate(() => window.__sitekeys), [siteKey], 'на боевом адресе — боевой ключ, не тестовый');
+  assert.deepEqual(responses.map((r) => r?.error), ['captcha_unavailable'], 'тестовый секрет на боевом адресе не принимается');
   assert.equal(await status.textContent(), await status.getAttribute('data-msg-send'));
-  assert.equal(posted, 0);
-  assert.equal(await page.evaluate(() => !!document.querySelector('script[src*="challenges.cloudflare.com"]')), false);
+  assert.equal(leadsOf('finmodel').length, before);
   await b.close();
 });
 

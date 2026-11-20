@@ -42,6 +42,16 @@ const MIGRATIONS: string[][] = [
       claimed_at TEXT NOT NULL
     )`,
   ],
+  // 2 — серия сбоев канала: одно служебное сообщение о сбое и одно о восстановлении.
+  [
+    `CREATE TABLE IF NOT EXISTS channel_alerts (
+      channel TEXT PRIMARY KEY,
+      opened_at TEXT NOT NULL,
+      first_lead_id INTEGER NOT NULL,
+      failed_count INTEGER NOT NULL,
+      last_error TEXT
+    )`,
+  ],
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS.length;

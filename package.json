@@ -5,13 +5,20 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:test": "CONTENT_SOURCE=fixtures TURNSTILE_LOCAL_SITE_KEY=1x00000000000000000000AA astro build",
     "preview": "astro preview",
     "check": "astro check",
     "acceptance": "node scripts/acceptance/compare.mjs",
     "test:api": "node --experimental-strip-types --no-warnings --test scripts/api-test.mjs",
     "deploy": "wrangler deploy --config wrangler.jsonc",
-    "dev:api": "wrangler dev --config wrangler.jsonc",
-    "test:e2e": "node --test --test-concurrency=1 scripts/leads-e2e.mjs"
+    "dev:api": "wrangler dev --config wrangler.jsonc --infer-origin-from-routes=false",
+    "test:e2e": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/leads-e2e.mjs",
+    "test:schedule": "node --test --test-concurrency=1 scripts/schedule-test.mjs",
+    "test:crm": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/crm-test.mjs",
+    "crm:explore": "node --experimental-strip-types --no-warnings scripts/crm/explore.mjs",
+    "crm:check": "node --experimental-strip-types --no-warnings scripts/crm/check.mjs",
+    "crm:delete": "node --experimental-strip-types --no-warnings scripts/crm/delete.mjs",
+    "leads:export": "node scripts/leads-export.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

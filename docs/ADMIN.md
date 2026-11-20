@@ -89,13 +89,25 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
 | Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
 | Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
-| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
+| Заявки в браузері (4 джерела, UTM, без JS) | `npm run build:test`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
+| Telegram і розклад (збої, повтори, очищення) | `npm run build`, потім `npm run test:schedule` | свій Worker на :8795 і підробний Bot API на :8796; справжній Telegram не викликається |
 
-- Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестова пара ключів Turnstile Cloudflare. Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
+- Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестовий секрет Turnstile Cloudflare; сайт для форм на localhost збирайте `npm run build:test` (тестовий публічний ключ, лише для localhost). Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
 - Локальна база D1 — у `.wrangler/state`, створюється сама: таблиці Worker створює при першому запиті. Подивитись заявки: `npx wrangler d1 execute DB --local --config wrangler.jsonc --command "SELECT id, created_at, form FROM leads"`.
-- `npm run test:api` потребує зібраної сторінки 404. Поки її тексти не заповнені в Sanity, збирайте з фікстур: `CONTENT_SOURCE=fixtures npm run build`. Тестам потрібен інтернет: капчу перевіряє сервер Cloudflare (тестові ключі).
+- `npm run test:api` потребує зібраної сторінки 404. Збирайте з фікстур і тестовим ключем Turnstile для localhost: `npm run build:test`. Тестам потрібен інтернет: капчу перевіряє сервер Cloudflare (тестові ключі).
+- Розклад (раз на 10 хвилин) локально запускається вручну: `npm run dev:api -- --test-scheduled`, потім відкрити http://localhost:8787/cdn-cgi/handler/scheduled.
 - Після зміни `wrangler.jsonc` оновіть типи для редактора: `npx wrangler types worker/worker-configuration.d.ts --config wrangler.jsonc` (файл поза Git).
 - Викладка — **тільки** `npm run deploy` (= `npx wrangler deploy --config wrangler.jsonc`). Звичайний `npx wrangler deploy` бере конфіг адаптера Astro без коду Worker і падає з помилкою `run_worker_first`.
+
+## Домен
+
+- Worker `forrest-trinity-resort` відповідає на `forrestresort.com.ua` і `www.forrestresort.com.ua` (Custom Domains) та на превʼю `forrest-trinity-resort.forrestresort-com.workers.dev`.
+- Домени записані в `wrangler.jsonc` → `routes` (`custom_domain: true`). Цей список — **повний**: кожна викладка приводить домени Worker до нього, домен, доданий лише в панелі, буде відвʼязано. Новий домен — рядком у `routes` через коміт.
+- `"workers_dev": true` обовʼязковий: з `routes` wrangler інакше вимикає адресу `*.workers.dev` (документація Cloudflare, «workers.dev»).
+- DNS-запис для Custom Domain Cloudflare створює сам. Токен збірки Workers Builds має право `Workers Routes (edit)`, права на DNS у ньому немає, тому новий домен спершу додайте в панелі (Worker → Settings → Domains & Routes → Add → Custom Domain), потім — у `routes`.
+- **www → основний домен** — правило зони, не код: Cloudflare → `forrestresort.com.ua` → Rules → Redirect Rules → шаблон «Redirect from WWW to root» (або вручну: запит `https://www.*`, ціль `https://${1}`, 301, зберігати рядок запиту). Статика йде повз код Worker, тому переадресація в Worker не працює.
+- Перевірка: `curl -sI https://www.forrestresort.com.ua/uk/?a=1` → `301`, `location: https://forrestresort.com.ua/uk/?a=1`.
+- `npm run dev:api` запускається з `--infer-origin-from-routes=false`: інакше wrangler підставляє бойовий домен в адресу запиту і Worker не приймає тестовий секрет Turnstile.
 
 ## Заявки: налаштування Cloudflare
 
@@ -105,4 +117,78 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 - **Несекретні налаштування** — `vars` у `wrangler.jsonc` (через коміт; збірка сайту бере звідти ж публічний ключ Turnstile): `TURNSTILE_SITE_KEY`, `TELEGRAM_CHAT_ID`, `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID`. У панелі їх не задавати: викладка перезапише.
 - **База** — D1 `forrest-leads`, ID у `wrangler.jsonc`. Таблиці створює сам Worker.
 - Канал без ключів — статус «не налаштований»; заявки, що прийшли до появи ключів, не досилаються.
-- Без ключів Turnstile на бойовому домені форма показує помилку і заявок не приймає. Тестові ключі Cloudflare працюють лише на localhost і `*.workers.dev`.
+- Без ключів Turnstile форма показує помилку і заявок не приймає. Бойовий домен і превʼю (`*.workers.dev`) працюють на одній справжній парі; тестові ключі Cloudflare — лише localhost.
+
+## Telegram: бот для заявок
+
+Заявки приходять у групу Telegram від бота. Потрібні дві речі: **токен бота** (секрет) і **ID чату** (не секрет).
+
+1. **Створити бота.** У Telegram відкрийте [@BotFather](https://t.me/BotFather) → `/newbot` → назва (наприклад, «FORREST Заявки») → імʼя користувача, що закінчується на `bot` (наприклад, `forrest_leads_bot`). BotFather надішле токен виду `123456789:AA…`. Токен нікому не пересилайте і в чат з розробником не вставляйте.
+2. **Додати бота в групу.** Створіть групу для відділу продажів (або візьміть наявну) → «Додати учасника» → знайдіть бота за імʼям → додати. Права адміністратора не потрібні: досить права писати повідомлення.
+3. **Заборонити додавати бота в інші групи** (щоб заявки не потрапили до сторонніх): @BotFather → `/setjoingroups` → оберіть бота → **Disable**. Робіть це *після* кроку 2.
+4. **Дізнатися ID чату.** Напишіть у групі будь-яке повідомлення, наприклад `/start@forrest_leads_bot`. Потім у браузері відкрийте `https://api.telegram.org/bot<ТОКЕН>/getUpdates` (замість `<ТОКЕН>` — токен з кроку 1). У відповіді знайдіть `"chat":{"id":-100…` — це число з мінусом і є ID чату. Якщо відповідь порожня (`"result":[]`), напишіть у групі ще раз і оновіть сторінку. Telegram зберігає ці повідомлення 24 години.
+   - ID групи — відʼємне число; додатне число — особистий чат з людиною (бот пише лише тому, хто натиснув у боті «Start»); у супергрупи починається з `-100`. Якщо пізніше в налаштуваннях групи змінити, наприклад, видимість історії, Telegram може перетворити групу на супергрупу з новим ID. Сайт це помітить і доставить заявку за новим ID, але ID у налаштуваннях варто оновити (повторіть крок 4).
+5. **Вписати ключі.**
+   - Токен — Cloudflare → Workers & Pages → `forrest-trinity-resort` → Settings → Variables and Secrets → **Add** → тип **Secret**, імʼя `TELEGRAM_BOT_TOKEN`, значення — токен → Deploy. Пересборка не потрібна.
+   - ID чату — `wrangler.jsonc` → `vars` → `TELEGRAM_CHAT_ID` (ID не секрет; надішліть його розробнику, він впише й закомітить). У панелі як змінну не задавати: викладка її перезапише.
+   - Канал запрацює, коли є обидва значення. Заявки, що прийшли раніше, не досилаються — вони лишаються в базі.
+6. **Перевірити.** Надішліть тестову заявку з сайту: у групі має зʼявитися повідомлення «Заявка з лендінгу Forrest» з номером `FR-…`.
+
+Якщо Telegram недоступний: сайт усе одно приймає заявки (вони в базі), повторює доставку через 10 хвилин і через годину. Не вийшло — заявка позначається «не доставлена», у групу приходить одне службове повідомлення на всю серію збоїв, а коли канал запрацює — одне повідомлення з номерами недоставлених заявок.
+
+## Заявки: де дивитися і як вивантажити
+
+Кожна заявка спершу записується в базу сайту (Cloudflare D1 `forrest-leads`), потім іде в Telegram і CRM. Номер заявки `FR-000042` однаковий усюди: у Telegram, у полі «Нотатка» ліда в CRM і в базі.
+
+- **Щодня** — група Telegram і CRM. Там заявки зʼявляються за кілька секунд.
+- **Якщо заявки немає в Telegram чи CRM** — вона все одно є в базі. Сайт повторює доставку через 10 хвилин і через годину. Не вийшло — у групу приходить службове повідомлення «Збій доставки заявок», а коли канал запрацює, — повідомлення з номерами недоставлених заявок. Їх беруть з бази (нижче).
+- **Зберігання** — 90 днів, потім заявки видаляються автоматично. Ще 7 днів видалене можна відновити через D1 Time Travel (тільки розробник).
+
+**Подивитися в панелі Cloudflare:** Storage & Databases → D1 → `forrest-leads` → Console. Готові запити (скопіювати, Execute):
+
+| Що | Запит |
+|---|---|
+| Останні 50 заявок | `SELECT id, created_at, form, lang, json_extract(data, '$.fields.name') AS name, json_extract(data, '$.fields.phone') AS phone FROM leads ORDER BY id DESC LIMIT 50` |
+| Одна заявка за номером (FR-000042 → 42) | `SELECT * FROM leads WHERE id = 42` |
+| Недоставлені й ті, що чекають повтору | `SELECT lead_id, channel, status, attempts, next_attempt_at, last_error FROM lead_deliveries WHERE status IN ('failed', 'pending') ORDER BY lead_id DESC` |
+| Скільки заявок за днями | `SELECT substr(created_at, 1, 10) AS day, COUNT(*) FROM leads GROUP BY day ORDER BY day DESC` |
+
+Статуси каналу: `sent` — надіслано, `pending` — чекає повтору, `failed` — не доставлена (спроб більше не буде), `not_configured` — канал не був налаштований у момент заявки (не досилається).
+
+**Вивантажити в Excel (CSV)** — на компʼютері з проєктом:
+
+1. Один раз: `npx wrangler login` (вхід у Cloudflare в браузері).
+2. `npm run leads:export` — заявки за 30 днів у файл `leads-РРРР-ММ-ДД.csv` (кодування UTF-8, роздільник «;», Excel відкриває одразу). Інший період: `npm run leads:export -- --days 90`. Свій файл: `-- --out заявки.csv`.
+3. У файлі особисті дані: не пересилайте відкрито, видаліть після використання. У Git такі файли не потрапляють (`.gitignore`).
+
+## CRM G-PLUS: налаштування
+
+Сайт створює лід через Public API v1 (`POST /api/v1/leads`). Що в які поля ліда — таблиця в `docs/LEADS.md`, розділ «CRM».
+
+1. **Токен.** У CRM створіть технічного користувача «Сайт» (не живого менеджера) і токен API для нього з правами на ліди (створення й читання; для `crm:delete` — видалення) і `buildings.read` (список будинків). Токен — у Cloudflare: Worker `forrest-trinity-resort` → Settings → Variables and Secrets → Add → тип **Secret**, імʼя `CRM_TOKEN`. У чат і в файли проєкту не вставляти.
+2. **Розвідка** — що є в CRM (нічого не змінює): `CRM_TOKEN=… npm run crm:explore`. Друкує власника токена, воронки й етапи, джерела, кастомні поля ліда, будинки й позначає ✓/✗, чи знайдено значення з `wrangler.jsonc`.
+3. **Налаштування** — у `wrangler.jsonc` → `vars` (через коміт): `CRM_SOURCE` — ключ джерела (наприклад, `website`), `CRM_STAGE_ID` — id етапу для нових лідів, `CRM_BUILDING_ID` — id будинку FORREST. Порожнє значення — поле не передається.
+4. **Перевірка** — `CRM_TOKEN=… CRM_TEST_PHONE=+380… npm run crm:check`. Спершу звіряє кастомні поля (`CRM_FIELD_*`): чи є поле з таким ID, чи правильний тип і чи кожне значення, яке надсилає сайт, є у списку варіантів CRM; є ✗ — лід не створюється. Потім створює один лід «ТЕСТ сайт Forrest — не обробляти» з вашим телефоном тим самим кодом, що й сайт, читає його назад і показує етап, менеджера, чи збереглися `data.utm`, поля `note_*` і кастомні поля, чи працює пошук дубля за номером. Якщо `data.utm` не зберігся — запасний варіант: ID кастомних полів у `CRM_UTM_FIELDS` (з розвідки), наприклад `{"utm_source":"<id>","utm_campaign":"<id>"}`.
+5. **Видалення тестового ліда** — `CRM_TOKEN=… npm run crm:delete -- <id>` (id друкує `crm:check`). Видаляє лише лід з іменем «ТЕСТ сайт Forrest — не обробляти»; живі ліди не чіпає.
+
+Канал CRM вмикається, щойно зʼявився секрет `CRM_TOKEN`. Заявки, що прийшли раніше, у CRM не досилаються — вони в базі й у Telegram.
+
+## Секрети й змінні: повний список
+
+| Назва | Що це | Куди вписати |
+|---|---|---|
+| `TURNSTILE_SECRET_KEY` | Секретний ключ Turnstile | Cloudflare → Worker → Variables and Secrets → **Secret**. Локально — `.dev.vars` |
+| `TELEGRAM_BOT_TOKEN` | Токен бота від @BotFather | там само, **Secret** |
+| `CRM_TOKEN` | Токен API користувача «Сайт» у G-PLUS | там само, **Secret** |
+| `TURNSTILE_SITE_KEY` | Публічний ключ Turnstile (бойовий домен і превʼю) | `wrangler.jsonc` → `vars` (коміт) |
+| `TELEGRAM_CHAT_ID` | ID групи для заявок | `wrangler.jsonc` → `vars` |
+| `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID` | Джерело, етап, будинок у CRM (з `npm run crm:explore`) | `wrangler.jsonc` → `vars` |
+| `CRM_UTM_FIELDS` | Запасний варіант для UTM: ID кастомних полів | `wrangler.jsonc` → `vars` |
+| `CRM_FIELD_CONTACT_METHOD`, `CRM_FIELD_LAYOUT`, `CRM_FIELD_GCLID`, `CRM_FIELD_FBCLID` | ID кастомних полів ліда: спосіб звʼязку, тип планування, gclid, fbclid (з `npm run crm:explore`); порожньо — поле не передається | `wrangler.jsonc` → `vars` |
+| `SITE_INDEXING` | `allow` — дозволити індексацію пошуковикам | Workers Builds → змінні **збірки**, лише на бойовій збірці |
+| `CRM_TEST_PHONE` | Ваш телефон для `npm run crm:check` | лише у вашому терміналі під час запуску |
+
+- Секрети (перші три) ніде в репозиторії, HTML і клієнтському JS не лежать. Після збереження в панелі Worker одразу бере нове значення, пересборка не потрібна.
+- `vars` у панелі не задавати: кожна викладка бере їх з `wrangler.jsonc` і перезапише панель.
+- `TELEGRAM_API_BASE`, `CRM_API_BASE` — лише для тестів (підробні сервери). На бойовому Worker їх немає.
+- ID контейнера GTM — у Sanity (Налаштування сайту → Технічне), не тут.

@@ -799,3 +799,25 @@ export async function getSiteSettings(lang: string): Promise<SiteSettings> {
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
   return localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing');
 }
+
+/*
+ * Значения, выбранные в форме, уходят в заявку (Telegram, CRM) по-украински при любом языке
+ * страницы (docs/LEADS.md). У варианта — атрибут data-uk с украинской подписью; скрипт формы
+ * отправляет его. На украинской странице атрибута нет: подпись уже украинская.
+ */
+export const getSiteSettingsUk = () => getSiteSettings(defaultLanguage);
+
+/** Тот же блок лендинга на основном языке (по _key). */
+export async function getBlockUk<T extends { _key: string }>(block: T): Promise<T> {
+  const { blocks } = await getLanding(defaultLanguage);
+  return (blocks.find((b) => (b as { _key?: string })._key === block._key) as unknown as T) ?? block;
+}
+
+/** Украинская подпись для data-uk — только если отличается от показанной. */
+export const ukIfDiffers = (shown: string, uk: string | undefined) => (uk && uk !== shown ? uk : undefined);
+
+/** Площадь формата «29,5–34,5 м²» → числа для CRM (note_square_from/to). */
+export function areaRange(area: string): { from?: string; to?: string } {
+  const [from, to] = (area.match(/\d+(?:[.,]\d+)?/g) ?? []).map((n) => n.replace(',', '.'));
+  return { from, to: to ?? from };
+}

@@ -9,7 +9,7 @@
  */
 import Honeypot from '../ui/Honeypot.astro';
 import { Image } from 'astro:assets';
-import { resolveImage, type ApartmentsBlock, type NumbersCalc, type SiteSettings } from '../../lib/content';
+import { areaRange, getSiteSettingsUk, resolveImage, ukIfDiffers, type ApartmentsBlock, type NumbersCalc, type SiteSettings } from '../../lib/content';
 
 interface Props {
   block: ApartmentsBlock;
@@ -19,12 +19,16 @@ interface Props {
 
 const { block, calc, settings } = Astro.props;
 const q = settings.popups.quiz;
+const ukSettings = await getSiteSettingsUk();
+const qUk = ukSettings.popups.quiz;
+const budgetUk = (b: { _key: string; label: string }) => ukIfDiffers(b.label, qUk.budgets.find((u) => u._key === b._key)?.label);
 const errors = settings.form.errors;
 const payment = calc.payments.find((p) => p.isDefault) ?? calc.payments[0];
 const formats = await Promise.all(
   block.items.map(async (item) => {
     const c = calc.formats.find((x) => x.format._id === item.format._id);
-    return { id: item.format._id, name: item.format.name, area: item.format.area, photo: await resolveImage(item.image), calcArea: c?.area, calcYield: c?.yieldPercent };
+    const { from, to } = areaRange(item.format.area);
+    return { id: item.format._id, name: item.format.name, area: item.format.area, areaFrom: from, areaTo: to, photo: await resolveImage(item.image), calcArea: c?.area, calcYield: c?.yieldPercent };
   }),
 );
 const privacy = settings.footer.legalLinks[0];
@@ -61,10 +65,10 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
 
     <div class="quiz__body" data-quiz-body>
       <section class="quiz__step quiz__step--formats" data-quiz-step="0" aria-labelledby={`${id}-t0`}>
-        <h2 class="quiz__title text-pop-h2" id={`${id}-t0`} tabindex="-1">{q.formatTitle}</h2>
+        <h2 class="quiz__title text-pop-h2" id={`${id}-t0`} tabindex="-1" data-uk={ukIfDiffers(q.formatTitle, qUk.formatTitle)}>{q.formatTitle}</h2>
         <div class="quiz__grid">
           {formats.map((f) => (
-            <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format={f.id} data-area={f.calcArea} data-yield={f.calcYield}>
+            <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format={f.id} data-area-from={f.areaFrom} data-area-to={f.areaTo} data-area={f.calcArea} data-yield={f.calcYield}>
               <span class="quiz__img">
                 <Image class="quiz__photo" src={f.photo.src} alt="" widths={[320, 480, 640]} sizes="(max-width: 767px) 45vw, 320px" format="avif" loading="lazy" decoding="async" style={`--focus:${f.photo.position}`} />
               </span>
@@ -83,18 +87,18 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
             </span>
             <span class="quiz__cap">
               <span class="quiz__mark quiz__mark--radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-              <span class="quiz__opt-text"><span class="quiz__opt-name text-pop-input">{settings.form.formatUndecidedLabel}</span></span>
+              <span class="quiz__opt-text"><span class="quiz__opt-name text-pop-input" data-uk={ukIfDiffers(settings.form.formatUndecidedLabel, ukSettings.form.formatUndecidedLabel)}>{settings.form.formatUndecidedLabel}</span></span>
             </span>
           </button>
         </div>
       </section>
 
       <section class="quiz__step quiz__step--budget" data-quiz-step="1" aria-labelledby={`${id}-t1`} hidden>
-        <h2 class="quiz__title text-pop-h2" id={`${id}-t1`} tabindex="-1">{q.budgetTitle}</h2>
+        <h2 class="quiz__title text-pop-h2" id={`${id}-t1`} tabindex="-1" data-uk={ukIfDiffers(q.budgetTitle, qUk.budgetTitle)}>{q.budgetTitle}</h2>
         <div class="quiz__list">
           {q.budgets.map((b) => (
             <label class="quiz__opt quiz__opt--row text-pop-row">
-              <input class="quiz__check visually-hidden" type="checkbox" name="budget" value={b.label} data-quiz-budget />
+              <input class="quiz__check visually-hidden" type="checkbox" name="budget" value={b.label} data-uk={budgetUk(b)} data-quiz-budget />
               <span class="quiz__mark quiz__mark--box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
               <span>{b.label}</span>
             </label>
