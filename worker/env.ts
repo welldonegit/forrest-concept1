@@ -17,4 +17,6 @@ export interface Env {
   TURNSTILE_SECRET_KEY?: string;
   TELEGRAM_BOT_TOKEN?: string;
   CRM_TOKEN?: string;
+  /** Только для тестов (.dev.vars / --env-file): адрес поддельного Bot API. В бою не задаётся. */
+  TELEGRAM_API_BASE?: string;
 }

@@ -47,12 +47,16 @@
     // пара к нему — секрет TURNSTILE_SECRET_KEY = 1x0000000000000000000000000000000AA (Worker принимает
     // тестовый секрет тоже только на превью). До боевого домена заменить оба ключа (ROADMAP, 8.12).
     "TURNSTILE_PREVIEW_SITE_KEY": "1x00000000000000000000AA",
-    // Telegram: ID чата для заявок.
+    // Telegram: ID чата для заявок (группа — отрицательное число, супергруппа — начинается с -100).
+    // Токен бота — секрет TELEGRAM_BOT_TOKEN (панель). Инструкция — docs/ADMIN.md.
     "TELEGRAM_CHAT_ID": "",
     // G-PLUS CRM: ключ источника (/api/v1/lead_sources), ID этапа (/api/v1/pipelines), ID здания (/api/v1/buildings).
     "CRM_SOURCE": "",
     "CRM_STAGE_ID": "",
     "CRM_BUILDING_ID": ""
   },
+  // Раз в 10 минут: повторы доставки (через 10 минут и через час) и удаление заявок старше 90 дней.
+  // Нет заявок к повтору — только чтение базы, внешних запросов нет (worker/scheduled.ts).
+  "triggers": { "crons": ["*/10 * * * *"] },
   "observability": { "enabled": true }
 }

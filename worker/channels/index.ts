@@ -1,11 +1,12 @@
 /**
  * Каналы доставки заявки. Статус по каждому: sent | pending | failed («не доставлена») | not_configured.
  * Канал без ключей — not_configured; такие заявки после добавления ключей не досылаются.
- * Отправители: Telegram — шаг 5.3, CRM — шаг 5.4 (поле send). Пока его нет, канал
- * с ключами остаётся в pending.
+ * Отправители: Telegram (5.3), CRM — шаг 5.4 (поле send). Пока отправителя нет, канал
+ * с ключами остаётся в pending и расписание его не трогает.
  */
 import type { Env } from '../env';
 import type { StoredLead } from '../db/leads';
+import { formatLeadMessage, sendTelegram } from './telegram';
 
 export type ChannelId = 'telegram' | 'crm';
 export type DeliveryStatus = 'sent' | 'pending' | 'failed' | 'not_configured';
@@ -22,7 +23,11 @@ export interface Channel {
 const filled = (v: string | undefined) => Boolean(v && v.trim());
 
 export const CHANNELS: Channel[] = [
-  { id: 'telegram', isConfigured: (env) => filled(env.TELEGRAM_BOT_TOKEN) && filled(env.TELEGRAM_CHAT_ID) },
+  {
+    id: 'telegram',
+    isConfigured: (env) => filled(env.TELEGRAM_BOT_TOKEN) && filled(env.TELEGRAM_CHAT_ID),
+    send: (env, lead, signal) => sendTelegram(env, formatLeadMessage(lead), signal),
+  },
   { id: 'crm', isConfigured: (env) => filled(env.CRM_TOKEN) },
 ];
 

@@ -11,7 +11,8 @@
     "test:api": "node --experimental-strip-types --no-warnings --test scripts/api-test.mjs",
     "deploy": "wrangler deploy --config wrangler.jsonc",
     "dev:api": "wrangler dev --config wrangler.jsonc",
-    "test:e2e": "node --test --test-concurrency=1 scripts/leads-e2e.mjs"
+    "test:e2e": "node --test --test-concurrency=1 scripts/leads-e2e.mjs",
+    "test:schedule": "node --test --test-concurrency=1 scripts/schedule-test.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

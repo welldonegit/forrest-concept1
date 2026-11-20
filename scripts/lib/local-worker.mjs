@@ -1,7 +1,7 @@
 /**
  * Локальный Worker для тестов: `wrangler dev` по wrangler.jsonc, своя временная D1,
- * тестовая пара ключей Turnstile (всегда успех), каналы не настроены.
- * .dev.vars разработчика не участвует.
+ * тестовая пара ключей Turnstile (всегда успех), каналы не настроены (или extraEnv).
+ * .dev.vars разработчика не участвует. Расписание запускается запросом runCron().
  */
 import { spawn, execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
@@ -11,16 +11,17 @@ import path from 'node:path';
 export const TEST_SITE_KEY = '1x00000000000000000000AA';
 export const TEST_SECRET = '1x0000000000000000000000000000000AA';
 
-export async function startWorker(port) {
+export async function startWorker(port, extraEnv = {}) {
   const state = mkdtempSync(path.join(tmpdir(), 'forrest-worker-'));
   const envFile = path.join(state, 'test.env');
-  writeFileSync(envFile, `TURNSTILE_SITE_KEY=${TEST_SITE_KEY}\nTURNSTILE_SECRET_KEY=${TEST_SECRET}\n`);
+  const vars = { TURNSTILE_SITE_KEY: TEST_SITE_KEY, TURNSTILE_SECRET_KEY: TEST_SECRET, ...extraEnv };
+  writeFileSync(envFile, Object.entries(vars).map(([k, v]) => `${k}=${v}\n`).join(''));
   const persist = path.join(state, 'wrangler');
   const base = `http://127.0.0.1:${port}`;
   const dev = spawn(
     'npx',
     ['wrangler', 'dev', '--config', 'wrangler.jsonc', '--ip', '127.0.0.1', '--port', String(port),
-      '--persist-to', persist, '--env-file', envFile, '--show-interactive-dev-session=false', '--log-level', 'warn'],
+      '--persist-to', persist, '--env-file', envFile, '--show-interactive-dev-session=false', '--log-level', 'warn', '--test-scheduled'],
     { stdio: ['ignore', 'pipe', 'pipe'], detached: true },
   );
   let log = '';
@@ -42,6 +43,12 @@ export async function startWorker(port) {
         '--persist-to', persist, '--json', '--command', query], { encoding: 'utf8' });
       return JSON.parse(out)[0].results;
     },
+    /** Один запуск Cron Trigger (wrangler dev --test-scheduled). */
+    async runCron() {
+      const r = await fetch(`${base}/cdn-cgi/handler/scheduled?cron=${encodeURIComponent('*/10 * * * *')}`);
+      if (!r.ok) throw new Error(`scheduled: ${r.status}`);
+    },
+    log: () => log,
     stop() {
       try { process.kill(-dev.pid, 'SIGTERM'); } catch {}
       rmSync(state, { recursive: true, force: true });

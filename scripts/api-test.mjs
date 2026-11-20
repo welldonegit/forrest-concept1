@@ -190,3 +190,12 @@ test('форма без JS (обычный POST): возврат на стран
   assert.equal(r.headers.get('location'), `${BASE}/en/`);
   assert.equal(sql('SELECT COUNT(*) AS n FROM leads')[0].n, before);
 });
+
+test('каналы без ключей: расписание отрабатывает, статусы «не настроен» не меняются', async () => {
+  const body = lead();
+  assert.equal((await post(body)).status, 200);
+  await worker.runCron();
+  const [{ id }] = sql(`SELECT id FROM leads WHERE request_key = '${body.key}'`);
+  const rows = sql(`SELECT channel, status, attempts FROM lead_deliveries WHERE lead_id = ${id} ORDER BY channel`);
+  assert.deepEqual(rows, [{ channel: 'crm', status: 'not_configured', attempts: 0 }, { channel: 'telegram', status: 'not_configured', attempts: 0 }]);
+});

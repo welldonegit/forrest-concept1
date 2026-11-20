@@ -46,22 +46,36 @@ export async function insertLead(env: Env, input: LeadInput, attribution: Attrib
   };
 }
 
-/** Результат попытки доставки: sent; неудача — следующая попытка или failed. */
-export async function recordAttempt(env: Env, lead: StoredLead, channel: ChannelId, result: SendResult): Promise<void> {
+/** Заявка из базы — для повторной отправки по расписанию. */
+export async function loadLead(db: D1Database, id: number): Promise<StoredLead | null> {
+  const row = await db.prepare('SELECT id, created_at, form, lang, page, data, attribution FROM leads WHERE id = ?')
+    .bind(id).first<{ id: number; created_at: string; form: StoredLead['form']; lang: string; page: string; data: string; attribution: string }>();
+  if (!row) return null;
+  const data = JSON.parse(row.data) as { fields: LeadFields; quiz?: QuizData };
+  return {
+    id: row.id, number: leadNumber(row.id), createdAt: row.created_at, form: row.form, lang: row.lang, page: row.page,
+    fields: data.fields, quiz: data.quiz, attribution: JSON.parse(row.attribution) as Attribution,
+  };
+}
+
+/** Результат попытки доставки: sent; неудача — следующая попытка или failed. Возвращает новый статус. */
+export async function recordAttempt(env: Env, lead: StoredLead, channel: ChannelId, result: SendResult): Promise<DeliveryStatus> {
   const now = new Date().toISOString();
   if (result.ok) {
     await env.DB.prepare(
       `UPDATE lead_deliveries SET status = 'sent', attempts = attempts + 1, sent_at = ?, next_attempt_at = NULL, last_error = NULL, external_id = ?
        WHERE lead_id = ? AND channel = ?`,
     ).bind(now, result.externalId ?? null, lead.id, channel).run();
-    return;
+    return 'sent';
   }
   const row = await env.DB.prepare('SELECT attempts FROM lead_deliveries WHERE lead_id = ? AND channel = ?')
     .bind(lead.id, channel).first<{ attempts: number }>();
   const attempts = (row?.attempts ?? 0) + 1;
   const next = nextAttemptAt(lead.createdAt, attempts);
+  const status: DeliveryStatus = next ? 'pending' : 'failed';
   // В last_error — только код/статус ошибки, без данных заявки.
   await env.DB.prepare(
     `UPDATE lead_deliveries SET status = ?, attempts = ?, next_attempt_at = ?, last_error = ? WHERE lead_id = ? AND channel = ?`,
-  ).bind(next ? 'pending' : 'failed', attempts, next, result.error.slice(0, 200), lead.id, channel).run();
+  ).bind(status, attempts, next, result.error.slice(0, 200), lead.id, channel).run();
+  return status;
 }
