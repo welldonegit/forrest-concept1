@@ -767,6 +767,10 @@
             "value": "Privacy policy"
           }
         ],
+        "document": {
+          "_type": "reference",
+          "_ref": "legal-polityka-konfidentsiinosti"
+        },
         "href": "#privacy"
       },
       {
@@ -1611,6 +1615,10 @@
       ]
     }
   },
+  "privacyPolicy": {
+    "_type": "reference",
+    "_ref": "legal-polityka-konfidentsiinosti"
+  },
   "archivePage": {
     "seoTitle": [
       {
@@ -1734,6 +1742,38 @@
       {
         "_key": "en",
         "value": "Back to home"
+      }
+    ]
+  },
+  "documentPage": {
+    "backLabel": [
+      {
+        "_key": "uk",
+        "value": "На головну"
+      },
+      {
+        "_key": "en",
+        "value": "Back to home"
+      }
+    ],
+    "tocTitle": [
+      {
+        "_key": "uk",
+        "value": "Зміст"
+      },
+      {
+        "_key": "en",
+        "value": "Contents"
+      }
+    ],
+    "editionLabel": [
+      {
+        "_key": "uk",
+        "value": "Редакція від"
+      },
+      {
+        "_key": "en",
+        "value": "Version dated"
       }
     ]
   },

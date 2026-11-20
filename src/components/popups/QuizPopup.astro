@@ -31,7 +31,8 @@ const formats = await Promise.all(
     return { id: item.format._id, name: item.format.name, area: item.format.area, areaFrom: from, areaTo: to, photo: await resolveImage(item.image), calcArea: c?.area, calcYield: c?.yieldPercent };
   }),
 );
-const privacy = settings.footer.legalLinks[0];
+/** Политика конфиденциальности (siteSettings.privacyPolicy): открывается в новой вкладке — введённое в квиз не теряется. */
+const privacy = settings.privacyPolicy;
 const id = 'quiz';
 const arrowNext = 'M5 12h14M13 6l6 6-6 6';
 const arrowBack = 'M19 12H5M11 6l-6 6 6 6';
@@ -133,7 +134,7 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
             <label class="quiz__consent text-pop-small">
               <input class="quiz__check visually-hidden" type="checkbox" name="consent" checked required aria-describedby={`${id}-err-consent`} />
               <span class="quiz__mark quiz__mark--box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-              <span class="quiz__consent-text">{q.consentText} <a class="quiz__link" href={privacy?.href ?? '#'}>{q.consentLinkLabel}</a> *</span>
+              <span class="quiz__consent-text">{q.consentText} <a class="quiz__link" href={privacy?.href ?? '#'} target="_blank" rel="noopener">{q.consentLinkLabel}</a> *</span>
             </label>
             <span class="quiz__err quiz__err--consent text-pop-err" id={`${id}-err-consent`} hidden data-msg-required={errors.consent}>{errors.consent}</span>
           </div>
