@@ -80,15 +80,15 @@ const x = 'M6 6l12 12M18 6L6 18';
             </div>
           </div>
           <div class="apop__ctaw">
-            <form class="apop__cta" novalidate method="post" action="/api/lead" data-apop-form>
+            <form class="apop__cta" id={`${p.id}-form`} novalidate method="post" action="/api/lead" data-apop-form>
               <label class="visually-hidden" for={`${p.id}-phone`}>{texts.phoneLabel}</label>
               <input class="apop__tel text-pop-input" id={`${p.id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={texts.phoneLabel} aria-describedby={`${p.id}-err`} />
               <span class="visually-hidden" id={`${p.id}-err`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
               <button class="apop__price text-pop-caps" type="submit" data-success-label={texts.successLabel}>{texts.submitLabel}</button>
               <Honeypot />
               <div class="pop-captcha" data-turnstile></div>
-              <p class="visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
             </form>
+            <p class="apop__status text-pop-err" role="alert" data-form-status={`${p.id}-form`} hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
           </div>
         </div>
         <div class="apop__frame" data-apop-frame>

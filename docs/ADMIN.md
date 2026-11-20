@@ -89,7 +89,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
 | Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
 | Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
-| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures TURNSTILE_SITE_KEY=1x00000000000000000000AA npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
+| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
 
 - Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестова пара ключів Turnstile Cloudflare. Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
 - Локальна база D1 — у `.wrangler/state`, створюється сама: таблиці Worker створює при першому запиті. Подивитись заявки: `npx wrangler d1 execute DB --local --config wrangler.jsonc --command "SELECT id, created_at, form FROM leads"`.

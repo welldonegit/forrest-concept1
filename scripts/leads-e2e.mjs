@@ -4,7 +4,7 @@
  * в D1 — заявка из каждого источника с метками из cookie gp_utm. Плюс: событие dataLayer без
  * личных данных, ошибка отправки сохраняет введённое, без JS вместо кнопки — телефон.
  *
- * Запуск: CONTENT_SOURCE=fixtures TURNSTILE_SITE_KEY=1x00000000000000000000AA npm run build
+ * Запуск: CONTENT_SOURCE=fixtures npm run build (тестовый ключ превью — из wrangler.jsonc)
  *         → npm run test:e2e   (нужен интернет: капча Cloudflare с тестовыми ключами)
  */
 import { test, before, after } from 'node:test';
@@ -18,7 +18,7 @@ const UTM = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'e2e-spring
 
 const chunks = readdirSync('dist/client/_astro').filter((f) => f.endsWith('.js'));
 if (!chunks.some((f) => readFileSync(`dist/client/_astro/${f}`, 'utf8').includes(TEST_SITE_KEY))) {
-  console.error(`Сборка без тестового ключа Turnstile: CONTENT_SOURCE=fixtures TURNSTILE_SITE_KEY=${TEST_SITE_KEY} npm run build`);
+  console.error('В сборке нет тестового ключа Turnstile (wrangler.jsonc → TURNSTILE_PREVIEW_SITE_KEY): CONTENT_SOURCE=fixtures npm run build');
   process.exit(1);
 }
 
@@ -142,13 +142,31 @@ test('ошибка отправки: текст из Sanity, введённое 
   await form.locator('input[name=phone]').pressSequentially(PHONE);
   await form.locator('button[type=submit]').click();
   const status = form.locator('[data-form-status]');
-  await status.waitFor({ state: 'attached' });
-  await page.waitForFunction(() => !document.querySelector('form[data-lead-form="finmodel"] [data-form-status]').hidden);
+  await status.waitFor({ state: 'visible' });
   assert.equal(await status.textContent(), await status.getAttribute('data-msg-send'));
   assert.equal(await form.locator('input[name=name]').inputValue(), 'E2E Error');
   assert.equal(page.url(), `${worker.base}/uk/`);
   assert.equal(await form.locator('button[type=submit]').isDisabled(), false);
   await page.close();
+});
+
+test('боевой адрес: тестовый ключ превью не используется — заявка не уходит, видна ошибка', async () => {
+  const b = await chromium.launch({ args: [`--host-resolver-rules=MAP forrest-prod.test 127.0.0.1`] });
+  const page = await b.newPage({ viewport: { width: 1440, height: 900 } });
+  let posted = 0;
+  page.on('request', (r) => { if (r.url().includes('/api/lead')) posted++; });
+  await page.goto(`http://forrest-prod.test:${PORT}/uk/`);
+  const form = page.locator('form[data-lead-form="finmodel"]');
+  await form.scrollIntoViewIfNeeded();
+  await form.locator('input[name=name]').fill('E2E Prod');
+  await form.locator('input[name=phone]').pressSequentially(PHONE);
+  await form.locator('button[type=submit]').click();
+  const status = form.locator('[data-form-status]');
+  await status.waitFor({ state: 'visible' });
+  assert.equal(await status.textContent(), await status.getAttribute('data-msg-send'));
+  assert.equal(posted, 0);
+  assert.equal(await page.evaluate(() => !!document.querySelector('script[src*="challenges.cloudflare.com"]')), false);
+  await b.close();
 });
 
 test('без JS: вместо кнопки — телефон и мессенджеры', async () => {

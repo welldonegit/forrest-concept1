@@ -130,8 +130,8 @@ const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
         </div>
         <Honeypot />
         <div class="form__captcha" data-turnstile></div>
-        <!-- Вид сообщения об ошибке отправки в выгрузке не задан: пока только для экранных дикторов (вопрос человеку, 5.2). -->
-        <p class="form__status visually-hidden" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
+        <!-- Ошибка отправки — видимо под кнопкой, оформление как у ошибок полей квиза (решение человека 2026-11-20). -->
+        <p class="form__status text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={f.errors.turnstile} data-msg-send={f.errors.send}></p>
       </form>
       <div class="form__done" aria-live="polite" data-lead-done>
         <span class="form__done-icon" aria-hidden="true">

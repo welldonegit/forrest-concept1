@@ -5,15 +5,27 @@
  *   с теми же данными идут с тем же ключом — сервер вернёт результат первой отправки.
  *   Изменили поле — новый ключ.
  * - Пока запрос идёт, кнопки отправки неактивны.
- * - Ошибка: текст из Sanity в [data-form-status] (капча — data-msg-turnstile, остальное — data-msg-send);
+ * - Ошибка: текст из Sanity в [data-form-status] под кнопкой, видимо и для экранных дикторов (role=alert;
+ *   капча — data-msg-turnstile, остальное — data-msg-send);
  *   введённые данные не сбрасываются.
  * - Успех: событие lead_submit в dataLayer — только форма и язык, без личных данных.
  */
 import { attachCaptcha } from './captcha.js';
 
+/** UUID v4: randomUUID есть только в защищённом контексте (https, localhost), getRandomValues — везде. */
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
 export function leadSender(form, formId) {
   const captcha = attachCaptcha(form);
-  const status = form.querySelector('[data-form-status]');
+  // текст ошибки — внутри формы или рядом с ней (попап апартамента: data-form-status="<id формы>")
+  const status = form.querySelector('[data-form-status]') ?? (form.id ? document.querySelector(`[data-form-status="${form.id}"]`) : null);
   let key = null;
   let busy = false;
   const fresh = () => { key = null; };
@@ -39,13 +51,14 @@ export function leadSender(form, formId) {
     if (busy) return null;
     setBusy(true);
     if (status) status.hidden = true;
-    key ??= crypto.randomUUID();
     try {
+      key ??= uuid();
       let turnstileToken;
       try {
         turnstileToken = await captcha.token();
-      } catch {
-        showError('turnstile');
+      } catch (err) {
+        // капча не настроена на этом адресе — это сбой сайта, а не посетителя
+        showError(err?.message === 'captcha_not_configured' ? 'send' : 'turnstile');
         return null;
       }
       const res = await fetch('/api/lead', {
