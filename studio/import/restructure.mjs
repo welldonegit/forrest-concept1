@@ -68,5 +68,6 @@ export function restructure(fixtures, { notes }) {
   docs.unshift({ _id: 'landing', _type: 'landing', blocks: landing.blocks });
   docs.push({ _id: 'siteSettings', ...settings, _type: 'siteSettings' });
   docs.push(...fixtures.apartmentFormats);
+  docs.push(...(fixtures.legalDocuments ?? []));
   return docs;
 }

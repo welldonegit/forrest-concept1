@@ -1,0 +1,1737 @@
+[
+ {
+  "_id": "legal-polityka-konfidentsiinosti",
+  "_type": "legalDocument",
+  "slug": "polityka-konfidentsiinosti",
+  "category": "policy",
+  "unapprovedLanguages": [
+   "en"
+  ],
+  "title": [
+   {
+    "_key": "uk",
+    "value": "Політика конфіденційності"
+   },
+   {
+    "_key": "en",
+    "value": "Privacy Policy"
+   }
+  ],
+  "body": [
+   {
+    "_key": "uk",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "759f9099cef9",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "73c7e09e4e26",
+        "text": "Адміністрація сайту forrestresort.com.ua зобов’язується зберігати вашу конфіденційність в Інтернеті. Ми приділяємо велике значення охороні наданих вами даних. Наша політика конфіденційності заснована на вимогах Загального регламенту про захист персональних даних Європейського Союзу (GDPR). Цілі, в яких ми збираємо персональні дані: поліпшення роботи нашого сервісу, здійснення контактів з відвідувачами даного сайту, здійснення послуг, пов’язаних з напрямком діяльності даного сайту, а так само для таких дій.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "5aa32c0dcd17",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "1ffd060211c8",
+        "text": "Збір та використання персональних даних",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "298d68c7c4c1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "6c5eb1059321",
+        "text": "Ми збираємо і використовуємо ваші персональні дані тільки в разі вашої добровільної згоди. При згоді з цим ви дозволяєте нам збирати і використовувати такі дані: ім’я та прізвище, електронна пошта, номер телефону. Збір та обробка ваших даних проводиться відповідно до законів, що діють на території Європейського Союзу і в державі Україна.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "94579b006fb2",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "c77d108673b5",
+        "text": "Зберігання даних, зміна і видалення",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "1d8edf3d58aa",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "74ed0c02561d",
+        "text": "Користувач, який надав свої персональні дані сайту forrestresort.com.ua має право на їх зміну і видалення, а так само на відгук своєї згоди з їх використанням. Термін, протягом якого будуть зберігатися ваші персональні дані: 24 місяці. При завершенні використання ваших даних адміністрація сайту видаляє їх. Для доступу до своїх персональних даних ви можете зв’язатися з адміністрацією сайту за наступною адресою: forrestresort.com@gmail.com. Ми можемо передавати ваші особисті дані третім сторонам тільки з вашої добровільної згоди, якщо вони були передані, то зміну даних у інших організаціях, які пов’язані з нами, ми здійснити не можемо.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "1fe95682de50",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "9e66704dae55",
+        "text": "Використання технічних даних при відвідуванні сайту",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "7e1793b29fc7",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "e123f868ec2b",
+        "text": "При відвідуванні вами сайту forrestresort.com.ua в базі даних зберігаються записи про вашу IP адресу, час відвідування, налаштування браузера, операційну систему, а також інша технічна інформація необхідна для коректного відображення вмісту сайту. За цими даними неможливо ідентифікувати особу відвідувача.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "f61c21fa4efd",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "b02f5cb7f70a",
+        "text": "Надання інформації дітьми",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "576a461b6cd9",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "37cbe81950e1",
+        "text": "Якщо Ви є батьками або опікунами, і ви знаєте, що ваші діти надали нам свої особисті дані без Вашої згоди, зв’яжіться з нами: forrestresort.com@gmail.com. На нашому сервісі заборонено залишати особисті дані неповнолітніх без згоди батьків або опікунів.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "fabe2b270717",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "310b05566f79",
+        "text": "Використання cookies",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c83fc65663d5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "65f1e4fa3134",
+        "text": "Для коректного відображення вмісту і для зручності використання сайту forrestresort.com.ua ми використовуємо cookie файли. Це невеликі файли, які зберігаються на вашому пристрої. Вони допомагають сайту запам’ятати інформацію про вас, наприклад якою мовою ви переглядаєте сайт і які сторінки ви вже відкривали, ця інформація буде корисна при наступному відвідуванні. Завдяки файлам cookie перегляд сайту стає значно зручнішим. Детальніше про ці файли ви можете прочитати тут. Ви можете налаштувати прийом або блокування cookie в браузері самостійно. Неможливість приймати cookie може обмежити працездатність сайту.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "64e02337be17",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "aae6ac3c5177",
+        "text": "Використання персональних даних іншими сервісами",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c6c02503980f",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "51b6cb16ea3e",
+        "text": "На цьому сайті використовуються сторонні інтернет-сервіси, які здійснюють незалежний від нас збір інформації: Google Analytics, Facebook.com. Зібрані ними дані можуть надаватися іншим службам всередині цих організацій, вони можуть використовувати дані для персоналізації реклами своєї власної рекламної мережі. Ви можете прочитати призначені для користувача угоди цих організацій на їх сайтах. Ми не передаємо персональні дані іншим організаціям і службам, не зазначених в цій політиці конфіденційності. Виняток становить тільки передача інформації при законних вимогах державних органів уповноважених здійснювати дані дії.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "6598350ea16a",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "588cecb6b1f0",
+        "text": "Посилання на інші сайти",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "99861d0a3cba",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "10b006ebee8f",
+        "text": "Наш сайт forrestresort.com.ua може містити посилання на інші сайти, які не керуються нами. Ми не несемо відповідальність за їх зміст. Ми рекомендуємо вам ознайомитися з політикою конфіденційності кожного сайту, який ви відвідуєте, якщо вона там є.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "f8f08b5c3200",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "c766d149684b",
+        "text": "Зміни в політиці конфіденційності",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c79f530949b2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "3e3741c01e0a",
+        "text": "Наш сайт forrestresort.com.ua може оновлювати нашу політику конфіденційності час від часу. Ми повідомляємо про будь-які зміни, розмістивши нову політику конфіденційності на цій сторінці. Ми відстежуємо зміни законодавства, що стосуються персональних даних в Європейському Союзі і в державі Україна. Якщо ви залишили персональні дані у нас, то ми повідомимо вас про зміну в політиці конфіденційності. Якщо ваші персональні дані були введені некоректно, то ми не зможемо з вами зв’язатися.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "176ac533d7b1",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "292ca9fd4ee3",
+        "text": "Зворотній зв’язок, прикінцеві положення",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "821fd0aa004c",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "8446572ec457",
+        "text": "Зв’язатися з адміністрацією сайту forrestresort.com.ua з питань, пов’язаних з політикою конфіденційності можна за адресою: forrestresort.com@gmail.com, або за допомогою контактної форми зазначеної у відповідному розділі даного сайту. Якщо ви не згодні з цією політикою конфіденційності, ви не можете користуватися послугами сайту forrestresort.com.ua, в цьому випадку ви повинні утриматися від відвідування нашого сайту.",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "_key": "en",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "855c3b206155",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "d09e969a07a5",
+        "text": "The administration of the forrestresort.com.ua website undertakes to protect your privacy on the Internet. We attach great importance to protecting the data you provide. Our privacy policy is based on the requirements of the General Data Protection Regulation of the European Union (GDPR). The purposes for which we collect personal data: improving the operation of our service, contacting visitors to this website, providing services related to the activities of this website, as well as for the following actions.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "ac55bd9e2063",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "85816dbf93c1",
+        "text": "Collection and use of personal data",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "d125bd2b5a15",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "73a585ab9149",
+        "text": "We collect and use your personal data only with your voluntary consent. By giving this consent, you allow us to collect and use the following data: first and last name, email address, phone number. Your data is collected and processed in accordance with the laws in force in the European Union and in Ukraine.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c66964eece5f",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "ef6966a77f4a",
+        "text": "Data storage, modification and deletion",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "52352522af16",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "725e7ceb257b",
+        "text": "A user who has provided their personal data to the forrestresort.com.ua website has the right to have it modified and deleted, as well as to withdraw their consent to its use. The period for which your personal data will be stored: 24 months. When the use of your data ends, the website administration deletes it. To access your personal data, you can contact the website administration at the following address: forrestresort.com@gmail.com. We may transfer your personal data to third parties only with your voluntary consent; if the data has been transferred, we cannot change it in other organisations associated with us.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "623f3db44f70",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "9bcfaaa4e0d6",
+        "text": "Use of technical data when visiting the website",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "84a96cb9f1db",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "7ccc94226555",
+        "text": "When you visit the forrestresort.com.ua website, the database stores records of your IP address, time of visit, browser settings, operating system and other technical information necessary for the website content to be displayed correctly. This data cannot be used to identify the visitor.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "459218f228ab",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "3ca6344c8f4a",
+        "text": "Information provided by children",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "519c27041f04",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "0bd2bb683b41",
+        "text": "If you are a parent or guardian and you know that your children have provided us with their personal data without your consent, contact us: forrestresort.com@gmail.com. Our service prohibits leaving personal data of minors without the consent of their parents or guardians.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "59a7c8f6830a",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "cd9a4b97ab7f",
+        "text": "Use of cookies",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "d95194859244",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "089c3fd4d2c2",
+        "text": "To display the website content correctly and to make the forrestresort.com.ua website convenient to use, we use cookies. These are small files stored on your device. They help the website remember information about you, for example, in which language you view the website and which pages you have already opened; this information will be useful on your next visit. Thanks to cookies, browsing the website becomes much more convenient. You can read more about these files here. You can configure your browser to accept or block cookies yourself. Being unable to accept cookies may limit the functionality of the website.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "0d90a2a9759d",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "7cfff88f9d88",
+        "text": "Use of personal data by other services",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "9358dbd50f73",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "0fb4a6c4e215",
+        "text": "This website uses third-party online services that collect information independently of us: Google Analytics, Facebook.com. The data they collect may be shared with other services within these organisations, and they may use the data to personalise advertising in their own advertising network. You can read the user agreements of these organisations on their websites. We do not transfer personal data to other organisations and services not specified in this privacy policy. The only exception is the transfer of information upon lawful requests of state authorities authorised to carry out such actions.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "debfe6c53963",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "b7de95f46046",
+        "text": "Links to other websites",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "6cb80d183e42",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "69d6b2154d00",
+        "text": "Our forrestresort.com.ua website may contain links to other websites that are not operated by us. We are not responsible for their content. We recommend that you read the privacy policy of each website you visit, if it has one.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c193d02e8618",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "6ed077e7bcca",
+        "text": "Changes to the privacy policy",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "8d357821a40a",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "1f469dbd5581",
+        "text": "Our forrestresort.com.ua website may update our privacy policy from time to time. We announce any changes by posting the new privacy policy on this page. We monitor changes in legislation concerning personal data in the European Union and in Ukraine. If you have left your personal data with us, we will notify you of a change in the privacy policy. If your personal data was entered incorrectly, we will not be able to contact you.",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "a3bcc6b44375",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "b4a0481d290b",
+        "text": "Feedback, final provisions",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "7bde1e754406",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "16d332ec38bd",
+        "text": "You can contact the administration of the forrestresort.com.ua website on matters related to the privacy policy at: forrestresort.com@gmail.com, or using the contact form in the relevant section of this website. If you do not agree with this privacy policy, you may not use the services of the forrestresort.com.ua website; in this case, you must refrain from visiting our website.",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_id": "legal-dozvil-na-budivelni-roboty",
+  "_type": "legalDocument",
+  "slug": "dozvil-na-budivelni-roboty",
+  "category": "construction",
+  "editionDate": "2026-06-26",
+  "unapprovedLanguages": [
+   "en"
+  ],
+  "title": [
+   {
+    "_key": "uk",
+    "value": "Дозвіл на виконання будівельних робіт"
+   },
+   {
+    "_key": "en",
+    "value": "Permit for the Performance of Construction Works"
+   }
+  ],
+  "body": [
+   {
+    "_key": "uk",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "86dc3c596b12",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "59586791cab9",
+        "text": "Додаток 9 до Порядку",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c06688306fd2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "48771744c368",
+        "text": "ДЕРЖАВНА ІНСПЕКЦІЯ АРХІТЕКТУРИ ТА МІСТОБУДУВАННЯ УКРАЇНИ ",
+        "marks": []
+       },
+       {
+        "_type": "span",
+        "_key": "ff9920db8980",
+        "text": "44245840",
+        "marks": [
+         "strong"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "96fe4fb47015",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "475dd04fe7b4",
+        "text": "від 03 липня 2026 р. № ІУ013260626624",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "59585e873849",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "15bd0270f787",
+        "text": "Цей дозвіл надано:",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "195ceebf1f33",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "8eaa97791072",
+        "cells": [
+         "замовнику",
+         "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «ПЕРСПЕКТИВА ЗАХІД ІНВЕСТ», УКРАЇНА, Дніпропетровська обл., Дніпровський район, Дніпровська територіальна громада, м. Дніпро (станом на 01.01.2021), вулиця Святослава Хороброго , б. 12 , ЄДРПОУ 45649026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "e70295d62924",
+        "cells": [
+         "генеральному підряднику (підряднику)",
+         "Товариство з обмеженою відповідальністю \"ДНІПРО ЗБК\" (41664779) Україна, 49022, Дніпропетровська обл., місто Дніпро, вулиця ПОВІТРЯНА, будинок 5 +38(098)-177-77-97 ;"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "6c28f902805d",
+        "cells": [
+         "найменування об’єкта будівництва",
+         "Нове будівництво рекреаційного багатофункціонального комплексу з мережею комерційної інфраструктури в с. Поляниця, участок Вишні, Надвірнянського району, Івано-Франківської області"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "9dbc7d3529ff",
+        "cells": [
+         "місце розташування об'єкта будівництва",
+         "Івано-Франківська обл., Надвірнянський район, Поляницька територіальна громада, с. Поляниця (станом на 01.01.2021) участок Вишні, Надвірнянського району, Івано-Франківської області"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "31b1e0387f57",
+        "cells": [
+         "вид будівництва",
+         "Нове будівництво"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "f565a240475a",
+        "cells": [
+         "код об’єкта (згідно з Державним класифікатором будівель та споруд ДК 018-2000)",
+         "1211.1 Готелі"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "e208ab25ab8c",
+        "cells": [
+         "НК 018:2023 «Класифікатор будівель і споруд»",
+         "1211 Будівлі готельні"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "aa9b2bd79493",
+        "cells": [
+         "Класифікатор об’єктів містобудування",
+         "2002010100 будівлі готельні"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "793874ae1fd3",
+        "cells": [
+         "Проектна документація розроблена",
+         "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"А-ІІІ\" Україна, 01001, місто Київ, ВУЛИЦЯ БОРИСА ГРІНЧЕНКА, будинок 7 , ЄДРПОУ 34819789"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "b159ddb8fb70",
+        "cells": [
+         "під керівництвом",
+         "Головний архітектор проекту (ГАП) Антонюк Дмитро Іванович (АА 002472, АА 002503, АА 000008)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "cad4d6e89c17",
+        "cells": [
+         "та затверджена замовником",
+         "Мироненко Ігор Юрійович, Директор ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ «ПЕРСПЕКТИВА ЗАХІД ІНВЕСТ» (45649026), наказом Наказ №05/06 від 5.06.2026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "e654285c102f",
+        "cells": [
+         "клас наслідків (відповідальності)",
+         "СС3"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "0de513f96531",
+        "cells": [
+         "Експертиза проекту будівництва проведена",
+         "ТОВ \"Інститут експертно-технічних рішень у будівництві\" (41230758), КОЛОС ОЛЕКСАНДР АНАТОЛІЙОВИЧ (АЕ 006548, АЕ 000645 )."
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "551ae0bd8b30",
+        "cells": [
+         "Авторський нагляд здійснює",
+         "Антонюк Дмитро Іванович (АА 002472, АА 002503, АА 000008) +38(068)-201-83-25 AI01:2738-3971-7253-2299 Зареєстровано (внесено реєстратором)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "013662ef77de",
+        "cells": [
+         "Технічний нагляд здійснює",
+         "Нестерчук Олександр Володимирович (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) +38(050)-488-25-17 TN01:2882-3092-7086-5909 Зареєстровано (внесено реєстратором)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "99a91d40b85d",
+        "cells": [
+         "Відповідальним виконавцем робіт є",
+         "Спиридоненков Віталій , наказ № від , директор"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "57f7d32cb125",
+        "cells": [
+         "головний інспектор будівельного нагляду",
+         "Шевченко Віктор Валерійович"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "81b5a4468726",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "d1a5a54b5841",
+        "text": "Відомості про реєстрацію документа",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "7c597fd2c87e",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "9ec16eba1df2",
+        "text": "Єдина державна електронна система у сфері будівництва",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "06ac9589a923",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "ea5da7f9443a",
+        "text": "Дозвільний документ",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "bcaed01b38c1",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "bf4260cfa6cf",
+        "cells": [
+         "Реєстраційний номер",
+         "ІУ013260626624"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "deb6a9764cd8",
+        "cells": [
+         "Редакція документа",
+         "№ 1 від 26.06.2026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "fe97f402fd53",
+        "cells": [
+         "Статус документа",
+         "Діючий"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "b51e6e8be43c",
+        "cells": [
+         "Дата формування до підпису",
+         "03.07.2026"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c599f88b4100",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "d5e9d07ab73b",
+        "text": "Перелік підписантів",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "104b6891bfcf",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "a1182d15266d",
+        "text": "Шевченко Віктор Валерійович",
+        "marks": []
+       }
+      ],
+      "listItem": "number",
+      "level": 1
+     },
+     {
+      "_type": "block",
+      "_key": "a79c8cf6b440",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "fcef7909a62f",
+        "text": "Сформовано 03.07.2026",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "_key": "en",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "e76ea0e05608",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "d51c0942c331",
+        "text": "Annex 9 to the Procedure",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "5d756840cb42",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "be61bb248228",
+        "text": "STATE INSPECTION OF ARCHITECTURE AND URBAN PLANNING OF UKRAINE ",
+        "marks": []
+       },
+       {
+        "_type": "span",
+        "_key": "01a43e2d737d",
+        "text": "44245840",
+        "marks": [
+         "strong"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "116ec3ad61d8",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "6734bcbd1909",
+        "text": "dated 03 July 2026 No. ІУ013260626624",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "f9703f0001b9",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "38ca8bd82f60",
+        "text": "This permit is granted:",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "f6fdb1c3c113",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "0401f81d713f",
+        "cells": [
+         "to the customer",
+         "LIMITED LIABILITY COMPANY «PERSPEKTYVA ZAKHID INVEST», UKRAINE, Dnipropetrovsk region, Dnipro district, Dnipro territorial community, Dnipro city (as of 01.01.2021), Sviatoslava Khorobroho street, bldg. 12, EDRPOU 45649026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "f15af6719407",
+        "cells": [
+         "to the general contractor (contractor)",
+         "Limited Liability Company \"DNIPRO ZBK\" (41664779) Ukraine, 49022, Dnipropetrovsk region, Dnipro city, POVITRIANA street, building 5 +38(098)-177-77-97;"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "a6090bfa5f20",
+        "cells": [
+         "name of the construction object",
+         "New construction of a recreational multifunctional complex with a network of commercial infrastructure in Polianytsia village, Vyshni site, Nadvirna district, Ivano-Frankivsk region"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "95019d951166",
+        "cells": [
+         "location of the construction object",
+         "Ivano-Frankivsk region, Nadvirna district, Polianytsia territorial community, Polianytsia village (as of 01.01.2021) Vyshni site, Nadvirna district, Ivano-Frankivsk region"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "5fb7bfc75791",
+        "cells": [
+         "type of construction",
+         "New construction"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "fcf0a4a50c8c",
+        "cells": [
+         "object code (according to the State Classifier of Buildings and Structures DK 018-2000)",
+         "1211.1 Hotels"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "6ff250019625",
+        "cells": [
+         "NK 018:2023 «Classifier of Buildings and Structures»",
+         "1211 Hotel buildings"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "9e65aa54936a",
+        "cells": [
+         "Classifier of Urban Planning Objects",
+         "2002010100 hotel buildings"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "1331f838ec1e",
+        "cells": [
+         "Design documentation developed by",
+         "LIMITED LIABILITY COMPANY \"A-III\" Ukraine, 01001, Kyiv city, BORYSA HRINCHENKA STREET, building 7, EDRPOU 34819789"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "e1fcba625de2",
+        "cells": [
+         "under the supervision of",
+         "Chief Project Architect (CPA) Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "c53c3d3366cc",
+        "cells": [
+         "and approved by the customer",
+         "Myronenko Ihor Yuriiovych, Director of LIMITED LIABILITY COMPANY «PERSPEKTYVA ZAKHID INVEST» (45649026), by Order No. 05/06 dated 5.06.2026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "8a9f3d1a0ea6",
+        "cells": [
+         "consequence (responsibility) class",
+         "СС3"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "0e1e89d0aba0",
+        "cells": [
+         "Expert review of the construction project carried out by",
+         "LLC \"Instytut ekspertno-tekhnichnykh rishen u budivnytstvi\" (41230758), KOLOS OLEKSANDR ANATOLIIOVYCH (АЕ 006548, АЕ 000645)."
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "88f937e67416",
+        "cells": [
+         "Author's supervision carried out by",
+         "Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008) +38(068)-201-83-25 AI01:2738-3971-7253-2299 Registered (entered by the registrar)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "88162c8dca5c",
+        "cells": [
+         "Technical supervision carried out by",
+         "Nesterchuk Oleksandr Volodymyrovych (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) +38(050)-488-25-17 TN01:2882-3092-7086-5909 Registered (entered by the registrar)"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "92eb4dd63ed6",
+        "cells": [
+         "Person responsible for performing the works",
+         "Spyrydonenkov Vitalii, order No. dated, director"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "977238f780a8",
+        "cells": [
+         "chief construction supervision inspector",
+         "Shevchenko Viktor Valeriiovych"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "6426ac70de10",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "dd4f91971ddd",
+        "text": "Document registration details",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "06545ebe74f1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "8afbe3120ebc",
+        "text": "Unified State Electronic System in the Field of Construction",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "7816b552929b",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "4bc0b99baa68",
+        "text": "Permit document",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "c56d752c24f7",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "5bd82464daeb",
+        "cells": [
+         "Registration number",
+         "ІУ013260626624"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "df659640b0db",
+        "cells": [
+         "Document version",
+         "No. 1 dated 26.06.2026"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "78ae67b2f4d2",
+        "cells": [
+         "Document status",
+         "Valid"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "5cea6f7e9e00",
+        "cells": [
+         "Date generated for signing",
+         "03.07.2026"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "fe312956ae3b",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "aedec0c4d812",
+        "text": "List of signatories",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "04f61dfa5e93",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "090712ea7c25",
+        "text": "Shevchenko Viktor Valeriiovych",
+        "marks": []
+       }
+      ],
+      "listItem": "number",
+      "level": 1
+     },
+     {
+      "_type": "block",
+      "_key": "d53f32b3c7a2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "0967ca2ea7b5",
+        "text": "Generated 03.07.2026",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_id": "legal-vytiah-z-reiestru-rechovykh-prav",
+  "_type": "legalDocument",
+  "slug": "vytiah-z-reiestru-rechovykh-prav",
+  "category": "construction",
+  "unapprovedLanguages": [
+   "en"
+  ],
+  "title": [
+   {
+    "_key": "uk",
+    "value": "Витяг з Державного реєстру речових прав"
+   },
+   {
+    "_key": "en",
+    "value": "Extract from the State Register of Real Property Rights"
+   }
+  ],
+  "body": [
+   {
+    "_key": "uk",
+    "value": [
+     {
+      "_type": "docTable",
+      "_key": "43cd84ad4721",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "7c952cdc544e",
+        "cells": [
+         "Індексний номер витягу",
+         "491126585"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "8b27b207078c",
+        "cells": [
+         "Дата, час формування",
+         "23.08.2026 22:15:01"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "8fc134e04ae6",
+        "cells": [
+         "Витяг сформовано",
+         "Інформаційна Система Державний Реєстр Прав"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "791e9e48fbdb",
+        "cells": [
+         "Підстава надання витягу",
+         "заява з реєстраційним номером: 74763381, дата і час реєстрації заяви: 23.08.2026 22:00:01"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "842cf519631d",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "925204005e8f",
+        "text": "Актуальна інформація про об’єкт речових прав",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "9ca42bf2c44b",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "6a907857aa38",
+        "cells": [
+         "Реєстраційний номер об’єкта нерухомого майна",
+         "3387023526120"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "0246c5ca7890",
+        "cells": [
+         "Об’єкт речових прав",
+         "об’єкт будівництва"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "8550ef69f36e",
+        "cells": [
+         "Тип об’єкта",
+         "будівля"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "1f8fd7d42fa3",
+        "cells": [
+         "Ідентифікатор об’єкта в ЄДЕССБ",
+         "01.2440132.4835530.20260529.22.0000.36"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "72abd188ca51",
+        "cells": [
+         "Опис об’єкта",
+         "Загальна площа (кв.м): 12673.56"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "b6e14cedb114",
+        "cells": [
+         "Адреса",
+         "Івано-Франківська обл., Надвірнянський р., с. Поляниця, участок Вишні, будинок 676, корп. 1"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "4d6f01750b3f",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "ba81124e4336",
+        "text": "Актуальна інформація про речове право",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "d6850ec7b13c",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "3ede600cf6e4",
+        "text": "Номер відомостей про речове право: 66145942",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "c6c30b09fd3c",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "a6db8e1d3a38",
+        "cells": [
+         "Тип речового права",
+         "спеціальне майнове право"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "_key": "en",
+    "value": [
+     {
+      "_type": "docTable",
+      "_key": "6c4e44ec9744",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "0257da31afbd",
+        "cells": [
+         "Extract index number",
+         "491126585"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "0a74559d9ee5",
+        "cells": [
+         "Date and time generated",
+         "23.08.2026 22:15:01"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "2a4232e15347",
+        "cells": [
+         "Extract generated by",
+         "Information System State Register of Rights"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "76726b598c86",
+        "cells": [
+         "Grounds for issuing the extract",
+         "application with registration number: 74763381, date and time of application registration: 23.08.2026 22:00:01"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "a12d9b916014",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "77ee4bbc9a39",
+        "text": "Current information on the object of real property rights",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "b30b2228be11",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "c00808d95420",
+        "cells": [
+         "Registration number of the real estate object",
+         "3387023526120"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "654f1cda385f",
+        "cells": [
+         "Object of real property rights",
+         "construction object"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "16d7582845f8",
+        "cells": [
+         "Object type",
+         "building"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "bda9dbc4d8b6",
+        "cells": [
+         "Object identifier in the Unified State Electronic System in the Field of Construction",
+         "01.2440132.4835530.20260529.22.0000.36"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "f85b26b2496c",
+        "cells": [
+         "Object description",
+         "Total area (sq. m): 12673.56"
+        ]
+       },
+       {
+        "_type": "docTableRow",
+        "_key": "4b07aa9fd6ce",
+        "cells": [
+         "Address",
+         "Ivano-Frankivsk region, Nadvirna district, Polianytsia village, Vyshni site, building 676, block 1"
+        ]
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "747b7c75baea",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "9d938e5fa188",
+        "text": "Current information on the real property right",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "63d987dcdfd7",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "17b7bf0e72ce",
+        "text": "Real property right record number: 66145942",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "docTable",
+      "_key": "b8604d9b3e79",
+      "headerRow": false,
+      "rows": [
+       {
+        "_type": "docTableRow",
+        "_key": "b23c239fe59c",
+        "cells": [
+         "Type of real property right",
+         "special property right"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "_id": "legal-pravo-na-zemelnu-dilianku",
+  "_type": "legalDocument",
+  "slug": "pravo-na-zemelnu-dilianku",
+  "category": "construction",
+  "unapprovedLanguages": [
+   "en"
+  ],
+  "title": [
+   {
+    "_key": "uk",
+    "value": "Документ, що засвідчує право власності (користування) земельною ділянкою"
+   },
+   {
+    "_key": "en",
+    "value": "Document Certifying the Right of Ownership (Use) of a Land Plot"
+   }
+  ],
+  "body": [
+   {
+    "_key": "uk",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "3c6ff57e21d6",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "539b9a0a797e",
+        "text": "Кадастровий номер: 2611092001:22:002:4615",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "59737fc7fb99",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "fd091601c415",
+        "text": "Площа: 2.2689 га",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "b4e1187f5af7",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "903b5f6f4a64",
+        "text": "Цільове призначення: 07.01 Для будівництва та обслуговування об'єктів рекреаційного призначення",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "8bb248601854",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "38bc37edc94b",
+        "text": "Відомості документу про право користування підтверджені ДРРП",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "_key": "en",
+    "value": [
+     {
+      "_type": "block",
+      "_key": "929fe2d648f2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "b43cf81e5c55",
+        "text": "Cadastral number: 2611092001:22:002:4615",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "d2d6f5ba4464",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "615df2fde862",
+        "text": "Area: 2.2689 ha",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "c3758536687e",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "6ff34d5de948",
+        "text": "Intended purpose: 07.01 For the construction and maintenance of recreational facilities",
+        "marks": []
+       }
+      ]
+     },
+     {
+      "_type": "block",
+      "_key": "459e3752120e",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+       {
+        "_type": "span",
+        "_key": "c5a90ca051e8",
+        "text": "The information in the document on the right of use is confirmed by the State Register of Real Property Rights",
+        "marks": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

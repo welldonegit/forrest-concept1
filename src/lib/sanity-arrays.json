@@ -26,6 +26,15 @@
   "popups.quiz.budgets",
   "popups.quiz.countries"
  ],
+ "legalDocument": [
+  "unapprovedLanguages"
+ ],
+ "docTable": [
+  "rows"
+ ],
+ "docTableRow": [
+  "cells"
+ ],
  "hero": [
   "skyline.points",
   "title"
@@ -95,5 +104,8 @@
  ],
  "footerGroup": [
   "links"
+ ],
+ "legalDocumentTexts": [
+  "body"
  ]
 }
