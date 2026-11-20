@@ -40,8 +40,9 @@
     }
   ],
   "vars": {
-    // Публичный ключ Turnstile (site key). Пусто — капча не настроена, форма показывает ошибку.
-    "TURNSTILE_SITE_KEY": "",
+    // Публичный ключ Turnstile (site key) для боевого домена forrestresort.com.ua (виджет в панели
+    // Cloudflare → Turnstile, получен 2026-11-20). Пара к нему — секрет TURNSTILE_SECRET_KEY в панели.
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAGKQ4629lyc9njjl",
     // Ключ для превью: действует только на *.workers.dev и localhost (выбирает captcha.js по адресу),
     // на боевом домене — TURNSTILE_SITE_KEY. Сейчас — тестовый ключ Cloudflare «всегда успех»;
     // пара к нему — секрет TURNSTILE_SECRET_KEY = 1x0000000000000000000000000000000AA (Worker принимает

@@ -11,6 +11,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { chromium } from 'playwright';
+import { wranglerVar } from '../src/integrations/wrangler-vars.ts';
 import { startWorker, TEST_SITE_KEY } from './lib/local-worker.mjs';
 
 const PORT = 8794;
@@ -176,12 +177,23 @@ test('ошибка отправки: текст из Sanity, введённое 
   await page.close();
 });
 
-test('боевой адрес: тестовый ключ превью не используется — заявка не уходит, видна ошибка', async () => {
+test('боевой адрес: виджет с боевым ключом, тестовый секрет сервер не принимает — заявки нет, видна ошибка', async () => {
   const b = await chromium.launch({ args: [`--host-resolver-rules=MAP forrest-prod.test 127.0.0.1`] });
   const page = await b.newPage({ viewport: { width: 1440, height: 900 } });
-  let posted = 0;
-  page.on('request', (r) => { if (r.url().includes('/api/lead')) posted++; });
+  // свой «IP»: предыдущие тесты с того же адреса уже исчерпали лимит 5 заявок в минуту
+  await page.setExtraHTTPHeaders({ 'cf-connecting-ip': '198.51.100.250' });
+  // Turnstile подменён заглушкой: запоминает ключ виджета и сразу выдаёт токен.
+  await page.route('https://challenges.cloudflare.com/**', (r) => r.fulfill({
+    contentType: 'application/javascript',
+    body: `window.__sitekeys = []; window.turnstile = {
+      render(el, o) { window.__sitekeys.push(o.sitekey); setTimeout(() => o.callback('stub-token')); return 'w1'; },
+      reset() {}, remove() {} };
+      window.__forrestTurnstile && window.__forrestTurnstile();`,
+  }));
+  const responses = [];
+  page.on('response', async (r) => { if (r.url().includes('/api/lead')) responses.push(await r.json().catch(() => null)); });
   await page.goto(`http://forrest-prod.test:${PORT}/uk/`);
+  const before = leadsOf('finmodel').length;
   const form = page.locator('form[data-lead-form="finmodel"]');
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Prod');
@@ -189,9 +201,12 @@ test('боевой адрес: тестовый ключ превью не ис�
   await form.locator('button[type=submit]').click();
   const status = form.locator('[data-form-status]');
   await status.waitFor({ state: 'visible' });
+  const siteKey = wranglerVar('TURNSTILE_SITE_KEY');
+  assert.ok(siteKey && !siteKey.startsWith('1x'), 'в wrangler.jsonc боевой ключ');
+  assert.deepEqual(await page.evaluate(() => window.__sitekeys), [siteKey], 'на боевом адресе — боевой ключ, не тестовый');
+  assert.deepEqual(responses.map((r) => r?.error), ['captcha_unavailable'], 'тестовый секрет на боевом адресе не принимается');
   assert.equal(await status.textContent(), await status.getAttribute('data-msg-send'));
-  assert.equal(posted, 0);
-  assert.equal(await page.evaluate(() => !!document.querySelector('script[src*="challenges.cloudflare.com"]')), false);
+  assert.equal(leadsOf('finmodel').length, before);
   await b.close();
 });
 
