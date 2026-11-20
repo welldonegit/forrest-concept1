@@ -6,10 +6,8 @@
  */
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import path from 'node:path';
+import { existsSync } from 'node:fs';
+import { startWorker } from './lib/local-worker.mjs';
 
 const PORT = 8791;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -22,45 +20,10 @@ if (!existsSync('dist/client/404.html')) {
   process.exit(1);
 }
 
-const state = mkdtempSync(path.join(tmpdir(), 'forrest-api-'));
-const envFile = path.join(state, 'test.env');
-// Только тестовые значения; .dev.vars разработчика не участвует. Каналы — не настроены.
-writeFileSync(envFile, 'TURNSTILE_SITE_KEY=1x00000000000000000000AA\nTURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA\n');
-
-let dev;
-before(async () => {
-  dev = spawn(
-    'npx',
-    ['wrangler', 'dev', '--config', 'wrangler.jsonc', '--ip', '127.0.0.1', '--port', String(PORT),
-      '--persist-to', path.join(state, 'wrangler'), '--env-file', envFile,
-      '--show-interactive-dev-session=false', '--log-level', 'warn'],
-    { stdio: ['ignore', 'pipe', 'pipe'], detached: true },
-  );
-  let log = '';
-  dev.stdout.on('data', (d) => (log += d));
-  dev.stderr.on('data', (d) => (log += d));
-  const deadline = Date.now() + 60_000;
-  for (;;) {
-    try {
-      const r = await fetch(`${BASE}/uk/`);
-      if (r.ok) break;
-    } catch {}
-    if (Date.now() > deadline) throw new Error(`wrangler dev не поднялся:\n${log}`);
-    await new Promise((r) => setTimeout(r, 500));
-  }
-});
-
-after(() => {
-  if (dev) process.kill(-dev.pid, 'SIGTERM');
-  rmSync(state, { recursive: true, force: true });
-});
-
-/** Запрос к D1 той же локальной базы. */
-function sql(query) {
-  const out = execFileSync('npx', ['wrangler', 'd1', 'execute', 'DB', '--local', '--config', 'wrangler.jsonc',
-    '--persist-to', path.join(state, 'wrangler'), '--json', '--command', query], { encoding: 'utf8' });
-  return JSON.parse(out)[0].results;
-}
+let worker;
+before(async () => { worker = await startWorker(PORT); });
+after(() => worker?.stop());
+const sql = (q) => worker.sql(q);
 
 let ipCounter = 0;
 /** Каждый тест — свой «IP», чтобы лимит частоты не мешал соседним тестам. */
@@ -213,4 +176,17 @@ test('лимит частоты: шестая заявка с одного IP з
   const statuses = [];
   for (let i = 0; i < 6; i++) statuses.push((await post(lead({ fields: { phone: '12' } }), { ip })).status);
   assert.deepEqual(statuses, [400, 400, 400, 400, 400, 429]);
+});
+
+test('форма без JS (обычный POST): возврат на страницу, ничего не записано', async () => {
+  const before = sql('SELECT COUNT(*) AS n FROM leads')[0].n;
+  const r = await fetch(`${BASE}/api/lead`, {
+    method: 'POST',
+    redirect: 'manual',
+    headers: { 'content-type': 'application/x-www-form-urlencoded', origin: BASE, referer: `${BASE}/en/?x=1` },
+    body: 'name=Test&phone=%2B380671234567',
+  });
+  assert.equal(r.status, 303);
+  assert.equal(r.headers.get('location'), `${BASE}/en/`);
+  assert.equal(sql('SELECT COUNT(*) AS n FROM leads')[0].n, before);
 });

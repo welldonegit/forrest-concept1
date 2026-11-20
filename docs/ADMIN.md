@@ -89,6 +89,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
 | Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
 | Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
+| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures TURNSTILE_SITE_KEY=1x00000000000000000000AA npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
 
 - Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестова пара ключів Turnstile Cloudflare. Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
 - Локальна база D1 — у `.wrangler/state`, створюється сама: таблиці Worker створює при першому запиті. Подивитись заявки: `npx wrangler d1 execute DB --local --config wrangler.jsonc --command "SELECT id, created_at, form FROM leads"`.
@@ -101,7 +102,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 Що де лежить (докладно — `docs/LEADS.md`):
 
 - **Секрети** — Worker `forrest-trinity-resort` → Settings → Variables and Secrets → тип *Secret*: `TURNSTILE_SECRET_KEY`, `TELEGRAM_BOT_TOKEN`, `CRM_TOKEN`. Після збереження Worker одразу бере нове значення, правки коду не потрібні.
-- **Несекретні налаштування** — `vars` у `wrangler.jsonc` (через коміт): `TURNSTILE_SITE_KEY`, `TELEGRAM_CHAT_ID`, `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID`. У панелі їх не задавати: викладка перезапише.
+- **Несекретні налаштування** — `vars` у `wrangler.jsonc` (через коміт; збірка сайту бере звідти ж публічний ключ Turnstile): `TURNSTILE_SITE_KEY`, `TELEGRAM_CHAT_ID`, `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID`. У панелі їх не задавати: викладка перезапише.
 - **База** — D1 `forrest-leads`, ID у `wrangler.jsonc`. Таблиці створює сам Worker.
 - Канал без ключів — статус «не налаштований»; заявки, що прийшли до появи ключів, не досилаються.
 - Без ключів Turnstile на бойовому домені форма показує помилку і заявок не приймає. Тестові ключі Cloudflare працюють лише на localhost і `*.workers.dev`.

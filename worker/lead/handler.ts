@@ -16,6 +16,15 @@ import { captchaSecret, verifyTurnstile } from './turnstile';
 
 const MAX_BODY = 32 * 1024;
 
+function backToPage(request: Request, url: URL): Response {
+  let target = `${url.origin}/`;
+  try {
+    const ref = new URL(request.headers.get('referer') ?? '');
+    if (ref.origin === url.origin) target = ref.origin + ref.pathname;
+  } catch { /* нет referer — на главную */ }
+  return new Response(null, { status: 303, headers: { location: target, 'cache-control': 'no-store', 'x-forrest-api': '1' } });
+}
+
 export async function handleLead(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
   if (request.method !== 'POST') return error('method_not_allowed', 405, {}, { allow: 'POST' });
 
@@ -24,7 +33,13 @@ export async function handleLead(request: Request, env: Env, ctx: ExecutionConte
   const origin = request.headers.get('origin');
   if (origin && origin !== url.origin) return error('forbidden', 403);
 
-  if (!(request.headers.get('content-type') ?? '').toLowerCase().startsWith('application/json')) {
+  const type = (request.headers.get('content-type') ?? '').toLowerCase();
+  // Форма отправлена без JS (обычный POST браузера): ничего не принимаем — возвращаем на ту же
+  // страницу сайта, там вместо кнопки телефон и мессенджеры. Данные формы в адрес не попадают.
+  if (type.startsWith('application/x-www-form-urlencoded') || type.startsWith('multipart/form-data')) {
+    return backToPage(request, url);
+  }
+  if (!type.startsWith('application/json')) {
     return error('unsupported_media_type', 415);
   }
 

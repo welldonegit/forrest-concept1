@@ -31,3 +31,6 @@ html.is-pop-locked{overflow:hidden}
 .text-pop-btn{font-family:var(--font-text); font-size:var(--type-pop-btn-size); line-height:var(--type-pop-btn-lh); font-weight:600}
 .text-pop-err{font-family:var(--font-text); font-size:var(--type-pop-err-size); line-height:var(--type-pop-err-lh); font-weight:600}
 .text-pop-sub{font-family:var(--font-text); font-size:var(--type-pop-sub-size); line-height:var(--type-pop-sub-lh); font-weight:500}
+
+/* Капча форм попапов: виден, только когда Cloudflare просит действие посетителя (captcha.js ставит data-interactive). */
+.pop-captcha:not([data-interactive]){display:none}
