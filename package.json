@@ -11,7 +11,7 @@
     "acceptance": "node scripts/acceptance/compare.mjs",
     "test:api": "node --experimental-strip-types --no-warnings --test scripts/api-test.mjs",
     "deploy": "wrangler deploy --config wrangler.jsonc",
-    "dev:api": "wrangler dev --config wrangler.jsonc",
+    "dev:api": "wrangler dev --config wrangler.jsonc --infer-origin-from-routes=false",
     "test:e2e": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/leads-e2e.mjs",
     "test:schedule": "node --test --test-concurrency=1 scripts/schedule-test.mjs",
     "test:crm": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/crm-test.mjs",

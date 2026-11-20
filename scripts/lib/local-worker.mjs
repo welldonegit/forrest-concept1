@@ -21,7 +21,9 @@ export async function startWorker(port, extraEnv = {}) {
   const dev = spawn(
     'npx',
     ['wrangler', 'dev', '--config', 'wrangler.jsonc', '--ip', '127.0.0.1', '--port', String(port),
-      '--persist-to', persist, '--env-file', envFile, '--show-interactive-dev-session=false', '--log-level', 'warn', '--test-scheduled'],
+      '--persist-to', persist, '--env-file', envFile, '--show-interactive-dev-session=false',
+      // с routes (боевой домен) wrangler иначе подставляет его в request.url вместо настоящего адреса
+      '--infer-origin-from-routes=false', '--log-level', 'warn', '--test-scheduled'],
     { stdio: ['ignore', 'pipe', 'pipe'], detached: true },
   );
   let log = '';

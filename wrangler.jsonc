@@ -15,6 +15,15 @@
   "name": "forrest-trinity-resort",
   "main": "worker/index.ts",
   "compatibility_date": "2026-11-10",
+  // Домены. Список — полный набор Custom Domains этого Worker: выкладка приводит панель к нему
+  // (домен, добавленный только в панели, будет отвязан). DNS-запись Custom Domain Cloudflare создаёт сам.
+  // www → основной домен — правило Redirect Rules зоны в панели (docs/ADMIN.md, «Домен»).
+  "routes": [
+    { "pattern": "forrestresort.com.ua", "custom_domain": true },
+    { "pattern": "www.forrestresort.com.ua", "custom_domain": true }
+  ],
+  // С routes wrangler по умолчанию выключает адрес *.workers.dev — он нужен как превью.
+  "workers_dev": true,
   "assets": {
     "directory": "./dist/client",
     // Worker вызывается первым только для API; файлы статики идут мимо него.
@@ -47,14 +56,15 @@
     "TURNSTILE_SITE_KEY": "0x4AAAAAAGKQ4629lyc9njjl",
     // Telegram: ID чата для заявок (группа — отрицательное число, супергруппа — начинается с -100).
     // Токен бота — секрет TELEGRAM_BOT_TOKEN (панель). Инструкция — docs/ADMIN.md.
-    "TELEGRAM_CHAT_ID": "",
-    // G-PLUS CRM: ключ источника (/api/v1/lead_sources), ID этапа (/api/v1/pipelines), ID здания (/api/v1/buildings).
-    "CRM_SOURCE": "",
+    "TELEGRAM_CHAT_ID": "292204468",
+    // G-PLUS CRM (значения — из npm run crm:explore, 2026-11-20):
+    // источник «Сайт» (/api/v1/lead_sources); этап (/api/v1/pipelines) — пусто: этапа для новых заявок
+    // в воронке нет, CRM ставит свой первый; здание FORREST TRINITY RESORT (/api/v1/buildings).
+    "CRM_SOURCE": "developer-site",
     "CRM_STAGE_ID": "",
-    "CRM_BUILDING_ID": "",
-    // Запасной вариант для UTM, если data.utm не сохраняется (проверка — npm run crm:check):
-    // JSON строкой, ID кастомных полей лида из /api/v1/custom_fields, например
-    // "{\"utm_source\":\"<uuid>\",\"utm_campaign\":\"<uuid>\"}". Пусто — не используется.
+    "CRM_BUILDING_ID": "26458",
+    // UTM идут в data.utm: кастомных полей под UTM в CRM нет. Запасной вариант, если data.utm
+    // не сохраняется (проверка — npm run crm:check): JSON строкой { "utm_source": "<ID поля>", … }.
     "CRM_UTM_FIELDS": ""
   },
   // Раз в 10 минут: повторы доставки (через 10 минут и через час) и удаление заявок старше 90 дней.

@@ -99,6 +99,16 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 - Після зміни `wrangler.jsonc` оновіть типи для редактора: `npx wrangler types worker/worker-configuration.d.ts --config wrangler.jsonc` (файл поза Git).
 - Викладка — **тільки** `npm run deploy` (= `npx wrangler deploy --config wrangler.jsonc`). Звичайний `npx wrangler deploy` бере конфіг адаптера Astro без коду Worker і падає з помилкою `run_worker_first`.
 
+## Домен
+
+- Worker `forrest-trinity-resort` відповідає на `forrestresort.com.ua` і `www.forrestresort.com.ua` (Custom Domains) та на превʼю `forrest-trinity-resort.forrestresort-com.workers.dev`.
+- Домени записані в `wrangler.jsonc` → `routes` (`custom_domain: true`). Цей список — **повний**: кожна викладка приводить домени Worker до нього, домен, доданий лише в панелі, буде відвʼязано. Новий домен — рядком у `routes` через коміт.
+- `"workers_dev": true` обовʼязковий: з `routes` wrangler інакше вимикає адресу `*.workers.dev` (документація Cloudflare, «workers.dev»).
+- DNS-запис для Custom Domain Cloudflare створює сам. Токен збірки Workers Builds має право `Workers Routes (edit)`, права на DNS у ньому немає, тому новий домен спершу додайте в панелі (Worker → Settings → Domains & Routes → Add → Custom Domain), потім — у `routes`.
+- **www → основний домен** — правило зони, не код: Cloudflare → `forrestresort.com.ua` → Rules → Redirect Rules → шаблон «Redirect from WWW to root» (або вручну: запит `https://www.*`, ціль `https://${1}`, 301, зберігати рядок запиту). Статика йде повз код Worker, тому переадресація в Worker не працює.
+- Перевірка: `curl -sI https://www.forrestresort.com.ua/uk/?a=1` → `301`, `location: https://forrestresort.com.ua/uk/?a=1`.
+- `npm run dev:api` запускається з `--infer-origin-from-routes=false`: інакше wrangler підставляє бойовий домен в адресу запиту і Worker не приймає тестовий секрет Turnstile.
+
 ## Заявки: налаштування Cloudflare
 
 Що де лежить (докладно — `docs/LEADS.md`):
@@ -117,7 +127,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 2. **Додати бота в групу.** Створіть групу для відділу продажів (або візьміть наявну) → «Додати учасника» → знайдіть бота за імʼям → додати. Права адміністратора не потрібні: досить права писати повідомлення.
 3. **Заборонити додавати бота в інші групи** (щоб заявки не потрапили до сторонніх): @BotFather → `/setjoingroups` → оберіть бота → **Disable**. Робіть це *після* кроку 2.
 4. **Дізнатися ID чату.** Напишіть у групі будь-яке повідомлення, наприклад `/start@forrest_leads_bot`. Потім у браузері відкрийте `https://api.telegram.org/bot<ТОКЕН>/getUpdates` (замість `<ТОКЕН>` — токен з кроку 1). У відповіді знайдіть `"chat":{"id":-100…` — це число з мінусом і є ID чату. Якщо відповідь порожня (`"result":[]`), напишіть у групі ще раз і оновіть сторінку. Telegram зберігає ці повідомлення 24 години.
-   - ID групи — відʼємне число; у супергрупи починається з `-100`. Якщо пізніше в налаштуваннях групи змінити, наприклад, видимість історії, Telegram може перетворити групу на супергрупу з новим ID. Сайт це помітить і доставить заявку за новим ID, але ID у налаштуваннях варто оновити (повторіть крок 4).
+   - ID групи — відʼємне число; додатне число — особистий чат з людиною (бот пише лише тому, хто натиснув у боті «Start»); у супергрупи починається з `-100`. Якщо пізніше в налаштуваннях групи змінити, наприклад, видимість історії, Telegram може перетворити групу на супергрупу з новим ID. Сайт це помітить і доставить заявку за новим ID, але ID у налаштуваннях варто оновити (повторіть крок 4).
 5. **Вписати ключі.**
    - Токен — Cloudflare → Workers & Pages → `forrest-trinity-resort` → Settings → Variables and Secrets → **Add** → тип **Secret**, імʼя `TELEGRAM_BOT_TOKEN`, значення — токен → Deploy. Пересборка не потрібна.
    - ID чату — `wrangler.jsonc` → `vars` → `TELEGRAM_CHAT_ID` (ID не секрет; надішліть його розробнику, він впише й закомітить). У панелі як змінну не задавати: викладка її перезапише.

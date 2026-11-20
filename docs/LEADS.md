@@ -151,6 +151,15 @@
 | номер, источник, страница, время по Киеву, согласие, ответы и расчёт квиза, gclid, fbclid, referrer, landing, всё длинное | note | начинается с «Заявка з лендінгу Forrest\nНомер: FR-…» |
 | fields.country (код страны телефона) | — | уже в номере |
 
+## Настройки (2026-11-20, из npm run crm:explore)
+- TELEGRAM_CHAT_ID = 292204468 (положительный — личный чат, не группа).
+- CRM_SOURCE = developer-site (источник «Сайт»); CRM_BUILDING_ID = 26458
+  (FORREST TRINITY RESORT); CRM_STAGE_ID пусто — этапа для новых заявок
+  в воронке нет, лид встаёт на первый этап CRM (accepted, «Не має зв'язку»).
+- UTM — в data.utm: кастомных полей под UTM в CRM нет (CRM_UTM_FIELDS пусто).
+- Домены — wrangler.jsonc → routes (custom domains), workers.dev остаётся
+  превью (docs/ADMIN.md, «Домен»).
+
 ## Секреты и настройки
 - Секреты (токен бота, токен CRM, секрет Turnstile) — только в секретах
   Cloudflare и локальном файле вне Git (.dev.vars). В чат не запрашивать.
