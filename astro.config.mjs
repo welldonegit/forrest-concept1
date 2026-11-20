@@ -35,8 +35,9 @@ export default defineConfig({
       // Публичный ключ Turnstile: wrangler.jsonc → vars (или переменная окружения TURNSTILE_SITE_KEY).
       // Пусто — капча не настроена, форма показывает ошибку отправки.
       __TURNSTILE_SITE_KEY__: JSON.stringify(wranglerVar('TURNSTILE_SITE_KEY')),
-      // Ключ для адреса превью (*.workers.dev, localhost); на боевом домене не используется (captcha.js).
-      __TURNSTILE_PREVIEW_SITE_KEY__: JSON.stringify(wranglerVar('TURNSTILE_PREVIEW_SITE_KEY')),
+      // Тестовый ключ для localhost — только из окружения сборки (npm run build:test), не из wrangler.jsonc:
+      // в боевую сборку не попадает. На других адресах не используется (captcha.js).
+      __TURNSTILE_LOCAL_SITE_KEY__: JSON.stringify(process.env.TURNSTILE_LOCAL_SITE_KEY?.trim() ?? ''),
     },
   },
   // Дев-сервер в контейнере: слушать все адреса IPv4 — иначе Astro садится на [::1],

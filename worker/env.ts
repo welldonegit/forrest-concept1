@@ -7,8 +7,6 @@ export interface Env {
   LEAD_RATE_LIMIT: RateLimit;
   /** Несекретные настройки — wrangler.jsonc → vars. Пустая строка = не задано. */
   TURNSTILE_SITE_KEY: string;
-  /** Публичный ключ для адреса превью — читает только сборка сайта (captcha.js). */
-  TURNSTILE_PREVIEW_SITE_KEY: string;
   TELEGRAM_CHAT_ID: string;
   CRM_SOURCE: string;
   CRM_STAGE_ID: string;

@@ -1,7 +1,8 @@
 /**
  * Проверка токена Turnstile на сервере (siteverify).
- * Ключей по умолчанию в коде нет. Тестовые ключи Cloudflare принимаются только
- * локально и на превью (*.workers.dev): на боевом домене тестовая пара = «не настроено».
+ * Ключей по умолчанию в коде нет. Тестовые ключи Cloudflare принимаются только локально
+ * (localhost): боевой домен и превью (*.workers.dev) работают на одной настоящей паре,
+ * тестовая пара там = «не настроено».
  */
 import type { Env } from '../env';
 
@@ -12,15 +13,15 @@ const TEST_SECRET = /^[123]x0{31}AA$/;
 
 export type CaptchaResult = 'ok' | 'failed' | 'unavailable';
 
-export function isPreviewHost(hostname: string): boolean {
-  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.workers.dev');
+export function isLocalHost(hostname: string): boolean {
+  return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
 /** Секрет, которым можно проверять на этом адресе, или null («капча не настроена»). */
 export function captchaSecret(env: Env, hostname: string): string | null {
   const secret = env.TURNSTILE_SECRET_KEY?.trim();
   if (!secret) return null;
-  if (TEST_SECRET.test(secret) && !isPreviewHost(hostname)) return null;
+  if (TEST_SECRET.test(secret) && !isLocalHost(hostname)) return null;
   return secret;
 }
 

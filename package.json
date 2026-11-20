@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:test": "CONTENT_SOURCE=fixtures TURNSTILE_LOCAL_SITE_KEY=1x00000000000000000000AA astro build",
     "preview": "astro preview",
     "check": "astro check",
     "acceptance": "node scripts/acceptance/compare.mjs",

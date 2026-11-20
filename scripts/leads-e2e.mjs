@@ -4,7 +4,7 @@
  * в D1 — заявка из каждого источника с метками из cookie gp_utm. Плюс: событие dataLayer без
  * личных данных, ошибка отправки сохраняет введённое, без JS вместо кнопки — телефон.
  *
- * Запуск: CONTENT_SOURCE=fixtures npm run build (тестовый ключ превью — из wrangler.jsonc)
+ * Запуск: npm run build:test (фикстуры + тестовый ключ Turnstile для localhost)
  *         → npm run test:e2e   (нужен интернет: капча Cloudflare с тестовыми ключами)
  */
 import { test, before, after } from 'node:test';
@@ -19,7 +19,7 @@ const UTM = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'e2e-spring
 
 const chunks = readdirSync('dist/client/_astro').filter((f) => f.endsWith('.js'));
 if (!chunks.some((f) => readFileSync(`dist/client/_astro/${f}`, 'utf8').includes(TEST_SITE_KEY))) {
-  console.error('В сборке нет тестового ключа Turnstile (wrangler.jsonc → TURNSTILE_PREVIEW_SITE_KEY): CONTENT_SOURCE=fixtures npm run build');
+  console.error('В сборке нет тестового ключа Turnstile для localhost: npm run build:test');
   process.exit(1);
 }
 

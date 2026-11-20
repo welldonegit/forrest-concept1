@@ -89,12 +89,12 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
 | Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
 | Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
-| Заявки в браузері (4 джерела, UTM, без JS) | `CONTENT_SOURCE=fixtures npm run build`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
+| Заявки в браузері (4 джерела, UTM, без JS) | `npm run build:test`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
 | Telegram і розклад (збої, повтори, очищення) | `npm run build`, потім `npm run test:schedule` | свій Worker на :8795 і підробний Bot API на :8796; справжній Telegram не викликається |
 
-- Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестова пара ключів Turnstile Cloudflare. Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
+- Перед `npm run dev:api` скопіюйте `.dev.vars.example` у `.dev.vars` (файл поза Git): там тестовий секрет Turnstile Cloudflare; сайт для форм на localhost збирайте `npm run build:test` (тестовий публічний ключ, лише для localhost). Справжні токени (бот, CRM) у `.dev.vars` можна вписати для перевірки, але не комітити.
 - Локальна база D1 — у `.wrangler/state`, створюється сама: таблиці Worker створює при першому запиті. Подивитись заявки: `npx wrangler d1 execute DB --local --config wrangler.jsonc --command "SELECT id, created_at, form FROM leads"`.
-- `npm run test:api` потребує зібраної сторінки 404. Поки її тексти не заповнені в Sanity, збирайте з фікстур: `CONTENT_SOURCE=fixtures npm run build`. Тестам потрібен інтернет: капчу перевіряє сервер Cloudflare (тестові ключі).
+- `npm run test:api` потребує зібраної сторінки 404. Збирайте з фікстур і тестовим ключем Turnstile для localhost: `npm run build:test`. Тестам потрібен інтернет: капчу перевіряє сервер Cloudflare (тестові ключі).
 - Розклад (раз на 10 хвилин) локально запускається вручну: `npm run dev:api -- --test-scheduled`, потім відкрити http://localhost:8787/cdn-cgi/handler/scheduled.
 - Після зміни `wrangler.jsonc` оновіть типи для редактора: `npx wrangler types worker/worker-configuration.d.ts --config wrangler.jsonc` (файл поза Git).
 - Викладка — **тільки** `npm run deploy` (= `npx wrangler deploy --config wrangler.jsonc`). Звичайний `npx wrangler deploy` бере конфіг адаптера Astro без коду Worker і падає з помилкою `run_worker_first`.
@@ -107,7 +107,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 - **Несекретні налаштування** — `vars` у `wrangler.jsonc` (через коміт; збірка сайту бере звідти ж публічний ключ Turnstile): `TURNSTILE_SITE_KEY`, `TELEGRAM_CHAT_ID`, `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID`. У панелі їх не задавати: викладка перезапише.
 - **База** — D1 `forrest-leads`, ID у `wrangler.jsonc`. Таблиці створює сам Worker.
 - Канал без ключів — статус «не налаштований»; заявки, що прийшли до появи ключів, не досилаються.
-- Без ключів Turnstile на бойовому домені форма показує помилку і заявок не приймає. Тестові ключі Cloudflare працюють лише на localhost і `*.workers.dev`.
+- Без ключів Turnstile форма показує помилку і заявок не приймає. Бойовий домен і превʼю (`*.workers.dev`) працюють на одній справжній парі; тестові ключі Cloudflare — лише localhost.
 
 ## Telegram: бот для заявок
 
@@ -170,8 +170,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | `TURNSTILE_SECRET_KEY` | Секретний ключ Turnstile | Cloudflare → Worker → Variables and Secrets → **Secret**. Локально — `.dev.vars` |
 | `TELEGRAM_BOT_TOKEN` | Токен бота від @BotFather | там само, **Secret** |
 | `CRM_TOKEN` | Токен API користувача «Сайт» у G-PLUS | там само, **Secret** |
-| `TURNSTILE_SITE_KEY` | Публічний ключ Turnstile для бойового домену | `wrangler.jsonc` → `vars` (коміт) |
-| `TURNSTILE_PREVIEW_SITE_KEY` | Публічний ключ для превʼю (`*.workers.dev`), зараз тестовий | `wrangler.jsonc` → `vars` |
+| `TURNSTILE_SITE_KEY` | Публічний ключ Turnstile (бойовий домен і превʼю) | `wrangler.jsonc` → `vars` (коміт) |
 | `TELEGRAM_CHAT_ID` | ID групи для заявок | `wrangler.jsonc` → `vars` |
 | `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID` | Джерело, етап, будинок у CRM (з `npm run crm:explore`) | `wrangler.jsonc` → `vars` |
 | `CRM_UTM_FIELDS` | Запасний варіант для UTM: ID кастомних полів | `wrangler.jsonc` → `vars` |

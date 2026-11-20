@@ -159,12 +159,13 @@ test('чужой Origin отклоняется', async () => {
   assert.equal((await r.json()).error, 'forbidden');
 });
 
-test('тестовые ключи Turnstile работают только локально и на превью', async () => {
+test('тестовые ключи Turnstile работают только локально', async () => {
   // Локальный сервер всегда видит адрес 127.0.0.1, поэтому правило проверяется напрямую.
   const { captchaSecret } = await import('../worker/lead/turnstile.ts');
   const test = { TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA' };
   assert.equal(captchaSecret(test, 'forrestresort.com'), null);
-  assert.equal(captchaSecret(test, 'forrest-trinity-resort.forrestresort-com.workers.dev'), test.TURNSTILE_SECRET_KEY);
+  assert.equal(captchaSecret(test, 'forrest-trinity-resort.forrestresort-com.workers.dev'), null, 'превью — на настоящей паре');
+  assert.equal(captchaSecret(test, '127.0.0.1'), test.TURNSTILE_SECRET_KEY);
   assert.equal(captchaSecret(test, 'localhost'), test.TURNSTILE_SECRET_KEY);
   assert.equal(captchaSecret({ TURNSTILE_SECRET_KEY: '0x4AAAAAAAreal-secret' }, 'forrestresort.com'), '0x4AAAAAAAreal-secret');
   assert.equal(captchaSecret({}, 'forrestresort.com'), null);
