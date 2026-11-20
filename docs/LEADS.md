@@ -93,6 +93,26 @@
 - В Sanity и в журналы личные данные не попадают, в том числе
   в отладке.
 
+## Формат запроса (5.1)
+- POST /api/lead, Content-Type: application/json, тот же адрес сайта
+  (чужой Origin — 403).
+- Тело: key (UUID на одну попытку отправки формы, повтор — тот же key),
+  form (finmodel | final | quiz | apartment), lang, page (адрес страницы),
+  turnstileToken, website (поле-ловушка, пустое), fields { name, phone,
+  email, consent, contactMethod, format, purpose, areaFrom, areaTo,
+  budget, budgetCurrency, apartment, country }, quiz { answers:
+  [{ question, answer }], calc: { ключ: число или строка } }.
+- Имя обязательно в finmodel и final; телефон — везде (7–15 цифр).
+- Источник визита — из cookie gp_utm (encodeURIComponent(JSON) с ключами
+  utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid,
+  fbclid, referrer, landing), не из тела запроса.
+- Ответ: { ok: true, number: "FR-000042" } или { ok: false, error: код,
+  fields?: [...] }. Коды: validation, captcha, captcha_unavailable,
+  rate_limited, in_progress, invalid_json, payload_too_large,
+  unsupported_media_type, forbidden, method_not_allowed, server_error.
+  Текст для посетителя — из Sanity по коду (5.2).
+- Код: worker/ (вход — worker/index.ts), тесты — npm run test:api.
+
 ## Этапы
 5.1 Сервер: /api/lead, D1, проверки, защита, статусы каналов.
 5.2 Сайт: формы, UTM, капча, «Дякуємо», вариант без JS, dataLayer.

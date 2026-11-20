@@ -1705,6 +1705,38 @@
       }
     ]
   },
+  "notFoundPage": {
+    "seoTitle": [
+      {
+        "_key": "uk",
+        "value": "Сторінку не знайдено — FORREST Trinity Resort"
+      },
+      {
+        "_key": "en",
+        "value": "Page not found — FORREST Trinity Resort"
+      }
+    ],
+    "message": [
+      {
+        "_key": "uk",
+        "value": "Сторінку не знайдено.\nМожливо, адреса змінилася або в ній помилка."
+      },
+      {
+        "_key": "en",
+        "value": "Page not found.\nThe address may have changed or contain a typo."
+      }
+    ],
+    "homeButton": [
+      {
+        "_key": "uk",
+        "value": "На головну"
+      },
+      {
+        "_key": "en",
+        "value": "Back to home"
+      }
+    ]
+  },
   "analytics": {
     "gtmId": "GTM-WPFP499D"
   }

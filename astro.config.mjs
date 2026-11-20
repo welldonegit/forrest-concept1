@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import { languages, defaultLanguage } from './src/lib/languages.ts';
 import indexing from './src/integrations/indexing.ts';
+import notFound from './src/integrations/not-found.ts';
 import sanityContent from './src/integrations/sanity.ts';
 
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
   // Сессии Astro не используются: без них адаптер не требует хранилища KV.
   session: false,
   // sanityContent — первым: снимок контента и оригиналы фото нужны до старта Vite.
-  integrations: [sanityContent(), indexing()],
+  integrations: [sanityContent(), indexing(), notFound()],
   adapter: cloudflare({
     // Фото обрабатываются при сборке (sharp → AVIF), рантайм не трогает картинки.
     imageService: 'compile',

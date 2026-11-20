@@ -6,7 +6,7 @@
 
 - **Сайт:** Astro, статическая сборка (`output: "static"`). JavaScript только там, где он нужен блоку.
 - **Админка:** Sanity (бесплатный тариф), Project ID `rxw30lco`, dataset `production`. Studio лежит в `studio/`; подключается на этапе 3, после окончания вёрстки.
-- **Хостинг:** Cloudflare Workers со статикой (не Pages). Сборка через Workers Builds, пересборка по Deploy Hook из Sanity.
+- **Хостинг:** Cloudflare Workers со статикой (не Pages). Сборка через Workers Builds, пересборка по Deploy Hook из Sanity. Выкладка — только `npx wrangler deploy --config wrangler.jsonc` (`npm run deploy`): обычный `wrangler deploy` берёт конфиг адаптера Astro без кода Worker. Код Worker — `worker/`, только для `/api/*`.
 - **Заявки:** одна серверная функция `POST /api/lead` на Cloudflare Worker.
 - **Анимации:** GSAP + ScrollTrigger. Других библиотек анимации не добавлять.
 - Новые зависимости — только по запросу.
