@@ -58,7 +58,7 @@ export const siteSettings = defineType({
     { name: 'forms', title: 'Форми' },
     { name: 'manager', title: 'Експерт у формах' },
     { name: 'popups', title: 'Попапи' },
-    { name: 'pages', title: 'Сторінки «Архів» і «Дякуємо»' },
+    { name: 'pages', title: 'Сторінки' },
     { name: 'seo', title: 'SEO' },
     { name: 'ui', title: 'Службові підписи' },
     { name: 'technical', title: 'Технічне' },
@@ -106,7 +106,7 @@ export const siteSettings = defineType({
           T('address', 'Адреса'), S('wordmarkLabel', 'Опис великого напису FORREST'), S('copyright', 'Копірайт'),
         ]),
         defineField({ name: 'groups', title: 'Колонки посилань', type: 'array', of: [{ type: 'footerGroup' }] }),
-        defineField({ name: 'legalLinks', title: 'Юридичні посилання', type: 'array', of: [{ type: 'navLink' }], description: 'TODO: сторінки політики і умов від замовника.' }),
+        defineField({ name: 'legalLinks', title: 'Юридичні посилання', type: 'array', of: [{ type: 'navLink' }], description: 'Політика конфіденційності — виберіть документ.' }),
         defineField({
           name: 'credit', title: 'Студія-розробник', type: 'object',
           fields: [text('label', { title: 'Підпис' }), str('logoLabel', 'Назва студії'), str('href', 'Посилання', { description: 'TODO: адреса студії.' })],
@@ -177,6 +177,10 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
+      name: 'privacyPolicy', title: 'Політика конфіденційності у згоді', type: 'reference', to: [{ type: 'legalDocument' }], group: 'forms',
+      description: 'Документ, на який веде посилання в згоді на обробку даних (квіз). Відкривається в новій вкладці.',
+    }),
+    defineField({
       name: 'archivePage', title: 'Сторінка «Архів звітів»', type: 'object', group: 'pages',
       fields: [texts('archivePageTexts', [
         S('title', 'Заголовок, рядок 1'), S('subtitle', 'Заголовок, рядок 2'), S('backLabel', 'Посилання «На головну»'),
@@ -198,6 +202,15 @@ export const siteSettings = defineType({
         T('message', 'Повідомлення', 'Замість заголовка першого екрана. Перенос рядка (Enter) — перенос на компʼютері.'),
         S('homeButton', 'Кнопка «На головну»', 'Єдина кнопка першого екрана, веде на головну сторінку цією мовою.'),
         S('seoTitle', 'Заголовок вкладки браузера'),
+      ])],
+    }),
+    defineField({
+      name: 'documentPage', title: 'Сторінки документів', type: 'object', group: 'pages',
+      description: 'Спільні підписи сторінок з розділу «Документи».',
+      fields: [texts('documentPageTexts', [
+        S('backLabel', 'Посилання «На головну»'),
+        S('tocTitle', 'Заголовок змісту', 'Над списком розділів угорі довгого документа.'),
+        S('editionLabel', 'Підпис перед датою редакції', 'Наприклад «Редакція від» — далі дата з документа.'),
       ])],
     }),
     defineField({

@@ -5464,78 +5464,84 @@
       "docs": [
         {
           "_key": "d1",
-          "format": "PDF",
-          "title": [
+          "document": {
+            "_type": "reference",
+            "_ref": "legal-dozvil-na-budivelni-roboty"
+          },
+          "format": [
             {
               "_key": "uk",
-              "value": "Презентація проєкту"
+              "value": "Дозвіл"
             },
             {
               "_key": "en",
-              "value": "Project presentation"
+              "value": "Permit"
             }
           ],
           "note": [
             {
               "_key": "uk",
-              "value": "24 сторінки, 8 МБ"
+              "value": "№ ІУ013260626624 від 03.07.2026"
             },
             {
               "_key": "en",
-              "value": "24 pages, 8 MB"
+              "value": "No. ІУ013260626624 dated 03.07.2026"
             }
-          ],
-          "file": null
+          ]
         },
         {
           "_key": "d2",
-          "format": "PDF",
-          "title": [
+          "document": {
+            "_type": "reference",
+            "_ref": "legal-vytiah-z-reiestru-rechovykh-prav"
+          },
+          "format": [
             {
               "_key": "uk",
-              "value": "Фінансова модель"
+              "value": "Витяг"
             },
             {
               "_key": "en",
-              "value": "Financial model"
+              "value": "Extract"
             }
           ],
           "note": [
             {
               "_key": "uk",
-              "value": "Розрахунок дохідності"
+              "value": "Індексний номер витягу 491126585"
             },
             {
               "_key": "en",
-              "value": "Return calculation"
+              "value": "Extract index number 491126585"
             }
-          ],
-          "file": null
+          ]
         },
         {
           "_key": "d3",
-          "format": "PDF",
-          "title": [
+          "document": {
+            "_type": "reference",
+            "_ref": "legal-pravo-na-zemelnu-dilianku"
+          },
+          "format": [
             {
               "_key": "uk",
-              "value": "Договір купівлі"
+              "value": "Земля"
             },
             {
               "_key": "en",
-              "value": "Purchase agreement"
+              "value": "Land"
             }
           ],
           "note": [
             {
               "_key": "uk",
-              "value": "Типовий зразок"
+              "value": "Кадастровий номер 2611092001:22:002:4615"
             },
             {
               "_key": "en",
-              "value": "Standard template"
+              "value": "Cadastral number 2611092001:22:002:4615"
             }
-          ],
-          "file": null
+          ]
         }
       ],
       "ctaTitle": [

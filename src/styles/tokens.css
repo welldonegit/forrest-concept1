@@ -1600,3 +1600,35 @@
 --arch-head-gap:var(--space-20);
 --arch-list-gap:var(--space-40);
 }}
+
+/* ===== Страницы документов (политика, документы стройки) — своей страницы в выгрузке нет =====
+   Фон, поля, «На головну» и отступ под шапкой — как у архива; ширина строки — для чтения длинного текста. */
+:root{
+--doc-pad-block-start:var(--arch-pad-block-start);
+--doc-pad-block-end:var(--arch-pad-block-end);
+--doc-pad-inline:var(--arch-pad-inline);
+--doc-measure:72ch;                         /* строка текста ≈ 70 знаков */
+--doc-head-gap:var(--arch-head-gap);
+--doc-head-mb:var(--space-48);
+--doc-meta-gap:var(--space-12);
+--doc-flow:var(--space-16);                 /* между абзацами */
+--doc-section-gap:var(--space-32);          /* + --doc-flow перед разделом */
+--doc-sub-gap:var(--space-16);
+--doc-list-gap:var(--space-8);
+--doc-list-indent:var(--space-24);
+--doc-toc-gap:var(--space-8);
+--doc-toc-pad:var(--space-24) var(--space-32);
+--doc-toc-radius:var(--radius-24);
+--doc-table-radius:var(--radius-16);
+--doc-table-cell-pad:var(--space-12) var(--space-16);
+--doc-table-label-w:40%;
+--doc-table-pair-gap:var(--space-4);
+--doc-underline-offset:var(--space-4);
+--doc-hover-dur:.3s;
+}
+@media (max-width:767px){:root{
+--doc-head-mb:var(--space-32);
+--doc-section-gap:var(--space-24);
+--doc-toc-pad:var(--space-16) var(--space-20);
+--doc-table-cell-pad:var(--space-10) var(--space-12);
+}}

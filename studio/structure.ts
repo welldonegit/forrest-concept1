@@ -19,5 +19,6 @@ export const structure: StructureResolver = (S) =>
         ),
       S.documentTypeListItem('apartmentFormat').title('Формати апартаментів'),
       singleton(S, 'pricing', 'Ціни та дохідність'),
+      S.documentTypeListItem('legalDocument').title('Документи'),
       singleton(S, 'siteSettings', 'Налаштування сайту'),
     ]);

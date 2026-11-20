@@ -1,0 +1,83 @@
+---
+/**
+ * Страница документа (политика конфиденциальности, документы стройки) — один шаблон для всех.
+ * Адреса: /{язык}/<slug>/ (политика), /{язык}/dokumenty/<slug>/ (стройка) — src/lib/routes.ts.
+ * Шапка и футер — общие с главной; «На головну», название, дата редакции (если есть в документе),
+ * оглавление (от трёх разделов), текст. Своей страницы документа в выгрузке нет: вид — как у архива
+ * (поля, фон, «На головну»), шрифтовые роли — существующие.
+ * Тексты — Sanity «Документ»; подписи страницы — siteSettings.documentPage.
+ */
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/blocks/Header.astro';
+import Footer from '../../components/blocks/Footer.astro';
+import BackLink from '../../components/ui/BackLink.astro';
+import DocumentBody from '../../components/ui/DocumentBody.astro';
+import '../../styles/pages/document.css';
+import { languages } from '../../lib/languages';
+import { getSiteSettings, getLegalDocuments, type LegalDocument } from '../../lib/content';
+import { documentSubpath, homePath } from '../../lib/routes';
+
+/** Оглавление — у документов, где разделов (h2) не меньше стольких. */
+const TOC_MIN_SECTIONS = 3;
+/** Длина описания для поисковиков, если SEO-опис в Sanity пуст: начало текста документа. */
+const DESCRIPTION_MAX = 160;
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const l of languages) {
+    for (const doc of await getLegalDocuments(l.id)) {
+      paths.push({ params: { lang: l.id, doc: documentSubpath(doc).replace(/\/$/, '') }, props: { doc } });
+    }
+  }
+  return paths;
+}
+
+const { lang } = Astro.params as { lang: string };
+const { doc } = Astro.props as { doc: LegalDocument };
+const settings = await getSiteSettings(lang);
+const page = settings.documentPage;
+const home = homePath(lang);
+
+const plain = (item: LegalDocument['body'][number]) =>
+  item._type === 'docTable' ? item.rows.map((r) => r.cells.join(' ')).join(' ') : item.children.map((c) => c.text).join('');
+
+const sections = doc.body
+  .filter((b) => b._type === 'block' && b.style === 'h2')
+  .map((b, i) => ({ key: b._key, id: `section-${i + 1}`, title: plain(b) }));
+const sectionIds = new Map(sections.map((s) => [s.key, s.id]));
+
+function description(): string {
+  if (doc.seoDescription) return doc.seoDescription;
+  const text = doc.body.map(plain).join(' ').replace(/\s+/g, ' ').trim();
+  if (text.length <= DESCRIPTION_MAX) return text;
+  return `${text.slice(0, text.lastIndexOf(' ', DESCRIPTION_MAX))}…`;
+}
+
+const edition = doc.editionDate?.split('-').reverse().join('.');
+---
+<Base lang={lang} title={doc.seoTitle || doc.title} description={description()} skipLink={settings.ui.skipLink}>
+  <Header lang={lang} settings={settings} base={home} path={documentSubpath(doc)} />
+  <main id="main" tabindex="-1" class="doc">
+    <article class="doc__in">
+      <header class="doc__head">
+        <BackLink href={home} label={page.backLabel} />
+        <div class="doc__heading">
+          <h1 class="doc__title text-title-sm text-w-600">{doc.title}</h1>
+          {edition && <p class="doc__meta text-caption">{page.editionLabel} <time datetime={doc.editionDate}>{edition}</time></p>}
+        </div>
+      </header>
+      {sections.length >= TOC_MIN_SECTIONS && (
+        <nav class="doc__toc" aria-labelledby="doc-toc-title">
+          <p class="doc__toc-title text-label text-caps-md" id="doc-toc-title">{page.tocTitle}</p>
+          <ol class="doc__toc-list text-body">
+            {sections.map((s) => <li><a class="doc__toc-link" href={`#${s.id}`}>{s.title}</a></li>)}
+          </ol>
+        </nav>
+      )}
+      <div class="doc__body text-faq-a">
+        <DocumentBody body={doc.body} sectionIds={sectionIds} />
+      </div>
+    </article>
+  </main>
+  <Footer settings={settings} base={home} />
+</Base>

@@ -1,0 +1,80 @@
+---
+/**
+ * Текст документа из Sanity (Portable Text): абзацы, разделы (h2 — с id для оглавления), подразделы (h3),
+ * списки (соседние пункты собираются в один ul/ol), таблицы.
+ * Таблица без строки заголовков — «название — значение»: первая ячейка строки — th; на телефоне
+ * строка показывается столбиком (document.css). Длинные номера и адреса переносятся, а не вылезают.
+ */
+import type { DocumentBodyItem, DocTable, PortableBlock } from '../../lib/content';
+
+interface Props {
+  body: DocumentBodyItem[];
+  /** id разделов (h2) по _key блока — их же показывает оглавление. */
+  sectionIds: Map<string, string>;
+}
+
+const { body, sectionIds } = Astro.props;
+
+type Group =
+  | { kind: 'list'; list: 'bullet' | 'number'; key: string; items: PortableBlock[] }
+  | { kind: 'block'; item: PortableBlock }
+  | { kind: 'table'; item: DocTable };
+
+const groups: Group[] = [];
+for (const item of body) {
+  if (item._type === 'docTable') groups.push({ kind: 'table', item });
+  else if (item.listItem) {
+    const last = groups[groups.length - 1];
+    if (last?.kind === 'list' && last.list === item.listItem) last.items.push(item);
+    else groups.push({ kind: 'list', list: item.listItem, key: item._key, items: [item] });
+  } else groups.push({ kind: 'block', item });
+}
+
+const escape = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const safeHref = (href: string | undefined) => (href && /^(https?:|mailto:|tel:|\/|#)/.test(href) ? href : undefined);
+
+/** Строка блока: span с отметками strong/em и ссылками (markDefs). Текст экранируется. */
+function inline(block: PortableBlock): string {
+  return block.children.map((span) => {
+    let html = escape(span.text);
+    for (const mark of span.marks ?? []) {
+      if (mark === 'strong') html = `<strong>${html}</strong>`;
+      else if (mark === 'em') html = `<em>${html}</em>`;
+      else {
+        const href = safeHref(block.markDefs?.find((d) => d._key === mark)?.href);
+        if (href) html = `<a class="doc__link" href="${escape(href)}">${html}</a>`;
+      }
+    }
+    return html;
+  }).join('');
+}
+---
+{groups.map((g) => {
+  if (g.kind === 'table') {
+    const pairs = !g.item.headerRow;
+    const [head, ...rest] = g.item.rows;
+    const rows = pairs ? g.item.rows : rest;
+    return (
+      <div class="doc__table-wrap">
+        <table class:list={['doc__table text-body', { 'doc__table--pairs': pairs }]}>
+          {!pairs && head && (
+            <thead><tr>{head.cells.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+          )}
+          <tbody>
+            {rows.map((r) => (
+              <tr>{r.cells.map((c, i) => (pairs && i === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+  if (g.kind === 'list') {
+    const Tag = g.list === 'number' ? 'ol' : 'ul';
+    return <Tag class="doc__list">{g.items.map((it) => <li set:html={inline(it)} />)}</Tag>;
+  }
+  const b = g.item;
+  if (b.style === 'h2') return <h2 class="doc__h2 text-faq-cta-title" id={sectionIds.get(b._key)} set:html={inline(b)} />;
+  if (b.style === 'h3') return <h3 class="doc__h3 text-body-lg text-w-700" set:html={inline(b)} />;
+  return <p class="doc__p" set:html={inline(b)} />;
+})}

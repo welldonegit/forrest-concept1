@@ -1,0 +1,58 @@
+/* ===== Страница документа (политика, документы стройки) =====
+   Своей страницы в выгрузке нет: фон, поля и «На головну» — как у архива (--arch-* через --doc-*),
+   шрифтовые роли — существующие: название — title-sm 600, раздел — faq-cta-title, подраздел — body-lg 700,
+   текст — faq-a, таблицы — body, оглавление — label (caps) и body. Значения — tokens.css, раздел документов. */
+.doc{
+  background:var(--bg-surface-warm); color:var(--text-primary);
+  padding:var(--doc-pad-block-start) var(--doc-pad-inline) var(--doc-pad-block-end);
+}
+.doc__in{max-inline-size:var(--doc-measure); margin-inline:auto}
+.doc__head{display:flex; flex-direction:column; align-items:flex-start; gap:var(--doc-head-gap); margin-block-end:var(--doc-head-mb)}
+.doc__heading{display:flex; flex-direction:column; gap:var(--doc-meta-gap)}
+.doc__title{margin:0; overflow-wrap:break-word}
+.doc__meta{margin:0; color:var(--text-muted)}
+
+/* ---------- Оглавление ---------- */
+.doc__toc{
+  display:flex; flex-direction:column; gap:var(--doc-toc-gap);
+  margin-block-end:var(--doc-head-mb); padding:var(--doc-toc-pad);
+  border-radius:var(--doc-toc-radius); background:var(--air);
+}
+.doc__toc-title{margin:0; color:var(--text-muted)}
+.doc .doc__toc-list{margin:0; padding-inline-start:var(--doc-list-indent)}
+.doc__toc-list li::marker{color:var(--text-muted)}
+.doc__toc-link{
+  display:inline-flex; align-items:center; min-block-size:var(--control-h-44);
+  color:var(--text-primary); text-decoration:underline; text-decoration-color:var(--border-hairline);
+  text-underline-offset:var(--doc-underline-offset);
+  transition:text-decoration-color var(--doc-hover-dur) ease;
+}
+.doc__toc-link:hover{text-decoration-color:currentColor}
+
+/* ---------- Текст ---------- */
+.doc__body{display:flex; flex-direction:column; gap:var(--doc-flow); overflow-wrap:anywhere}
+.doc__p, .doc__list{margin:0}
+.doc__h2{margin:0; margin-block-start:var(--doc-section-gap)}
+.doc__h3{margin:0; margin-block-start:var(--doc-sub-gap)}
+.doc__h2:first-child, .doc__h3:first-child{margin-block-start:0}
+.doc .doc__list{display:flex; flex-direction:column; gap:var(--doc-list-gap); padding-inline-start:var(--doc-list-indent)}
+.doc__link{color:inherit; text-underline-offset:var(--doc-underline-offset)}
+
+/* ---------- Таблицы ---------- */
+.doc__table-wrap{
+  max-inline-size:100%; overflow-x:auto;
+  border:var(--border-1) solid var(--border-hairline); border-radius:var(--doc-table-radius); background:var(--air);
+}
+.doc__table{inline-size:100%; border-collapse:collapse}
+.doc__table th, .doc__table td{padding:var(--doc-table-cell-pad); text-align:start; vertical-align:top}
+.doc__table tr + tr > *, .doc__table thead + tbody tr > *{border-block-start:var(--border-1) solid var(--border-hairline)}
+.doc__table thead th{font-weight:700}
+.doc__table--pairs th{inline-size:var(--doc-table-label-w); font-weight:400; color:var(--text-muted)}
+@media (max-width:767px){
+  /* «Название — значение»: строка столбиком, без горизонтальной прокрутки */
+  .doc__table--pairs, .doc__table--pairs tbody, .doc__table--pairs tr, .doc__table--pairs th, .doc__table--pairs td{display:block; inline-size:auto}
+  .doc__table--pairs th{padding-block-end:0}
+  .doc__table--pairs td{padding-block-start:var(--doc-table-pair-gap)}
+  .doc__table--pairs tr + tr > td{border-block-start:0} /* линия — только между строками, не между названием и значением */
+}
+@media (prefers-reduced-motion:reduce){ .doc__toc-link{transition:none} }

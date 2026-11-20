@@ -202,6 +202,8 @@ const docs = restructure({
   landing: read('landing.json'),
   siteSettings: read('siteSettings.json'),
   apartmentFormats: read('apartmentFormats.json'),
+  // Документы сайта: собираются из папки «Тексты» скриптом import/legal-documents.mjs.
+  legalDocuments: read('legalDocuments.json'),
 }, { types, notes });
 
 const ndjson = docs.map((doc) => {

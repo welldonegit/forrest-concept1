@@ -15,8 +15,10 @@ import { defaultLanguage, languageIds } from './languages';
 import siteSettingsFixture from '../content-fixtures/siteSettings.json';
 import landingFixture from '../content-fixtures/landing.json';
 import apartmentFormatsFixture from '../content-fixtures/apartmentFormats.json';
+import legalDocumentsFixture from '../content-fixtures/legalDocuments.json';
 import { fromSanity, type SanitySnapshot } from './sanity-source';
 import { sanitizeSvg, type InlineIcon } from './svg';
+import { documentPath, type DocumentRoute } from './routes';
 
 /* ---------- Источник ---------- */
 
@@ -29,7 +31,7 @@ const snapshot = Object.values(snapshotModule)[0];
 if (useSanity && !snapshot) throw new Error('Нет снимка Sanity (src/content-sanity/content.json): его скачивает интеграция forrest-sanity при сборке');
 const source = useSanity
   ? fromSanity(snapshot!)
-  : { landing: landingFixture, siteSettings: siteSettingsFixture, apartmentFormats: apartmentFormatsFixture };
+  : { landing: landingFixture, siteSettings: siteSettingsFixture, apartmentFormats: apartmentFormatsFixture, legalDocuments: legalDocumentsFixture };
 
 type I18nItem = { _key?: string; language?: string; value: unknown };
 
@@ -64,9 +66,9 @@ function pick(items: I18nItem[], lang: string, path: string): unknown {
 /* ---------- Ссылки на документы ---------- */
 
 // Документы, на которые ссылаются другие (как reference в Sanity): форматы апартаментов
-// — одни данные для карточек Apartments и списка в форме.
+// — одни данные для карточек Apartments и списка в форме; документы сайта — для FAQ, футера и согласия квиза.
 const documents = new Map<string, unknown>(
-  (source.apartmentFormats as { _id: string }[]).map((d) => [d._id, d]),
+  [...(source.apartmentFormats as { _id: string }[]), ...(source.legalDocuments as { _id: string }[])].map((d) => [d._id, d]),
 );
 
 /** Подставляет документы вместо ссылок { _type: 'reference', _ref }. */
@@ -96,6 +98,23 @@ export function localize<T = unknown>(value: unknown, lang: string, path = ''): 
     return out as T;
   }
   return value as T;
+}
+
+/**
+ * Ссылки на документы сайта: документ (после deref и localize) → { title, href } на языке страницы;
+ * у ссылки с полем document адрес берётся из документа (футер: «Документ сайту» вместо «Адреса»).
+ */
+function linkDocuments<T>(value: T, lang: string): T {
+  if (Array.isArray(value)) return value.map((v) => linkDocuments(v, lang)) as T;
+  if (value && typeof value === 'object') {
+    const v = value as Record<string, unknown>;
+    if (v._type === 'legalDocument') return { title: v.title, href: documentPath(lang, v as unknown as DocumentRoute) } as T;
+    const out = Object.fromEntries(Object.entries(v).map(([k, x]) => [k, linkDocuments(x, lang)]));
+    const doc = out.document as DocumentLink | undefined;
+    if (doc?.href) out.href = doc.href;
+    return out as T;
+  }
+  return value;
 }
 
 /* ---------- Фото ---------- */
@@ -228,6 +247,35 @@ export function resolveIcon(icon: { asset?: { _ref?: string } } | undefined, lab
 /* ---------- Документы ---------- */
 
 export interface Link { _key: string; href: string; label: string }
+
+/** Документ сайта в ссылке: название и адрес страницы на языке посетителя. */
+export interface DocumentLink { title: string; href: string }
+
+/** Portable Text: абзац, раздел (h2, в оглавлении), подраздел (h3), пункт списка. */
+export interface PortableSpan { _key: string; _type: 'span'; text: string; marks?: string[] }
+export interface PortableBlock {
+  _key: string;
+  _type: 'block';
+  style?: 'normal' | 'h2' | 'h3';
+  listItem?: 'bullet' | 'number';
+  level?: number;
+  markDefs?: { _key: string; _type: string; href?: string }[];
+  children: PortableSpan[];
+}
+/** Таблица документа. headerRow — первая строка заголовки; иначе «название — значение» (на телефоне строки столбиком). */
+export interface DocTable { _key: string; _type: 'docTable'; headerRow?: boolean; rows: { _key: string; cells: string[] }[] }
+export type DocumentBodyItem = PortableBlock | DocTable;
+
+/** Документ сайта: политика конфиденциальности, документы стройки (Sanity «Документ»). */
+export interface LegalDocument extends DocumentRoute {
+  _id: string;
+  title: string;
+  body: DocumentBodyItem[];
+  /** Дата редакции из документа (YYYY-MM-DD); нет — не показывается. */
+  editionDate?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+}
 /** Поле SVG-иконки в админке (svgIcon): пусто — иконка из кода. */
 export type IconRef = { asset?: { _ref?: string } } | undefined;
 export interface SocialLink { _key: string; network: string; label: string; url: string; icon?: IconRef }
@@ -243,6 +291,10 @@ export interface SiteSettings {
   thanksPage: { seoTitle: string; seoDescription: string; message: string; homeButton: string };
   /** Страница 404 (/{lang}/404.html): сообщение (h1) и кнопка «На головну». */
   notFoundPage: { seoTitle: string; message: string; homeButton: string };
+  /** Страницы документов: «На головну», заголовок оглавления, подпись перед датой редакции. */
+  documentPage: { backLabel: string; tocTitle: string; editionLabel: string };
+  /** Политика конфиденциальности — ссылка в согласии квиза. */
+  privacyPolicy?: DocumentLink;
   /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
   analytics?: { gtmId?: string };
   /** Тексты попапов (4.17). {n} — подстановка. */
@@ -762,13 +814,15 @@ export interface FormFinalBlock {
 export interface FaqTitleLine { _key: string; text: string; muted?: boolean }
 export interface FaqDoc {
   _key: string;
-  /** Подпись формата на плашке («PDF»). */
-  format: string;
-  title: string;
-  /** Подпись под названием (объём, назначение). */
-  note: string;
-  /** Файл для скачивания (поле file в Sanity). Нет файла — ссылка без адреса (TODO: файлы от заказчика). */
-  file: { url: string } | null;
+  /** Документ сайта: ссылка ведёт на его страницу (в новой вкладке). */
+  document: DocumentLink;
+  href: string;
+  /** Мітка на плашке («Дозвіл»). */
+  format?: string;
+  /** Другое название на плашке; пусто — название документа. */
+  title?: string;
+  /** Подпись под названием (номер, дата из документа). */
+  note?: string;
 }
 export interface FaqItem {
   _key: string;
@@ -793,11 +847,16 @@ export interface FaqBlock {
 export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
-  return localize<SiteSettings>(deref(source.siteSettings), lang, 'siteSettings');
+  return linkDocuments(localize<SiteSettings>(deref(source.siteSettings), lang, 'siteSettings'), lang);
 }
 
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
-  return localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing');
+  return linkDocuments(localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing'), lang);
+}
+
+/** Документы сайта на языке lang (страницы /{lang}/<slug>/ и /{lang}/dokumenty/<slug>/). */
+export async function getLegalDocuments(lang: string): Promise<LegalDocument[]> {
+  return (source.legalDocuments as { _id: string }[]).map((d) => localize<LegalDocument>(d, lang, d._id));
 }
 
 /*

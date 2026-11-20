@@ -54,15 +54,25 @@ export function linkField(name: string, title: string, o: Opts & { hrefHint?: st
   });
 }
 
-/** Тип элемента списка ссылок (меню, футер). */
+/** Тип элемента списка ссылок (меню, футер): адрес или документ сайта (его страница на языке посетителя). */
 export function linkItemType(name: string) {
   return defineType({
     name, title: 'Посилання', type: 'object',
     fields: [
       text('label', { title: 'Підпис' }),
-      defineField({ name: 'href', title: 'Адреса', type: 'string', description: 'Посилання (https://…) або якір блоку (#forma).', validation: (r) => r.required() }),
+      defineField({
+        name: 'document', title: 'Документ сайту', type: 'reference', to: [{ type: 'legalDocument' }],
+        description: 'Сторінка з розділу «Документи». Вибрано — поле «Адреса» не потрібне.',
+      }),
+      defineField({
+        name: 'href', title: 'Адреса', type: 'string', description: 'Посилання (https://…) або якір блоку (#forma). Не потрібна, якщо вибрано документ.',
+        validation: (r) => r.custom((v, ctx) => (v || (ctx.parent as { document?: unknown })?.document ? true : 'Вкажіть адресу або виберіть документ')),
+      }),
     ],
-    preview: { select: { l: 'label', href: 'href' }, prepare: ({ l, href }) => ({ title: ukOf(l), subtitle: href }) },
+    preview: {
+      select: { l: 'label', href: 'href', d: 'document.slug' },
+      prepare: ({ l, href, d }) => ({ title: ukOf(l), subtitle: d ? `документ: ${d}` : href }),
+    },
   });
 }
 

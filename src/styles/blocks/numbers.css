@@ -123,7 +123,7 @@
 }
 .calc__label-icon svg{inline-size:var(--calc-icon); block-size:var(--calc-icon)}
 
-.calc__sel{position:relative}
+.calc__sel{position:relative; container-type:inline-size}
 .calc__trig{
   inline-size:100%; display:flex; align-items:center; justify-content:space-between; gap:var(--calc-trig-gap);
   padding:var(--calc-trig-pad);
@@ -172,6 +172,12 @@
 .calc__opt:active{transform:scale(.985)}
 .calc__opt[aria-pressed="true"]{background:var(--bg-surface-warm)}
 .calc__opt[aria-pressed="true"]::after{background:var(--calc-radio-on); box-shadow:none}
+@container (max-width:439px){ /* узкое поле (мобильный, две колонки на 1024): подпись под названием, как в кнопке поля — «Розтермінування» + «24 міс, внесок 30%» в строку не влезают */
+  .calc__opt{display:grid; grid-template-columns:minmax(0, 1fr) auto; column-gap:var(--calc-opt-gap); row-gap:var(--calc-trig-text-gap)}
+  .calc__opt-name{grid-area:1 / 1}
+  .calc__opt-sub{grid-area:2 / 1; white-space:normal}
+  .calc__opt::after{grid-area:1 / 2 / 3 / 3}
+}
 
 .calc__params{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--calc-params-gap); margin:0; padding-block-start:var(--calc-params-pt)}
 .calc__param{display:flex; flex-direction:column; gap:var(--calc-param-gap)}

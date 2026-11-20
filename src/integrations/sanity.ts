@@ -21,7 +21,7 @@ import type { AstroIntegration } from 'astro';
 
 export const SANITY = { projectId: 'rxw30lco', dataset: 'production', apiVersion: '2025-02-19' } as const;
 
-const TYPES = ['landing', 'siteSettings', 'apartmentFormat', 'constructionReport', 'pricing'];
+const TYPES = ['landing', 'siteSettings', 'apartmentFormat', 'constructionReport', 'pricing', 'legalDocument'];
 
 async function query<T>(groq: string): Promise<T> {
   const url = `https://${SANITY.projectId}.api.sanity.io/v${SANITY.apiVersion}/data/query/${SANITY.dataset}?query=${encodeURIComponent(groq)}&perspective=published`;

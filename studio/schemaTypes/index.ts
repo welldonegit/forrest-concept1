@@ -3,6 +3,7 @@ import { svgIcon } from './objects/svgIcon.ts';
 import { blockTypes, blockObjectTypes } from './blocks/index.ts';
 import { landing } from './documents/landing.ts';
 import { siteSettings, navLink, socialLink, footerGroup, quizBudget, quizCountry } from './documents/siteSettings.ts';
+import { legalDocument, documentBody, docTable, docTableRow } from './documents/legalDocument.ts';
 import { constructionReport, reportWork, apartmentFormat, formatTag, pricing, pricingFormat, pricingPayment } from './documents/catalog.ts';
 import { groupTypes } from './lib/i18n.ts';
 
@@ -10,7 +11,8 @@ import { groupTypes } from './lib/i18n.ts';
 export const singletonTypes = new Set(['landing', 'siteSettings', 'pricing']);
 
 export const schemaTypes = [
-  landing, constructionReport, apartmentFormat, pricing, siteSettings,
+  landing, constructionReport, apartmentFormat, pricing, siteSettings, legalDocument,
+  documentBody, docTable, docTableRow,
   ...blockTypes, ...blockObjectTypes,
   reportWork, formatTag, pricingFormat, pricingPayment,
   navLink, socialLink, footerGroup, quizBudget, quizCountry,

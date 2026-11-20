@@ -767,21 +767,11 @@
             "value": "Privacy policy"
           }
         ],
+        "document": {
+          "_type": "reference",
+          "_ref": "legal-polityka-konfidentsiinosti"
+        },
         "href": "#privacy"
-      },
-      {
-        "_key": "t",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Умови використання"
-          },
-          {
-            "_key": "en",
-            "value": "Terms of use"
-          }
-        ],
-        "href": "#terms"
       }
     ],
     "credit": {
@@ -1542,11 +1532,11 @@
       "consentLinkLabel": [
         {
           "_key": "uk",
-          "value": "політикою конфіденційності та правилами використання"
+          "value": "політикою конфіденційності"
         },
         {
           "_key": "en",
-          "value": "privacy policy and terms of use"
+          "value": "privacy policy"
         }
       ],
       "backLabel": [
@@ -1610,6 +1600,10 @@
         }
       ]
     }
+  },
+  "privacyPolicy": {
+    "_type": "reference",
+    "_ref": "legal-polityka-konfidentsiinosti"
   },
   "archivePage": {
     "seoTitle": [
@@ -1734,6 +1728,38 @@
       {
         "_key": "en",
         "value": "Back to home"
+      }
+    ]
+  },
+  "documentPage": {
+    "backLabel": [
+      {
+        "_key": "uk",
+        "value": "На головну"
+      },
+      {
+        "_key": "en",
+        "value": "Back to home"
+      }
+    ],
+    "tocTitle": [
+      {
+        "_key": "uk",
+        "value": "Зміст"
+      },
+      {
+        "_key": "en",
+        "value": "Contents"
+      }
+    ],
+    "editionLabel": [
+      {
+        "_key": "uk",
+        "value": "Редакція від"
+      },
+      {
+        "_key": "en",
+        "value": "Version dated"
       }
     ]
   },
