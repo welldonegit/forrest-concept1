@@ -7,7 +7,7 @@
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { startWorker } from './lib/local-worker.mjs';
+import { startWorker, fetchLocal } from './lib/local-worker.mjs';
 
 const PORT = 8791;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -43,7 +43,7 @@ function lead(overrides = {}) {
 }
 
 function post(body, { ip = freshIp(), headers = {} } = {}) {
-  return fetch(`${BASE}/api/lead`, {
+  return fetchLocal(`${BASE}/api/lead`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', origin: BASE, 'cf-connecting-ip': ip, ...headers },
     body: typeof body === 'string' ? body : JSON.stringify(body),
@@ -54,18 +54,18 @@ const leadCount = (key) => sql(`SELECT COUNT(*) AS n FROM leads WHERE request_ke
 
 test('статика идёт мимо Worker', async () => {
   for (const p of ['/uk/', '/en/', '/robots.txt']) {
-    const r = await fetch(`${BASE}${p}`);
+    const r = await fetchLocal(`${BASE}${p}`);
     assert.equal(r.status, 200, p);
     assert.equal(r.headers.get(API_HEADER), null, `${p} обработан Worker`);
   }
-  const root = await fetch(`${BASE}/`, { redirect: 'manual' });
+  const root = await fetchLocal(`${BASE}/`, { redirect: 'manual' });
   assert.equal(root.status, 301);
   assert.equal(root.headers.get(API_HEADER), null);
 });
 
 test('несуществующий адрес: страница 404 сервера статики, не Worker', async () => {
   for (const [p, lang] of [['/uk/net-takoi-stranicy/', 'uk'], ['/en/no-such-page/', 'en'], ['/no-such-page/', 'uk']]) {
-    const r = await fetch(`${BASE}${p}`, { headers: { 'sec-fetch-mode': 'navigate', accept: 'text/html' } });
+    const r = await fetchLocal(`${BASE}${p}`, { headers: { 'sec-fetch-mode': 'navigate', accept: 'text/html' } });
     assert.equal(r.status, 404, p);
     assert.equal(r.headers.get(API_HEADER), null, `${p} дошёл до Worker`);
     const html = await r.text();
@@ -75,10 +75,10 @@ test('несуществующий адрес: страница 404 сервер
 });
 
 test('/api/* обрабатывает Worker', async () => {
-  const get = await fetch(`${BASE}/api/lead`);
+  const get = await fetchLocal(`${BASE}/api/lead`);
   assert.equal(get.status, 405);
   assert.equal(get.headers.get(API_HEADER), '1');
-  const other = await fetch(`${BASE}/api/unknown`);
+  const other = await fetchLocal(`${BASE}/api/unknown`);
   assert.equal(other.status, 404);
   assert.equal(other.headers.get(API_HEADER), '1');
 });
@@ -180,7 +180,7 @@ test('лимит частоты: шестая заявка с одного IP з
 
 test('форма без JS (обычный POST): возврат на страницу, ничего не записано', async () => {
   const before = sql('SELECT COUNT(*) AS n FROM leads')[0].n;
-  const r = await fetch(`${BASE}/api/lead`, {
+  const r = await fetchLocal(`${BASE}/api/lead`, {
     method: 'POST',
     redirect: 'manual',
     headers: { 'content-type': 'application/x-www-form-urlencoded', origin: BASE, referer: `${BASE}/en/?x=1` },
@@ -198,4 +198,21 @@ test('каналы без ключей: расписание отрабатыв�
   const [{ id }] = sql(`SELECT id FROM leads WHERE request_key = '${body.key}'`);
   const rows = sql(`SELECT channel, status, attempts FROM lead_deliveries WHERE lead_id = ${id} ORDER BY channel`);
   assert.deepEqual(rows, [{ channel: 'crm', status: 'not_configured', attempts: 0 }, { channel: 'telegram', status: 'not_configured', attempts: 0 }]);
+});
+
+test('выгрузка заявок в CSV (npm run leads:export)', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const { readFileSync, rmSync, mkdtempSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const body = lead({ fields: { name: 'Експорт; "тест"', phone: '+380671234567', purpose: 'Пасивний дохід' } });
+  assert.equal((await post(body)).status, 200);
+  const dir = mkdtempSync(`${tmpdir()}/leads-`);
+  const out = `${dir}/out.csv`;
+  const msg = execFileSync('node', ['scripts/leads-export.mjs', '--local', '--persist-to', worker.persist, '--out', out], { encoding: 'utf8' });
+  assert.match(msg, /заявок за 30 дн/);
+  const csv = readFileSync(out, 'utf8');
+  rmSync(dir, { recursive: true });
+  assert.ok(csv.startsWith('﻿Номер;Час (Київ);Джерело;'), 'BOM и заголовок для Excel');
+  assert.match(csv, /;"Експорт; ""тест""";\+380671234567;;;Пасивний дохід;/);
+  assert.match(csv, /;не налаштований;не налаштований;;/);
 });

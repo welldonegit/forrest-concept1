@@ -116,6 +116,40 @@
 - Модуль писать так, чтобы позже можно было добавить второй способ
   отправки (старый Forms API).
 
+## CRM: как устроено (5.4)
+- Код: worker/channels/crm.ts — buildCrmLead (тело лида, чистая функция) и
+  транспорт publicApiV1 (интерфейс CrmTransport: второй способ — старый
+  Forms API — добавляется ещё одним транспортом).
+- POST /api/v1/leads?fields=id, Authorization: Token, успех — 201 (id → external_id).
+- Нет ответа (таймаут, обрыв, 502, 504) — last_error «no_response: …»;
+  следующая попытка сначала ищет лид: GET /api/v1/leads?fields=id,note,
+  added_at ±1 мин, source; совпадение строки «Номер: FR-…» в note — отправлено.
+  Явная ошибка (4xx, 500) — поиск не нужен, повтор по расписанию.
+- Ошибка 400 записывается путями полей (contact.email), без текстов DRF:
+  в них бывают введённые значения.
+- Сбой CRM и восстановление — те же служебные сообщения в Telegram, что
+  для Telegram (серия, alerts.ts).
+- Команды с токеном человека: npm run crm:explore | crm:check | crm:delete
+  (scripts/crm/, docs/ADMIN.md). Тело лида проверяется по этой схеме:
+  scripts/lib/crm-schema.mjs; тесты — npm run test:crm.
+
+| Поле заявки | Поле CRM | Примечание |
+|---|---|---|
+| fields.name | contact.name (≤140) | обязателен в CRM; нет имени (квиз, апартамент) — «Заявка з сайту FR-…»; длиннее — полностью в note |
+| fields.phone | contact.phone_numbers[0] | +380…, без пробелов |
+| fields.email | contact.email (≤140) | нет — нет ключа; длиннее 140 — только в note |
+| fields.contactMethod | contact.preferred_contact_method (≤128) | украинской подписью |
+| lang | contact.language | uk → ua, en → en; нет в LanguageEnum — «Мова: …» в note |
+| fields.purpose (финальная форма) | note_purpose (≤150) | |
+| fields.format (Фінмодель, квиз) / fields.apartment (попап) | note_section (≤150) | |
+| fields.areaFrom / areaTo | note_square_from / to | ^\d{0,6}(\.\d{0,2})?$ |
+| fields.budget | note_budget (≤100) + note_budget_currency | валюта: budgetCurrency из списка CRM или по знаку ($ → usd) |
+| время записи в D1 | added_at | ISO 8601 |
+| CRM_SOURCE / CRM_STAGE_ID / CRM_BUILDING_ID | source / stage_id / objects [{id}] | пусто — не передаём |
+| utm_source…utm_term | data.utm | + data.custom_field_values, если задан CRM_UTM_FIELDS |
+| номер, источник, страница, время по Киеву, согласие, ответы и расчёт квиза, gclid, fbclid, referrer, landing, всё длинное | note | начинается с «Заявка з лендінгу Forrest\nНомер: FR-…» |
+| fields.country (код страны телефона) | — | уже в номере |
+
 ## Секреты и настройки
 - Секреты (токен бота, токен CRM, секрет Turnstile) — только в секретах
   Cloudflare и локальном файле вне Git (.dev.vars). В чат не запрашивать.

@@ -3,7 +3,7 @@
  */
 import type { LeadFields, LeadInput, QuizData } from '../lead/validate';
 import type { Attribution } from '../lead/attribution';
-import { CHANNELS, nextAttemptAt, type ChannelId, type DeliveryStatus, type SendResult } from '../channels';
+import { CHANNELS, NO_RESPONSE, nextAttemptAt, type ChannelId, type DeliveryStatus, type SendResult } from '../channels';
 import type { Env } from '../env';
 
 export interface StoredLead {
@@ -76,6 +76,6 @@ export async function recordAttempt(env: Env, lead: StoredLead, channel: Channel
   // В last_error — только код/статус ошибки, без данных заявки.
   await env.DB.prepare(
     `UPDATE lead_deliveries SET status = ?, attempts = ?, next_attempt_at = ?, last_error = ? WHERE lead_id = ? AND channel = ?`,
-  ).bind(status, attempts, next, result.error.slice(0, 200), lead.id, channel).run();
+  ).bind(status, attempts, next, `${result.noResponse ? `${NO_RESPONSE}: ` : ''}${result.error}`.slice(0, 200), lead.id, channel).run();
   return status;
 }

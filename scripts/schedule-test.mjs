@@ -11,7 +11,7 @@
 import { test, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { startWorker } from './lib/local-worker.mjs';
+import { startWorker, fetchLocal } from './lib/local-worker.mjs';
 
 const PORT = 8795;
 const TG_PORT = 8796;
@@ -64,7 +64,7 @@ async function postLead(body = {}, cookie) {
     fields: { name: 'Тест', phone: '+380 (67) 123-45-67', contactMethod: 'telegram', format: 'Апартамент' },
     ...body,
   };
-  const r = await fetch(`${worker.base}/api/lead`, {
+  const r = await fetchLocal(`${worker.base}/api/lead`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', origin: worker.base, 'cf-connecting-ip': `203.0.113.${++ip}`, ...(cookie && { cookie }) },
     body: JSON.stringify(lead),

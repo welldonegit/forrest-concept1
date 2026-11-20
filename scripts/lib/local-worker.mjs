@@ -45,13 +45,30 @@ export async function startWorker(port, extraEnv = {}) {
     },
     /** Один запуск Cron Trigger (wrangler dev --test-scheduled). */
     async runCron() {
-      const r = await fetch(`${base}/cdn-cgi/handler/scheduled?cron=${encodeURIComponent('*/10 * * * *')}`);
+      const r = await fetchLocal(`${base}/cdn-cgi/handler/scheduled?cron=${encodeURIComponent('*/10 * * * *')}`);
       if (!r.ok) throw new Error(`scheduled: ${r.status}`);
     },
     log: () => log,
+    /** Папка локальной D1 (для wrangler d1 … --persist-to). */
+    persist,
     stop() {
       try { process.kill(-dev.pid, 'SIGTERM'); } catch {}
       rmSync(state, { recursive: true, force: true });
     },
   };
+}
+
+/**
+ * fetch к локальному Worker с одним повтором при обрыве соединения (UND_ERR_SOCKET):
+ * wrangler dev закрывает простаивающие keep-alive соединения, и следующий запрос по ним
+ * падает, не дойдя до Worker. Повтор того же запроса безопасен — до сервера он не дошёл
+ * (а у заявок есть ключ повтора).
+ */
+export async function fetchLocal(url, init) {
+  try {
+    return await fetch(url, init);
+  } catch (err) {
+    if (err?.cause?.code !== 'UND_ERR_SOCKET' && err?.cause?.code !== 'ECONNRESET') throw err;
+    return fetch(url, init);
+  }
 }

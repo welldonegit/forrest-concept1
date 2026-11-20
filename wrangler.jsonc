@@ -53,7 +53,11 @@
     // G-PLUS CRM: ключ источника (/api/v1/lead_sources), ID этапа (/api/v1/pipelines), ID здания (/api/v1/buildings).
     "CRM_SOURCE": "",
     "CRM_STAGE_ID": "",
-    "CRM_BUILDING_ID": ""
+    "CRM_BUILDING_ID": "",
+    // Запасной вариант для UTM, если data.utm не сохраняется (проверка — npm run crm:check):
+    // JSON строкой, ID кастомных полей лида из /api/v1/custom_fields, например
+    // "{\"utm_source\":\"<uuid>\",\"utm_campaign\":\"<uuid>\"}". Пусто — не используется.
+    "CRM_UTM_FIELDS": ""
   },
   // Раз в 10 минут: повторы доставки (через 10 минут и через час) и удаление заявок старше 90 дней.
   // Нет заявок к повтору — только чтение базы, внешних запросов нет (worker/scheduled.ts).

@@ -11,6 +11,7 @@ import type { Env } from './env';
 import { ensureSchema } from './db/schema';
 import { loadLead } from './db/leads';
 import { activeChannels, deliver } from './channels/dispatch';
+import { NO_RESPONSE } from './channels';
 
 const DAY = 24 * 60 * 60_000;
 export const RETENTION_DAYS = 90;
@@ -47,16 +48,16 @@ export async function runSchedule(env: Env, now = new Date()): Promise<void> {
        WHERE status = 'pending' AND next_attempt_at <= ?2 AND channel IN (${placeholders})
        ORDER BY next_attempt_at LIMIT ${BATCH}
      )
-     RETURNING lead_id, channel`,
+     RETURNING lead_id, channel, last_error`,
   ).bind(new Date(now.getTime() + LEASE_MS).toISOString(), nowIso, ...channels.map((c) => c.id))
-    .all<{ lead_id: number; channel: string }>();
+    .all<{ lead_id: number; channel: string; last_error: string | null }>();
   if (!due.length) return;
 
   console.log('retry_due', { count: due.length });
-  await Promise.allSettled(due.map(async ({ lead_id, channel }) => {
+  await Promise.allSettled(due.map(async ({ lead_id, channel, last_error }) => {
     const lead = await loadLead(env.DB, lead_id);
     const ch = channels.find((c) => c.id === channel);
     if (!lead || !ch) return;
-    await deliver(env, lead, ch).catch(() => console.error('retry_failed', { lead: lead_id, channel }));
+    await deliver(env, lead, ch, { afterNoResponse: last_error?.startsWith(NO_RESPONSE) ?? false }).catch(() => console.error('retry_failed', { lead: lead_id, channel }));
   }));
 }

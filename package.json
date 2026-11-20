@@ -12,7 +12,12 @@
     "deploy": "wrangler deploy --config wrangler.jsonc",
     "dev:api": "wrangler dev --config wrangler.jsonc",
     "test:e2e": "node --test --test-concurrency=1 scripts/leads-e2e.mjs",
-    "test:schedule": "node --test --test-concurrency=1 scripts/schedule-test.mjs"
+    "test:schedule": "node --test --test-concurrency=1 scripts/schedule-test.mjs",
+    "test:crm": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/crm-test.mjs",
+    "crm:explore": "node --experimental-strip-types --no-warnings scripts/crm/explore.mjs",
+    "crm:check": "node --experimental-strip-types --no-warnings scripts/crm/check.mjs",
+    "crm:delete": "node --experimental-strip-types --no-warnings scripts/crm/delete.mjs",
+    "leads:export": "node scripts/leads-export.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

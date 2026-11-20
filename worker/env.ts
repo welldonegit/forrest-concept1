@@ -19,4 +19,8 @@ export interface Env {
   CRM_TOKEN?: string;
   /** Только для тестов (.dev.vars / --env-file): адрес поддельного Bot API. В бою не задаётся. */
   TELEGRAM_API_BASE?: string;
+  /** Только для тестов: адрес поддельного API CRM. */
+  CRM_API_BASE?: string;
+  /** wrangler.jsonc → vars: JSON { utm_source: '<ID кастомного поля>', … } — запасной вариант для UTM. */
+  CRM_UTM_FIELDS?: string;
 }

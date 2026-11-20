@@ -4,13 +4,13 @@
  * не мешает другому. Не успело за время фоновой работы — дошлёт расписание.
  */
 import type { Env } from '../env';
-import { CHANNELS, SEND_TIMEOUT_MS, type Channel } from './index';
+import { CHANNELS, SEND_TIMEOUT_MS, type Channel, type SendOptions } from './index';
 import { recordAttempt, type StoredLead } from '../db/leads';
 import { onDeliveryFailed, onDeliverySent } from './alerts';
 
 /** Одна попытка по одному каналу + запись результата + серия сбоев. */
-export async function deliver(env: Env, lead: StoredLead, ch: Channel): Promise<void> {
-  const result = await ch.send!(env, lead, AbortSignal.timeout(SEND_TIMEOUT_MS)).catch((err: unknown) => ({
+export async function deliver(env: Env, lead: StoredLead, ch: Channel, opts: SendOptions = {}): Promise<void> {
+  const result = await ch.send!(env, lead, AbortSignal.timeout(SEND_TIMEOUT_MS), opts).catch((err: unknown) => ({
     ok: false as const,
     error: err instanceof Error ? err.name : 'error',
     noResponse: true,

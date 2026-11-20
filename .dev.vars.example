@@ -8,3 +8,6 @@ TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 # TELEGRAM_BOT_TOKEN=
 # TELEGRAM_CHAT_ID=
 # CRM_TOKEN=
+# Только для тестов (подменяют адреса API на поддельные серверы); в бою не задаются:
+# TELEGRAM_API_BASE=
+# CRM_API_BASE=
