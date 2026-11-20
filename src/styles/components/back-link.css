@@ -1,0 +1,16 @@
+/* ===== «На головну» внутренних страниц (архив, документы) — по archive.html выгрузки =====
+   Токены --arch-back-* (tokens.css, раздел архива) — общие для всех внутренних страниц. */
+.back-link{
+  display:inline-flex; align-items:center; gap:var(--arch-back-gap);
+  min-block-size:var(--arch-back-h); padding-inline:var(--arch-back-pad-start) var(--arch-back-pad-end);
+  border-radius:var(--radius-pill); background:var(--air); color:var(--text-primary); text-decoration:none;
+}
+.back-link__icon{
+  display:flex; align-items:center; justify-content:center; flex:none;
+  inline-size:var(--arch-back-icon); block-size:var(--arch-back-icon); border-radius:var(--radius-pill);
+  background:var(--bg-inverse); color:var(--air);
+}
+.back-link__icon svg{inline-size:var(--arch-back-svg); block-size:var(--arch-back-svg); transition:transform var(--arch-back-dur) var(--ease-out-expo)}
+[dir=rtl] .back-link__icon svg{scale:-1 1}
+@media (hover:hover){ .back-link:hover .back-link__icon svg{transform:translateX(var(--arch-back-shift))} }
+@media (prefers-reduced-motion:reduce){ .back-link__icon svg{transition:none} }

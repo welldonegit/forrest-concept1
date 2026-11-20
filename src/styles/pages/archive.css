@@ -1,27 +1,13 @@
 /* ===== Архив хода строительства (4.18) — по archive.html выгрузки =====
    Шапка и футер — общие с главной; карточка месяца — та же, что в Construction (construction.css).
-   Анимации появления в выгрузке нет; наведение на «На головну» — сдвиг стрелки. */
+   Анимации появления в выгрузке нет. «На головну» — общий компонент ui/BackLink.astro (components/back-link.css). */
 .arch{
   background:var(--bg-surface-warm); color:var(--text-primary);
   padding:var(--arch-pad-block-start) var(--arch-pad-inline) var(--arch-pad-block-end);
 }
 .arch__in{max-inline-size:var(--arch-max); margin-inline:auto}
 .arch__head{display:flex; flex-direction:column; align-items:flex-start; gap:var(--arch-head-gap); margin-block-end:var(--arch-head-mb)}
-.arch__back{
-  display:inline-flex; align-items:center; gap:var(--arch-back-gap);
-  min-block-size:var(--arch-back-h); padding-inline:var(--arch-back-pad-start) var(--arch-back-pad-end);
-  border-radius:var(--radius-pill); background:var(--air); color:var(--text-primary); text-decoration:none;
-}
-.arch__back-icon{
-  display:flex; align-items:center; justify-content:center; flex:none;
-  inline-size:var(--arch-back-icon); block-size:var(--arch-back-icon); border-radius:var(--radius-pill);
-  background:var(--bg-inverse); color:var(--air);
-}
-.arch__back-icon svg{inline-size:var(--arch-back-svg); block-size:var(--arch-back-svg); transition:transform var(--arch-back-dur) var(--ease-out-expo)}
-[dir=rtl] .arch__back-icon svg{scale:-1 1}
-@media (hover:hover){ .arch__back:hover .arch__back-icon svg{transform:translateX(var(--arch-back-shift))} }
 .arch__title{margin:0}
 .arch__title span{display:block}
 .arch__title-sub{color:var(--text-muted)}
 .arch__list{display:flex; flex-direction:column; gap:var(--arch-list-gap)}
-@media (prefers-reduced-motion:reduce){ .arch__back-icon svg{transition:none} }

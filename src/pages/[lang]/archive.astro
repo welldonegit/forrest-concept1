@@ -9,6 +9,7 @@ import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import ConstructionUpdate from '../../components/ui/ConstructionUpdate.astro';
+import BackLink from '../../components/ui/BackLink.astro';
 import '../../styles/pages/archive.css';
 import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding, type ConstructionBlock } from '../../lib/content';
@@ -31,12 +32,7 @@ const updates = (block?.updates ?? []).slice().sort((a, b) => Date.parse(b.date)
   <main id="main" tabindex="-1" class="arch">
     <div class="arch__in">
       <div class="arch__head">
-        <a class="arch__back text-arch-back" href={block ? `${home}#${block.anchor}` : home}>
-          <span class="arch__back-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-          </span>
-          {page.backLabel}
-        </a>
+        <BackLink href={block ? `${home}#${block.anchor}` : home} label={page.backLabel} />
         <h1 class="arch__title text-arch-title"><span>{page.title}</span> <span class="arch__title-sub">{page.subtitle}</span></h1>
       </div>
       {block && (

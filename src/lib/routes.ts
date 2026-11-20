@@ -13,3 +13,12 @@ export function onPage(href: string, base?: string): string {
   if (!base || !href.startsWith('#')) return href;
   return href === '#top' || href === '#' ? base : `${base}${href}`;
 }
+
+/** Документ сайта (Sanity «Документ»): категория задаёт раздел, slug — адрес, общий для всех языков. */
+export interface DocumentRoute { slug: string; category: 'policy' | 'construction' }
+
+/** Путь документа без языка: политика — «<slug>/», документы стройки — «dokumenty/<slug>/». */
+export const documentSubpath = (doc: DocumentRoute) => (doc.category === 'construction' ? `dokumenty/${doc.slug}/` : `${doc.slug}/`);
+
+/** Страница документа: /uk/polityka-konfidentsiinosti/, /en/dokumenty/dozvil-na-budivelni-roboty/. */
+export const documentPath = (lang: string, doc: DocumentRoute) => `/${lang}/${documentSubpath(doc)}`;
