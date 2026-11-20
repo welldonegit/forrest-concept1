@@ -72,6 +72,14 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 - Збірка читає опубліковане з публічного датасету `production` без ключів. Фото береться без втрат (`?fm=png` — ті самі пікселі, що в завантаженому оригіналі), далі `astro:assets` робить AVIF; SVG і PDF — як є.
 - `CONTENT_SOURCE=fixtures` — збірка з тимчасових фікстур `src/content-fixtures/` (для звірки).
 
+## Для розробника: одне поле з фікстур у Sanity
+
+Повний імпорт (`dataset import --replace`) перезаписує документи цілком, разом із правками зі Studio. Щоб перенести одне нове поле:
+
+`npm --prefix studio run import:build && npm --prefix studio run sanity -- exec import/patch-field.mjs --with-user-token -- siteSettings notFoundPage`
+
+Поле записується, лише якщо в Sanity його ще немає; `--force` — перезаписати, `--dry` — тільки показати.
+
 ## Для розробника: локальний запуск — сайт і API
 
 Сайт і API заявок запускаються окремо: дев-сервер Astro не виконує код Worker.
