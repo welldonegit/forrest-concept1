@@ -6,6 +6,8 @@
  *   Группа стала супергруппой (parameters.migrate_to_chat_id) — отправляем на новый ID
  *   в той же попытке; ID чата в wrangler.jsonc стоит заменить (подсказка в журнале).
  * Подписи — для команды отдела продаж, не для посетителя, поэтому живут в коде, а не в Sanity.
+ * Значения, выбранные в форме, сайт присылает по-украински при любом языке страницы;
+ * язык посетителя — отдельной пометкой «мова».
  * Токен бота — только в адресе запроса; адрес и ответы с данными в журнал не пишутся.
  */
 import type { Env } from '../env';
@@ -24,6 +26,7 @@ const SOURCES: Record<StoredLead['form'], string> = {
   apartment: 'Попап апартаменту',
 };
 
+/** Способ связи приходит украинской подписью из Sanity; коды — запасной вариант. */
 const CONTACT: Record<string, string> = { telegram: 'Telegram', viber: 'Viber', whatsapp: 'WhatsApp', call: 'Дзвінок' };
 
 const FIELDS: [keyof StoredLead['fields'], string][] = [
@@ -33,9 +36,8 @@ const FIELDS: [keyof StoredLead['fields'], string][] = [
   ['contactMethod', 'Звʼязок'],
   ['apartment', 'Апартамент'],
   ['format', 'Формат'],
+  // финальная форма: «Який формат інвестиції вас цікавить?» — цель покупки
   ['purpose', 'Мета'],
-  ['areaFrom', 'Площа від'],
-  ['areaTo', 'Площа до'],
   ['budget', 'Бюджет'],
   ['budgetCurrency', 'Валюта'],
   // country (код страны телефона) не выводим: он уже в начале номера; нужен для CRM.
@@ -56,6 +58,14 @@ export function kyivTime(iso: string): string {
   return new Intl.DateTimeFormat('uk-UA', {
     timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit',
   }).format(new Date(iso));
+}
+
+/** Площадь «29,5–34,5 м²» из чисел заявки. */
+function areaText(from?: string, to?: string): string {
+  const uk = (n?: string) => n?.trim().replace('.', ',');
+  const [a, b] = [uk(from), uk(to)];
+  if (!a) return '';
+  return b && b !== a ? `${a}–${b} м²` : `${a} м²`;
 }
 
 const money = (n: number) => `$${new Intl.NumberFormat('uk-UA', { maximumFractionDigits: 0 }).format(n)}`;
@@ -94,6 +104,12 @@ export function formatLeadMessage(lead: StoredLead): string {
     if (typeof raw !== 'string' || !raw.trim()) continue;
     // в квизе формат и бюджет — это ответы; выводим один раз, в блоке ответов
     if ((key === 'format' || key === 'budget') && answered.has(raw.trim())) continue;
+    if (key === 'format') {
+      // «Фінмодель»: поле формы «Площа апартаментів» — формат и его площадь
+      const area = areaText(lead.fields.areaFrom, lead.fields.areaTo);
+      rest.push(line(lead.form === 'finmodel' ? 'Площа апартаментів' : label, area ? `${raw}, ${area}` : raw));
+      continue;
+    }
     rest.push(line(label, key === 'contactMethod' ? CONTACT[raw] ?? raw : raw));
   }
   rest.push(line('Сторінка', lead.page));

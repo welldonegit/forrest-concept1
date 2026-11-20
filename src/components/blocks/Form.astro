@@ -6,7 +6,7 @@
  * (форматы апартаментов), способы связи и кнопка — из siteSettings.form.
  */
 import LeadSection from '../ui/LeadSection.astro';
-import type { FormBlock, SiteSettings } from '../../lib/content';
+import { areaRange, getSiteSettingsUk, ukIfDiffers, type FormBlock, type SiteSettings } from '../../lib/content';
 
 interface Props {
   block: FormBlock;
@@ -15,7 +15,20 @@ interface Props {
 
 const { block, settings } = Astro.props;
 const f = settings.form;
-const options = [{ label: f.formatUndecidedLabel }, ...f.formats.map((o) => ({ label: `${o.name}, ${o.area}` }))];
+const fUk = (await getSiteSettingsUk()).form;
+// Поле «Площа апартаментів»: формат и его площадь. В заявку — название формата (не переводится)
+// и площадь числами; «Ще не визначився» — украинской подписью.
+const options = [
+  { label: f.formatUndecidedLabel, uk: ukIfDiffers(f.formatUndecidedLabel, fUk.formatUndecidedLabel) },
+  ...f.formats.map((o) => {
+    const { from, to } = areaRange(o.area);
+    return { label: `${o.name}, ${o.area}`, format: o.name, areaFrom: from, areaTo: to };
+  }),
+];
+const contactOptions = f.contactOptions.map((o) => ({
+  ...o,
+  uk: ukIfDiffers(o.label, fUk.contactOptions.find((u) => u._key === o._key)?.label),
+}));
 ---
 <LeadSection
   id={block.anchor}
@@ -25,7 +38,7 @@ const options = [{ label: f.formatUndecidedLabel }, ...f.formats.map((o) => ({ l
   bullets={block.bullets}
   select={{ label: f.formatLabel, name: 'format', options }}
   contactLegend={f.contactLegend}
-  contactOptions={f.contactOptions}
+  contactOptions={contactOptions}
   submitLabel={f.submitLabel}
   settings={settings}
 />

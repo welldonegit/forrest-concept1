@@ -63,13 +63,14 @@ test('«Фінмодель» (en): заявка в D1 с UTM, переход н�
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Finmodel');
   await form.locator('input[name=phone]').pressSequentially(PHONE);
-  await form.locator('label.form__chip').first().click();
+  await form.locator('label.form__chip').last().click();
   await Promise.all([page.waitForURL('**/en/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
   const data = checkLead('finmodel', 'en');
   assert.equal(data.fields.phone, '+380671234567');
   assert.equal(data.fields.name, 'E2E Finmodel');
-  assert.ok(data.fields.format);
-  assert.ok(data.fields.contactMethod);
+  // выбранные значения — по-украински на английской странице
+  assert.equal(data.fields.format, 'Ще не визначився, потрібна консультація');
+  assert.equal(data.fields.contactMethod, 'Дзвінок');
   await page.close();
 });
 
@@ -102,8 +103,12 @@ test('финальная форма (uk): заявка в D1 с UTM, перех�
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Final');
   await form.locator('input[name=phone]').pressSequentially(PHONE);
+  await form.locator('select[name=goal]').selectOption({ index: 1 });
   await Promise.all([page.waitForURL('**/uk/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
-  checkLead('final', 'uk');
+  const data = checkLead('final', 'uk');
+  // вопрос «Який формат інвестиції…» — цель покупки
+  assert.equal(data.fields.purpose, 'Зростання вартості активу');
+  assert.equal(data.fields.format, undefined);
   await page.close();
 });
 

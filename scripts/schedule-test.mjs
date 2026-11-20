@@ -201,7 +201,7 @@ test('группа стала супергруппой: отправка на н
 });
 
 test('сообщения всех четырёх источников; длинный квиз укорачивается до 4096', async () => {
-  await delivery(await postLead({ form: 'final', fields: { name: 'Олена', phone: '+380501112233' } }));
+  await delivery(await postLead({ form: 'final', fields: { name: 'Олена', phone: '+380501112233', purpose: 'Пасивний дохід' } }));
   await delivery(await postLead({ form: 'apartment', lang: 'en', fields: { phone: '+380501112233', apartment: 'Deluxe' } }));
   const long = 'Д'.repeat(280);
   await delivery(await postLead({
@@ -211,11 +211,19 @@ test('сообщения всех четырёх источников; длин�
   }));
   const [final, apt, quiz] = leadMessages();
   assert.match(final.text, /Фінальна форма/);
+  assert.match(final.text, /\nМета: Пасивний дохід\n/);
   assert.match(apt.text, /Попап апартаменту[\s\S]*мова: en[\s\S]*Апартамент: Deluxe/);
   assert.doesNotMatch(apt.text, /Імʼя/);
   assert.match(quiz.text, /Квіз «Розрахунок доходу»/);
   assert.ok(quiz.text.length <= 4096, `длина ${quiz.text.length}`);
   assert.match(quiz.text, /Скорочено — повністю в базі заявок/);
+});
+
+test('«Фінмодель»: поле «Площа апартаментів» — формат и площадь', async () => {
+  await delivery(await postLead({ fields: { name: 'Тест', phone: '+380671234567', format: 'Superior', areaFrom: '29.5', areaTo: '34.5' } }));
+  const [msg] = leadMessages();
+  assert.match(msg.text, /\nПлоща апартаментів: Superior, 29,5–34,5 м²\n/);
+  assert.doesNotMatch(msg.text, /Площа від|Формат:/);
 });
 
 test('очистка: заявки старше 90 дней удаляются вместе со статусами и ключами', async () => {
