@@ -12,6 +12,7 @@
 import { validateLeadBody } from '../lib/crm-schema.mjs';
 import { buildCrmLead, crmSettings, publicApiV1, CRM_FIELD_OPTIONS } from '../../worker/channels/crm.ts';
 import { api, must, settings, maskPhone, TEST_NAME, BASE, token } from './lib.mjs';
+import { same, hasPhone } from './compare.mjs';
 
 const phone = process.env.CRM_TEST_PHONE?.replace(/[^\d+]/g, '');
 if (!phone || phone.replace(/\D/g, '').length < 7) {
@@ -78,7 +79,7 @@ console.log(`Створено лід ${id} (${number}), телефон ${maskPho
 const fields = [
   'id', 'added_at', 'source', 'pipeline_id', 'stages', 'manager.id', 'manager.name', 'note', 'note_purpose', 'note_section',
   'note_square_from', 'note_square_to', 'note_budget', 'note_budget_currency', 'data', 'objects',
-  'contact.name', 'contact.language', 'contact.preferred_contact_method', 'contact.phone_numbers',
+  'contact.name', 'contact.language', 'contact.preferred_contact_method', 'contact.phone_numbers', 'contact.phones',
 ].join(',');
 const got = must(await api(`/api/v1/leads/${id}?fields=${fields}`), 'читання ліда');
 
@@ -90,7 +91,6 @@ console.log(`Менеджер:  ${got.manager?.name ? `${got.manager.name} (id $
 console.log(`Джерело:   ${got.source ?? '—'}${env.CRM_SOURCE ? `  — задано ${env.CRM_SOURCE}` : ''}`);
 console.log(`Обʼєкти:   ${JSON.stringify(got.objects ?? [])}\n`);
 
-const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 const rows = [
   ['contact.name', body.contact.name, got.contact?.name],
   ['contact.language', body.contact.language, got.contact?.language],
@@ -115,8 +115,9 @@ console.log('Поле                              збережено  наді�
 for (const [name, sent, back] of rows) {
   console.log(`${name.padEnd(34)}${same(sent, back) ? '   ✓     ' : '   ✗     '} ${JSON.stringify(sent)} → ${JSON.stringify(back)}`);
 }
-const phoneBack = (got.contact?.phone_numbers ?? []).map((p) => (typeof p === 'string' ? p : p?.phone ?? '')).map((p) => p.replace(/\D/g, ''));
-console.log(`${'contact.phone_numbers'.padEnd(34)}${phoneBack.includes(phone.replace(/\D/g, '')) ? '   ✓     ' : '   ✗     '} ${maskPhone(phone)}`);
+// телефон — только цифрами: CRM хранит его в своём виде
+const phoneOk = hasPhone([got.contact?.phone_numbers, got.contact?.phones], phone);
+console.log(`${'contact.phone_numbers'.padEnd(34)}${phoneOk ? '   ✓     ' : '   ✗     '} ${maskPhone(phone)}`);
 if (!same(body.data?.utm, got.data?.utm)) console.log('\n! data.utm не збережено як надіслано: запасний варіант — CRM_UTM_FIELDS (ID кастомних полів, див. npm run crm:explore).');
 
 const found = await publicApiV1(env).findByNumber(lead, AbortSignal.timeout(10_000)).catch((e) => `помилка: ${e.message}`);

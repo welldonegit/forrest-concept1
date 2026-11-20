@@ -56,7 +56,7 @@
     "TURNSTILE_SITE_KEY": "0x4AAAAAAGKQ4629lyc9njjl",
     // Telegram: ID чата для заявок (группа — отрицательное число, супергруппа — начинается с -100).
     // Токен бота — секрет TELEGRAM_BOT_TOKEN (панель). Инструкция — docs/ADMIN.md.
-    "TELEGRAM_CHAT_ID": "292204468",
+    "TELEGRAM_CHAT_ID": "-3990676609",
     // G-PLUS CRM (значения — из npm run crm:explore, 2026-11-20):
     // источник «Сайт» (/api/v1/lead_sources); этап (/api/v1/pipelines) — пусто: этапа для новых заявок
     // в воронке нет, CRM ставит свой первый; здание FORREST TRINITY RESORT (/api/v1/buildings).

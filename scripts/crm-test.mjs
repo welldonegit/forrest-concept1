@@ -304,3 +304,16 @@ test('кастомные поля CRM: значения точно из спис
   assert.equal('data' in plain, false);
   assert.match(plain.note, /gclid: G\nfbclid: F/);
 });
+
+test('crm:check: сравнение без учёта порядка ключей, телефон — только цифры', async () => {
+  const { same, hasPhone } = await import('./crm/compare.mjs');
+  assert.ok(same({ utm_source: 's', utm_medium: 'm', utm_term: 't' }, { utm_term: 't', utm_medium: 'm', utm_source: 's' }));
+  assert.ok(!same({ utm_source: 's' }, { utm_source: 'x' }));
+  assert.ok(!same({ utm_source: 's' }, { utm_source: 's', utm_term: 't' }));
+  assert.ok(same(undefined, null));
+  assert.ok(same(['Telegram'], ['Telegram']));
+  assert.ok(hasPhone(['+38 (067) 123-45-67'], '+380671234567'));
+  assert.ok(hasPhone([[{ id: 1, phone_number: '380671234567' }], undefined], '+380671234567'));
+  assert.ok(!hasPhone(['+380671234500'], '+380671234567'));
+  assert.ok(!hasPhone([], '+380671234567'));
+});
