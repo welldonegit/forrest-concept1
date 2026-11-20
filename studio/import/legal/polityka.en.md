@@ -6,7 +6,7 @@ We collect and use your personal data only with your voluntary consent. By givin
 
 ## Data storage, modification and deletion
 
-A user who has provided their personal data to the forrestresort.com.ua website has the right to have it modified and deleted, as well as to withdraw their consent to its use. The period for which your personal data will be stored: 90 days. When the use of your data ends, the website administration deletes it. To access your personal data, you can contact the website administration at the following address: forrestresort.com@gmail.com. We may transfer your personal data to third parties only with your voluntary consent; if the data has been transferred, we cannot change it in other organisations associated with us.
+A user who has provided their personal data to the forrestresort.com.ua website has the right to have it modified and deleted, as well as to withdraw their consent to its use. The period for which your personal data will be stored: 24 months. When the use of your data ends, the website administration deletes it. To access your personal data, you can contact the website administration at the following address: forrestresort.com@gmail.com. We may transfer your personal data to third parties only with your voluntary consent; if the data has been transferred, we cannot change it in other organisations associated with us.
 
 ## Use of technical data when visiting the website
 

@@ -55,15 +55,6 @@ const DOCUMENTS = [
   },
 ];
 
-/**
- * Правки поверх исходного .docx (решения человека; сам файл из «Тексты» не меняется).
- * Каждая строка «было» должна встретиться в тексте ровно один раз — иначе ошибка (документ изменился).
- */
-const EDITS = {
-  // 2026-11-20: срок хранения — как у заявок в базе (90 дней, docs/LEADS.md).
-  'polityka-konfidentsiinosti.uk': [['зберігатися ваші персональні дані: 24 місяці.', 'зберігатися ваші персональні дані: 90 днів.']],
-};
-
 /** Переводы, которые человек ещё не утвердил (поле «Переклад не затверджено» в Sanity). */
 const UNAPPROVED = ['en'];
 
@@ -232,22 +223,13 @@ function fromDocx(file, base) {
 
 /* ---------- Сборка ---------- */
 
-function applyEdits(blocks, base) {
-  for (const [from, to] of EDITS[base] ?? []) {
-    const hits = blocks.flatMap((b) => (b.children ?? []).filter((c) => c.text.includes(from)));
-    if (hits.length !== 1 || hits[0].text.split(from).length !== 2) throw new Error(`${base}: правка «${from}» найдена ${hits.length ? 'несколько раз' : '0 раз'} — проверьте EDITS`);
-    hits[0].text = hits[0].text.replace(from, to);
-  }
-  return blocks;
-}
-
 function load(doc, lang) {
   const src = doc[lang];
   const base = `${doc.id}.${lang}`;
   if (src.docx) {
     const file = join(texts, src.docx);
     if (!existsSync(file)) throw new Error(`Нет файла «Тексты/${src.docx}»`);
-    return applyEdits(fromDocx(file, base), base);
+    return fromDocx(file, base);
   }
   return fromMarkdown(readFileSync(join(legal, src.md), 'utf8'), base);
 }
