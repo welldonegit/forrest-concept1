@@ -140,6 +140,9 @@
 | fields.phone | contact.phone_numbers[0] | +380…, без пробелов |
 | fields.email | contact.email (≤140) | нет — нет ключа; длиннее 140 — только в note |
 | fields.contactMethod | contact.preferred_contact_method (≤128) | украинской подписью |
+| fields.contactMethod | кастомное «Вибір зручного способу зв'язку» (CRM_FIELD_CONTACT_METHOD, multiselect) | Telegram, WhatsApp, Viber; звонок → «Мобільний»; нет соответствия — не передаём |
+| fields.format / fields.apartment | кастомное «Тип планування» (CRM_FIELD_LAYOUT, multiselect) | Superior → Standart/Superior, Deluxe → Deluxe/Premium apartments, Family → Famili Suites/Apartments, Junior Suite → Junior/Executive suite, Presidential → Presidential/Premium room; «Ще не визначився» и прочее — не передаём |
+| gclid, fbclid | кастомные «Google Click ID», «Fbclid» (CRM_FIELD_GCLID / _FBCLID) | ID не задан — в note |
 | lang | contact.language | uk → ua, en → en; нет в LanguageEnum — «Мова: …» в note |
 | fields.purpose (финальная форма) | note_purpose (≤150) | |
 | fields.format (Фінмодель, квиз) / fields.apartment (попап) | note_section (≤150) | |
@@ -148,7 +151,7 @@
 | время записи в D1 | added_at | ISO 8601 |
 | CRM_SOURCE / CRM_STAGE_ID / CRM_BUILDING_ID | source / stage_id / objects [{id}] | пусто — не передаём |
 | utm_source…utm_term | data.utm | + data.custom_field_values, если задан CRM_UTM_FIELDS |
-| номер, источник, страница, время по Киеву, согласие, ответы и расчёт квиза, gclid, fbclid, referrer, landing, всё длинное | note | начинается с «Заявка з лендінгу Forrest\nНомер: FR-…» |
+| номер, источник, страница, время по Киеву, согласие, ответы и расчёт квиза, referrer, landing, всё длинное | note | начинается с «Заявка з лендінгу Forrest\nНомер: FR-…» |
 | fields.country (код страны телефона) | — | уже в номере |
 
 ## Настройки (2026-11-20, из npm run crm:explore)
@@ -157,6 +160,11 @@
   (FORREST TRINITY RESORT); CRM_STAGE_ID пусто — этапа для новых заявок
   в воронке нет, лид встаёт на первый этап CRM (accepted, «Не має зв'язку»).
 - UTM — в data.utm: кастомных полей под UTM в CRM нет (CRM_UTM_FIELDS пусто).
+- Кастомные поля лида → data.custom_field_values { ID: значение }; ID — в
+  wrangler.jsonc (CRM_FIELD_*), значения — точно как варианты в CRM,
+  multiselect — массивом из одного варианта. Соответствие — worker/channels/crm.ts;
+  npm run crm:check сверяет ID, тип и каждый вариант со списком CRM до
+  создания лида и показывает, сохранились ли поля.
 - Домены — wrangler.jsonc → routes (custom domains), workers.dev остаётся
   превью (docs/ADMIN.md, «Домен»).
 

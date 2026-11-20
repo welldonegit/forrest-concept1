@@ -59,6 +59,37 @@ function currency(f: StoredLead['fields']): string | undefined {
   return undefined;
 }
 
+/**
+ * Кастомные поля лида (ID — wrangler.jsonc → vars CRM_FIELD_*). Значения — точно как варианты в CRM
+ * (npm run crm:explore). Нет соответствия — поле не передаём. Подписи из форм — украинские (data-uk).
+ */
+/** «Вибір зручного способу зв'язку» (multiselect). */
+const CONTACT_METHOD_OPTIONS: [RegExp, string][] = [
+  [/telegram|телеграм/i, 'Telegram'],
+  [/whats\s*app|ватсап/i, 'WhatsApp'],
+  [/viber|вайбер/i, 'Viber'],
+  [/дзвін|телефон|мобільн|call|phone/i, 'Мобільний'],
+];
+/** «Тип планування» (multiselect): формат апартамента. */
+const LAYOUT_OPTIONS: [RegExp, string][] = [
+  [/superior/i, 'Standart/Superior'],
+  [/deluxe/i, 'Deluxe/Premium apartments'],
+  [/famil/i, 'Famili Suites/Apartments'],
+  [/junior/i, 'Junior/Executive suite'],
+  [/presidential/i, 'Presidential/Premium room'],
+];
+/** Все значения соответствия — их проверяет npm run crm:check по списку вариантов CRM. */
+export const CRM_FIELD_OPTIONS = {
+  contactMethod: CONTACT_METHOD_OPTIONS.map(([, v]) => v),
+  layout: LAYOUT_OPTIONS.map(([, v]) => v),
+};
+export function crmOption(value: string | undefined, options: [RegExp, string][]): string | undefined {
+  const v = value?.trim();
+  return v ? options.find(([re]) => re.test(v))?.[1] : undefined;
+}
+export const contactMethodOption = (v: string | undefined) => crmOption(v, CONTACT_METHOD_OPTIONS);
+export const layoutOption = (v: string | undefined) => crmOption(v, LAYOUT_OPTIONS);
+
 /** Номер в note — по нему ищется дубль. */
 export const noteNumberLine = (number: string) => `Номер: ${number}`;
 
@@ -68,6 +99,8 @@ export interface CrmSettings {
   buildingId?: string;
   /** Запасной вариант для UTM: { utm_source: '<uuid поля>', ... } → data.custom_field_values. */
   utmFields?: Record<string, string>;
+  /** ID кастомных полей лида; пусто — поле не передаётся. */
+  fields?: { contactMethod?: string; layout?: string; gclid?: string; fbclid?: string };
 }
 
 export function crmSettings(env: Env): CrmSettings {
@@ -83,6 +116,12 @@ export function crmSettings(env: Env): CrmSettings {
     stageId: env.CRM_STAGE_ID?.trim() || undefined,
     buildingId: env.CRM_BUILDING_ID?.trim() || undefined,
     utmFields,
+    fields: {
+      contactMethod: env.CRM_FIELD_CONTACT_METHOD?.trim() || undefined,
+      layout: env.CRM_FIELD_LAYOUT?.trim() || undefined,
+      gclid: env.CRM_FIELD_GCLID?.trim() || undefined,
+      fbclid: env.CRM_FIELD_FBCLID?.trim() || undefined,
+    },
   };
 }
 
@@ -155,16 +194,26 @@ export function buildCrmLead(lead: StoredLead, cfg: CrmSettings): Record<string,
   for (const k of UTM) if (lead.attribution[k]) utm[k] = lead.attribution[k]!;
   const data: Record<string, unknown> = {};
   if (Object.keys(utm).length) data.utm = utm;
-  if (cfg.utmFields) {
-    const custom: Record<string, string> = {};
-    for (const [k, id] of Object.entries(cfg.utmFields)) {
-      const v = lead.attribution[k as keyof typeof lead.attribution];
-      if (v && id) custom[id] = v;
-    }
-    if (Object.keys(custom).length) data.custom_field_values = custom;
+  const custom: Record<string, string | string[]> = {};
+  for (const [k, id] of Object.entries(cfg.utmFields ?? {})) {
+    const v = lead.attribution[k as keyof typeof lead.attribution];
+    if (v && id) custom[id] = v;
   }
+  // multiselect — массив вариантов, строка — строкой
+  const ids = cfg.fields ?? {};
+  const methodOption = contactMethodOption(f.contactMethod);
+  if (ids.contactMethod && methodOption) custom[ids.contactMethod] = [methodOption];
+  const layout = layoutOption(f.format ?? f.apartment);
+  if (ids.layout && layout) custom[ids.layout] = [layout];
+  const inField = new Set<string>();
+  for (const k of ['gclid', 'fbclid'] as const) {
+    const v = cut(lead.attribution[k], 255);
+    if (ids[k] && v) { custom[ids[k]!] = v; inField.add(k); }
+  }
+  if (Object.keys(custom).length) data.custom_field_values = custom;
   if (Object.keys(data).length) body.data = data;
-  const extra = NOTE_EXTRA.filter((k) => lead.attribution[k]);
+  // gclid/fbclid, записанные в своё поле, в note не дублируем
+  const extra = NOTE_EXTRA.filter((k) => lead.attribution[k] && !inField.has(k));
   if (extra.length || Object.keys(utm).length) {
     note.push('', 'Джерело візиту:');
     for (const k of UTM) if (utm[k]) note.push(`${k}: ${utm[k]}`);

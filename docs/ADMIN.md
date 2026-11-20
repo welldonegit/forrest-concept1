@@ -168,7 +168,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 1. **Токен.** У CRM створіть технічного користувача «Сайт» (не живого менеджера) і токен API для нього з правами на ліди (створення й читання; для `crm:delete` — видалення) і `buildings.read` (список будинків). Токен — у Cloudflare: Worker `forrest-trinity-resort` → Settings → Variables and Secrets → Add → тип **Secret**, імʼя `CRM_TOKEN`. У чат і в файли проєкту не вставляти.
 2. **Розвідка** — що є в CRM (нічого не змінює): `CRM_TOKEN=… npm run crm:explore`. Друкує власника токена, воронки й етапи, джерела, кастомні поля ліда, будинки й позначає ✓/✗, чи знайдено значення з `wrangler.jsonc`.
 3. **Налаштування** — у `wrangler.jsonc` → `vars` (через коміт): `CRM_SOURCE` — ключ джерела (наприклад, `website`), `CRM_STAGE_ID` — id етапу для нових лідів, `CRM_BUILDING_ID` — id будинку FORREST. Порожнє значення — поле не передається.
-4. **Перевірка** — `CRM_TOKEN=… CRM_TEST_PHONE=+380… npm run crm:check`. Створює один лід «ТЕСТ сайт Forrest — не обробляти» з вашим телефоном тим самим кодом, що й сайт, читає його назад і показує етап, менеджера, чи збереглися `data.utm` і поля `note_*`, чи працює пошук дубля за номером. Якщо `data.utm` не зберігся — запасний варіант: ID кастомних полів у `CRM_UTM_FIELDS` (з розвідки), наприклад `{"utm_source":"<id>","utm_campaign":"<id>"}`.
+4. **Перевірка** — `CRM_TOKEN=… CRM_TEST_PHONE=+380… npm run crm:check`. Спершу звіряє кастомні поля (`CRM_FIELD_*`): чи є поле з таким ID, чи правильний тип і чи кожне значення, яке надсилає сайт, є у списку варіантів CRM; є ✗ — лід не створюється. Потім створює один лід «ТЕСТ сайт Forrest — не обробляти» з вашим телефоном тим самим кодом, що й сайт, читає його назад і показує етап, менеджера, чи збереглися `data.utm`, поля `note_*` і кастомні поля, чи працює пошук дубля за номером. Якщо `data.utm` не зберігся — запасний варіант: ID кастомних полів у `CRM_UTM_FIELDS` (з розвідки), наприклад `{"utm_source":"<id>","utm_campaign":"<id>"}`.
 5. **Видалення тестового ліда** — `CRM_TOKEN=… npm run crm:delete -- <id>` (id друкує `crm:check`). Видаляє лише лід з іменем «ТЕСТ сайт Forrest — не обробляти»; живі ліди не чіпає.
 
 Канал CRM вмикається, щойно зʼявився секрет `CRM_TOKEN`. Заявки, що прийшли раніше, у CRM не досилаються — вони в базі й у Telegram.
@@ -184,6 +184,7 @@ npm --prefix studio run -s sanity -- dataset import <файл>.tar.gz production
 | `TELEGRAM_CHAT_ID` | ID групи для заявок | `wrangler.jsonc` → `vars` |
 | `CRM_SOURCE`, `CRM_STAGE_ID`, `CRM_BUILDING_ID` | Джерело, етап, будинок у CRM (з `npm run crm:explore`) | `wrangler.jsonc` → `vars` |
 | `CRM_UTM_FIELDS` | Запасний варіант для UTM: ID кастомних полів | `wrangler.jsonc` → `vars` |
+| `CRM_FIELD_CONTACT_METHOD`, `CRM_FIELD_LAYOUT`, `CRM_FIELD_GCLID`, `CRM_FIELD_FBCLID` | ID кастомних полів ліда: спосіб звʼязку, тип планування, gclid, fbclid (з `npm run crm:explore`); порожньо — поле не передається | `wrangler.jsonc` → `vars` |
 | `SITE_INDEXING` | `allow` — дозволити індексацію пошуковикам | Workers Builds → змінні **збірки**, лише на бойовій збірці |
 | `CRM_TEST_PHONE` | Ваш телефон для `npm run crm:check` | лише у вашому терміналі під час запуску |
 

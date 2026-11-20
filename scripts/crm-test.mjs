@@ -60,6 +60,7 @@ before(async () => {
   worker = await startWorker(PORT, {
     CRM_TOKEN, CRM_API_BASE: base, CRM_SOURCE: 'website', CRM_STAGE_ID: 'stage-new', CRM_BUILDING_ID: '42',
     TELEGRAM_BOT_TOKEN: TG_TOKEN, TELEGRAM_CHAT_ID: '-1001', TELEGRAM_API_BASE: base,
+    CRM_FIELD_CONTACT_METHOD: 'f-method', CRM_FIELD_LAYOUT: 'f-layout', CRM_FIELD_GCLID: 'f-gclid', CRM_FIELD_FBCLID: 'f-fbclid',
   });
 });
 after(() => { if (process.env.DEBUG_WORKER) console.error(worker?.log()); worker?.stop(); fake.close(); fake.closeAllConnections?.(); });
@@ -131,9 +132,13 @@ test('4 источника: лид в CRM, тело по схеме, поля п
   assert.equal(b1.note_square_from, '29.5');
   assert.equal(b1.note_square_to, '34.5');
   assert.equal('note_purpose' in b1, false);
-  assert.deepEqual(b1.data, { utm: { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring' } });
+  assert.deepEqual(b1.data, {
+    utm: { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring' },
+    custom_field_values: { 'f-method': ['Мобільний'], 'f-layout': ['Standart/Superior'], 'f-gclid': 'g-1' },
+  });
   assert.ok(b1.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${fin.number}\nДжерело: форма «Фінмодель»\nСторінка: ${worker.base}/uk/`));
-  assert.match(b1.note, /gclid: g-1\nreferrer: https:\/\/www\.google\.com\//);
+  assert.match(b1.note, /\nreferrer: https:\/\/www\.google\.com\//);
+  assert.doesNotMatch(b1.note, /gclid/, 'gclid — в своём поле, в note не дублируется');
   const [row1] = sql(`SELECT created_at FROM leads WHERE id = ${fin.id}`);
   assert.equal(b1.added_at, row1.created_at);
 
@@ -146,11 +151,13 @@ test('4 источника: лид в CRM, тело по схеме, поля п
   const b3 = bodyOf(final.number);
   assert.equal(b3.note_purpose, 'Пасивний дохід');
   assert.equal('note_section' in b3, false);
+  assert.deepEqual(b3.data, { custom_field_values: { 'f-method': ['Telegram'] } });
 
   const b4 = bodyOf(quiz.number);
   assert.equal(b4.contact.name, `Заявка з сайту ${quiz.number}`, 'имя обязательно в CRM');
   assert.equal(b4.contact.email, 'a@example.com');
   assert.equal(b4.note_section, 'Deluxe');
+  assert.deepEqual(b4.data, { custom_field_values: { 'f-layout': ['Deluxe/Premium apartments'] } });
   assert.equal(b4.note_square_from, '43');
   assert.equal(b4.note_budget, 'До $130 000');
   assert.equal(b4.note_budget_currency, 'usd');
@@ -160,6 +167,7 @@ test('4 источника: лид в CRM, тело по схеме, поля п
 
   const b5 = bodyOf(apt.number);
   assert.equal(b5.note_section, 'Family Suite');
+  assert.deepEqual(b5.data, { custom_field_values: { 'f-layout': ['Famili Suites/Apartments'] } });
   assert.equal(b5.contact.language, 'en');
 });
 
@@ -267,4 +275,32 @@ test('сборка тела: язык не из списка CRM, обрезка
   assert.equal(body.contact.preferred_contact_method.length, 128);
   assert.deepEqual(body.data, { utm: { utm_source: 'google', utm_campaign: 'c' }, custom_field_values: { 'uuid-src': 'google' } });
   assert.equal('source' in body || 'stage_id' in body || 'objects' in body, false, 'не задано — не передаём');
+});
+
+test('кастомные поля CRM: значения точно из списка CRM, нет соответствия — поля нет', async () => {
+  const { buildCrmLead, contactMethodOption, layoutOption } = await import('../worker/channels/crm.ts');
+  // подписи форм (uk, из Sanity) → варианты CRM
+  const methods = { Telegram: 'Telegram', WhatsApp: 'WhatsApp', Viber: 'Viber', 'Дзвінок': 'Мобільний', 'Телефонний дзвінок': 'Мобільний', 'Телефон': 'Мобільний', 'E-mail': undefined, '': undefined };
+  for (const [v, want] of Object.entries(methods)) assert.equal(contactMethodOption(v), want, v);
+  const layouts = {
+    Superior: 'Standart/Superior', Deluxe: 'Deluxe/Premium apartments', 'Family Suite': 'Famili Suites/Apartments',
+    'Junior Suite': 'Junior/Executive suite', Presidential: 'Presidential/Premium room',
+    'Ще не визначився, потрібна консультація': undefined, Penthouse: undefined,
+  };
+  for (const [v, want] of Object.entries(layouts)) assert.equal(layoutOption(v), want, v);
+
+  const lead = {
+    id: 8, number: 'FR-000008', createdAt: '2026-11-20T10:00:00.000Z', form: 'apartment', lang: 'uk', page: 'https://example.test/uk/',
+    fields: { phone: '+380671234567', apartment: 'Junior Suite', contactMethod: 'Пошта' },
+    attribution: { gclid: 'G', fbclid: 'F' },
+  };
+  const ids = { contactMethod: 'm', layout: 'l', gclid: 'g', fbclid: 'f' };
+  const body = buildCrmLead(lead, { fields: ids });
+  assert.deepEqual(validateLeadBody(body), []);
+  assert.deepEqual(body.data, { custom_field_values: { l: ['Junior/Executive suite'], g: 'G', f: 'F' } }, 'способ связи без соответствия не передаётся');
+  assert.doesNotMatch(body.note, /gclid|fbclid/);
+  // ID не заданы — кастомных полей нет, gclid и fbclid — в note
+  const plain = buildCrmLead(lead, {});
+  assert.equal('data' in plain, false);
+  assert.match(plain.note, /gclid: G\nfbclid: F/);
 });

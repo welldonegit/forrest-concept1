@@ -35,7 +35,7 @@ for (const item of Array.isArray(sources) ? sources : []) {
   }
 }
 
-console.log('\n== Кастомні поля ліда (запасний варіант для UTM — CRM_UTM_FIELDS) ==');
+console.log('\n== Кастомні поля ліда (CRM_FIELD_* і запасний варіант для UTM — CRM_UTM_FIELDS) ==');
 const custom = must(await api('/api/v1/custom_fields?object=lead'), 'custom_fields');
 const fields = custom.lead_custom_fields ?? [];
 if (!fields.length) console.log('  немає');
@@ -60,3 +60,6 @@ console.log(`  CRM_SOURCE      = ${cfg.CRM_SOURCE || '(порожньо — дж
 console.log(`  CRM_STAGE_ID    = ${cfg.CRM_STAGE_ID || '(порожньо — етап за замовчуванням CRM)'}  ${cfg.CRM_STAGE_ID ? mark(stageFound) : ''}`);
 console.log(`  CRM_BUILDING_ID = ${cfg.CRM_BUILDING_ID || '(порожньо — обʼєкт не передається)'}  ${cfg.CRM_BUILDING_ID ? mark(buildingFound) : ''}`);
 console.log(`  CRM_UTM_FIELDS  = ${cfg.CRM_UTM_FIELDS || '(порожньо)'}`);
+for (const k of ['CRM_FIELD_CONTACT_METHOD', 'CRM_FIELD_LAYOUT', 'CRM_FIELD_GCLID', 'CRM_FIELD_FBCLID']) {
+  console.log(`  ${k.padEnd(24)} = ${cfg[k] || '(порожньо — поле не передається)'}  ${cfg[k] ? mark(fields.some((f) => f.id === cfg[k])) : ''}`);
+}

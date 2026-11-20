@@ -44,6 +44,10 @@ export const settings = () => ({
   CRM_STAGE_ID: wranglerVar('CRM_STAGE_ID'),
   CRM_BUILDING_ID: wranglerVar('CRM_BUILDING_ID'),
   CRM_UTM_FIELDS: wranglerVar('CRM_UTM_FIELDS'),
+  CRM_FIELD_CONTACT_METHOD: wranglerVar('CRM_FIELD_CONTACT_METHOD'),
+  CRM_FIELD_LAYOUT: wranglerVar('CRM_FIELD_LAYOUT'),
+  CRM_FIELD_GCLID: wranglerVar('CRM_FIELD_GCLID'),
+  CRM_FIELD_FBCLID: wranglerVar('CRM_FIELD_FBCLID'),
 });
 
 /** Телефон в выводе — только последние 2 цифры. */

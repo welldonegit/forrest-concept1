@@ -1,14 +1,16 @@
 /**
  * Проверочная отправка в G-PLUS CRM: создаёт ОДИН лид «ТЕСТ сайт Forrest — не обробляти»
  * тем же кодом, что Worker (worker/channels/crm.ts), читает его обратно и показывает этап,
- * менеджера, сохранились ли data.utm и поля note_*. Затем проверяет поиск дубля по номеру.
+ * менеджера, сохранились ли data.utm, поля note_* и кастомные поля (способ связи, тип планування,
+ * gclid, fbclid). До создания — сверяет ID кастомных полей и значения соответствия со списком CRM.
+ * Затем проверяет поиск дубля по номеру.
  *
  *   CRM_TOKEN=… CRM_TEST_PHONE=+380… npm run crm:check
  *
  * Удалить лид после проверки: npm run crm:delete -- <id>
  */
 import { validateLeadBody } from '../lib/crm-schema.mjs';
-import { buildCrmLead, crmSettings, publicApiV1 } from '../../worker/channels/crm.ts';
+import { buildCrmLead, crmSettings, publicApiV1, CRM_FIELD_OPTIONS } from '../../worker/channels/crm.ts';
 import { api, must, settings, maskPhone, TEST_NAME, BASE, token } from './lib.mjs';
 
 const phone = process.env.CRM_TEST_PHONE?.replace(/[^\d+]/g, '');
@@ -26,10 +28,38 @@ const lead = {
     areaFrom: '29.5', areaTo: '34.5', budget: 'До $130 000', budgetCurrency: 'usd', consent: true,
   },
   quiz: { answers: [{ question: 'Тестове питання', answer: 'Тестова відповідь' }], calc: { price: 132750 } },
-  attribution: { utm_source: 'site-check', utm_medium: 'test', utm_campaign: 'crm-check', utm_content: 'c', utm_term: 't', gclid: 'test-gclid' },
+  attribution: { utm_source: 'site-check', utm_medium: 'test', utm_campaign: 'crm-check', utm_content: 'c', utm_term: 't', gclid: 'test-gclid', fbclid: 'test-fbclid' },
 };
 
-const body = buildCrmLead(lead, crmSettings(env));
+// Кастомные поля: ID из wrangler.jsonc есть в CRM, тип верный, каждое значение соответствия — вариант CRM.
+const cfg = crmSettings(env);
+const KINDS = [
+  ['contactMethod', 'CRM_FIELD_CONTACT_METHOD', 'multiselect', CRM_FIELD_OPTIONS.contactMethod],
+  ['layout', 'CRM_FIELD_LAYOUT', 'multiselect', CRM_FIELD_OPTIONS.layout],
+  ['gclid', 'CRM_FIELD_GCLID', 'string'],
+  ['fbclid', 'CRM_FIELD_FBCLID', 'string'],
+];
+const crmFields = must(await api('/api/v1/custom_fields?object=lead'), 'custom_fields').lead_custom_fields ?? [];
+let fieldErrors = 0;
+console.log('Кастомні поля ліда (wrangler.jsonc → CRM_FIELD_*):');
+for (const [key, name, type, values] of KINDS) {
+  const id = cfg.fields?.[key];
+  if (!id) { console.log(`  –  ${name} порожньо — поле не передається`); continue; }
+  const f = crmFields.find((x) => x.id === id);
+  if (!f) { console.log(`  ✗  ${name} = ${id}: такого поля в CRM немає`); fieldErrors++; continue; }
+  const problems = [];
+  if (f.type !== type) problems.push(`тип ${f.type}, очікується ${type}`);
+  for (const v of values ?? []) if (!(f.options ?? []).includes(v)) problems.push(`немає варіанта «${v}»`);
+  fieldErrors += problems.length;
+  console.log(`  ${problems.length ? '✗' : '✓'}  ${name} → «${f.name}»${problems.length ? ': ' + problems.join('; ') : ''}`);
+}
+if (fieldErrors) {
+  console.error('\nВиправте CRM_FIELD_* у wrangler.jsonc або відповідність у worker/channels/crm.ts; лід не створено.');
+  process.exit(1);
+}
+console.log('');
+
+const body = buildCrmLead(lead, cfg);
 const errors = validateLeadBody(body);
 if (errors.length) {
   console.error('Тіло ліда не відповідає docs/crm/api_schema.yaml:\n  ' + errors.join('\n  '));
@@ -74,7 +104,13 @@ const rows = [
   ['data.utm', body.data?.utm, got.data?.utm],
   ['note (початок)', body.note.split('\n')[0], got.note?.split('\n')[0]],
 ];
-if (body.data?.custom_field_values) rows.push(['data.custom_field_values', body.data.custom_field_values, got.data?.custom_field_values]);
+for (const [id, sent] of Object.entries(body.data?.custom_field_values ?? {})) {
+  const f = crmFields.find((x) => x.id === id);
+  const back = got.data?.custom_field_values?.[id];
+  // multiselect CRM может вернуть строкой — сравниваем как множество
+  const norm = (v) => (Array.isArray(v) ? [...v].sort() : v == null ? v : f?.type === 'multiselect' ? [v] : v);
+  rows.push([`поле «${f?.name ?? id}»`.slice(0, 33), norm(sent), norm(back)]);
+}
 console.log('Поле                              збережено  надіслано → в CRM');
 for (const [name, sent, back] of rows) {
   console.log(`${name.padEnd(34)}${same(sent, back) ? '   ✓     ' : '   ✗     '} ${JSON.stringify(sent)} → ${JSON.stringify(back)}`);

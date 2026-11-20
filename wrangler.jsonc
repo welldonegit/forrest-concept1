@@ -65,7 +65,15 @@
     "CRM_BUILDING_ID": "26458",
     // UTM идут в data.utm: кастомных полей под UTM в CRM нет. Запасной вариант, если data.utm
     // не сохраняется (проверка — npm run crm:check): JSON строкой { "utm_source": "<ID поля>", … }.
-    "CRM_UTM_FIELDS": ""
+    "CRM_UTM_FIELDS": "",
+    // Кастомные поля лида (ID — из npm run crm:explore). Пусто — поле не передаётся.
+    // «Вибір зручного способу зв'язку» (multiselect): Telegram | WhatsApp | Viber | Мобільний.
+    "CRM_FIELD_CONTACT_METHOD": "2d8f405b-9e7e-42e6-94a8-31c17164a344",
+    // «Тип планування» (multiselect): формат апартамента (соответствие — worker/channels/crm.ts).
+    "CRM_FIELD_LAYOUT": "9666be69-1ca4-4c4f-8f5e-167034382b85",
+    // «Google Click ID» и «Fbclid» (строки).
+    "CRM_FIELD_GCLID": "gclid",
+    "CRM_FIELD_FBCLID": "fbclid"
   },
   // Раз в 10 минут: повторы доставки (через 10 минут и через час) и удаление заявок старше 90 дней.
   // Нет заявок к повтору — только чтение базы, внешних запросов нет (worker/scheduled.ts).

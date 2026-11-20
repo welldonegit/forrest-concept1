@@ -21,4 +21,9 @@ export interface Env {
   CRM_API_BASE?: string;
   /** wrangler.jsonc → vars: JSON { utm_source: '<ID кастомного поля>', … } — запасной вариант для UTM. */
   CRM_UTM_FIELDS?: string;
+  /** wrangler.jsonc → vars: ID кастомных полей лида (способ связи, тип планировки, gclid, fbclid). */
+  CRM_FIELD_CONTACT_METHOD?: string;
+  CRM_FIELD_LAYOUT?: string;
+  CRM_FIELD_GCLID?: string;
+  CRM_FIELD_FBCLID?: string;
 }
