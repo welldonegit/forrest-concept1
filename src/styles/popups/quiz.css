@@ -148,6 +148,8 @@
 .quiz__btn--back{gap:var(--quiz-back-gap); padding-inline:var(--quiz-back-pad-start) var(--quiz-back-pad-end); border:var(--border-1) solid var(--quiz-line-strong); background:transparent; color:var(--text-primary); transition:background var(--quiz-btn-dur) ease, border-color var(--quiz-btn-dur) ease}
 .quiz__btn--back:hover{background:var(--air); border-color:var(--quiz-line-hover)}
 .quiz__btn--next{gap:var(--quiz-next-gap); padding-inline:var(--quiz-next-pad-start) var(--quiz-next-pad-end); border:0; background:var(--text-primary); color:var(--air); transition:background var(--quiz-btn-dur) ease, transform var(--quiz-btn-dur) var(--ease-out-quint), opacity var(--quiz-btn-dur) ease}
+/* подпись переносится, когда кнопке не хватает ширины (как в выгрузке: «Отримати / розрахунок» на 390) */
+.quiz__btn--next{white-space:normal; text-align:center}
 .quiz__btn--next:hover{background:var(--night-bark)}
 .quiz__btn--next svg{transition:transform var(--quiz-arrow-dur) var(--ease-out-quint)}
 .quiz__btn--next:hover svg{transform:translateX(var(--quiz-arrow-shift))}
