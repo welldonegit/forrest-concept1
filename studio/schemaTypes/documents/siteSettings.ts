@@ -106,7 +106,7 @@ export const siteSettings = defineType({
           T('address', 'Адреса'), S('wordmarkLabel', 'Опис великого напису FORREST'), S('copyright', 'Копірайт'),
         ]),
         defineField({ name: 'groups', title: 'Колонки посилань', type: 'array', of: [{ type: 'footerGroup' }] }),
-        defineField({ name: 'legalLinks', title: 'Юридичні посилання', type: 'array', of: [{ type: 'navLink' }], description: 'Політика конфіденційності — виберіть документ. TODO: «Умови використання» — документа немає, вирішити: інший документ чи прибрати.' }),
+        defineField({ name: 'legalLinks', title: 'Юридичні посилання', type: 'array', of: [{ type: 'navLink' }], description: 'Політика конфіденційності — виберіть документ.' }),
         defineField({
           name: 'credit', title: 'Студія-розробник', type: 'object',
           fields: [text('label', { title: 'Підпис' }), str('logoLabel', 'Назва студії'), str('href', 'Посилання', { description: 'TODO: адреса студії.' })],

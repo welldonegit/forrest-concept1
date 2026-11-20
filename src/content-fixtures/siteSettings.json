@@ -772,20 +772,6 @@
           "_ref": "legal-polityka-konfidentsiinosti"
         },
         "href": "#privacy"
-      },
-      {
-        "_key": "t",
-        "label": [
-          {
-            "_key": "uk",
-            "value": "Умови використання"
-          },
-          {
-            "_key": "en",
-            "value": "Terms of use"
-          }
-        ],
-        "href": "#terms"
       }
     ],
     "credit": {
@@ -1546,11 +1532,11 @@
       "consentLinkLabel": [
         {
           "_key": "uk",
-          "value": "політикою конфіденційності та правилами використання"
+          "value": "політикою конфіденційності"
         },
         {
           "_key": "en",
-          "value": "privacy policy and terms of use"
+          "value": "privacy policy"
         }
       ],
       "backLabel": [

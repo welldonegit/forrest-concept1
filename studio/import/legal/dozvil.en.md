@@ -7,7 +7,7 @@ dated 03 July 2026 No. ІУ013260626624
 This permit is granted:
 
 | to the customer | LIMITED LIABILITY COMPANY «PERSPEKTYVA ZAKHID INVEST», UKRAINE, Dnipropetrovsk region, Dnipro district, Dnipro territorial community, Dnipro city (as of 01.01.2021), Sviatoslava Khorobroho street, bldg. 12, EDRPOU 45649026 |
-| to the general contractor (contractor) | Limited Liability Company "DNIPRO ZBK" (41664779) Ukraine, 49022, Dnipropetrovsk region, Dnipro city, POVITRIANA street, building 5 +38(098)-177-77-97; |
+| to the general contractor (contractor) | Limited Liability Company "DNIPRO ZBK" (41664779) Ukraine, 49022, Dnipropetrovsk region, Dnipro city, POVITRIANA street, building 5 |
 | name of the construction object | New construction of a recreational multifunctional complex with a network of commercial infrastructure in Polianytsia village, Vyshni site, Nadvirna district, Ivano-Frankivsk region |
 | location of the construction object | Ivano-Frankivsk region, Nadvirna district, Polianytsia territorial community, Polianytsia village (as of 01.01.2021) Vyshni site, Nadvirna district, Ivano-Frankivsk region |
 | type of construction | New construction |
@@ -19,8 +19,8 @@ This permit is granted:
 | and approved by the customer | Myronenko Ihor Yuriiovych, Director of LIMITED LIABILITY COMPANY «PERSPEKTYVA ZAKHID INVEST» (45649026), by Order No. 05/06 dated 5.06.2026 |
 | consequence (responsibility) class | СС3 |
 | Expert review of the construction project carried out by | LLC "Instytut ekspertno-tekhnichnykh rishen u budivnytstvi" (41230758), KOLOS OLEKSANDR ANATOLIIOVYCH (АЕ 006548, АЕ 000645). |
-| Author's supervision carried out by | Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008) +38(068)-201-83-25 AI01:2738-3971-7253-2299 Registered (entered by the registrar) |
-| Technical supervision carried out by | Nesterchuk Oleksandr Volodymyrovych (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) +38(050)-488-25-17 TN01:2882-3092-7086-5909 Registered (entered by the registrar) |
+| Author's supervision carried out by | Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008) AI01:2738-3971-7253-2299 Registered (entered by the registrar) |
+| Technical supervision carried out by | Nesterchuk Oleksandr Volodymyrovych (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) TN01:2882-3092-7086-5909 Registered (entered by the registrar) |
 | Person responsible for performing the works | Spyrydonenkov Vitalii, order No. dated, director |
 | chief construction supervision inspector | Shevchenko Viktor Valeriiovych |
 

@@ -86,7 +86,7 @@
        {
         "_type": "span",
         "_key": "74ed0c02561d",
-        "text": "Користувач, який надав свої персональні дані сайту forrestresort.com.ua має право на їх зміну і видалення, а так само на відгук своєї згоди з їх використанням. Термін, протягом якого будуть зберігатися ваші персональні дані: 24 місяці. При завершенні використання ваших даних адміністрація сайту видаляє їх. Для доступу до своїх персональних даних ви можете зв’язатися з адміністрацією сайту за наступною адресою: forrestresort.com@gmail.com. Ми можемо передавати ваші особисті дані третім сторонам тільки з вашої добровільної згоди, якщо вони були передані, то зміну даних у інших організаціях, які пов’язані з нами, ми здійснити не можемо.",
+        "text": "Користувач, який надав свої персональні дані сайту forrestresort.com.ua має право на їх зміну і видалення, а так само на відгук своєї згоди з їх використанням. Термін, протягом якого будуть зберігатися ваші персональні дані: 90 днів. При завершенні використання ваших даних адміністрація сайту видаляє їх. Для доступу до своїх персональних даних ви можете зв’язатися з адміністрацією сайту за наступною адресою: forrestresort.com@gmail.com. Ми можемо передавати ваші особисті дані третім сторонам тільки з вашої добровільної згоди, якщо вони були передані, то зміну даних у інших організаціях, які пов’язані з нами, ми здійснити не можемо.",
         "marks": []
        }
       ]
@@ -357,7 +357,7 @@
        {
         "_type": "span",
         "_key": "725e7ceb257b",
-        "text": "A user who has provided their personal data to the forrestresort.com.ua website has the right to have it modified and deleted, as well as to withdraw their consent to its use. The period for which your personal data will be stored: 24 months. When the use of your data ends, the website administration deletes it. To access your personal data, you can contact the website administration at the following address: forrestresort.com@gmail.com. We may transfer your personal data to third parties only with your voluntary consent; if the data has been transferred, we cannot change it in other organisations associated with us.",
+        "text": "A user who has provided their personal data to the forrestresort.com.ua website has the right to have it modified and deleted, as well as to withdraw their consent to its use. The period for which your personal data will be stored: 90 days. When the use of your data ends, the website administration deletes it. To access your personal data, you can contact the website administration at the following address: forrestresort.com@gmail.com. We may transfer your personal data to third parties only with your voluntary consent; if the data has been transferred, we cannot change it in other organisations associated with us.",
         "marks": []
        }
       ]
@@ -667,7 +667,7 @@
         "_key": "e70295d62924",
         "cells": [
          "генеральному підряднику (підряднику)",
-         "Товариство з обмеженою відповідальністю \"ДНІПРО ЗБК\" (41664779) Україна, 49022, Дніпропетровська обл., місто Дніпро, вулиця ПОВІТРЯНА, будинок 5 +38(098)-177-77-97 ;"
+         "Товариство з обмеженою відповідальністю \"ДНІПРО ЗБК\" (41664779) Україна, 49022, Дніпропетровська обл., місто Дніпро, вулиця ПОВІТРЯНА, будинок 5"
         ]
        },
        {
@@ -763,7 +763,7 @@
         "_key": "551ae0bd8b30",
         "cells": [
          "Авторський нагляд здійснює",
-         "Антонюк Дмитро Іванович (АА 002472, АА 002503, АА 000008) +38(068)-201-83-25 AI01:2738-3971-7253-2299 Зареєстровано (внесено реєстратором)"
+         "Антонюк Дмитро Іванович (АА 002472, АА 002503, АА 000008) AI01:2738-3971-7253-2299 Зареєстровано (внесено реєстратором)"
         ]
        },
        {
@@ -771,7 +771,7 @@
         "_key": "013662ef77de",
         "cells": [
          "Технічний нагляд здійснює",
-         "Нестерчук Олександр Володимирович (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) +38(050)-488-25-17 TN01:2882-3092-7086-5909 Зареєстровано (внесено реєстратором)"
+         "Нестерчук Олександр Володимирович (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) TN01:2882-3092-7086-5909 Зареєстровано (внесено реєстратором)"
         ]
        },
        {
@@ -1004,7 +1004,7 @@
         "_key": "f15af6719407",
         "cells": [
          "to the general contractor (contractor)",
-         "Limited Liability Company \"DNIPRO ZBK\" (41664779) Ukraine, 49022, Dnipropetrovsk region, Dnipro city, POVITRIANA street, building 5 +38(098)-177-77-97;"
+         "Limited Liability Company \"DNIPRO ZBK\" (41664779) Ukraine, 49022, Dnipropetrovsk region, Dnipro city, POVITRIANA street, building 5"
         ]
        },
        {
@@ -1100,7 +1100,7 @@
         "_key": "88f937e67416",
         "cells": [
          "Author's supervision carried out by",
-         "Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008) +38(068)-201-83-25 AI01:2738-3971-7253-2299 Registered (entered by the registrar)"
+         "Antoniuk Dmytro Ivanovych (АА 002472, АА 002503, АА 000008) AI01:2738-3971-7253-2299 Registered (entered by the registrar)"
         ]
        },
        {
@@ -1108,7 +1108,7 @@
         "_key": "88162c8dca5c",
         "cells": [
          "Technical supervision carried out by",
-         "Nesterchuk Oleksandr Volodymyrovych (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) +38(050)-488-25-17 TN01:2882-3092-7086-5909 Registered (entered by the registrar)"
+         "Nesterchuk Oleksandr Volodymyrovych (АЕ 003266, АЕ 006561, АТ 002827, АТ 010214, СІ- 01068, СІ- 00428) TN01:2882-3092-7086-5909 Registered (entered by the registrar)"
         ]
        },
        {
