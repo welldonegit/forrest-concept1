@@ -13,9 +13,13 @@ import { preloadCaptcha } from './captcha.js';
 import { leadSender, pushLeadEvent } from './lead-api.js';
 
 function initForm(form) {
+  if (form.dataset.leadReady !== undefined) return;
+  form.dataset.leadReady = '';
   const formId = form.dataset.leadForm;
   const { name, phone, format, contact } = form.elements;
   const send = leadSender(form, formId);
+  // номер, введённый до загрузки модуля, — в тот же вид, что при наборе
+  if (phone.value) phone.value = formatPhone(phone.value);
   phone.addEventListener('input', () => {
     phone.value = formatPhone(phone.value);
     setError(phone, false);
@@ -43,6 +47,11 @@ function initForm(form) {
     });
     if (result) pushLeadEvent(formId, () => window.location.assign(form.dataset.thanks));
   });
+  // посетитель нажал кнопку до загрузки модуля (main.js) — отправляем сейчас
+  if (form.dataset.leadPending !== undefined) {
+    delete form.dataset.leadPending;
+    form.requestSubmit();
+  }
 }
 
 export function initLeadForms(root = document) {

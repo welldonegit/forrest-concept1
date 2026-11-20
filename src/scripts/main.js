@@ -29,6 +29,16 @@ initAnimations();
 
 // Дальние блоки: код подгружается и запускается, когда блок подходит к экрану (ui/lazy.js).
 whenNear('[data-lead-section]', (el) => import('./ui/lead-form.js').then((m) => m.initLeadForms(el)));
+// Отправка раньше, чем подгрузился lead-form.js (быстрый клик после прокрутки): не даём уйти
+// обычным POST (страница перезагрузится, введённое пропадёт) — грузим модуль и отправляем им.
+document.querySelectorAll('form[data-lead-form]').forEach((form) => {
+  form.addEventListener('submit', (e) => {
+    if (form.dataset.leadReady !== undefined) return;
+    e.preventDefault();
+    form.dataset.leadPending = '';
+    import('./ui/lead-form.js').then((m) => m.initLeadForms(form));
+  });
+});
 whenNear('.infra', (el) => import('./ui/infra.js').then((m) => m.initInfra(el)));
 whenNear('[data-calc]', (el) => import('./ui/numbers.js').then((m) => m.initNumbers(el)));
 whenNear('[data-ct]', (el) => import('./ui/construction.js').then((m) => m.initConstruction(el)));

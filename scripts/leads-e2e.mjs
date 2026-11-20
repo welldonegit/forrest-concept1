@@ -73,6 +73,27 @@ test('«Фінмодель» (en): заявка в D1 с UTM, переход н�
   await page.close();
 });
 
+test('клик раньше загрузки скрипта формы: заявка уходит через API, без перезагрузки', async () => {
+  const page = await context.newPage();
+  // скрипт формы приходит с задержкой 2 с — посетитель успевает заполнить и нажать
+  await page.route(/\/_astro\/lead-form\.[^/]+\.js$/, async (r) => { await new Promise((ok) => setTimeout(ok, 2000)); await r.continue(); });
+  const posts = [];
+  page.on('request', (r) => { if (r.url().endsWith('/api/lead')) posts.push(r.headers()['content-type']); });
+  await page.goto(`${worker.base}/en/`);
+  const before = leadsOf('finmodel').length;
+  const form = page.locator('form[data-lead-form="finmodel"]');
+  await form.scrollIntoViewIfNeeded();
+  await form.locator('input[name=name]').fill('E2E Early');
+  await form.locator('input[name=phone]').fill(PHONE);
+  assert.equal(await form.evaluate((f) => f.dataset.leadReady), undefined, 'модуль уже загружен — тест не проверяет ранний клик');
+  await Promise.all([page.waitForURL('**/en/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
+  assert.deepEqual(posts, ['application/json']);
+  const rows = leadsOf('finmodel');
+  assert.equal(rows.length, before + 1);
+  assert.equal(JSON.parse(rows.at(-1).data).fields.phone, '+380671234567');
+  await page.close();
+});
+
 test('финальная форма (uk): заявка в D1 с UTM, переход на «Дякуємо»', async () => {
   const page = await context.newPage();
   await page.goto(`${worker.base}/uk/archive/`);
