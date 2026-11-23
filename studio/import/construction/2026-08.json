@@ -1,0 +1,51 @@
+{
+  "queue": null,
+  "video": null,
+  "photos": {
+    "IMG_8185 1.jpg": {
+      "uk": "Бурова установка занурює обсадну трубу палі в ґрунт на схилі",
+      "en": "A drilling rig driving a pile casing into the ground on the slope"
+    },
+    "IMG_8186 1.jpg": {
+      "uk": "Обсадна труба палі на передньому плані, позаду бурова установка в котловані серед лісу",
+      "en": "A pile casing in the foreground, a drilling rig in the excavation among the forest behind"
+    },
+    "IMG_8187 1.jpg": {
+      "uk": "Бурова установка над свердловиною палі, поруч обсадні труби й екскаватор, вид згори",
+      "en": "A drilling rig over a pile borehole with casings and an excavator nearby, top view"
+    },
+    "IMG_8188 1.jpg": {
+      "uk": "Бурова установка виймає ґрунт зі свердловини палі",
+      "en": "A drilling rig removing soil from a pile borehole"
+    },
+    "IMG_8189 1.jpg": {
+      "uk": "Вид з висоти на долину з дорогою та будівельним майданчиком серед лісу",
+      "en": "Aerial view of the valley with the road and the construction site among the forest"
+    },
+    "IMG_8190 1.jpg": {
+      "uk": "Павільйон з вивіскою FORREST Resort & SPA, позаду екскаватор і самоскид",
+      "en": "A pavilion with the FORREST Resort & SPA sign, an excavator and a dump truck behind it"
+    },
+    "IMG_8191 1.jpg": {
+      "uk": "Екскаватор вантажить ґрунт у самоскид",
+      "en": "An excavator loading soil into a dump truck"
+    },
+    "IMG_8192 1.jpg": {
+      "uk": "Бурова установка й екскаватор на майданчику серед лісу, вид згори",
+      "en": "A drilling rig and an excavator on the site among the forest, top view"
+    },
+    "IMG_8193 1.jpg": {
+      "uk": "Обсадна труба палі на передньому плані, позаду робітник у касці",
+      "en": "A pile casing in the foreground, a worker in a hard hat behind it"
+    }
+  },
+  "en": {
+    "approved": false,
+    "title": "Engineering preparation",
+    "works": [
+      "Work began on installing the engineering protection piles.",
+      "Drilling and concreting works were carried out.",
+      "Site preparation for the main construction cycle continued."
+    ]
+  }
+}
