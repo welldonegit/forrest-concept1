@@ -1,7 +1,7 @@
 ---
 /**
  * Карточка месячного отчёта о строительстве: месяц и черга, фото (своя лента с кнопками),
- * кнопка дрон-видео, заголовок, текст, список работ. Одна разметка для Construction (лента на главной)
+ * кнопка дрон-видео, заголовок, текст, список работ. Черги и абзаца может не быть — тогда их нет в разметке. Одна разметка для Construction (лента на главной)
  * и страницы архива (4.18); стили — styles/blocks/construction.css, листание фото — scripts/ui/construction.js.
  * TODO: дрон-видео — файлов нет, кнопка без действия (попап видео 4.17 подключится, когда появится файл).
  */
@@ -28,7 +28,7 @@ const arrow = (dir: 'prev' | 'next') => (dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 
 <article class="ct__item" data-ct-item aria-labelledby={titleId}>
   <div class="ct__item-head">
     <time class="ct__month text-ct-month" datetime={u.date}>{monthOf(u.date, lang)}</time>
-    <span class="ct__queue text-ct-queue">{u.queue}</span>
+    {u.queue && <span class="ct__queue text-ct-queue">{u.queue}</span>}
   </div>
   <div class="ct__card">
     <div class="ct__media">
@@ -55,7 +55,7 @@ const arrow = (dir: 'prev' | 'next') => (dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 
     </div>
     <div class="ct__body">
       <Heading class="ct__item-title text-ct-title" id={titleId}>{u.title}</Heading>
-      <p class="ct__text text-ct-text">{u.text}</p>
+      {u.text && <p class="ct__text text-ct-text">{u.text}</p>}
       <ul class="ct__works" role="list">
         {u.works.map((w) => (
           <li class="ct__work text-ct-work">

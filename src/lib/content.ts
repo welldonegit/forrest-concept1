@@ -741,10 +741,11 @@ export interface ConstructionUpdate {
   _key: string;
   /** Дата отчёта (YYYY-MM-DD): по ней — подпись месяца и порядок. */
   date: string;
-  /** Черга (WIND, ROCK, SUN). */
-  queue: string;
+  /** Черга (WIND, ROCK, SUN); нет — отчёт по всему курорту, плашки нет. */
+  queue?: string;
   title: string;
-  text: string;
+  /** Абзац под заголовком; может отсутствовать (отчёт — заголовок и список работ). */
+  text?: string;
   slides: (SanityImage & { _key: string })[];
   /** Дрон-видео: длительность для кнопки; файл — TODO (попап 4.17). */
   video?: { duration: string; file?: unknown };

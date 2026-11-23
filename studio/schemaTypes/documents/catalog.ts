@@ -3,6 +3,7 @@ import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
 import { ukOf } from '../lib/block.ts';
 import { num, photoField, str } from '../lib/fields.ts';
+import { languages, defaultLanguage } from '../../../src/lib/languages.ts';
 
 const MONTHS = ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'];
 
@@ -23,12 +24,12 @@ export const constructionReport = defineType({
     defineField({
       name: 'queue', title: 'Черга', type: 'string',
       options: { list: ['WIND', 'ROCK', 'SUN'], layout: 'radio', direction: 'horizontal' },
-      validation: (r) => r.required(),
+      description: 'Порожньо — звіт про весь курорт: мітки черги на картці немає.',
     }),
     texts('reportTexts', [
       defineField({ name: 'title', title: 'Заголовок', type: 'string' }),
-      defineField({ name: 'text', title: 'Текст', type: 'text', rows: 4 }),
-    ]),
+      defineField({ name: 'text', title: 'Текст', type: 'text', rows: 4, description: 'Абзац під заголовком. Можна не заповнювати, якщо є список робіт.' }),
+    ], { optional: ['text'] }),
     defineField({
       name: 'slides', title: 'Фото', type: 'array', of: [{ type: 'photo' }], options: { layout: 'grid' },
       description: 'Перетягніть кілька фото одразу. Порядок — як у гортанні на сайті.',
@@ -42,13 +43,20 @@ export const constructionReport = defineType({
         str('duration', 'Тривалість', { description: 'Наприклад «1:20».' }),
       ],
     }),
+    defineField({
+      name: 'unapprovedLanguages', title: 'Переклад не затверджено', type: 'array', of: [{ type: 'string' }],
+      options: { list: languages.filter((l) => l.id !== defaultLanguage).map((l) => ({ title: l.name, value: l.id })), layout: 'grid' },
+      description: 'Позначте мову, переклад якої ще не перевірено. Після перевірки — зніміть позначку. На сайт не впливає.',
+    }),
   ],
   orderings: [{ title: 'Нові зверху', name: 'dateDesc', by: [{ field: 'date', direction: 'desc' }] }],
   preview: {
-    select: { date: 'date', queue: 'queue', g: 'texts', media: 'slides.0' },
-    prepare: ({ date, queue, g, media }) => {
+    select: { date: 'date', queue: 'queue', g: 'texts', media: 'slides.0', u: 'unapprovedLanguages' },
+    prepare: ({ date, queue, g, media, u }) => {
       const d = date ? new Date(`${date}T00:00:00`) : null;
-      return { title: d ? `${MONTHS[d.getMonth()]} ${d.getFullYear()} · ${queue ?? ''}` : 'Без дати', subtitle: ukOf(g, 'title'), media };
+      const title = d ? [`${MONTHS[d.getMonth()]} ${d.getFullYear()}`, queue].filter(Boolean).join(' · ') : 'Без дати';
+      const subtitle = [ukOf(g, 'title'), u?.length ? `переклад не затверджено: ${u.join(', ')}` : ''].filter(Boolean).join(' · ');
+      return { title, subtitle, media };
     },
   },
 });
