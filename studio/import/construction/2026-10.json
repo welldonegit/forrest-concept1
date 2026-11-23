@@ -1,0 +1,47 @@
+{
+  "queue": null,
+  "video": null,
+  "photos": {
+    "IMG_8208 1.jpg": {
+      "uk": "Арматурний каркас балки вздовж схилу, робітники на майданчику",
+      "en": "A beam reinforcement cage along the slope, workers on the site"
+    },
+    "IMG_8211 1.jpg": {
+      "uk": "Робітники подають бетон в опалубку",
+      "en": "Workers placing concrete into formwork"
+    },
+    "IMG_8212 1.jpg": {
+      "uk": "Арматурні каркаси й дошки вздовж схилу на майданчику",
+      "en": "Reinforcement cages and boards along the slope on the site"
+    },
+    "IMG_8224 1.jpg": {
+      "uk": "Самоскид і екскаватор на розчищеному майданчику вздовж лісу",
+      "en": "A dump truck and an excavator on the cleared site along the forest"
+    },
+    "IMG_8225 1.jpg": {
+      "uk": "Екскаватор розробляє ґрунт біля дороги",
+      "en": "An excavator digging soil by the road"
+    },
+    "IMG_8227 1.jpg": {
+      "uk": "Бурова установка зі шнеком на майданчику серед лісу",
+      "en": "A drilling rig with an auger on the site among the forest"
+    },
+    "IMG_8228 1.jpg": {
+      "uk": "Екскаватор на схилі та техніка біля дороги, вид згори",
+      "en": "An excavator on the slope and machinery by the road, top view"
+    },
+    "IMG_8230 1.jpg": {
+      "uk": "Котлован серед лісу, екскаватор і дорожні плити, вид з висоти",
+      "en": "The excavation among the forest with an excavator and road slabs, aerial view"
+    }
+  },
+  "en": {
+    "approved": false,
+    "title": "Forming the foundation base",
+    "works": [
+      "Soil excavation and earthworks on the construction site continued.",
+      "The base was prepared for the subsequent installation of foundation structures.",
+      "Engineering protection works on the site continued, including ground anchoring."
+    ]
+  }
+}

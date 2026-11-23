@@ -1,0 +1,45 @@
+{
+  "queue": null,
+  "video": null,
+  "photos": {
+    "IMG_8194 1.jpg": {
+      "uk": "Автобетонозмішувач на будівельному майданчику біля лісу",
+      "en": "A concrete mixer truck on the construction site by the forest"
+    },
+    "IMG_8196 1.jpg": {
+      "uk": "Екскаватор розробляє ґрунт біля схилу",
+      "en": "An excavator digging soil by the slope"
+    },
+    "IMG_8197 1.jpg": {
+      "uk": "Ряд паль з випусками арматури вздовж траншеї на схилі",
+      "en": "A row of piles with protruding rebar along a trench on the slope"
+    },
+    "IMG_8198 1.jpg": {
+      "uk": "Бетонування: бетононасос і автобетонозмішувач, поруч робітники й екскаватор",
+      "en": "Concreting: a concrete pump and a mixer truck, with workers and an excavator nearby"
+    },
+    "IMG_8202 1.jpg": {
+      "uk": "Вид з висоти на будівельний майданчик уздовж лісового схилу біля дороги",
+      "en": "Aerial view of the construction site along the forested slope by the road"
+    },
+    "IMG_8204 1.jpg": {
+      "uk": "Робітники біля ряду паль з випусками арматури в траншеї",
+      "en": "Workers by a row of piles with protruding rebar in a trench"
+    },
+    "IMG_8205 1.jpg": {
+      "uk": "Робітник у касці обробляє голову палі шліфмашиною",
+      "en": "A worker in a hard hat dressing a pile head with an angle grinder"
+    }
+  },
+  "en": {
+    "approved": false,
+    "title": "Completion of the first stage of engineering protection piling",
+    "works": [
+      "Excavation of the foundation pit",
+      "Concreting of the engineering protection piles for the first phase was completed.",
+      "Installation of engineering protection structures continued.",
+      "Piles, concrete blinding and the reinforced concrete beam were completed.",
+      "Preparation of the base for the next structural stages began."
+    ]
+  }
+}

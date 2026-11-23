@@ -1,0 +1,40 @@
+{
+  "queue": null,
+  "video": null,
+  "photos": {
+    "IMG_7449 1.jpg": {
+      "uk": "Арматурні каркаси паль на стелажі",
+      "en": "Pile reinforcement cages on a rack"
+    },
+    "IMG_7450 1.jpg": {
+      "uk": "Арматурні каркаси паль на майданчику",
+      "en": "Pile reinforcement cages on the site"
+    },
+    "IMG_7451 1.jpg": {
+      "uk": "Бетонні лотки на піддонах на майданчику біля лісу",
+      "en": "Concrete channels on pallets on the site by the forest"
+    },
+    "IMG_7452 1.jpg": {
+      "uk": "Бетонні лотки й блоки на піддонах",
+      "en": "Concrete channels and blocks on pallets"
+    },
+    "IMG_7455 1.jpg": {
+      "uk": "Штабелі бетонних лотків на піддонах",
+      "en": "Stacks of concrete channels on pallets"
+    },
+    "IMG_7457 1.jpg": {
+      "uk": "Арматурний каркас палі крупним планом",
+      "en": "A pile reinforcement cage, close-up"
+    }
+  },
+  "en": {
+    "approved": false,
+    "title": "Moving on to foundation structures",
+    "works": [
+      "Concrete blinding for the first pile caps has begun.",
+      "Anchor piles are being installed in the engineering protection area.",
+      "Drainage channels have been accepted.",
+      "Pile cap reinforcement is under way."
+    ]
+  }
+}
