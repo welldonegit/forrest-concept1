@@ -32,7 +32,7 @@ export async function startWorker(port, extraEnv = {}) {
   const deadline = Date.now() + 60_000;
   for (;;) {
     try {
-      if ((await fetch(`${base}/uk/`)).ok) break;
+      if ((await fetch(`${base}/`)).ok) break;
     } catch {}
     if (Date.now() > deadline) throw new Error(`wrangler dev не поднялся:\n${log}`);
     await new Promise((r) => setTimeout(r, 500));

@@ -46,7 +46,9 @@
   не переводится) + areaFrom/areaTo (числа); «Ще не визначився» — в format.
   Финальная: «Який формат інвестиції вас цікавить?» — цель → purpose.
 - UTM (source, medium, campaign, content, term), gclid, fbclid, referrer,
-  страница входа. Cookie gp_utm, 30 дней, по последнему переходу.
+  страница входа. Cookie gp_utm (Path=/), 30 дней, по последнему переходу;
+  одна на все языки: «/» (украинский) и «/en/» — один сайт. Заход по
+  старому адресу /uk/…?utm_… → 301 на тот же адрес без /uk/ с метками.
 
 ## Сайт
 - Отправка без перезагрузки → страница «Дякуємо»; при ошибке текст
@@ -184,7 +186,8 @@
 - POST /api/lead, Content-Type: application/json, тот же адрес сайта
   (чужой Origin — 403).
 - Тело: key (UUID на одну попытку отправки формы, повтор — тот же key),
-  form (finmodel | final | quiz | apartment), lang, page (адрес страницы),
+  form (finmodel | final | quiz | apartment), lang, page (адрес страницы: https://…/ — украинская,
+  https://…/en/ — английская),
   turnstileToken, website (поле-ловушка, пустое), fields { name, phone,
   email, consent, contactMethod, format, purpose, areaFrom, areaTo,
   budget, budgetCurrency, apartment, country }, quiz { answers:

@@ -6,6 +6,7 @@
 import '../styles/main.css';
 import { getLanguage } from '../lib/languages';
 import { getSiteSettings } from '../lib/content';
+import { homePath } from '../lib/routes';
 
 /** Через сколько мс после загрузки страницы подключить GTM, если посетитель ничего не сделал. */
 const GTM_DELAY = 5000;
@@ -23,7 +24,8 @@ const gtmId = (await getSiteSettings(lang)).analytics?.gtmId?.trim();
 const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${language.subset}.woff2`];
 ---
 <!doctype html>
-<html lang={language.id} dir={language.dir}>
+{/* data-base — адрес главной этого языка («/», «/en/»): от него скрипты строят адреса (попапы). */}
+<html lang={language.id} dir={language.dir} data-base={homePath(language.id)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -1,6 +1,6 @@
 /**
  * Попапы (4.17): кнопки с data-popup="<имя>". С главной страницей не грузится ничего, кроме этого файла:
- * разметка и стили попапа — отдельная страница /{lang}/popup/<имя>/ (готовится при сборке из Sanity),
+ * разметка и стили попапа — отдельная страница /popup/<имя>/ (другие языки — /en/popup/<имя>/) (готовится при сборке из Sanity),
  * код — отдельный модуль. Оба подгружаются при первом наведении, фокусе или касании кнопки;
  * по нажатию попап открывается (если ещё грузится — сразу после загрузки).
  * Не загрузилось (нет сети) — ссылка ведёт по своему href, кнопка ничего не делает.
@@ -15,7 +15,7 @@ const cache = {};
 function load(name) {
   if (!modules[name]) return Promise.reject(new Error(`нет попапа ${name}`));
   cache[name] ??= Promise.all([
-    fetch(`/${document.documentElement.lang}/popup/${name}/`).then((r) => {
+    fetch(`${document.documentElement.dataset.base}popup/${name}/`).then((r) => {
       if (!r.ok) throw new Error(`попап ${name}: ${r.status}`);
       return r.text();
     }),

@@ -28,9 +28,11 @@ before(async () => {
   worker = await startWorker(PORT);
   browser = await chromium.launch();
   context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  // Заход по рекламной ссылке на украинскую главную, затем переход на английскую.
+  // Заход по рекламной ссылке со старым адресом /uk/ (301 на «/» с теми же метками), затем переход на английскую:
+  // cookie gp_utm (Path=/) общая для «/» и «/en/».
   const page = await context.newPage();
   await page.goto(`${worker.base}/uk/?${new URLSearchParams(UTM)}`);
+  assert.equal(page.url(), `${worker.base}/?${new URLSearchParams(UTM)}`, '301 с /uk/ сохраняет метки');
   await page.goto(`${worker.base}/en/`);
   await page.close();
 });
@@ -49,7 +51,7 @@ function checkLead(form, lang) {
   assert.equal(row.lang, lang);
   const attribution = JSON.parse(row.attribution);
   for (const [k, v] of Object.entries(UTM)) assert.equal(attribution[k], v, `${form}: ${k}`);
-  assert.match(attribution.landing, /\/uk\/\?utm_source=google/);
+  assert.ok(attribution.landing.startsWith(`${worker.base}/?utm_source=google`), `${form}: страница входа — главная без /uk/`);
   return JSON.parse(row.data);
 }
 
@@ -98,14 +100,14 @@ test('клик раньше загрузки скрипта формы: заяв
 
 test('финальная форма (uk): заявка в D1 с UTM, переход на «Дякуємо»', async () => {
   const page = await context.newPage();
-  await page.goto(`${worker.base}/uk/archive/`);
-  await page.goto(`${worker.base}/uk/`);
+  await page.goto(`${worker.base}/archive/`);
+  await page.goto(`${worker.base}/`);
   const form = page.locator('form[data-lead-form="final"]');
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Final');
   await form.locator('input[name=phone]').pressSequentially(PHONE);
   await form.locator('select[name=goal]').selectOption({ index: 1 });
-  await Promise.all([page.waitForURL('**/uk/thanks/', { timeout: 30000 }), form.locator('button[type=submit]').click()]);
+  await Promise.all([page.waitForURL(`${worker.base}/thanks/`, { timeout: 30000 }), form.locator('button[type=submit]').click()]);
   const data = checkLead('final', 'uk');
   // вопрос «Який формат інвестиції…» — цель покупки
   assert.equal(data.fields.purpose, 'Зростання вартості активу');
@@ -115,7 +117,7 @@ test('финальная форма (uk): заявка в D1 с UTM, перех�
 
 test('квиз (uk): ответы и расчёт в D1, шаг «Дякуємо», событие без личных данных', async () => {
   const page = await context.newPage();
-  await page.goto(`${worker.base}/uk/`);
+  await page.goto(`${worker.base}/`);
   await page.locator('[data-popup="quiz"]').first().click();
   const dlg = page.locator('dialog[open]');
   await dlg.locator('[data-quiz-format]').first().click();
@@ -162,7 +164,7 @@ test('попап апартамента (en): заявка в D1, кнопка �
 test('ошибка отправки: текст из Sanity, введённое остаётся', async () => {
   const page = await context.newPage();
   await page.route('**/api/lead', (route) => route.fulfill({ status: 500, contentType: 'application/json', body: '{"ok":false,"error":"server_error"}' }));
-  await page.goto(`${worker.base}/uk/`);
+  await page.goto(`${worker.base}/`);
   const form = page.locator('form[data-lead-form="finmodel"]');
   await form.scrollIntoViewIfNeeded();
   await form.locator('input[name=name]').fill('E2E Error');
@@ -172,7 +174,7 @@ test('ошибка отправки: текст из Sanity, введённое 
   await status.waitFor({ state: 'visible' });
   assert.equal(await status.textContent(), await status.getAttribute('data-msg-send'));
   assert.equal(await form.locator('input[name=name]').inputValue(), 'E2E Error');
-  assert.equal(page.url(), `${worker.base}/uk/`);
+  assert.equal(page.url(), `${worker.base}/`);
   assert.equal(await form.locator('button[type=submit]').isDisabled(), false);
   await page.close();
 });
@@ -192,7 +194,7 @@ test('боевой адрес: виджет с боевым ключом, тес
   }));
   const responses = [];
   page.on('response', async (r) => { if (r.url().includes('/api/lead')) responses.push(await r.json().catch(() => null)); });
-  await page.goto(`http://forrest-prod.test:${PORT}/uk/`);
+  await page.goto(`http://forrest-prod.test:${PORT}/`);
   const before = leadsOf('finmodel').length;
   const form = page.locator('form[data-lead-form="finmodel"]');
   await form.scrollIntoViewIfNeeded();
@@ -213,7 +215,7 @@ test('боевой адрес: виджет с боевым ключом, тес
 test('без JS: вместо кнопки — телефон и мессенджеры', async () => {
   const ctx = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await ctx.newPage();
-  await page.goto(`${worker.base}/uk/`);
+  await page.goto(`${worker.base}/`);
   for (const id of ['finmodel', 'final']) {
     const form = page.locator(`form[data-lead-form="${id}"]`);
     assert.equal(await form.locator('button[type=submit]').isVisible(), false, `${id}: кнопка скрыта`);

@@ -34,7 +34,7 @@ function lead(overrides = {}) {
     key: crypto.randomUUID(),
     form: 'finmodel',
     lang: 'uk',
-    page: `${BASE}/uk/`,
+    page: `${BASE}/`,
     turnstileToken: DUMMY_TOKEN,
     website: '',
     fields: { name: 'Тест', phone: '+380 (67) 123-45-67', contactMethod: 'telegram', format: 'Апартамент' },
@@ -53,18 +53,32 @@ function post(body, { ip = freshIp(), headers = {} } = {}) {
 const leadCount = (key) => sql(`SELECT COUNT(*) AS n FROM leads WHERE request_key = '${key}'`)[0].n;
 
 test('статика идёт мимо Worker', async () => {
-  for (const p of ['/uk/', '/en/', '/robots.txt']) {
-    const r = await fetchLocal(`${BASE}${p}`);
+  for (const [p, lang] of [['/', 'uk'], ['/archive/', 'uk'], ['/en/', 'en'], ['/en/archive/', 'en'], ['/robots.txt']]) {
+    const r = await fetchLocal(`${BASE}${p}`, { redirect: 'manual' });
     assert.equal(r.status, 200, p);
     assert.equal(r.headers.get(API_HEADER), null, `${p} обработан Worker`);
+    if (lang) assert.match(await r.text(), new RegExp(`<html[^>]*lang="${lang}"`), p);
   }
-  const root = await fetchLocal(`${BASE}/`, { redirect: 'manual' });
-  assert.equal(root.status, 301);
-  assert.equal(root.headers.get(API_HEADER), null);
+});
+
+test('старые адреса /uk/… → 301 на те же без /uk/, параметры запроса сохраняются', async () => {
+  for (const [from, to] of [
+    ['/uk', '/'],
+    ['/uk/', '/'],
+    ['/uk/archive/', '/archive/'],
+    ['/uk/archive/?utm_source=test&utm_medium=cpc', '/archive/?utm_source=test&utm_medium=cpc'],
+    ['/uk/?gclid=abc', '/?gclid=abc'],
+    ['/uk/dokumenty/dozvil-na-budivelni-roboty/', '/dokumenty/dozvil-na-budivelni-roboty/'],
+  ]) {
+    const r = await fetchLocal(`${BASE}${from}`, { redirect: 'manual' });
+    assert.equal(r.status, 301, from);
+    assert.equal(r.headers.get(API_HEADER), null, `${from} обработан Worker`);
+    assert.equal(new URL(r.headers.get('location'), BASE).href, `${BASE}${to}`, from);
+  }
 });
 
 test('несуществующий адрес: страница 404 сервера статики, не Worker', async () => {
-  for (const [p, lang] of [['/uk/net-takoi-stranicy/', 'uk'], ['/en/no-such-page/', 'en'], ['/no-such-page/', 'uk']]) {
+  for (const [p, lang] of [['/net-takoi-stranicy/', 'uk'], ['/en/no-such-page/', 'en'], ['/archive/no-such-page/', 'uk']]) {
     const r = await fetchLocal(`${BASE}${p}`, { headers: { 'sec-fetch-mode': 'navigate', accept: 'text/html' } });
     assert.equal(r.status, 404, p);
     assert.equal(r.headers.get(API_HEADER), null, `${p} дошёл до Worker`);

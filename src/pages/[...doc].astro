@@ -1,21 +1,22 @@
 ---
 /**
  * Страница документа (политика конфиденциальности, документы стройки) — один шаблон для всех.
- * Адреса: /{язык}/<slug>/ (политика), /{язык}/dokumenty/<slug>/ (стройка) — src/lib/routes.ts.
+ * Адреса: /<slug>/ (политика), /dokumenty/<slug>/ (стройка); другие языки — с приставкой /en/… (src/lib/routes.ts).
+ * Параметр doc — весь путь с приставкой языка (два [...] в одном маршруте Astro не разбирает); язык — в props.
  * Шапка и футер — общие с главной; «На головну», название, дата редакции (если есть в документе),
  * оглавление (от трёх разделов), текст. Своей страницы документа в выгрузке нет: вид — как у архива
  * (поля, фон, «На головну»), шрифтовые роли — существующие.
  * Тексты — Sanity «Документ»; подписи страницы — siteSettings.documentPage.
  */
-import Base from '../../layouts/Base.astro';
-import Header from '../../components/blocks/Header.astro';
-import Footer from '../../components/blocks/Footer.astro';
-import BackLink from '../../components/ui/BackLink.astro';
-import DocumentBody from '../../components/ui/DocumentBody.astro';
-import '../../styles/pages/document.css';
-import { languages } from '../../lib/languages';
-import { getSiteSettings, getLegalDocuments, type LegalDocument } from '../../lib/content';
-import { documentSubpath, homePath } from '../../lib/routes';
+import Base from '../layouts/Base.astro';
+import Header from '../components/blocks/Header.astro';
+import Footer from '../components/blocks/Footer.astro';
+import BackLink from '../components/ui/BackLink.astro';
+import DocumentBody from '../components/ui/DocumentBody.astro';
+import '../styles/pages/document.css';
+import { languages } from '../lib/languages';
+import { getSiteSettings, getLegalDocuments, type LegalDocument } from '../lib/content';
+import { documentPath, documentSubpath, homePath } from '../lib/routes';
 
 /** Оглавление — у документов, где разделов (h2) не меньше стольких. */
 const TOC_MIN_SECTIONS = 3;
@@ -26,14 +27,13 @@ export async function getStaticPaths() {
   const paths = [];
   for (const l of languages) {
     for (const doc of await getLegalDocuments(l.id)) {
-      paths.push({ params: { lang: l.id, doc: documentSubpath(doc).replace(/\/$/, '') }, props: { doc } });
+      paths.push({ params: { doc: documentPath(l.id, doc).replace(/^\/|\/$/g, '') }, props: { doc, lang: l.id } });
     }
   }
   return paths;
 }
 
-const { lang } = Astro.params as { lang: string };
-const { doc } = Astro.props as { doc: LegalDocument };
+const { doc, lang } = Astro.props as { doc: LegalDocument; lang: string };
 const settings = await getSiteSettings(lang);
 const page = settings.documentPage;
 const home = homePath(lang);

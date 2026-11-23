@@ -125,8 +125,8 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 
 | Що | Команда | Адреса |
 |---|---|---|
-| Верстка, живе оновлення | `npm run dev` | http://localhost:4321/uk/ — сторінки; `/api/*` тут **немає** |
-| Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/uk/ — статика і `POST /api/lead` |
+| Верстка, живе оновлення | `npm run dev` | http://localhost:4321/ — сторінки (`/en/` — англійська); `/api/*` тут **немає** |
+| Сайт + API, як у Cloudflare | `npm run build`, потім `npm run dev:api` | http://localhost:8787/ — статика і `POST /api/lead` |
 | Тести API | `npm run build`, потім `npm run test:api` | піднімає свій Worker на :8791 з окремою тимчасовою базою |
 | Заявки в браузері (4 джерела, UTM, без JS) | `npm run build:test`, потім `npm run test:e2e` | свій Worker на :8794, Chromium з Playwright |
 | Telegram і розклад (збої, повтори, очищення) | `npm run build`, потім `npm run test:schedule` | свій Worker на :8795 і підробний Bot API на :8796; справжній Telegram не викликається |
@@ -145,8 +145,16 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 - `"workers_dev": true` обовʼязковий: з `routes` wrangler інакше вимикає адресу `*.workers.dev` (документація Cloudflare, «workers.dev»).
 - DNS-запис для Custom Domain Cloudflare створює сам. Токен збірки Workers Builds має право `Workers Routes (edit)`, права на DNS у ньому немає, тому новий домен спершу додайте в панелі (Worker → Settings → Domains & Routes → Add → Custom Domain), потім — у `routes`.
 - **www → основний домен** — правило зони, не код: Cloudflare → `forrestresort.com.ua` → Rules → Redirect Rules → шаблон «Redirect from WWW to root» (або вручну: запит `https://www.*`, ціль `https://${1}`, 301, зберігати рядок запиту). Статика йде повз код Worker, тому переадресація в Worker не працює.
-- Перевірка: `curl -sI https://www.forrestresort.com.ua/uk/?a=1` → `301`, `location: https://forrestresort.com.ua/uk/?a=1`.
+- Перевірка: `curl -sI https://www.forrestresort.com.ua/en/?a=1` → `301`, `location: https://forrestresort.com.ua/en/?a=1`.
 - `npm run dev:api` запускається з `--infer-origin-from-routes=false`: інакше wrangler підставляє бойовий домен в адресу запиту і Worker не приймає тестовий секрет Turnstile.
+
+## Адреси сторінок
+
+- Українська — у корені: `https://forrestresort.com.ua/`, `/archive/`, `/thanks/`, `/polityka-konfidentsiinosti/`, `/dokumenty/…`. Англійська — з `/en/`. Новий язик — своя приставка (`/ru/`), рядок у `src/lib/languages.ts`.
+- Адреси будує лише `src/lib/routes.ts`; сторінки — `src/pages/[...lang]/` (порожній параметр — українська), документи — `src/pages/[...doc].astro`.
+- **Старі адреси `/uk/…`** → 301 на ті самі без `/uk/`, параметри запиту (UTM) зберігаються. Правило — файл `public/_redirects` (`/uk / 301`, `/uk/* /:splat 301`): його застосовує сервер статики Cloudflare (Workers Static Assets), бо статика йде повз код Worker. Дій у панелі не потрібно.
+- Перевірка після викладки: `curl -sI "https://forrestresort.com.ua/uk/archive/?utm_source=test"` → `301`, `location: /archive/?utm_source=test` (або повна адреса); `curl -sI https://forrestresort.com.ua/uk` → `301`, `location: /`. Локально те саме перевіряє `npm run test:api`.
+- Несуществуюча адреса без приставки — українська 404 (`/404.html`), з `/en/` — англійська (`/en/404.html`).
 
 ## Заявки: налаштування Cloudflare
 

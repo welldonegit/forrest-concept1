@@ -11,15 +11,14 @@ import Footer from '../../components/blocks/Footer.astro';
 import ConstructionUpdate from '../../components/ui/ConstructionUpdate.astro';
 import BackLink from '../../components/ui/BackLink.astro';
 import '../../styles/pages/archive.css';
-import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding, type ConstructionBlock } from '../../lib/content';
-import { homePath } from '../../lib/routes';
+import { homePath, langOf, langPaths } from '../../lib/routes';
 
 export function getStaticPaths() {
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 const block = landing.blocks.find((b): b is ConstructionBlock => b._type === 'construction');

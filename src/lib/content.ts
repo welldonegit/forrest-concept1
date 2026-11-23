@@ -289,7 +289,7 @@ export interface SiteSettings {
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
   /** Страница «Дякуємо» после отправки формы: первый экран главной, вместо заголовка и лида — сообщение (h1). Перенос строки — перенос на десктопе. */
   thanksPage: { seoTitle: string; seoDescription: string; message: string; homeButton: string };
-  /** Страница 404 (/{lang}/404.html): сообщение (h1) и кнопка «На головну». */
+  /** Страница 404 (/404.html, /en/404.html): сообщение (h1) и кнопка «На головну». */
   notFoundPage: { seoTitle: string; message: string; homeButton: string };
   /** Страницы документов: «На головну», заголовок оглавления, подпись перед датой редакции. */
   documentPage: { backLabel: string; tocTitle: string; editionLabel: string };
@@ -855,7 +855,7 @@ export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[]
   return linkDocuments(localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing'), lang);
 }
 
-/** Документы сайта на языке lang (страницы /{lang}/<slug>/ и /{lang}/dokumenty/<slug>/). */
+/** Документы сайта на языке lang (страницы /<slug>/, /dokumenty/<slug>/; другие языки — с приставкой /en/). */
 export async function getLegalDocuments(lang: string): Promise<LegalDocument[]> {
   return (source.legalDocuments as { _id: string }[]).map((d) => localize<LegalDocument>(d, lang, d._id));
 }

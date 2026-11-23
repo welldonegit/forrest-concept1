@@ -4,6 +4,7 @@
  * Один и тот же список — в выпадающей панели бара и в мобильном меню.
  */
 import { languages } from '../../lib/languages';
+import { homePath } from '../../lib/routes';
 
 interface Props {
   lang: string;
@@ -11,7 +12,7 @@ interface Props {
   label?: string;
   /** …или id видимой подписи. */
   labelledby?: string;
-  /** Путь страницы после /{lang}/: на архиве язык меняется на той же странице. */
+  /** Путь страницы после адреса главной («archive/»): язык меняется на той же странице — /archive/ ↔ /en/archive/. */
   path?: string;
 }
 
@@ -22,7 +23,7 @@ const { lang, label, labelledby, path = '' } = Astro.props;
     <li>
       <a
         class="lang-switch__option"
-        href={`/${l.id}/${path}`}
+        href={`${homePath(l.id)}${path}`}
         hreflang={l.id}
         lang={l.id}
         aria-current={l.id === lang ? 'true' : undefined}

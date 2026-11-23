@@ -22,7 +22,7 @@ export const languages: Language[] = [
   { id: 'en', label: 'EN', name: 'English', dir: 'ltr', subset: 'latin' },
 ];
 
-/** Основной язык: на него идёт редирект с «/», он же x-default и запасной перевод. */
+/** Основной язык: живёт в корне «/» без приставки (src/lib/routes.ts), он же x-default и запасной перевод. */
 export const defaultLanguage = 'uk';
 
 export const languageIds = languages.map((l) => l.id);
