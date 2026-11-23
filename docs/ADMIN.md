@@ -105,6 +105,7 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 # 2. У JSON: опис кожного фото ("uk" — обовʼязково; "en"), "queue" (null — весь курорт, або WIND/ROCK/SUN),
 #    "video": {"duration": "1:20"} — якщо є відео, "en" — переклад заголовка, тексту й робіт
 #    ("approved": false — у Studio позначка «Переклад не затверджено»).
+#    "fixes": [{"from": "…", "to": "…"}] — виправлення тексту docx (опечатки) за рішенням людини; діють при кожному імпорті.
 # 3. Перевірка — нічого не пише:
 npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with-user-token -- --dry
 # 4. Резервна копія (розділ «Резервна копія»), потім запис:
