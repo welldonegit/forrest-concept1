@@ -85,7 +85,37 @@ test('несуществующий адрес: страница 404 сервер
     const html = await r.text();
     assert.match(html, new RegExp(`<html[^>]*lang="${lang}"`), p);
     assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1, `${p}: один h1`);
+    assert.match(html, /<meta name="robots" content="noindex">/, `${p}: 404 всегда noindex`);
   }
+});
+
+test('SEO: canonical и hreflang, «Дякуємо» — noindex, карта сайта, robots.txt', async () => {
+  const site = 'https://forrestresort.com.ua';
+  const home = await (await fetchLocal(`${BASE}/en/archive/`)).text();
+  assert.match(home, new RegExp(`<link rel="canonical" href="${site}/en/archive/">`));
+  for (const [lang, href] of [['uk', '/archive/'], ['en', '/en/archive/'], ['x-default', '/archive/']]) {
+    assert.match(home, new RegExp(`<link rel="alternate" hreflang="${lang}" href="${site}${href}">`), lang);
+  }
+  assert.match(home, /<meta property="og:image:width" content="1200">/);
+  assert.doesNotMatch(home, /name="robots"/, 'архив индексируется');
+
+  for (const p of ['/thanks/', '/en/thanks/']) {
+    const html = await (await fetchLocal(`${BASE}${p}`)).text();
+    assert.match(html, /<meta name="robots" content="noindex">/, p);
+    assert.doesNotMatch(html, /rel="canonical"/, p);
+  }
+
+  const ld = (await (await fetchLocal(`${BASE}/`)).text()).match(/<script type="application\/ld\+json">([^<]*)<\/script>/);
+  assert.ok(ld, 'JSON-LD на главной');
+  assert.deepEqual(JSON.parse(ld[1])['@graph'].map((n) => n['@type']), ['Organization', 'WebSite', 'ApartmentComplex']);
+
+  const sitemap = await (await fetchLocal(`${BASE}/sitemap.xml`)).text();
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  for (const p of ['/', '/en/', '/archive/', '/en/archive/']) assert.ok(locs.includes(`${site}${p}`), p);
+  assert.ok(!locs.some((u) => /thanks|404|popup/.test(u)), 'в карте нет «Дякуємо», 404 и попапов');
+
+  const robots = await (await fetchLocal(`${BASE}/robots.txt`)).text();
+  assert.match(robots, new RegExp(`^Sitemap: ${site}/sitemap.xml$`, 'm'));
 });
 
 test('/api/* обрабатывает Worker', async () => {
