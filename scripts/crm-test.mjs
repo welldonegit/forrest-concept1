@@ -23,12 +23,15 @@ let crmCalls = [];
 let crmLeads = [];
 let tgCalls = [];
 let nextId = 5000;
+// Connection: close — каждый запрос Worker идёт по новому соединению. С keep-alive Node закрывает простаивающее
+// соединение через 5 с (keepAliveTimeout), и запрос Worker, отправленный в тот же момент, обрывался
+// (no_response) — то же, что в schedule-test.mjs.
 const fake = http.createServer((req, res) => {
   let raw = '';
   req.on('data', (d) => (raw += d));
   req.on('end', () => {
     const url = new URL(req.url, 'http://x');
-    const send = (status, payload) => { res.writeHead(status, { 'content-type': 'application/json' }); res.end(payload === undefined ? '' : JSON.stringify(payload)); };
+    const send = (status, payload) => { res.writeHead(status, { 'content-type': 'application/json', connection: 'close' }); res.end(payload === undefined ? '' : JSON.stringify(payload)); };
     if (url.pathname === `/bot${TG_TOKEN}/sendMessage`) {
       tgCalls.push(JSON.parse(raw));
       return send(200, { ok: true, result: { message_id: 1 } });
