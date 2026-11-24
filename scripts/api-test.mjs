@@ -117,12 +117,18 @@ test('SEO: canonical и hreflang, «Дякуємо» — noindex, карта с�
   for (const p of ['/', '/en/', '/archive/', '/en/archive/']) assert.ok(locs.includes(`${site}${p}`), p);
   assert.ok(!locs.some((u) => /thanks|404|popup/.test(u)), 'в карте нет «Дякуємо», 404 и попапов');
 
-  // Соцсети (решение 2026-11-24): в меню только «Месенджери», в футере — иконки соцсетей и телефон
+  // Соцсети и мессенджеры (решение 2026-11-24): в меню только «Месенджери»; в футере первая колонка —
+  // адрес и соцсети без Telegram, колонка «Контакти» — телефон и мессенджеры; телефона в первой колонке нет
   const page = await (await fetchLocal(`${BASE}/`)).text();
   assert.equal((page.match(/class="site-menu__socials"/g) ?? []).length, 1, 'в меню один ряд — мессенджеры');
-  const icons = [...page.matchAll(/<a class="site-footer__social" href="([^"]+)" target="_blank" rel="noopener" aria-label="([^"]+)"/g)].map((m) => m[2]);
-  assert.deepEqual(icons, ['Facebook', 'Instagram', 'YouTube', 'TikTok', 'Telegram']);
-  assert.match(page, /<a class="site-footer__link text-footer-body" href="tel:\+380777999999">\+380 \(777\) 999-999<\/a>/);
+  const footer = page.slice(page.indexOf('<footer'));
+  const address = footer.slice(0, footer.indexOf('site-footer__group'));
+  const icons = (html) => [...html.matchAll(/<a class="site-footer__social" href="([^"]+)" target="_blank" rel="noopener" aria-label="([^"]+)"/g)].map((m) => m[2]);
+  assert.deepEqual(icons(address), ['Instagram', 'Facebook', 'YouTube', 'TikTok'], 'первая колонка — соцсети без Telegram');
+  assert.doesNotMatch(address, /href="tel:/, 'в первой колонке нет телефона');
+  const contactsCol = footer.slice(footer.indexOf('site-footer__contacts'));
+  assert.match(contactsCol, /^site-footer__contacts">\s*<a class="site-footer__link text-footer-body" href="tel:\+380777999999">\+380 \(777\) 999-999<\/a>/, 'в колонке «Контакти» сначала телефон');
+  assert.deepEqual(icons(contactsCol), ['Telegram', 'Viber', 'WhatsApp'], 'под телефоном — мессенджеры, как в меню');
 
   const robots = await (await fetchLocal(`${BASE}/robots.txt`)).text();
   assert.match(robots, new RegExp(`^Sitemap: ${site}/sitemap.xml$`, 'm'));
