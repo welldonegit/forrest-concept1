@@ -535,7 +535,7 @@
 --ct-head-mb:var(--space-64);
 --ct-btn:52px; --ct-btn-photo:var(--control-h-48); --ct-icon:18px; --ct-nav-gap:var(--space-8);
 --ct-row-gap:var(--space-16); --ct-item-gap:var(--space-16);
---ct-item-max:826px;                       /* карточка ленты на главной: собственный размер, выгрузка 1180 −30% (решение 2026-11-24) */
+--ct-item-max:700px;                       /* карточка ленты на главной: собственный размер (выгрузка 1180); фото 9:16 на всю высоту, текст uk/en помещается рядом (решение 2026-11-24) */
 --ct-item-head-gap:var(--space-12); --ct-item-head-pad:var(--space-4);
 --ct-chip-h:28px; --ct-chip-pad:var(--space-12);
 --ct-card-pad:var(--space-10); --ct-card-radius:var(--radius-32); --ct-media-radius:var(--radius-24);
@@ -1008,7 +1008,7 @@
 /* Construction B — 768–1279 (опорная 1024) */
 --ct-pad-block:var(--space-80); --ct-pad-inline:var(--space-28);
 --ct-head-gap-col:var(--space-48); --ct-head-mb:var(--space-40);
---ct-media-h:348px;
+--ct-media-h:348px; --ct-item-max:820px;   /* фото ниже — тексту нужна колонка шире */
 --ct-body-pad-start:var(--space-28); --ct-body-pad-inline:var(--space-24); --ct-body-pad-end:var(--space-20);
 --ct-arch-w:260px; --ct-arch-pad:var(--space-24);
 --type-ct-month-size:18px; --type-ct-title-size:20px; --type-ct-text-size:15px;
