@@ -8,6 +8,10 @@ import sitemap from './src/integrations/sitemap.ts';
 import { wranglerVar } from './src/integrations/wrangler-vars.ts';
 import sanityContent from './src/integrations/sanity.ts';
 
+// `astro dev` — свой конфиг Cloudflare без нашего Worker (wrangler.dev.jsonc: иначе /_image уходит в Worker
+// и фото в dev не видны). Сборка и выкладка — по wrangler.jsonc, как раньше.
+const isDev = process.argv[2] === 'dev';
+
 export default defineConfig({
   output: 'static',
   // Основной адрес сайта: canonical, hreflang, og:url, sitemap.xml (этап 6). Превью тоже ссылается на него.
@@ -17,6 +21,7 @@ export default defineConfig({
   // sanityContent — первым: снимок контента и оригиналы фото нужны до старта Vite.
   integrations: [sanityContent(), indexing(), notFound(), sitemap()],
   adapter: cloudflare({
+    ...(isDev && { configPath: 'wrangler.dev.jsonc' }),
     // Фото обрабатываются при сборке (sharp → AVIF), рантайм не трогает картинки.
     imageService: 'compile',
     prerenderEnvironment: 'node',
