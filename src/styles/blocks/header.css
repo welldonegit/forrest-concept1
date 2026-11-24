@@ -2,8 +2,11 @@
    Значения — из рендера design-export (см. отчёт 4.0), только через tokens.css. */
 
 /* ---------- Бар ---------- */
+/* Шапка прилипает к верху окна и прячется при прокрутке вниз (решение 2026-11-24, таблица решений
+   в ROADMAP): ui/header-scroll.js ставит [data-hidden], движение — только transform. z-index выше
+   слоёв блоков (Hero — до 6), ниже вкладки квиза (--tab-z) и меню (90). */
 .site-header{
-  position:absolute; z-index:6;
+  position:fixed; z-index:50;
   inset-block-start:0; inset-inline:0;
   max-inline-size:var(--page-max); margin-inline:auto;
   padding-block-start:var(--header-offset-block);
@@ -12,7 +15,10 @@
      ширину бара и положение кнопок в пределах 2px. Утверждено при приёмке 4.0. */
   padding-inline:var(--header-offset-inline-start) var(--header-offset-inline-end);
   pointer-events:none;
+  transition:transform var(--dur-entrance) var(--ease-out-quint);
 }
+/* уезжает целиком вместе с полем сверху; при reduced-motion --dur-entrance = 0 — без анимации */
+.site-header[data-hidden]{transform:translateY(-100%)}
 .site-header__bar{
   pointer-events:auto;
   display:grid; grid-template-columns:1fr auto 1fr; align-items:center;

@@ -1,0 +1,10 @@
+// Конфиг Cloudflare ТОЛЬКО для `npm run dev` (astro dev) — подключается в astro.config.mjs.
+// В wrangler.jsonc "main" — наш Worker (только /api/*). Адаптер Astro в dev отдаёт ему все запросы,
+// которые не являются готовыми страницами, в том числе /_image (фото в dev) — Worker отвечал 404.
+// Здесь "main" нет: в dev работает обработчик Astro, фото видны. /api/* в dev нет — для заявок `npm run dev:api`.
+// Сборка, выкладка (`npm run deploy`, wrangler.jsonc) и dev:api этот файл не читают.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "forrest-trinity-resort-dev",
+  "compatibility_date": "2026-11-10"
+}

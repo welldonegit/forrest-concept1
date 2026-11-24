@@ -85,7 +85,47 @@ test('несуществующий адрес: страница 404 сервер
     const html = await r.text();
     assert.match(html, new RegExp(`<html[^>]*lang="${lang}"`), p);
     assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1, `${p}: один h1`);
+    assert.match(html, /<meta name="robots" content="noindex">/, `${p}: 404 всегда noindex`);
   }
+});
+
+test('SEO: canonical и hreflang, «Дякуємо» — noindex, карта сайта, robots.txt', async () => {
+  const site = 'https://forrestresort.com.ua';
+  const home = await (await fetchLocal(`${BASE}/en/archive/`)).text();
+  assert.match(home, new RegExp(`<link rel="canonical" href="${site}/en/archive/">`));
+  for (const [lang, href] of [['uk', '/archive/'], ['en', '/en/archive/'], ['x-default', '/archive/']]) {
+    assert.match(home, new RegExp(`<link rel="alternate" hreflang="${lang}" href="${site}${href}">`), lang);
+  }
+  assert.match(home, /<meta property="og:image:width" content="1200">/);
+  assert.doesNotMatch(home, /name="robots"/, 'архив индексируется');
+
+  for (const p of ['/thanks/', '/en/thanks/']) {
+    const html = await (await fetchLocal(`${BASE}${p}`)).text();
+    assert.match(html, /<meta name="robots" content="noindex">/, p);
+    assert.doesNotMatch(html, /rel="canonical"/, p);
+  }
+
+  const ld = (await (await fetchLocal(`${BASE}/`)).text()).match(/<script type="application\/ld\+json">([^<]*)<\/script>/);
+  assert.ok(ld, 'JSON-LD на главной');
+  const graph = JSON.parse(ld[1])['@graph'];
+  assert.deepEqual(graph.map((n) => n['@type']), ['Organization', 'WebSite', 'ApartmentComplex']);
+  assert.equal(graph[0].sameAs.length, 5, 'все пять соцсетей в sameAs');
+  assert.equal(graph[0].telephone, '+380777999999');
+
+  const sitemap = await (await fetchLocal(`${BASE}/sitemap.xml`)).text();
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  for (const p of ['/', '/en/', '/archive/', '/en/archive/']) assert.ok(locs.includes(`${site}${p}`), p);
+  assert.ok(!locs.some((u) => /thanks|404|popup/.test(u)), 'в карте нет «Дякуємо», 404 и попапов');
+
+  // Соцсети (решение 2026-11-24): в меню только «Месенджери», в футере — иконки соцсетей и телефон
+  const page = await (await fetchLocal(`${BASE}/`)).text();
+  assert.equal((page.match(/class="site-menu__socials"/g) ?? []).length, 1, 'в меню один ряд — мессенджеры');
+  const icons = [...page.matchAll(/<a class="site-footer__social" href="([^"]+)" target="_blank" rel="noopener" aria-label="([^"]+)"/g)].map((m) => m[2]);
+  assert.deepEqual(icons, ['Facebook', 'Instagram', 'YouTube', 'TikTok', 'Telegram']);
+  assert.match(page, /<a class="site-footer__link text-footer-body" href="tel:\+380777999999">\+380 \(777\) 999-999<\/a>/);
+
+  const robots = await (await fetchLocal(`${BASE}/robots.txt`)).text();
+  assert.match(robots, new RegExp(`^Sitemap: ${site}/sitemap.xml$`, 'm'));
 });
 
 test('/api/* обрабатывает Worker', async () => {

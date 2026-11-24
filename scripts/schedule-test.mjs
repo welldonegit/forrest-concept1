@@ -25,13 +25,16 @@ const MIN = 60_000;
 let mode = 'ok';
 let calls = [];
 let nextMessageId = 100;
+// Connection: close — каждый запрос Worker идёт по новому соединению. С keep-alive Node закрывает простаивающее
+// соединение через 5 с (keepAliveTimeout), и запрос Worker, отправленный в тот же момент, обрывался
+// (no_response) — тест падал примерно раз из трёх (найдено 2026-11-24: при keepAliveTimeout 300 мс падает всегда).
 const tg = http.createServer((req, res) => {
   let body = '';
   req.on('data', (d) => (body += d));
   req.on('end', () => {
     const json = JSON.parse(body || '{}');
     calls.push({ path: req.url, ...json });
-    const send = (status, payload) => { res.writeHead(status, { 'content-type': 'application/json' }); res.end(JSON.stringify(payload)); };
+    const send = (status, payload) => { res.writeHead(status, { 'content-type': 'application/json', connection: 'close' }); res.end(JSON.stringify(payload)); };
     if (req.url !== `/bot${TOKEN}/sendMessage`) return send(404, { ok: false, error_code: 404, description: 'Not Found' });
     if (mode === 'error') return send(500, { ok: false, error_code: 500, description: 'Internal Server Error' });
     if (mode === 'flood') return send(429, { ok: false, error_code: 429, description: 'Too Many Requests: retry after 30', parameters: { retry_after: 30 } });
@@ -196,7 +199,8 @@ test('нет ответа (таймаут 10 с) и 429: заявка ждёт �
 test('группа стала супергруппой: отправка на новый ID чата в той же попытке', async () => {
   mode = 'migrated';
   const id = await postLead();
-  assert.equal((await delivery(id)).status, 'sent');
+  const row = await delivery(id);
+  assert.equal(row.status, 'sent', `last_error: ${row.last_error}`);
   assert.deepEqual(leadMessages().map((m) => String(m.chat_id)), [CHAT, String(NEW_CHAT)]);
 });
 

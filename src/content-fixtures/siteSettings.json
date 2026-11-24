@@ -1,6 +1,7 @@
 {
   "_type": "siteSettings",
   "seo": {
+    "siteName": "FORREST Trinity Resort",
     "title": [
       {
         "_key": "uk",
@@ -344,16 +345,6 @@
         "_key": "en",
         "value": "Address"
       }
-    ],
-    "socialsLabel": [
-      {
-        "_key": "uk",
-        "value": "Соцмережі"
-      },
-      {
-        "_key": "en",
-        "value": "Social media"
-      }
     ]
   },
   "contacts": {
@@ -374,7 +365,7 @@
         "_key": "m1",
         "network": "telegram",
         "label": "Telegram",
-        "url": "https://t.me/"
+        "url": "https://t.me/Forrestresort_com"
       },
       {
         "_key": "m2",
@@ -391,10 +382,34 @@
     ],
     "socials": [
       {
-        "_key": "so1",
+        "_key": "so-facebook",
+        "network": "facebook",
+        "label": "Facebook",
+        "url": "https://www.facebook.com/forrestresort.ua/"
+      },
+      {
+        "_key": "so-instagram",
         "network": "instagram",
         "label": "Instagram",
-        "url": "https://instagram.com/"
+        "url": "https://www.instagram.com/forrest.resort/"
+      },
+      {
+        "_key": "so-youtube",
+        "network": "youtube",
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@ForrestResortBukovel"
+      },
+      {
+        "_key": "so-tiktok",
+        "network": "tiktok",
+        "label": "TikTok",
+        "url": "https://www.tiktok.com/@forrest.resort"
+      },
+      {
+        "_key": "so-telegram",
+        "network": "telegram",
+        "label": "Telegram",
+        "url": "https://t.me/Forrestresort_com"
       }
     ]
   },
@@ -677,50 +692,8 @@
             "value": "Contacts"
           }
         ],
-        "links": [
-          {
-            "_key": "l1",
-            "label": [
-              {
-                "_key": "uk",
-                "value": "Telegram"
-              },
-              {
-                "_key": "en",
-                "value": "Telegram"
-              }
-            ],
-            "href": "#"
-          },
-          {
-            "_key": "l2",
-            "label": [
-              {
-                "_key": "uk",
-                "value": "Instagram"
-              },
-              {
-                "_key": "en",
-                "value": "Instagram"
-              }
-            ],
-            "href": "#"
-          },
-          {
-            "_key": "l3",
-            "label": [
-              {
-                "_key": "uk",
-                "value": "Телефон"
-              },
-              {
-                "_key": "en",
-                "value": "Phone"
-              }
-            ],
-            "href": "tel:+380777999999"
-          }
-        ]
+        "links": [],
+        "contacts": true
       }
     ],
     "image": {
@@ -835,7 +808,7 @@
     "nameLabel": [
       {
         "_key": "uk",
-        "value": "Ваше ім’я"
+        "value": "Ваше ім'я"
       },
       {
         "_key": "en",
@@ -845,7 +818,7 @@
     "namePlaceholder": [
       {
         "_key": "uk",
-        "value": "Ваше ім’я"
+        "value": "Ваше ім'я"
       },
       {
         "_key": "en",
@@ -1010,7 +983,7 @@
     "successText": [
       {
         "_key": "uk",
-        "value": "Менеджер зв’яжеться з вами та допоможе підібрати формат під ваш бюджет і інвестиційну мету."
+        "value": "Менеджер зв'яжеться з вами та допоможе підібрати формат під ваш бюджет і інвестиційну мету."
       },
       {
         "_key": "en",

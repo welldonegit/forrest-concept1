@@ -24,7 +24,7 @@ const hero = landing.blocks.find((b): b is HeroBlock => b._type === 'hero');
 const page = settings.thanksPage;
 const home = homePath(lang);
 ---
-<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink}>
+<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink} path="thanks/" noindex>
   <Header lang={lang} settings={settings} base={home} path="thanks/" />
   <main id="main" tabindex="-1">
     {hero ? <Hero block={hero} message={page.message} base={home} home={{ label: page.homeButton, href: home }} /> : <h1 class="visually-hidden">{page.message}</h1>}

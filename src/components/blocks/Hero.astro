@@ -45,7 +45,9 @@ const winterAttrs = {
   height: winter.src.height,
 };
 // Летнее фото полностью закрыто зимним до первого переключения: адреса лежат в data-*,
-// hero.js подставляет их при наведении, фокусе или касании кнопки сезона.
+// hero.js подставляет их при наведении, фокусе или касании кнопки сезона. До этого у img нет src —
+// сознательное исключение из валидации HTML (этап 6): заглушка в src (data:-точка) замедляла LCP
+// в Lighthouse на ≈0,7 s, а <template> скрывал бы описание фото (alt) от экранного диктора.
 const summerAttrs = {
   'data-src': summerImg.src,
   'data-srcset': summerImg.srcSet.attribute,

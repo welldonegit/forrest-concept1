@@ -8,6 +8,7 @@
  * name   — самоназвание языка в списке переключателя.
  * dir    — направление письма.
  * subset — подмножество шрифтов для предзагрузки (latin | cyrillic).
+ * locale — язык_СТРАНА для Open Graph (og:locale).
  */
 export interface Language {
   id: string;
@@ -15,11 +16,12 @@ export interface Language {
   name: string;
   dir: 'ltr' | 'rtl';
   subset: 'latin' | 'cyrillic';
+  locale: string;
 }
 
 export const languages: Language[] = [
-  { id: 'uk', label: 'UA', name: 'Українська', dir: 'ltr', subset: 'cyrillic' },
-  { id: 'en', label: 'EN', name: 'English', dir: 'ltr', subset: 'latin' },
+  { id: 'uk', label: 'UA', name: 'Українська', dir: 'ltr', subset: 'cyrillic', locale: 'uk_UA' },
+  { id: 'en', label: 'EN', name: 'English', dir: 'ltr', subset: 'latin', locale: 'en_US' },
 ];
 
 /** Основной язык: живёт в корне «/» без приставки (src/lib/routes.ts), он же x-default и запасной перевод. */

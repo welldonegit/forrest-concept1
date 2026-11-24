@@ -82,19 +82,20 @@ const rows = (sel: number) => members.map((_, i) => `minmax(var(--team-tab-min),
                     <li class="team__stat text-team-stat">{s.value && <b class="team__stat-value">{s.value}</b>}<span>{s.label}</span></li>
                   ))}
                 </ul>
-                <figure class="team__quote">
+                <div class="team__quote">
                   <span class="team__portrait">
                     <Image class="team__img" src={m.portrait.src} alt={m.portrait.alt} widths={[240, 360]} sizes="(max-width: 1279px) 112px, 180px" format="avif" loading="lazy" decoding="async" style={`--focus:${m.portrait.position}`} />
                   </span>
-                  <span class="team__quote-body">
+                  {/* figure — блок цитаты: blockquote и подпись (figcaption — прямой потомок figure, валидная разметка) */}
+                  <figure class="team__quote-body">
                     <span class="team__qmark text-team-qmark" aria-hidden="true">“</span>
                     <blockquote class="team__qtext text-team-quote">{m.quote.text}</blockquote>
                     <figcaption class="team__qcap">
                       <span class="team__qname text-team-qname">{m.quote.name}</span>
                       <span class="team__qpos text-team-qpos">{m.quote.position}</span>
                     </figcaption>
-                  </span>
-                </figure>
+                  </figure>
+                </div>
               </div>
             </div>
           </div>

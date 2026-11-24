@@ -280,10 +280,12 @@ export interface LegalDocument extends DocumentRoute {
 export type IconRef = { asset?: { _ref?: string } } | undefined;
 export interface SocialLink { _key: string; network: string; label: string; url: string; icon?: IconRef }
 
-export interface FooterGroup { _key: string; title: string; links: Link[] }
+/** Колонка футера; contacts — колонка контактов: иконки соцсетей и телефон вместо ссылок. */
+export interface FooterGroup { _key: string; title: string; links: Link[]; contacts?: boolean }
 
 export interface SiteSettings {
-  seo: { title: string; description: string };
+  /** SEO: тексты главной, название сайта (og:site_name, JSON-LD), картинка для соцсетей (пусто — фото первого экрана). */
+  seo: { title: string; description: string; siteName: string; ogImage?: SanityImage; unapprovedLanguages?: string[] };
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
   /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };
@@ -335,7 +337,6 @@ export interface SiteSettings {
     salesLabel: string;
     messengersLabel: string;
     addressLabel: string;
-    socialsLabel: string;
   };
   contacts: {
     phone: string;

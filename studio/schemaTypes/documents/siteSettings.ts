@@ -7,6 +7,7 @@ import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
 import { ukOf } from '../lib/block.ts';
 import { iconField, linkField, linkItemType, photoField, str } from '../lib/fields.ts';
+import { languages, defaultLanguage } from '../../../src/lib/languages.ts';
 
 const S = (name: string, title: string, description?: string) => defineField({ name, title, type: 'string', description });
 const T = (name: string, title: string, description?: string) => defineField({ name, title, type: 'text', rows: 3, description });
@@ -18,6 +19,9 @@ const NETWORKS = [
   { title: 'Viber', value: 'viber' },
   { title: 'WhatsApp', value: 'whatsapp' },
   { title: 'Instagram', value: 'instagram' },
+  { title: 'Facebook', value: 'facebook' },
+  { title: 'YouTube', value: 'youtube' },
+  { title: 'TikTok', value: 'tiktok' },
 ];
 
 export const socialLink = defineType({
@@ -25,7 +29,7 @@ export const socialLink = defineType({
   fields: [
     defineField({ name: 'network', title: 'Мережа', type: 'string', options: { list: NETWORKS }, validation: (r) => r.required() }),
     str('label', 'Назва (для програм читання з екрана)', { required: true }),
-    str('url', 'Посилання', { required: true, description: 'TODO: справжні адреси від замовника.' }),
+    str('url', 'Посилання', { required: true, description: 'Адреса профілю або чату: https://t.me/імʼя, https://wa.me/380…, viber://chat?number=%2B380…. Без імені профілю (https://t.me/) — заглушка: з нею боєвий сайт не збирається.' }),
     iconField('icon', 'Іконка'),
   ],
   preview: { select: { l: 'label', url: 'url' }, prepare: ({ l, url }) => ({ title: l, subtitle: url }) },
@@ -33,8 +37,15 @@ export const socialLink = defineType({
 
 export const footerGroup = defineType({
   name: 'footerGroup', title: 'Колонка', type: 'object',
-  fields: [text('title', { title: 'Заголовок колонки' }), defineField({ name: 'links', title: 'Посилання', type: 'array', of: [{ type: 'navLink' }] })],
-  preview: { select: { t: 'title' }, prepare: ({ t }) => ({ title: ukOf(t) }) },
+  fields: [
+    text('title', { title: 'Заголовок колонки' }),
+    defineField({
+      name: 'contacts', title: 'Колонка контактів', type: 'boolean', initialValue: false,
+      description: 'Увімкнено — замість посилань показуються іконки соцмереж (Контакти → Соцмережі) і телефон (Контакти → Телефон).',
+    }),
+    defineField({ name: 'links', title: 'Посилання', type: 'array', of: [{ type: 'navLink' }], hidden: ({ parent }) => Boolean(parent?.contacts) }),
+  ],
+  preview: { select: { t: 'title', c: 'contacts' }, prepare: ({ t, c }) => ({ title: ukOf(t), subtitle: c ? 'Соцмережі й телефон' : undefined }) },
 });
 
 export const quizBudget = defineType({
@@ -71,8 +82,8 @@ export const siteSettings = defineType({
         str('phone', 'Телефон (як показувати)', { required: true }),
         str('phoneHref', 'Телефон для дзвінка', { required: true, description: 'tel: і номер без пробілів, наприклад tel:+380777999999.' }),
         text('address', { title: 'Адреса', multiline: true }),
-        defineField({ name: 'messengers', title: 'Месенджери', type: 'array', of: [{ type: 'socialLink' }] }),
-        defineField({ name: 'socials', title: 'Соцмережі', type: 'array', of: [{ type: 'socialLink' }] }),
+        defineField({ name: 'messengers', title: 'Месенджери', description: 'Кнопки «написати менеджеру»: меню, картка експерта у формах і попапах.', type: 'array', of: [{ type: 'socialLink' }] }),
+        defineField({ name: 'socials', title: 'Соцмережі', description: 'Іконки в колонці контактів футера (у тому ж порядку) і профілі в структурованих даних для пошуковиків.', type: 'array', of: [{ type: 'socialLink' }] }),
       ],
     }),
     defineField({
@@ -92,7 +103,7 @@ export const siteSettings = defineType({
         texts('menuTexts', [
           S('navLabel', 'Назва навігації (для програм читання з екрана)'), S('imageCaption', 'Підпис фото'),
           S('salesLabel', 'Заголовок «Відділ продажу»'), S('messengersLabel', 'Заголовок «Месенджери»'),
-          S('addressLabel', 'Заголовок «Адреса»'), S('socialsLabel', 'Заголовок «Соцмережі»'),
+          S('addressLabel', 'Заголовок «Адреса»'),
         ]),
         defineField({ name: 'primary', title: 'Великі пункти', type: 'array', of: [{ type: 'navLink' }] }),
         defineField({ name: 'secondary', title: 'Малі пункти', type: 'array', of: [{ type: 'navLink' }] }),
@@ -214,8 +225,24 @@ export const siteSettings = defineType({
       ])],
     }),
     defineField({
-      name: 'seo', title: 'SEO головної', type: 'object', group: 'seo',
-      fields: [texts('seoTexts', [S('title', 'Заголовок вкладки'), T('description', 'Опис для пошуковиків')])],
+      name: 'seo', title: 'SEO', type: 'object', group: 'seo',
+      description: 'Заголовки й описи інших сторінок — у розділі «Сторінки» (архів, «Дякуємо») і в кожному документі.',
+      fields: [
+        texts('seoTexts', [
+          S('title', 'Заголовок вкладки головної', 'До 60 знаків — так видно в пошуку повністю.'),
+          T('description', 'Опис головної для пошуковиків', 'До 160 знаків.'),
+        ], { title: 'Головна сторінка' }),
+        str('siteName', 'Назва сайту для соцмереж', { required: true, description: 'Підпис над карткою посилання у Facebook, Telegram тощо (og:site_name) і назва в структурованих даних. Однакова для всіх мов.' }),
+        photoField('ogImage', 'Картинка для соцмереж', {
+          required: false,
+          description: 'Показується, коли посиланням на сайт діляться в месенджерах і соцмережах. Найкраще 1200×630 або більше; сайт сам обріже до 1200×630 за точкою фокуса. Порожньо — фото першого екрана головної.',
+        }),
+        defineField({
+          name: 'unapprovedLanguages', title: 'SEO: переклад не затверджено', type: 'array', of: [{ type: 'string' }],
+          options: { list: languages.filter((l) => l.id !== defaultLanguage).map((l) => ({ title: l.name, value: l.id })), layout: 'grid' },
+          description: 'Позначте мову, SEO-тексти якої (головна, архів, «Дякуємо») ще не перевірено. Після перевірки — зніміть позначку. На сайт не впливає.',
+        }),
+      ],
     }),
     defineField({
       name: 'ui', title: 'Службові підписи', type: 'object', group: 'ui',

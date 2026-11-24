@@ -161,18 +161,6 @@ const logoH = logo.height;
           <span class="site-menu__label text-label">{menu.addressLabel}</span>
           <p class="site-menu__address text-header-menu-sub">{contacts.address}</p>
         </div>
-        <div class="site-menu__col" style="--i:3">
-          <span class="site-menu__label text-label">{menu.socialsLabel}</span>
-          <ul class="site-menu__socials" role="list">
-            {contacts.socials.map((m) => (
-              <li>
-                <a class="site-menu__social" href={m.url} target="_blank" rel="noopener" aria-label={m.label}>
-                  <SocialIcon network={m.network} icon={m.icon} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   </div>

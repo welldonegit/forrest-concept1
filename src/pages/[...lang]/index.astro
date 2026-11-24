@@ -20,6 +20,7 @@ import Footer from '../../components/blocks/Footer.astro';
 import QuizTab from '../../components/ui/QuizTab.astro';
 import { getSiteSettings, getLanding } from '../../lib/content';
 import { langOf, langPaths } from '../../lib/routes';
+import { ogImage, structuredData } from '../../lib/seo';
 
 export function getStaticPaths() {
   return langPaths();
@@ -30,8 +31,11 @@ const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 // без JS вкладка квиза ведёт к первой форме заявки
 const formAnchor = landing.blocks.find((b) => b._type === 'form')?.anchor;
+// Структурированные данные (JSON-LD): организация, сайт, комплекс — только на главной, из данных Sanity.
+const jsonLd = structuredData(Astro.site!, lang, settings, await ogImage(Astro.site!, lang));
 ---
-<Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink}>
+<Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink} path="">
+  {jsonLd && <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   <Header lang={lang} settings={settings} />
   <QuizTab label={settings.popups.quiz.tabLabel} ariaLabel={settings.popups.quiz.tabAriaLabel} href={formAnchor ? `#${formAnchor}` : '#main'} />
   <main id="main" tabindex="-1">

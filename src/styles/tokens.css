@@ -66,7 +66,7 @@
 --hero-text-shadow:0 2px 18px rgba(0,0,0,.35);                             /* чёрный, как в рендере (п.16) */
 /* вуаль под текстом: радиальная на десктопе, линейная на мобильном (градиент — один токен, п.13) */
 --hero-shade:radial-gradient(ellipse 100% 100% at 0% 100%,rgba(6,8,7,.94) 0%,rgba(6,8,7,.86) 25%,rgba(6,8,7,.68) 45%,rgba(6,8,7,.4) 65%,rgba(6,8,7,.14) 84%,rgba(6,8,7,0) 100%);
---hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.62) 0%,rgba(6,8,7,.42) 30%,rgba(6,8,7,.16) 65%,rgba(6,8,7,0) 100%);
+--hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.74) 0%,rgba(6,8,7,.56) 30%,rgba(6,8,7,.24) 64%,rgba(6,8,7,0) 100%); /* <768, плотнее выгрузки (.62/.42/.16) — решение 2026-11-24 */
 
 /* -- Stats (рендер) -- */
 --stats-overlay:linear-gradient(180deg,
@@ -535,12 +535,11 @@
 --ct-head-mb:var(--space-64);
 --ct-btn:52px; --ct-btn-photo:var(--control-h-48); --ct-icon:18px; --ct-nav-gap:var(--space-8);
 --ct-row-gap:var(--space-16); --ct-item-gap:var(--space-16);
---ct-item-max:1180px;                      /* ширина карточки, как в выгрузке */
---ct-col-min:420px;                        /* колонки карточки (auto-fit) */
+--ct-item-max:700px;                       /* карточка ленты на главной: собственный размер (выгрузка 1180); фото 9:16 на всю высоту, текст uk/en помещается рядом (решение 2026-11-24) */
 --ct-item-head-gap:var(--space-12); --ct-item-head-pad:var(--space-4);
 --ct-chip-h:28px; --ct-chip-pad:var(--space-12);
 --ct-card-pad:var(--space-10); --ct-card-radius:var(--radius-32); --ct-media-radius:var(--radius-24);
---ct-media-min:520px;
+--ct-media-h:520px;                        /* высота фото 9:16 в карточке ≥768 (выгрузка — мин. высота фото 4:3); ширина = высота × 9/16 */
 --ct-photo-nav-inset:14px;                 /* рендер 14 (у края фото) */
 --ct-glass-bg:color-mix(in srgb, var(--air) 92%, transparent);           /* rgba(255,255,255,.92) */
 --ct-video-bg:color-mix(in srgb, var(--night-bark) 55%, transparent);    /* rgba(12,12,12,.55) */
@@ -870,7 +869,7 @@
 /* Construction B — рендер 1440 */
 --ct-pad-block:116px;                      /* 115.2: промежуток >80, кратен 4 */
 --ct-head-gap-col:var(--space-72); --ct-head-mb:var(--space-56);
---ct-media-min:490px;
+--ct-media-h:490px;
 --ct-body-pad-start:var(--space-36); --ct-body-pad-inline:var(--space-36); --ct-body-pad-end:var(--space-28);
 --ct-arch-w:346px; --ct-arch-pad:var(--space-36);
 --type-ct-month-size:23px; --type-ct-title-size:24px; --type-ct-text-size:16px;
@@ -1009,7 +1008,7 @@
 /* Construction B — 768–1279 (опорная 1024) */
 --ct-pad-block:var(--space-80); --ct-pad-inline:var(--space-28);
 --ct-head-gap-col:var(--space-48); --ct-head-mb:var(--space-40);
---ct-media-min:348px;
+--ct-media-h:348px; --ct-item-max:820px;   /* фото ниже — тексту нужна колонка шире */
 --ct-body-pad-start:var(--space-28); --ct-body-pad-inline:var(--space-24); --ct-body-pad-end:var(--space-20);
 --ct-arch-w:260px; --ct-arch-pad:var(--space-24);
 --type-ct-month-size:18px; --type-ct-title-size:20px; --type-ct-text-size:15px;
@@ -1049,7 +1048,7 @@
 --hero-buttons-gap:var(--space-12);         /* рендер 14; CTA на 2 шире (круг 40) */
 --hero-cta-gap:var(--space-16);
 --hero-season-icon:var(--icon-20);
---hero-shade-w:100%; --hero-shade-h:40%;
+--hero-shade-w:100%; --hero-shade-h:48%;   /* выгрузка 40% — выше под текстом (решение 2026-11-24) */
 --stats-pad-block-start:var(--space-24);
 --stats-pad-inline:var(--space-16);          /* рендер 16 (решение 2026-11-17: мобильные поля как в выгрузке) */
 --stats-pad-block-end:var(--space-40);
@@ -1125,7 +1124,6 @@
 /* Construction B — рендер 390 */
 --ct-pad-block:var(--space-64); --ct-pad-inline:var(--space-16);
 --ct-head-gap-col:var(--space-32); --ct-head-mb:var(--space-32);
---ct-media-min:300px;
 --ct-body-pad-start:var(--space-20); --ct-body-pad-inline:var(--space-16); --ct-body-pad-inline-end:var(--space-12); --ct-body-pad-end:var(--space-16); /* рендер 20 14 16: 16/12 по бокам */
 --type-ct-arch-title-size:28px;
 /* Team v3 — рендер 390 */
@@ -1569,7 +1567,7 @@
 --arch-pad-block-start:164px;               /* рендер 164 (под шапкой) */
 --arch-pad-block-end:var(--space-128);
 --arch-pad-inline:var(--ct-pad-inline);
---arch-max:var(--ct-item-max);              /* 1180 */
+--arch-max:1180px;                          /* ширина карточки архива, как в выгрузке (лента главной уже — --ct-item-max) */
 --arch-head-mb:var(--space-80);
 --arch-head-gap:var(--space-32);            /* «На головну» → заголовок */
 --arch-list-gap:var(--space-72);

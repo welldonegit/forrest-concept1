@@ -26,7 +26,7 @@ const page = settings.archivePage;
 const home = homePath(lang);
 const updates = (block?.updates ?? []).slice().sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 ---
-<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink}>
+<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink} path="archive/">
   <Header lang={lang} settings={settings} base={home} path="archive/" />
   <main id="main" tabindex="-1" class="arch">
     <div class="arch__in">

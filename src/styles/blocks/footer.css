@@ -45,6 +45,24 @@
   padding-block-start:var(--footer-list-pad);
 }
 
+/* Колонка контактов: иконки соцсетей — размер и форма как у мессенджеров в меню (header.css .site-menu__social),
+   цвета — те же роли на тёмном фоне: рамка-разделитель, при наведении заливка светлым. Фокус — общий (reset.css). */
+.site-footer__contacts{
+  display:flex; flex-direction:column; align-items:flex-start; gap:var(--footer-list-gap);
+  padding-block-start:var(--footer-list-pad);
+}
+.site-footer .site-footer__socials{display:flex; flex-wrap:wrap; gap:var(--space-8)}
+.site-footer__social{
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--control-h-48); block-size:var(--control-h-48);
+  border:var(--border-1) solid var(--footer-divider);
+  border-radius:var(--radius-pill);
+  color:var(--air);
+  transition:background-color var(--menu-hover-dur), color var(--menu-hover-dur), border-color var(--menu-hover-dur);
+}
+.site-footer__social:hover{background:var(--air); color:var(--bg-inverse); border-color:var(--air)}
+.site-footer__social svg{inline-size:var(--icon-20); block-size:var(--icon-20)}
+
 /* Ссылки: подчёркивание выезжает при наведении */
 .site-footer__link{
   position:relative; display:inline-block;

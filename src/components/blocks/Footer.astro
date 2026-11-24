@@ -7,6 +7,7 @@
  */
 import { Image } from 'astro:assets';
 import { resolveImage, type SiteSettings } from '../../lib/content';
+import SocialIcon from '../ui/SocialIcon.astro';
 import { onPage } from '../../lib/routes';
 
 interface Props {
@@ -18,6 +19,8 @@ interface Props {
 const { settings, base } = Astro.props;
 const { footer, contacts } = settings;
 const bg = await resolveImage(footer.image);
+/** Ссылка на другой сайт (соцсети) — в новой вкладке; якоря и tel: — как обычно. */
+const ext = (href: string) => (/^https?:\/\//i.test(href) ? { target: '_blank', rel: 'noopener' } : {});
 ---
 <footer class="site-footer" id="kontakty">
   <Image
@@ -54,11 +57,27 @@ const bg = await resolveImage(footer.image);
           </h2>
           <div class="site-footer__body" id={`footer-list-${group._key}`}>
             <div class="site-footer__clip">
-              <ul class="site-footer__list text-footer-body" role="list">
-                {group.links.map((link) => (
-                  <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
-                ))}
-              </ul>
+              {group.contacts ? (
+                /* Колонка контактов: иконки соцсетей (Контакти → Соцмережі) и телефон — решение 2026-11-24 */
+                <div class="site-footer__contacts">
+                  <ul class="site-footer__socials" role="list">
+                    {contacts.socials.map((s) => (
+                      <li>
+                        <a class="site-footer__social" href={s.url} target="_blank" rel="noopener" aria-label={s.label}>
+                          <SocialIcon network={s.network} icon={s.icon} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a class="site-footer__link text-footer-body" href={contacts.phoneHref}>{contacts.phone}</a>
+                </div>
+              ) : (
+                <ul class="site-footer__list text-footer-body" role="list">
+                  {group.links.map((link) => (
+                    <li><a class="site-footer__link" href={onPage(link.href, base)} {...ext(link.href)}>{link.label}</a></li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </nav>
@@ -74,7 +93,7 @@ const bg = await resolveImage(footer.image);
           <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
         ))}
       </ul>
-      <a class="site-footer__link site-footer__credit" href={onPage(footer.credit.href, base)}>
+      <a class="site-footer__link site-footer__credit" href={onPage(footer.credit.href, base)} {...ext(footer.credit.href)}>
         <span>{footer.credit.label}</span>
         <span class="site-footer__credit-logo" role="img" aria-label={footer.credit.logoLabel}></span>
       </a>

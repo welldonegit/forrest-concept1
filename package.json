@@ -18,7 +18,8 @@
     "crm:explore": "node --experimental-strip-types --no-warnings scripts/crm/explore.mjs",
     "crm:check": "node --experimental-strip-types --no-warnings scripts/crm/check.mjs",
     "crm:delete": "node --experimental-strip-types --no-warnings scripts/crm/delete.mjs",
-    "leads:export": "node scripts/leads-export.mjs"
+    "leads:export": "node scripts/leads-export.mjs",
+    "content:placeholders": "node --experimental-strip-types --no-warnings scripts/content-placeholders.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",

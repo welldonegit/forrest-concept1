@@ -10,6 +10,11 @@
  * Текст — Portable Text Sanity: блоки (normal, h2, h3, списки bullet/number) и таблицы docTable.
  * Структура перевода сверяется с украинской: другие разделы, абзацы или строки таблиц — ошибка.
  *
+ * Исходников в репозитории нет: папка «Тексты» удалена 2026-11-24, документы правятся в Sanity (Studio).
+ * Скрипт оставлен для повторного импорта, если человек снова положит .docx в «Тексты» (повторный импорт
+ * перезапишет правки из Studio — только по решению человека). Сборка и тесты от папки не зависят:
+ * фикстура src/content-fixtures/legalDocuments.json лежит в Git.
+ *
  * Запуск (из корня проекта): node studio/import/legal-documents.mjs
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';

@@ -4,8 +4,10 @@
  * #top — к началу страницы. Фокус переносится на цель для клавиатуры и скринридеров.
  * Перед расчётом цели секции с content-visibility:auto (layout.css) отрисовываются целиком:
  * иначе их высота — оценка, и прокрутка останавливается не там.
+ * Шапка на время перехода прячется (header-scroll.js): заголовок цели не оказывается под ней.
  */
 import { isMenuOpen, closeMenu } from './menu.js';
+import { holdHeaderFor } from './header-scroll.js';
 
 const MENU_CLOSE_DELAY = 60;
 
@@ -33,6 +35,7 @@ export function initAnchorNav() {
       document.documentElement.dataset.cvOff = '';
       const behavior = reduce.matches ? 'auto' : 'smooth';
       const top = target && id !== 'top' ? targetTop(target) : 0;
+      holdHeaderFor(top);
       window.scrollTo({ top, behavior });
       history.replaceState(null, '', `#${id}`);
       if (target) {

@@ -60,17 +60,23 @@ export async function startWorker(port, extraEnv = {}) {
   };
 }
 
+/** Коды обрыва соединения: запрос не дошёл до Worker. */
+const SOCKET_CLOSED = new Set(['UND_ERR_SOCKET', 'UND_ERR_CLOSED', 'ECONNRESET', 'EPIPE']);
+
 /**
- * fetch к локальному Worker с одним повтором при обрыве соединения (UND_ERR_SOCKET):
- * wrangler dev закрывает простаивающие keep-alive соединения, и следующий запрос по ним
- * падает, не дойдя до Worker. Повтор того же запроса безопасен — до сервера он не дошёл
- * (а у заявок есть ключ повтора).
+ * fetch к локальному Worker с двумя повторами при обрыве соединения: wrangler dev закрывает простаивающие
+ * keep-alive соединения, и запрос, отправленный по такому соединению в момент закрытия, падает, не дойдя
+ * до Worker; в пуле может быть не одно такое соединение. Повтор безопасен: у заявок есть ключ повтора,
+ * а лишний запуск расписания ничего не делает (сроки попыток ещё не наступили).
+ * Другая ошибка — сразу, с кодом причины в тексте.
  */
 export async function fetchLocal(url, init) {
-  try {
-    return await fetch(url, init);
-  } catch (err) {
-    if (err?.cause?.code !== 'UND_ERR_SOCKET' && err?.cause?.code !== 'ECONNRESET') throw err;
-    return fetch(url, init);
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetch(url, init);
+    } catch (err) {
+      const code = err?.cause?.code;
+      if (!SOCKET_CLOSED.has(code) || attempt >= 2) throw new Error(`${url}: ${err.message} (${code ?? err?.cause?.message ?? 'без коду'})`, { cause: err });
+    }
   }
 }

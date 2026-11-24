@@ -55,7 +55,7 @@ function description(): string {
 
 const edition = doc.editionDate?.split('-').reverse().join('.');
 ---
-<Base lang={lang} title={doc.seoTitle || doc.title} description={description()} skipLink={settings.ui.skipLink}>
+<Base lang={lang} title={doc.seoTitle || doc.title} description={description()} skipLink={settings.ui.skipLink} path={documentSubpath(doc)}>
   <Header lang={lang} settings={settings} base={home} path={documentSubpath(doc)} />
   <main id="main" tabindex="-1" class="doc">
     <article class="doc__in">

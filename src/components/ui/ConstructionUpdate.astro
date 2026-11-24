@@ -23,6 +23,9 @@ const { update: u, block, lang, idPrefix, heading = 'h3' } = Astro.props;
 const photos = await Promise.all(u.slides.map(resolveImage));
 const Heading = heading;
 const titleId = `${idPrefix}-${u._key}`;
+// Ширина фото 9:16 = --ct-media-h × 9/16 (tokens.css): 293 (≥1600), 276 (≥1280), 196 (≥768);
+// <768 — во всю ширину карточки.
+const sizes = '(max-width: 767px) calc(100vw - 52px), (max-width: 1279px) 196px, (max-width: 1599px) 276px, 293px';
 const arrow = (dir: 'prev' | 'next') => (dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 6' : 'M5 12h14M13 6l6 6-6 6');
 ---
 <article class="ct__item" data-ct-item aria-labelledby={titleId}>
@@ -35,7 +38,7 @@ const arrow = (dir: 'prev' | 'next') => (dir === 'prev' ? 'M19 12H5M11 6l-6 6 6 
       <div class="ct__slides" data-ct-slides>
         {photos.map((ph) => (
           <div class="ct__slide">
-            <Image class="ct__img" src={ph.src} alt={ph.alt} widths={[360, 560, 720, 880, 1160]} sizes="(max-width: 767px) calc(100vw - 52px), (max-width: 1279px) calc(100vw - 76px), 580px" format="avif" loading="lazy" decoding="async" style={`--focus:${ph.position}`} />
+            <Image class="ct__img" src={ph.src} alt={ph.alt} widths={[180, 300, 400, 560, 720, 900]} sizes={sizes} format="avif" loading="lazy" decoding="async" style={`--focus:${ph.position}`} />
           </div>
         ))}
       </div>
