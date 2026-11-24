@@ -170,7 +170,16 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 - **Що генерує сайт:** `canonical`, `hreflang` (uk, en, `x-default` → українська), Open Graph і Twitter, JSON-LD на головній (організація, сайт, житловий комплекс — лише з даних Sanity: назва, опис, телефон, адреса, профілі соцмереж; порожнє не виводиться; посилання соцмереж без профілю, як `https://t.me/`, не виводяться). Код — `src/lib/seo.ts`, `src/layouts/Base.astro`.
 - **Карта сайту** `/sitemap.xml`: головна, архів, політика, документи — на всіх мовах з `hreflang`; без «Дякуємо», 404 і попапів (`src/integrations/sitemap.ts`). `robots.txt` посилається на неї завжди; доки `SITE_INDEXING` не `allow`, `robots.txt` забороняє обхід.
 - **«Дякуємо» і 404** — завжди `noindex`, незалежно від `SITE_INDEXING`.
+- **Заглушки.** Збірка з `SITE_INDEXING=allow` (боєвий сайт) зупиняється з переліком, якщо в контенті лишилися заглушки: посилання `#`, посилання соцмережі без профілю (`https://t.me/`), `[ФАКТ: N]`, `TODO`. Перелік без збірки: `npm run content:placeholders` (за знімком останньої збірки). Приховані блоки не перевіряються.
+- **Апостроф** у текстах сайту — прямий `'`. Текст, вставлений з Word, може принести `’`: `npm --prefix studio run -s sanity -- exec import/apostrophe.mjs --with-user-token -- --dry`, потім без `--dry` (замінює лише між літерами, лапки не чіпає).
 - **Іконки** (favicon, Apple, Android): `public/favicon.ico`, `favicon.svg`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` — знак логотипу з вигрузки на білому. Перегенерувати: `bash scripts/make-icons.sh` (ImageMagick). Маніфест — `/site.webmanifest`, `/en/site.webmanifest`.
+
+## Соцмережі й месенджери
+
+- «Налаштування сайту» → «Контакти»: **Соцмережі** — ряд іконок у меню і `sameAs` у структурованих даних; **Месенджери** — кнопки «написати менеджеру» (меню, картка експерта у формах і попапах). Колонка «Контакти» футера — окремі текстові посилання (Футер → колонки).
+- Мережі: Telegram, Viber, WhatsApp, Instagram, Facebook, YouTube, TikTok. Іконка — поле «Іконка» (SVG, вимоги вище); готові файли — `studio/import/icons/social-*.svg` (Simple Icons, CC0).
+- Посилання на інші сайти відкриваються в новій вкладці (`rel="noopener"`).
+- Скрипт `studio/import/socials.mjs`: `--stage stubs` — замінити заглушки Telegram/Instagram; `--stage new` — додати канал Telegram, Facebook, YouTube, TikTok (у меню й футер). Спершу `--dry`.
 
 ## Заявки: налаштування Cloudflare
 
