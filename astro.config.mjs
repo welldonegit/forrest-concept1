@@ -21,7 +21,8 @@ export default defineConfig({
   i18n: {
     locales: languages.map((l) => l.id),
     defaultLocale: defaultLanguage,
-    routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
+    // Основной язык — в корне («/», «/archive/»), остальные — с приставкой («/en/»). /uk/… → 301 (public/_redirects).
+    routing: { prefixDefaultLocale: false },
   },
   image: {
     // Фото из Sanity скачиваются при сборке; в рантайме внешних запросов нет.

@@ -10,15 +10,14 @@ import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
 import Hero from '../../components/blocks/Hero.astro';
 import Footer from '../../components/blocks/Footer.astro';
-import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding, type HeroBlock } from '../../lib/content';
-import { homePath } from '../../lib/routes';
+import { homePath, langOf, langPaths } from '../../lib/routes';
 
 export function getStaticPaths() {
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 const hero = landing.blocks.find((b): b is HeroBlock => b._type === 'hero');

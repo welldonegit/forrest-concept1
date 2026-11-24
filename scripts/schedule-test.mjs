@@ -59,7 +59,7 @@ const sql = (q) => worker.sql(q);
 let ip = 0;
 async function postLead(body = {}, cookie) {
   const lead = {
-    key: crypto.randomUUID(), form: 'finmodel', lang: 'uk', page: `${worker.base}/uk/`,
+    key: crypto.randomUUID(), form: 'finmodel', lang: 'uk', page: `${worker.base}/`,
     turnstileToken: 'XXXX.DUMMY.TOKEN.XXXX', website: '',
     fields: { name: 'Тест', phone: '+380 (67) 123-45-67', contactMethod: 'telegram', format: 'Апартамент' },
     ...body,

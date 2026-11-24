@@ -85,7 +85,7 @@ await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const local = `http://127.0.0.1:${server.address().port}`;
 const base = args.url?.replace(/\/$/, '') ?? local;
 const EXPORT_URL = `${local}/design-export/index.html`;
-const oursUrl = `${base}/${lang}/${config.hash ?? ''}`;
+const oursUrl = `${base}${lang === 'uk' ? '' : `/${lang}`}/${config.hash ?? ''}`;
 
 /* ---------- Замеры ---------- */
 // Элемент конфига: [название, селектор в выгрузке, селектор в вёрстке, 'text'?]

@@ -70,7 +70,7 @@ const sql = (q) => worker.sql(q);
 let ip = 0;
 async function postLead(body = {}, cookie) {
   const lead = {
-    key: crypto.randomUUID(), form: 'finmodel', lang: 'uk', page: `${worker.base}/uk/`,
+    key: crypto.randomUUID(), form: 'finmodel', lang: 'uk', page: `${worker.base}/`,
     turnstileToken: 'XXXX.DUMMY.TOKEN.XXXX', website: '',
     fields: { name: 'Тест', phone: '+380671234567' },
     ...body,
@@ -136,7 +136,7 @@ test('4 источника: лид в CRM, тело по схеме, поля п
     utm: { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring' },
     custom_field_values: { 'f-method': ['Мобільний'], 'f-layout': ['Standart/Superior'], 'f-gclid': 'g-1' },
   });
-  assert.ok(b1.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${fin.number}\nДжерело: форма «Фінмодель»\nСторінка: ${worker.base}/uk/`));
+  assert.ok(b1.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${fin.number}\nДжерело: форма «Фінмодель»\nСторінка: ${worker.base}/`));
   assert.match(b1.note, /\nreferrer: https:\/\/www\.google\.com\//);
   assert.doesNotMatch(b1.note, /gclid/, 'gclid — в своём поле, в note не дублируется');
   const [row1] = sql(`SELECT created_at FROM leads WHERE id = ${fin.id}`);
@@ -290,7 +290,7 @@ test('кастомные поля CRM: значения точно из спис
   for (const [v, want] of Object.entries(layouts)) assert.equal(layoutOption(v), want, v);
 
   const lead = {
-    id: 8, number: 'FR-000008', createdAt: '2026-11-20T10:00:00.000Z', form: 'apartment', lang: 'uk', page: 'https://example.test/uk/',
+    id: 8, number: 'FR-000008', createdAt: '2026-11-20T10:00:00.000Z', form: 'apartment', lang: 'uk', page: 'https://example.test/',
     fields: { phone: '+380671234567', apartment: 'Junior Suite', contactMethod: 'Пошта' },
     attribution: { gclid: 'G', fbclid: 'F' },
   };

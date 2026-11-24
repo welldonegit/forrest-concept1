@@ -4,14 +4,14 @@ import PopupPage from '../../../layouts/PopupPage.astro';
 import VideoPopup from '../../../components/popups/VideoPopup.astro';
 import '../../../styles/popups/popup.css';
 import '../../../styles/popups/video.css';
-import { languages } from '../../../lib/languages';
 import { getSiteSettings } from '../../../lib/content';
+import { langOf, langPaths } from '../../../lib/routes';
 
 export function getStaticPaths() {
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 ---
 <PopupPage lang={lang} title={settings.seo.title}>

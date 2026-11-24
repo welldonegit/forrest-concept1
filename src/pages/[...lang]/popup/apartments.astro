@@ -4,14 +4,14 @@ import PopupPage from '../../../layouts/PopupPage.astro';
 import ApartmentPopup from '../../../components/popups/ApartmentPopup.astro';
 import '../../../styles/popups/popup.css';
 import '../../../styles/popups/apartment.css';
-import { languages } from '../../../lib/languages';
 import { getSiteSettings, getLanding, type ApartmentsBlock, type NumbersBlock } from '../../../lib/content';
+import { langOf, langPaths } from '../../../lib/routes';
 
 export function getStaticPaths() {
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 const apartments = landing.blocks.find((b): b is ApartmentsBlock => b._type === 'apartments');

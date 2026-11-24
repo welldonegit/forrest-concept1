@@ -11,6 +11,9 @@
  *     Порожня папка або її відсутність — звіт за місяць не робиться, навіть якщо текст є.
  *   - import/construction/<РРРР-ММ>.json (у Git) — опис кожного фото (uk обовʼязково, en), черга,
  *     відео (тривалість), англійський переклад заголовка, тексту й робіт. Заготовку робить --init.
+ *     "fixes": [{ "from": "…", "to": "…" }] — виправлення тексту з docx (опечатки), рішення людини:
+ *     застосовуються до українського заголовка, тексту й робіт при кожному імпорті. Рядка «from» уже
+ *     немає в документі (виправили в docx) — попередження, виправлення можна прибрати.
  *
  * Запис:
  *   - фото завантажуються оригіналами (той самий файл; уже завантажене — за sha1 — не дублюється);
@@ -178,6 +181,12 @@ const built = plan.map((p) => {
   const file = join(DATA, `${p.month}.json`);
   if (!existsSync(file)) { problems.push(`${p.month}: немає import/construction/${p.month}.json — запустіть з --init`); return null; }
   const meta = JSON.parse(readFileSync(file, 'utf8'));
+  for (const { from, to } of meta.fixes ?? []) {
+    const fix = (v) => v.split(from).join(to);
+    const before = JSON.stringify([p.title, p.text, p.works]);
+    p.title = fix(p.title); p.text = p.text.map(fix); p.works = p.works.map(fix);
+    if (JSON.stringify([p.title, p.text, p.works]) === before) console.log(`  ! ${p.month}: виправлення «${from}» — такого тексту в документі вже немає, його можна прибрати з JSON`);
+  }
   const listed = Object.keys(meta.photos ?? {});
   const missing = p.files.filter((f) => !listed.includes(f));
   const extra = listed.filter((f) => !p.files.includes(f));

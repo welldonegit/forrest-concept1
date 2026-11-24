@@ -18,14 +18,14 @@ import Faq from '../../components/blocks/Faq.astro';
 import FormFinal from '../../components/blocks/FormFinal.astro';
 import Footer from '../../components/blocks/Footer.astro';
 import QuizTab from '../../components/ui/QuizTab.astro';
-import { languages } from '../../lib/languages';
 import { getSiteSettings, getLanding } from '../../lib/content';
+import { langOf, langPaths } from '../../lib/routes';
 
 export function getStaticPaths() {
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 // без JS вкладка квиза ведёт к первой форме заявки

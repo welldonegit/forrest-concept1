@@ -1,7 +1,7 @@
 ---
 /**
- * Страница 404: адрес, которого нет на сайте. Сборка кладёт её в /{lang}/404.html,
- * а для основного языка — ещё и в /404.html (integrations/not-found.ts): сервер статики
+ * Страница 404: адрес, которого нет на сайте. Сборка кладёт её в /404.html (основной язык)
+ * и /en/404.html (integrations/not-found.ts): сервер статики
  * Cloudflare отдаёт ближайший 404.html (wrangler.jsonc → not_found_handling: 404-page),
  * и переход на несуществующий адрес не доходит до Worker заявок.
  * Устроена как «Дякуємо»: шапка, первый экран (hero без заголовка) с сообщением
@@ -11,19 +11,19 @@ import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
 import Hero from '../../components/blocks/Hero.astro';
 import Footer from '../../components/blocks/Footer.astro';
-import { languages, defaultLanguage } from '../../lib/languages';
+import { defaultLanguage } from '../../lib/languages';
 import { getSiteSettings, getLanding, type HeroBlock } from '../../lib/content';
-import { homePath } from '../../lib/routes';
+import { homePath, langOf, langPaths } from '../../lib/routes';
 
 // Пока тексты страницы не заполнены в Sanity, страница не собирается (сборка не падает;
 // integrations/not-found.ts пишет предупреждение) — несуществующий адрес получает пустой ответ 404.
 export async function getStaticPaths() {
   const settings = await getSiteSettings(defaultLanguage);
   if (!settings.notFoundPage?.message) return [];
-  return languages.map((l) => ({ params: { lang: l.id } }));
+  return langPaths();
 }
 
-const { lang } = Astro.params as { lang: string };
+const lang = langOf(Astro.params.lang);
 const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 const hero = landing.blocks.find((b): b is HeroBlock => b._type === 'hero');
