@@ -40,10 +40,10 @@ const num = (i: number) => String(i + 1).padStart(2, '0');
                 <Image class="infra__img" src={it.photo.src} alt={it.photo.alt} widths={[360, 540, 720, 860]} sizes="(max-width: 1599px) 356px, 429px" format="avif" loading="lazy" decoding="async" draggable="false" style={`--focus:${it.photo.position}`} />
                 <span class="infra__dim" aria-hidden="true"></span>
                 <span class="infra__scrim" aria-hidden="true"></span>
-                <span class="infra__head">
+                <div class="infra__head">
                   <h3 class="infra__card-title text-infra-title" id={clone ? undefined : `${id}-c${i}`}>{it.title}</h3>
                   <span class="infra__lead text-infra-lead">{it.lead}</span>
-                </span>
+                </div>
                 <button class="infra__info" type="button" aria-label={block.moreLabel} aria-expanded="false" tabindex={clone ? -1 : undefined} data-infra-info>
                   <span class="infra__info-fill" aria-hidden="true"></span>
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
