@@ -4,15 +4,18 @@ import cloudflare from '@astrojs/cloudflare';
 import { languages, defaultLanguage } from './src/lib/languages.ts';
 import indexing from './src/integrations/indexing.ts';
 import notFound from './src/integrations/not-found.ts';
+import sitemap from './src/integrations/sitemap.ts';
 import { wranglerVar } from './src/integrations/wrangler-vars.ts';
 import sanityContent from './src/integrations/sanity.ts';
 
 export default defineConfig({
   output: 'static',
+  // Основной адрес сайта: canonical, hreflang, og:url, sitemap.xml (этап 6). Превью тоже ссылается на него.
+  site: 'https://forrestresort.com.ua',
   // Сессии Astro не используются: без них адаптер не требует хранилища KV.
   session: false,
   // sanityContent — первым: снимок контента и оригиналы фото нужны до старта Vite.
-  integrations: [sanityContent(), indexing(), notFound()],
+  integrations: [sanityContent(), indexing(), notFound(), sitemap()],
   adapter: cloudflare({
     // Фото обрабатываются при сборке (sharp → AVIF), рантайм не трогает картинки.
     imageService: 'compile',

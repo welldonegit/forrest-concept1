@@ -6,13 +6,17 @@ import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import type { AstroIntegration } from 'astro';
 
 export default function indexing(): AstroIntegration {
+  let site: URL | undefined;
   return {
     name: 'forrest-indexing',
     hooks: {
+      'astro:config:done': ({ config }) => { site = config.site ? new URL(config.site) : undefined; },
       'astro:build:done': async ({ dir, logger }) => {
         const allow = process.env.SITE_INDEXING === 'allow';
         // Фрагменты попапов (/popup/…/, /en/popup/…/; 4.17) не индексируются никогда: это не страницы для посетителей.
-        const robots = allow ? 'User-agent: *\nDisallow: /popup/\nDisallow: /*/popup/\nAllow: /\n' : 'User-agent: *\nDisallow: /\n';
+        // Ссылка на карту сайта — всегда (integrations/sitemap.ts); на превью обход всё равно запрещён.
+        const sitemapLine = site ? `\nSitemap: ${new URL('/sitemap.xml', site).href}\n` : '';
+        const robots = (allow ? 'User-agent: *\nDisallow: /popup/\nDisallow: /*/popup/\nAllow: /\n' : 'User-agent: *\nDisallow: /\n') + sitemapLine;
         await writeFile(new URL('robots.txt', dir), robots);
         const headers = new URL('_headers', dir);
         const current = await readFile(headers, 'utf8').catch(() => '');
