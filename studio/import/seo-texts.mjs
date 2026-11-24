@@ -2,8 +2,9 @@
  * SEO-тексты (этап 6) → Sanity: title и description главной, архива, «Дякуємо» и документов, название сайта.
  * Тексты — import/seo/texts.json (в Git; решение человека 2026-11-24). Английские помечаются «не затверджено».
  *
- * Поле записывается, только если в Sanity оно пустое или равно значению из выгрузки (фикстуры
- * src/content-fixtures/ — первый импорт). Иначе его заполнили в Studio руками — НЕ перезаписывается,
+ * Поле записывается, только если в Sanity оно пустое, равно значению из выгрузки (фикстуры
+ * src/content-fixtures/ — первый импорт) или прежнему тексту этого скрипта (texts.json → replaced: заменённые
+ * человеком варианты; при замене текста старый вариант добавляется туда). Иначе его заполнили в Studio руками — НЕ перезаписывается,
  * скрипт показывает такие поля (--force — перезаписать). Совпадает с нужным — «без змін».
  * Правится опубликованный документ и черновик, если он есть (тем же правилом).
  * Всё — одной транзакцией: вебхук → Deploy Hook получает вызовы за секунду, Cloudflare делает одну сборку.
@@ -18,7 +19,7 @@ const args = process.argv.slice(2).filter((a) => a !== '--');
 const dry = args.includes('--dry');
 const force = args.includes('--force');
 const read = (rel) => JSON.parse(readFileSync(new URL(rel, import.meta.url), 'utf8'));
-const { siteName, unapproved, pages } = read('./seo/texts.json');
+const { siteName, unapproved, pages, replaced = [] } = read('./seo/texts.json');
 const fixtureSettings = read('../../src/content-fixtures/siteSettings.json');
 
 /** Куда пишется каждая страница: документ, массив переводов, поля title/description, прежнее значение из выгрузки. */
@@ -63,7 +64,7 @@ for (const [page, t] of Object.entries(TARGETS)) {
         const now = item.value?.[f];
         const want = wanted[f];
         if (now === want) continue;
-        const untouched = now === undefined || now === null || String(now).trim() === '' || now === t.fixture(f, lang);
+        const untouched = now === undefined || now === null || String(now).trim() === '' || now === t.fixture(f, lang) || replaced.includes(now);
         if (!untouched && !force) { kept.push(`${target} · ${page} · ${lang} · ${f}: у Studio «${now}» — не перезаписано`); continue; }
         patchOf(target).set[`${t.array}[_key=="${item._key}"].value.${f}`] = want;
         changed++; log.push(`${target} ${page} ${lang} ${f}: «${now ?? ''}» → «${want}»`);

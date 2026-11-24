@@ -3,6 +3,13 @@
   "unapproved": [
     "en"
   ],
+  "replaced": [
+    "Construction Progress — Report Archive | FORREST Trinity Resort",
+    "Дозвіл на виконання будівельних робіт | FORREST Trinity Resort",
+    "Витяг з Державного реєстру речових прав | FORREST Trinity Resort",
+    "State Register of Property Rights Extract | FORREST Trinity Resort",
+    "Право користування земельною ділянкою | FORREST Trinity Resort"
+  ],
   "pages": {
     "home": {
       "uk": {
@@ -20,7 +27,7 @@
         "description": "Щомісячні фотозвіти з будівельного майданчика FORREST Trinity Resort у Буковелі: виконані роботи та етапи будівництва."
       },
       "en": {
-        "title": "Construction Progress — Report Archive | FORREST Trinity Resort",
+        "title": "Construction Progress Archive | FORREST Trinity Resort",
         "description": "Monthly photo reports from the FORREST Trinity Resort construction site in Bukovel: completed works and construction stages."
       }
     },
@@ -46,7 +53,7 @@
     },
     "legal-dozvil-na-budivelni-roboty": {
       "uk": {
-        "title": "Дозвіл на виконання будівельних робіт | FORREST Trinity Resort",
+        "title": "Дозвіл на будівельні роботи | FORREST Trinity Resort",
         "description": "Дозвіл на виконання будівельних робіт для курортного комплексу FORREST Trinity Resort у Буковелі."
       },
       "en": {
@@ -56,17 +63,17 @@
     },
     "legal-vytiah-z-reiestru-rechovykh-prav": {
       "uk": {
-        "title": "Витяг з Державного реєстру речових прав | FORREST Trinity Resort",
+        "title": "Витяг з реєстру речових прав | FORREST Trinity Resort",
         "description": "Витяг з Державного реєстру речових прав щодо об'єкта FORREST Trinity Resort у Буковелі."
       },
       "en": {
-        "title": "State Register of Property Rights Extract | FORREST Trinity Resort",
+        "title": "Property Rights Register Extract | FORREST Trinity Resort",
         "description": "An extract from the State Register of Property Rights for the FORREST Trinity Resort project in Bukovel."
       }
     },
     "legal-pravo-na-zemelnu-dilianku": {
       "uk": {
-        "title": "Право користування земельною ділянкою | FORREST Trinity Resort",
+        "title": "Право на земельну ділянку | FORREST Trinity Resort",
         "description": "Документ, що засвідчує право власності (користування) земельною ділянкою FORREST Trinity Resort у Буковелі."
       },
       "en": {
