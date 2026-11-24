@@ -19,6 +19,9 @@ const NETWORKS = [
   { title: 'Viber', value: 'viber' },
   { title: 'WhatsApp', value: 'whatsapp' },
   { title: 'Instagram', value: 'instagram' },
+  { title: 'Facebook', value: 'facebook' },
+  { title: 'YouTube', value: 'youtube' },
+  { title: 'TikTok', value: 'tiktok' },
 ];
 
 export const socialLink = defineType({
@@ -26,7 +29,7 @@ export const socialLink = defineType({
   fields: [
     defineField({ name: 'network', title: 'Мережа', type: 'string', options: { list: NETWORKS }, validation: (r) => r.required() }),
     str('label', 'Назва (для програм читання з екрана)', { required: true }),
-    str('url', 'Посилання', { required: true, description: 'TODO: справжні адреси від замовника.' }),
+    str('url', 'Посилання', { required: true, description: 'Адреса профілю або чату: https://t.me/імʼя, https://wa.me/380…, viber://chat?number=%2B380…. Без імені профілю (https://t.me/) — заглушка: з нею боєвий сайт не збирається.' }),
     iconField('icon', 'Іконка'),
   ],
   preview: { select: { l: 'label', url: 'url' }, prepare: ({ l, url }) => ({ title: l, subtitle: url }) },

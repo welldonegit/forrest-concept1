@@ -18,6 +18,8 @@ interface Props {
 const { settings, base } = Astro.props;
 const { footer, contacts } = settings;
 const bg = await resolveImage(footer.image);
+/** Ссылка на другой сайт (соцсети) — в новой вкладке; якоря и tel: — как обычно. */
+const ext = (href: string) => (/^https?:\/\//i.test(href) ? { target: '_blank', rel: 'noopener' } : {});
 ---
 <footer class="site-footer" id="kontakty">
   <Image
@@ -56,7 +58,7 @@ const bg = await resolveImage(footer.image);
             <div class="site-footer__clip">
               <ul class="site-footer__list text-footer-body" role="list">
                 {group.links.map((link) => (
-                  <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
+                  <li><a class="site-footer__link" href={onPage(link.href, base)} {...ext(link.href)}>{link.label}</a></li>
                 ))}
               </ul>
             </div>
@@ -74,7 +76,7 @@ const bg = await resolveImage(footer.image);
           <li><a class="site-footer__link" href={onPage(link.href, base)}>{link.label}</a></li>
         ))}
       </ul>
-      <a class="site-footer__link site-footer__credit" href={onPage(footer.credit.href, base)}>
+      <a class="site-footer__link site-footer__credit" href={onPage(footer.credit.href, base)} {...ext(footer.credit.href)}>
         <span>{footer.credit.label}</span>
         <span class="site-footer__credit-logo" role="img" aria-label={footer.credit.logoLabel}></span>
       </a>
