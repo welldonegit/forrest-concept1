@@ -283,7 +283,8 @@ export interface SocialLink { _key: string; network: string; label: string; url:
 export interface FooterGroup { _key: string; title: string; links: Link[] }
 
 export interface SiteSettings {
-  seo: { title: string; description: string };
+  /** SEO: тексты главной, название сайта (og:site_name, JSON-LD), картинка для соцсетей (пусто — фото первого экрана). */
+  seo: { title: string; description: string; siteName: string; ogImage?: SanityImage; unapprovedLanguages?: string[] };
   ui: { skipLink: string; swipeHint: string; closeLabel: string };
   /** Страница архива хода строительства (4.18): заголовок в две строки, ссылка на главную, SEO. */
   archivePage: { seoTitle: string; seoDescription: string; title: string; subtitle: string; backLabel: string };

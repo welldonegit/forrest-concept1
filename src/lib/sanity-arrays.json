@@ -25,7 +25,8 @@
   "menu.primary",
   "menu.secondary",
   "popups.quiz.budgets",
-  "popups.quiz.countries"
+  "popups.quiz.countries",
+  "seo.unapprovedLanguages"
  ],
  "legalDocument": [
   "unapprovedLanguages"

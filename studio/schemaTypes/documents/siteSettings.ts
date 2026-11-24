@@ -7,6 +7,7 @@ import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
 import { ukOf } from '../lib/block.ts';
 import { iconField, linkField, linkItemType, photoField, str } from '../lib/fields.ts';
+import { languages, defaultLanguage } from '../../../src/lib/languages.ts';
 
 const S = (name: string, title: string, description?: string) => defineField({ name, title, type: 'string', description });
 const T = (name: string, title: string, description?: string) => defineField({ name, title, type: 'text', rows: 3, description });
@@ -214,8 +215,24 @@ export const siteSettings = defineType({
       ])],
     }),
     defineField({
-      name: 'seo', title: 'SEO головної', type: 'object', group: 'seo',
-      fields: [texts('seoTexts', [S('title', 'Заголовок вкладки'), T('description', 'Опис для пошуковиків')])],
+      name: 'seo', title: 'SEO', type: 'object', group: 'seo',
+      description: 'Заголовки й описи інших сторінок — у розділі «Сторінки» (архів, «Дякуємо») і в кожному документі.',
+      fields: [
+        texts('seoTexts', [
+          S('title', 'Заголовок вкладки головної', 'До 60 знаків — так видно в пошуку повністю.'),
+          T('description', 'Опис головної для пошуковиків', 'До 160 знаків.'),
+        ], { title: 'Головна сторінка' }),
+        str('siteName', 'Назва сайту для соцмереж', { required: true, description: 'Підпис над карткою посилання у Facebook, Telegram тощо (og:site_name) і назва в структурованих даних. Однакова для всіх мов.' }),
+        photoField('ogImage', 'Картинка для соцмереж', {
+          required: false,
+          description: 'Показується, коли посиланням на сайт діляться в месенджерах і соцмережах. Найкраще 1200×630 або більше; сайт сам обріже до 1200×630 за точкою фокуса. Порожньо — фото першого екрана головної.',
+        }),
+        defineField({
+          name: 'unapprovedLanguages', title: 'SEO: переклад не затверджено', type: 'array', of: [{ type: 'string' }],
+          options: { list: languages.filter((l) => l.id !== defaultLanguage).map((l) => ({ title: l.name, value: l.id })), layout: 'grid' },
+          description: 'Позначте мову, SEO-тексти якої (головна, архів, «Дякуємо») ще не перевірено. Після перевірки — зніміть позначку. На сайт не впливає.',
+        }),
+      ],
     }),
     defineField({
       name: 'ui', title: 'Службові підписи', type: 'object', group: 'ui',
