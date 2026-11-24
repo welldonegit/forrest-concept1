@@ -336,7 +336,6 @@ export interface SiteSettings {
     salesLabel: string;
     messengersLabel: string;
     addressLabel: string;
-    socialsLabel: string;
   };
   contacts: {
     phone: string;

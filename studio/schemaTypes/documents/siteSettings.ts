@@ -96,7 +96,7 @@ export const siteSettings = defineType({
         texts('menuTexts', [
           S('navLabel', 'Назва навігації (для програм читання з екрана)'), S('imageCaption', 'Підпис фото'),
           S('salesLabel', 'Заголовок «Відділ продажу»'), S('messengersLabel', 'Заголовок «Месенджери»'),
-          S('addressLabel', 'Заголовок «Адреса»'), S('socialsLabel', 'Заголовок «Соцмережі»'),
+          S('addressLabel', 'Заголовок «Адреса»'),
         ]),
         defineField({ name: 'primary', title: 'Великі пункти', type: 'array', of: [{ type: 'navLink' }] }),
         defineField({ name: 'secondary', title: 'Малі пункти', type: 'array', of: [{ type: 'navLink' }] }),
