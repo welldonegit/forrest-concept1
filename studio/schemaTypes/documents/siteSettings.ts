@@ -37,8 +37,15 @@ export const socialLink = defineType({
 
 export const footerGroup = defineType({
   name: 'footerGroup', title: 'Колонка', type: 'object',
-  fields: [text('title', { title: 'Заголовок колонки' }), defineField({ name: 'links', title: 'Посилання', type: 'array', of: [{ type: 'navLink' }] })],
-  preview: { select: { t: 'title' }, prepare: ({ t }) => ({ title: ukOf(t) }) },
+  fields: [
+    text('title', { title: 'Заголовок колонки' }),
+    defineField({
+      name: 'contacts', title: 'Колонка контактів', type: 'boolean', initialValue: false,
+      description: 'Увімкнено — замість посилань показуються іконки соцмереж (Контакти → Соцмережі) і телефон (Контакти → Телефон).',
+    }),
+    defineField({ name: 'links', title: 'Посилання', type: 'array', of: [{ type: 'navLink' }], hidden: ({ parent }) => Boolean(parent?.contacts) }),
+  ],
+  preview: { select: { t: 'title', c: 'contacts' }, prepare: ({ t, c }) => ({ title: ukOf(t), subtitle: c ? 'Соцмережі й телефон' : undefined }) },
 });
 
 export const quizBudget = defineType({
@@ -75,8 +82,8 @@ export const siteSettings = defineType({
         str('phone', 'Телефон (як показувати)', { required: true }),
         str('phoneHref', 'Телефон для дзвінка', { required: true, description: 'tel: і номер без пробілів, наприклад tel:+380777999999.' }),
         text('address', { title: 'Адреса', multiline: true }),
-        defineField({ name: 'messengers', title: 'Месенджери', type: 'array', of: [{ type: 'socialLink' }] }),
-        defineField({ name: 'socials', title: 'Соцмережі', type: 'array', of: [{ type: 'socialLink' }] }),
+        defineField({ name: 'messengers', title: 'Месенджери', description: 'Кнопки «написати менеджеру»: меню, картка експерта у формах і попапах.', type: 'array', of: [{ type: 'socialLink' }] }),
+        defineField({ name: 'socials', title: 'Соцмережі', description: 'Іконки в колонці контактів футера (у тому ж порядку) і профілі в структурованих даних для пошуковиків.', type: 'array', of: [{ type: 'socialLink' }] }),
       ],
     }),
     defineField({
