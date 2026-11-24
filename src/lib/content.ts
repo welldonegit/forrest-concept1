@@ -280,7 +280,7 @@ export interface LegalDocument extends DocumentRoute {
 export type IconRef = { asset?: { _ref?: string } } | undefined;
 export interface SocialLink { _key: string; network: string; label: string; url: string; icon?: IconRef }
 
-/** Колонка футера; contacts — колонка контактов: иконки соцсетей и телефон вместо ссылок. */
+/** Колонка футера; contacts — колонка контактов: телефон и иконки мессенджеров вместо ссылок. */
 export interface FooterGroup { _key: string; title: string; links: Link[]; contacts?: boolean }
 
 export interface SiteSettings {

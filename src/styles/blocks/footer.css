@@ -24,7 +24,7 @@
   gap:var(--footer-grid-gap);
 }
 
-/* Адрес и телефон */
+/* Адрес и соцсети */
 .site-footer__address{display:flex; flex-direction:column; align-items:flex-start; gap:var(--footer-addr-gap)}
 .site-footer__address-text{max-inline-size:var(--footer-addr-max)}
 
@@ -45,8 +45,9 @@
   padding-block-start:var(--footer-list-pad);
 }
 
-/* Колонка контактов: иконки соцсетей — размер и форма как у мессенджеров в меню (header.css .site-menu__social),
-   цвета — те же роли на тёмном фоне: рамка-разделитель, при наведении заливка светлым. Фокус — общий (reset.css). */
+/* Иконки соцсетей (первая колонка) и мессенджеров (колонка контактов) — размер и форма как у мессенджеров
+   в меню (header.css .site-menu__social), цвета — те же роли на тёмном фоне: рамка-разделитель, при наведении
+   заливка светлым. 48 px — больше тач-цели 44. Фокус — общий (reset.css). */
 .site-footer__contacts{
   display:flex; flex-direction:column; align-items:flex-start; gap:var(--footer-list-gap);
   padding-block-start:var(--footer-list-pad);
@@ -62,6 +63,12 @@
 }
 .site-footer__social:hover{background:var(--air); color:var(--bg-inverse); border-color:var(--air)}
 .site-footer__social svg{inline-size:var(--icon-20); block-size:var(--icon-20)}
+/* 1024–1099: колонка «Контакти» уже 160 px — три мессенджера по 48 переносились. Иконки 44 (тач-цель)
+   и промежуток 4 в обоих рядах, чтобы размер был одинаковым (решение 2026-11-24). */
+@media (min-width:1024px) and (max-width:1099px){
+  .site-footer .site-footer__socials{gap:var(--space-4)}
+  .site-footer__social{inline-size:var(--control-h-44); block-size:var(--control-h-44)}
+}
 
 /* Ссылки: подчёркивание выезжает при наведении */
 .site-footer__link{
@@ -114,7 +121,8 @@
   .site-footer__toggle{min-block-size:var(--space-64)}
   .site-footer__chev{display:block; transition:transform var(--footer-chev-dur) var(--ease-out-quint)}
   .site-footer__toggle[aria-expanded="true"] .site-footer__chev{transform:rotate(180deg)}
-  .site-footer .site-footer__list{padding-block:0 var(--footer-list-pad)}
+  .site-footer .site-footer__list,
+  .site-footer__contacts{padding-block:0 var(--footer-list-pad)}
   /* рендер 14 в обоих местах: 16 + 12 — высота строки та же */
   .site-footer__legal{flex-direction:column; align-items:flex-start; gap:var(--space-16)}
   .site-footer__legal-links{flex-direction:column; align-items:flex-start; gap:var(--space-12)}
@@ -126,11 +134,13 @@
   }
   .js .site-footer__group:has([aria-expanded="true"]) .site-footer__body{grid-template-rows:1fr}
   /* Свёрнутые ссылки скрыты и от клавиатуры (visibility — после сворачивания). */
-  .js .site-footer__list{
+  .js .site-footer__list,
+  .js .site-footer__contacts{
     opacity:0; visibility:hidden;
     transition:opacity var(--footer-acc-fade-out), visibility 0s linear var(--footer-acc-dur);
   }
-  .js .site-footer__group:has([aria-expanded="true"]) .site-footer__list{
+  .js .site-footer__group:has([aria-expanded="true"]) .site-footer__list,
+  .js .site-footer__group:has([aria-expanded="true"]) .site-footer__contacts{
     opacity:1; visibility:visible;
     transition:opacity var(--footer-acc-fade-in) var(--footer-acc-fade-delay), visibility 0s;
   }

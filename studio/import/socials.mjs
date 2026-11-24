@@ -1,19 +1,23 @@
 /**
- * Соцмережі й контакти (решения человека 2026-11-24) → «Налаштування сайту»:
- *   - Контакти → Соцмережі: Facebook, Instagram, YouTube, TikTok, Telegram-канал — в этом порядке,
- *     иконки — SVG из import/icons/ в поле «Іконка» (иконки футера и sameAs в JSON-LD);
+ * Соцмережі й контакти (решения человека 2026-11-24, схема футера — вторая редакция) → «Налаштування сайту»:
+ *   - Контакти → Соцмережі: Instagram, Facebook, YouTube, TikTok, Telegram-канал — в этом порядке,
+ *     иконки — SVG из import/icons/ в поле «Іконка». На сайте: первая колонка футера (без Telegram —
+ *     он среди мессенджеров) и sameAs в JSON-LD (все пять);
  *   - Контакти → Месенджери → Telegram («написати менеджеру»): https://t.me/Forrestresort_com;
- *   - Футер → колонка с телефоном («Контакти»): «Колонка контактів» включена, прежние текстовые ссылки
- *     (Telegram, Instagram, Телефон) убраны — колонка показывает иконки соцсетей и телефон из «Контактів»;
- *   - Меню: подпись «Соцмережі» убрана (ряда соцсетей в меню больше нет).
+ *   - Футер → колонка «Контакти»: флаг «Колонка контактів» включён — колонка показывает телефон и мессенджеры
+ *     из «Контактів»; прежние текстовые ссылки колонки (Telegram, Instagram, Телефон) убираются;
+ *   - Меню: подпись «Соцмережі» убрана (ряда соцсетей в меню нет).
  * Адрес, который уже заполнен не заглушкой и отличается от нужного, не меняется — скрипт показывает его.
  * Одна транзакция; повторный запуск ничего не меняет.
  *
  * Запись в Sanity сразу пересобирает боевой сайт (main), поэтому два этапа:
- *   --stage safe  — до слияния кода: Telegram менеджера и флаг «Колонка контактів» (старый код его не знает:
- *                   ссылки колонки и подпись меню остаются, сайт выглядит как раньше);
- *   --stage final — после слияния и выкладки кода: список соцсетей (старый код вывел бы пять иконок в меню),
- *                   уборка прежних ссылок колонки и подписи «Соцмережі».
+ *   --stage safe  — до слияния кода (записан 2026-11-24): Telegram менеджера и флаг «Колонка контактів»
+ *                   (старый код флаг не знает — сайт выглядит как раньше);
+ *   --stage final — только после слияния и выкладки нового футера: список соцсетей (старый код вывел бы
+ *                   их рядом иконок в меню), уборка прежних ссылок колонки и подписи «Соцмережі».
+ *                   Перед записью скрипт открывает боевой сайт и проверяет, что футер уже новый
+ *                   (в первой колонке нет телефона); старый — останавливается. --site <адрес> — другой сайт,
+ *                   --skip-site-check — без проверки (только если уверены).
  *
  *   npm --prefix studio run -s sanity -- exec import/socials.mjs --with-user-token -- --stage safe|final [--dry]
  */
@@ -25,13 +29,27 @@ const stage = process.argv[process.argv.indexOf('--stage') + 1];
 if (!['safe', 'final'].includes(stage)) throw new Error('Вкажіть --stage safe або --stage final');
 const final = stage === 'final';
 const SOCIALS = [
-  ['facebook', 'Facebook', 'https://www.facebook.com/forrestresort.ua/'],
   ['instagram', 'Instagram', 'https://www.instagram.com/forrest.resort/'],
+  ['facebook', 'Facebook', 'https://www.facebook.com/forrestresort.ua/'],
   ['youtube', 'YouTube', 'https://www.youtube.com/@ForrestResortBukovel'],
   ['tiktok', 'TikTok', 'https://www.tiktok.com/@forrest.resort'],
   ['telegram', 'Telegram', 'https://t.me/Forrestresort_com'],
 ];
 const MANAGER_TELEGRAM = 'https://t.me/Forrestresort_com';
+const arg = (name) => (process.argv.includes(name) ? process.argv[process.argv.indexOf(name) + 1] : undefined);
+
+// final — только когда на боевом сайте новый футер: в первой колонке (до колонок ссылок) нет телефона
+if (final && !process.argv.includes('--skip-site-check')) {
+  const site = arg('--site') ?? 'https://forrestresort.com.ua/';
+  const res = await fetch(site, { headers: { 'cache-control': 'no-cache' } });
+  if (!res.ok) throw new Error(`${site}: відповідь ${res.status} — спробуйте ще раз за хвилину`);
+  const html = await res.text();
+  const footer = html.slice(html.indexOf('<footer'));
+  const first = footer.slice(0, footer.indexOf('site-footer__group'));
+  if (html.indexOf('<footer') < 0 || footer.indexOf('site-footer__group') < 0) throw new Error(`${site}: футер не знайдено — перевірте адресу (--site)`);
+  if (/href="tel:/.test(first)) throw new Error(`${site}: на сайті ще старий футер (телефон у першій колонці). Спочатку злийте код і дочекайтеся збірки, потім запустіть --stage final.`);
+  console.log(`${site}: новий футер на місці — продовжую.`);
+}
 const isStub = (url) => !url?.trim() || url.trim() === '#' || /^https?:\/\/(www\.)?[^/]+\/?$/i.test(url.trim());
 
 const client = getCliClient({ apiVersion: '2025-02-19' }).withConfig({ perspective: 'raw' });
