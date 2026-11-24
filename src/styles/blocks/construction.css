@@ -53,12 +53,18 @@
 }
 .ct__card{
   flex:1 1 auto; min-inline-size:0;
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, var(--ct-col-min)), 1fr)); align-items:stretch;
+  display:grid; grid-template-columns:minmax(0,1fr); align-items:start;
   padding:var(--ct-card-pad); border-radius:var(--ct-card-radius); background:var(--air);
 }
 
 /* ---------- Фото ---------- */
-.ct__media{position:relative; min-block-size:var(--ct-media-min); border-radius:var(--ct-media-radius); overflow:hidden; background:var(--bg-surface-sand)}
+/* Фото вертикальное 9:16 (решение 2026-11-24; в выгрузке — горизонтальное, половина карточки).
+   ≥768: высота — --ct-media-h, ширина по пропорции, текст рядом. <768 на архиве — во всю ширину карточки. */
+.ct__media{position:relative; aspect-ratio:9 / 16; border-radius:var(--ct-media-radius); overflow:hidden; background:var(--bg-surface-sand)}
+@media (min-width:768px){
+  .ct__card{grid-template-columns:auto minmax(0,1fr); align-items:stretch}
+  .ct__media{align-self:start; block-size:var(--ct-media-h)}
+}
 .ct__slides{position:absolute; inset:0; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
 .ct__slide{position:relative; flex:0 0 100%; scroll-snap-align:start; overflow:hidden}
 .ct__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; object-position:var(--focus, 50% 50%)}
@@ -113,5 +119,14 @@
 }
 .ct__arch-arrow svg{inline-size:var(--ct-arch-icon); block-size:var(--ct-arch-icon)}
 @media (hover:hover){ .ct__arch:hover .ct__arch-arrow{transform:translateX(var(--ct-arrow-shift))} }
-@media (max-width:767px){ .ct__arch{flex-basis:100%} }
+@media (max-width:767px){
+  .ct__arch{flex-basis:100%}
+  /* Лента главной (решение 2026-11-24, вариант 2): сверху заголовок, под ним текст и список работ,
+     ниже фото 9:16 во всю ширину карточки — как на архиве, но фото после текста. */
+  /* высота карточки — по своему содержимому, а не по самой высокой в ленте (иначе пустой низ) */
+  .ct__row{align-items:flex-start}
+  .ct__row .ct__arch{align-self:stretch}
+  .ct__row .ct__body{order:-1; padding-block-end:var(--ct-body-gap)}
+  .ct__row .ct__works{margin:0}
+}
 @media (prefers-reduced-motion:reduce){ .ct__btn, .ct__arch-arrow{transition:none} }
