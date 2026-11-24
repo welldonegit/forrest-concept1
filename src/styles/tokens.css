@@ -66,7 +66,7 @@
 --hero-text-shadow:0 2px 18px rgba(0,0,0,.35);                             /* чёрный, как в рендере (п.16) */
 /* вуаль под текстом: радиальная на десктопе, линейная на мобильном (градиент — один токен, п.13) */
 --hero-shade:radial-gradient(ellipse 100% 100% at 0% 100%,rgba(6,8,7,.94) 0%,rgba(6,8,7,.86) 25%,rgba(6,8,7,.68) 45%,rgba(6,8,7,.4) 65%,rgba(6,8,7,.14) 84%,rgba(6,8,7,0) 100%);
---hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.62) 0%,rgba(6,8,7,.42) 30%,rgba(6,8,7,.16) 65%,rgba(6,8,7,0) 100%);
+--hero-shade-mobile:linear-gradient(0deg,rgba(6,8,7,.74) 0%,rgba(6,8,7,.56) 30%,rgba(6,8,7,.24) 64%,rgba(6,8,7,0) 100%); /* <768, плотнее выгрузки (.62/.42/.16) — решение 2026-11-24 */
 
 /* -- Stats (рендер) -- */
 --stats-overlay:linear-gradient(180deg,
@@ -1049,7 +1049,7 @@
 --hero-buttons-gap:var(--space-12);         /* рендер 14; CTA на 2 шире (круг 40) */
 --hero-cta-gap:var(--space-16);
 --hero-season-icon:var(--icon-20);
---hero-shade-w:100%; --hero-shade-h:40%;
+--hero-shade-w:100%; --hero-shade-h:48%;   /* выгрузка 40% — выше под текстом (решение 2026-11-24) */
 --stats-pad-block-start:var(--space-24);
 --stats-pad-inline:var(--space-16);          /* рендер 16 (решение 2026-11-17: мобильные поля как в выгрузке) */
 --stats-pad-block-end:var(--space-40);
