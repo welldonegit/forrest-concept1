@@ -49,9 +49,10 @@
 
 Полное описание — `docs/LEADS.md`; при расхождении верен он.
 
-Источники (`form` → `form_id`): `finmodel` → `finmodel`, `final` → `final_form`, `quiz` → `quiz`, `apartment` → `apartment_popup`, `world` → `world_popup`. Таблица — `src/lib/lead-forms.ts`.
+Источники (`form` → `form_id`): `finmodel` → `finmodel`, `final` → `final_form`, `quiz` → `quiz`, `apartment` → `apartment_popup`, `world` → `world_popup`, `contact` → `contact_popup`. Таблица — `src/lib/lead-forms.ts`.
 - Квиз (выгрузка 2026-11-25): 4 шага с репликами менеджера, без email и согласия, в заявке — мессенджер; после отправки — «Дякуємо».
 - Окна «Детальніше» миров WIND / ROCK / SUN (кнопки блока «Три світи»): имя, телефон, способ связи; секция — строкой «Секція» в Telegram и в `note` CRM (отдельного поля нет).
+- Попап «Звʼязатися» (кнопка в шапке, выгрузка 2026-11-25): имя (по желанию) и телефон; без JS кнопка — `tel:` из «Контакти».
 
 Порядок строго такой:
 
