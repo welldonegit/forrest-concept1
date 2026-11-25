@@ -1,6 +1,6 @@
 /**
- * Сквозная проверка заявок в браузере (шаг 5.2, событие generate_lead — 2026-11-25): четыре источника —
- * «Фінмодель», финальная форма, квиз, попап апартамента — на uk и en.
+ * Сквозная проверка заявок в браузере (шаг 5.2, событие generate_lead — 2026-11-25): шесть источников —
+ * «Фінмодель», финальная форма, квиз, попап апартамента, окно мира, попап «Звʼязатися» — на uk и en.
  * - Заход по ссылке с UTM, переход на другую страницу и язык, отправка: в D1 заявка с метками из cookie gp_utm.
  * - После заявки — «Дякуємо» и ровно одно generate_lead (lead_id, form_id, form_name, form_location, user_data);
  *   GTM на «Дякуємо» грузится сразу; обновление и прямой заход события не дают.
@@ -196,6 +196,29 @@ const SOURCES = {
       assert.equal(d.fields.contactMethod, 'Viber');
       assert.equal(d.fields.name, 'E2E World');
       assert.equal(d.fields.email, undefined);
+    },
+  },
+  contact: {
+    form: 'contact', form_id: 'contact_popup', form_name: "Попап «Зв'язатися»",
+    async open(page) {
+      // кнопка «Звʼязатися» в шапке открывает попап; фокус — в поле «Імʼя»
+      await page.locator('.site-header__cta[data-popup="contact"]').click();
+      const dlg = page.locator('dialog[open][data-cpop]');
+      await dlg.waitFor();
+      const form = dlg.locator('form[data-cpop-form]');
+      assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('name')), 'name');
+      return { scope: form, submit: form.locator('button[type=submit]'), status: form.locator('[data-form-status]') };
+    },
+    async fill({ scope }, phone = PHONE) {
+      await scope.locator('input[name=name]').fill('E2E Contact');
+      await scope.locator('input[name=phone]').pressSequentially(phone);
+    },
+    values: ({ scope }) => Promise.all(['name', 'phone'].map((n) => scope.locator(`input[name=${n}]`).inputValue())),
+    user: { phone_number: E164 },
+    data(d) {
+      // только имя и телефон: способа связи, формата, email нет
+      assert.equal(d.fields.name, 'E2E Contact');
+      for (const k of ['contactMethod', 'format', 'email', 'world', 'apartment']) assert.equal(d.fields[k], undefined, k);
     },
   },
 };

@@ -20,7 +20,7 @@
     "crm:delete": "node --experimental-strip-types --no-warnings scripts/crm/delete.mjs",
     "leads:export": "node scripts/leads-export.mjs",
     "content:placeholders": "node --experimental-strip-types --no-warnings scripts/content-placeholders.mjs",
-    "test:ui": "node --test --test-concurrency=1 scripts/worlds-keyboard-test.mjs"
+    "test:ui": "node --test --test-concurrency=1 scripts/worlds-keyboard-test.mjs scripts/contact-popup-test.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",
