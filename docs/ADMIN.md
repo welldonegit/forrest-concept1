@@ -252,7 +252,7 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 | `user_data.phone_number` | телефон у форматі `+380XXXXXXXXX` |
 | `user_data.email` | email, якщо його ввели (є лише в квізі) |
 
-Порожні поля не передаються; немає ні телефону, ні email — немає `user_data`.
+Порожні поля не передаються; немає ні телефону, ні email — немає `user_data`. Якщо браузер забороняє `sessionStorage`, номер, форма й сторінка (без телефону й email) передаються в адресі «Дякуємо» і одразу з неї прибираються; подія тоді без `user_data`.
 
 **Перевірка в консолі браузера.** Надіслати заявку на сайті; на «Дякуємо» відкрити консоль (F12) і виконати:
 
@@ -263,6 +263,15 @@ dataLayer.filter((e) => e.event === 'generate_lead')
 Має бути один запис з усіма параметрами. Після оновлення сторінки — порожній список.
 
 **Перевірка в режимі попереднього перегляду GTM.** Tag Manager → контейнер `GTM-WPFP499D` → Preview → адреса сайту → надіслати заявку. На «Дякуємо» в лівій колонці Tag Assistant — подія `generate_lead`; у вкладці Tags — які теги спрацювали, у Data Layer — параметри. Тестову заявку потім видалити з CRM.
+
+**Старі тексти успіху квіза й попапу (одноразово, після злиття 2026-11-25).** Поля прибрано зі схеми, у даних лишилися значення — Studio показує «невідомі поля». Після злиття й виходу збірки на бойовий сайт (розробник):
+
+```sh
+npm --prefix studio run -s sanity -- dataset export production ~/forrest-backups/production-$(date +%F)-before-drop-success-texts.tar.gz
+npm --prefix studio run -s sanity -- exec import/drop-success-texts.mjs --with-user-token
+```
+
+Скрипт сам перевіряє, що на сайті вже новий код, зберігає копію документа в `~/forrest-backups/` і видаляє тексти однією транзакцією.
 
 ## CRM G-PLUS: налаштування
 

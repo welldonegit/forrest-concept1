@@ -13,6 +13,7 @@
  *   событие отправляет в dataLayer сама «Дякуємо» (Base.astro). docs/LEADS.md, «Аналитика».
  */
 import { attachCaptcha } from './captcha.js';
+import { LEAD_FORMS } from '../../lib/lead-forms';
 
 /** Украинская подпись варианта (data-uk) или показанная, если страница украинская. */
 export function ukText(el) {
@@ -109,14 +110,6 @@ export function leadSender(form, formId) {
   };
 }
 
-/** form_id и form_name события generate_lead по источнику заявки (form в запросе). */
-const LEAD_FORMS = {
-  finmodel: ['finmodel', 'Форма «Фінмодель»'],
-  final: ['final_form', 'Фінальна форма'],
-  quiz: ['quiz', 'Квіз «Розрахунок доходу»'],
-  apartment: ['apartment_popup', 'Попап апартаменту'],
-};
-
 /** Телефон из маски («+380 (67) 123-45-67», «+380 67 123 45 67») — в E.164: «+380671234567». */
 export function toE164(phone) {
   const digits = String(phone ?? '').replace(/\D/g, '');
@@ -128,10 +121,13 @@ export function toE164(phone) {
  * на «Дякуємо» этого языка (html[data-thanks]). Там событие читается, сразу удаляется и уходит в dataLayer.
  * user_data — только заполненные поля формы; ни одного — без user_data. Личные данные живут
  * в sessionStorage только до чтения на «Дякуємо»; в журналы и localStorage не попадают.
+ * sessionStorage недоступен (запрещён, приватный режим) — запасной путь: lead_id, form_id и form_location
+ * в параметрах адреса «Дякуємо», без телефона и email; событие тогда уходит без user_data.
  */
 export function goThanks(formId, number, { email, phone } = {}) {
-  const [form_id, form_name] = LEAD_FORMS[formId];
+  const { id: form_id, name: form_name } = LEAD_FORMS[formId];
   const event = { event: 'generate_lead', lead_id: number, form_id, form_name, form_location: location.pathname };
+  const thanks = document.documentElement.dataset.thanks;
   const user = {};
   const mail = email?.trim();
   if (mail) user.email = mail;
@@ -141,7 +137,9 @@ export function goThanks(formId, number, { email, phone } = {}) {
   try {
     sessionStorage.setItem('lead_event', JSON.stringify(event));
   } catch {
-    // хранилище недоступно (приватный режим, запрет) — переход без события
+    const query = new URLSearchParams({ lead_id: number, form_id, form_location: event.form_location });
+    location.assign(`${thanks}?${query}`);
+    return;
   }
-  location.assign(document.documentElement.dataset.thanks);
+  location.assign(thanks);
 }

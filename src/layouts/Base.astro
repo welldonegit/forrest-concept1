@@ -10,6 +10,7 @@ import { getLanguage, languages } from '../lib/languages';
 import { getSiteSettings } from '../lib/content';
 import { homePath, thanksPath } from '../lib/routes';
 import { alternates, ogImage, pageUrl } from '../lib/seo';
+import { LEAD_FORM_NAMES } from '../lib/lead-forms';
 
 /** Через сколько мс после загрузки страницы подключить GTM, если посетитель ничего не сделал. */
 const GTM_DELAY = 5000;
@@ -56,12 +57,20 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
       «Дякуємо» (leadEvent): lead_event из sessionStorage читается и сразу удаляется (обновление и прямой
       заход события не дают); есть — generate_lead в очередь после gtm.start и gtm.js сразу, без ожидания
       действия посетителя: иначе событие теряется, если вкладку закрыли. Без lead_event — как обычно.
+      Запасной путь (sessionStorage на странице формы недоступен): ?lead_id=FR-…&form_id=…&form_location=…
+      без личных данных → событие без user_data. Параметры сразу убираются из адреса (history.replaceState):
+      обновление события не даёт. Неизвестный form_id или номер не FR-… — события нет.
     */}
-    {(gtmId || leadEvent) && <script is:inline define:vars={{ gtmId: gtmId ?? '', delay: GTM_DELAY, leadEvent }}>
+    {(gtmId || leadEvent) && <script is:inline define:vars={{ gtmId: gtmId ?? '', delay: GTM_DELAY, leadEvent, formNames: leadEvent ? LEAD_FORM_NAMES : {} }}>
 window.dataLayer=window.dataLayer||[];
 if(gtmId){window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'})}
 let lead=null;
-if(leadEvent){try{const s=sessionStorage.getItem('lead_event');sessionStorage.removeItem('lead_event');const e=s&&JSON.parse(s);if(e&&e.event==='generate_lead'&&e.lead_id)lead=e}catch(_){}}
+if(leadEvent){try{const s=sessionStorage.getItem('lead_event');sessionStorage.removeItem('lead_event');const e=s&&JSON.parse(s);if(e&&e.event==='generate_lead'&&e.lead_id)lead=e}catch(_){}
+const q=new URLSearchParams(location.search);
+if(q.has('lead_id')){const id=q.get('lead_id'),f=q.get('form_id'),at=q.get('form_location')||'';
+if(!lead&&/^FR-\d{6,}$/.test(id)&&Object.hasOwn(formNames,f)&&/^\/[\w\-\/]*$/.test(at))lead={event:'generate_lead',lead_id:id,form_id:f,form_name:formNames[f],form_location:at};
+for(const k of['lead_id','form_id','form_location'])q.delete(k);
+try{history.replaceState(history.state,'',location.pathname+(q.size?'?'+q:'')+location.hash)}catch(_){}}}
 if(lead)dataLayer.push(lead);
 if(gtmId)(()=>{const ev=['scroll','pointerdown','keydown','touchstart'];let done=0;
 const load=()=>{if(done)return;done=1;for(const t of ev)removeEventListener(t,load,true);

@@ -6,6 +6,7 @@
  *   GTM на «Дякуємо» грузится сразу; обновление и прямой заход события не дают.
  * - Ошибка проверки полей и ошибка отправки: ни события, ни перехода, введённое остаётся.
  * - Двойное нажатие: одна заявка, одно событие.
+ * - sessionStorage недоступен: в адресе «Дякуємо» только lead_id, form_id, form_location; событие без user_data.
  * GTM подменён заглушкой (боевой контейнер с localhost не грузится): она запоминает очередь dataLayer на момент загрузки.
  *
  * Запуск: npm run build:test (фикстуры + тестовый ключ Turnstile для localhost)
@@ -256,6 +257,56 @@ for (const [key, src] of Object.entries(SOURCES)) {
     });
   }
 }
+
+// sessionStorage запрещён (настройки браузера, политика): запасной путь — номер, форма и страница в адресе, без личных данных.
+const NO_STORAGE = `Object.defineProperty(window, 'sessionStorage', { configurable: true, get() { throw new DOMException('denied', 'SecurityError'); } });`;
+
+for (const [key, src] of Object.entries(SOURCES)) {
+  for (const lang of ['uk', 'en']) {
+    test(`${key} (${lang}): sessionStorage недоступен → «Дякуємо» с lead_id и form_id в адресе, событие без user_data`, async () => {
+      const page = await newPage();
+      await page.addInitScript(NO_STORAGE);
+      const navs = [];
+      page.on('request', (r) => { if (r.isNavigationRequest()) navs.push(r.url()); });
+      await page.goto(`${worker.base}${home(lang)}`);
+      const f = await src.open(page);
+      await src.fill(f);
+      await Promise.all([page.waitForURL(thanks(lang), { timeout: 30000 }), f.submit.click()]);
+
+      // в адресе — только номер, форма и страница; ни телефона, ни email
+      const nav = new URL(navs.find((u) => u.includes('/thanks/')));
+      assert.deepEqual([...nav.searchParams.keys()].sort(), ['form_id', 'form_location', 'lead_id']);
+      assert.equal(nav.searchParams.get('form_id'), src.form_id);
+      assert.ok(!/380|67123|%40|@/.test(nav.search), `нет личных данных в адресе: ${nav.search}`);
+      assert.equal(page.url(), thanks(lang), 'параметры убраны из адреса сразу');
+
+      const events = await leadEvents(page);
+      assert.equal(events.length, 1);
+      const [ev] = events;
+      assert.deepEqual(ev, {
+        event: 'generate_lead', lead_id: nav.searchParams.get('lead_id'), form_id: src.form_id, form_name: src.form_name,
+        form_location: home(lang),
+      });
+      const [row] = worker.sql(`SELECT form FROM leads WHERE id = ${Number(ev.lead_id.slice(3))}`);
+      assert.equal(row.form, src.form);
+      await page.waitForFunction(() => window.__gtm?.length, null, { timeout: 2000 });
+
+      await page.reload();
+      assert.equal((await leadEvents(page)).length, 0, 'после обновления события нет');
+      await page.close();
+    });
+  }
+}
+
+test('запасной путь: чужие параметры в адресе «Дякуємо» события не дают', async () => {
+  const page = await context.newPage();
+  for (const q of ['lead_id=FR-000001&form_id=hack&form_location=/', 'lead_id=123&form_id=quiz&form_location=/', 'lead_id=FR-000001&form_id=quiz&form_location=https://evil.test/']) {
+    await page.goto(`${thanks('uk')}?${q}`);
+    assert.equal((await leadEvents(page)).length, 0, q);
+    assert.equal(page.url(), thanks('uk'), 'параметры убраны');
+  }
+  await page.close();
+});
 
 test('lead_submit больше не отправляется', async () => {
   const page = await context.newPage();
