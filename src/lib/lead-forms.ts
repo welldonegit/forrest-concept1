@@ -8,6 +8,7 @@ export const LEAD_FORMS = {
   final: { id: 'final_form', name: 'Фінальна форма' },
   quiz: { id: 'quiz', name: 'Квіз «Розрахунок доходу»' },
   apartment: { id: 'apartment_popup', name: 'Попап апартаменту' },
+  world: { id: 'world_popup', name: 'Попап світу' },
 } as const;
 
 /** form_id → form_name. */

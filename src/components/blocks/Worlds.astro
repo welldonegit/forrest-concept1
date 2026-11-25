@@ -113,7 +113,7 @@ const [w0, w1, w2] = worlds;
                 <span class="worlds__name-main text-worlds-decor">{w.name}</span>
                 <span class="worlds__subtitle text-title-sm text-w-500">{w.subtitle}</span>
               </h3>
-              <a class="worlds__btn text-body-lg text-w-600" href={w.cta.href}>
+              <a class="worlds__btn text-body-lg text-w-600" href={w.cta.href} data-popup="world" data-world={i}>
                 {w.cta.label}
                 <span class="worlds__btn-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>

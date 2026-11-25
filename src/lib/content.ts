@@ -308,6 +308,12 @@ export interface SiteSettings {
       submitLabel: string; planLabel: string; photoLabel: string; prevLabel: string; nextLabel: string;
     };
     video: { dialogLabel: string; closeLabel: string; frameTitle: string };
+    /** Окно «Детальніше» мира: общие подписи. {name} — название мира, {link} — ссылка на политику. */
+    world: {
+      tabsLabel: string; aboutLabel: string; commissioningLabel: string; accessLabel: string; featuresLabel: string;
+      formTitle: string; formText: string; nameLabel: string; phoneLabel: string; contactLegend: string;
+      submitLabel: string; consentText: string; consentLinkLabel: string;
+    };
     quiz: {
       tabLabel: string; tabAriaLabel: string; eyebrow: string;
       formatTitle: string; budgetTitle: string; budgets: { _key: string; label: string }[];
@@ -454,8 +460,14 @@ export interface World {
   overline: string;
   name: string;
   subtitle: string;
+  /** Кнопка открывает окно «Детальніше» мира; href — запасной адрес без JS. */
   cta: { label: string; href: string };
   image: SanityImage;
+  /** Окно «Детальніше» (выгрузка 2026-11-25, section-popups). */
+  about: string;
+  commissioning: string;
+  access: string;
+  features: { _key: string; label: string }[];
 }
 
 export interface WorldsBlock {

@@ -157,6 +157,7 @@
 | CRM_SOURCE / CRM_STAGE_ID / CRM_BUILDING_ID | source / stage_id / objects [{id}] | пусто — не передаём |
 | utm_source…utm_term | data.utm | + data.custom_field_values, если задан CRM_UTM_FIELDS |
 | номер, источник, страница, время по Киеву, согласие, ответы и расчёт квиза, referrer, landing, всё длинное | note | начинается с «Заявка з лендінгу Forrest\nНомер: FR-…» |
+| fields.world (попап мира) | note: «Секція: ROCK» | отдельного поля и объекта в CRM нет (решение 2026-11-25); в Telegram — строка «Секція» |
 | fields.country (код страны телефона) | — | уже в номере |
 
 ## Настройки (2026-11-20, из npm run crm:explore)
@@ -189,13 +190,15 @@
 - POST /api/lead, Content-Type: application/json, тот же адрес сайта
   (чужой Origin — 403).
 - Тело: key (UUID на одну попытку отправки формы, повтор — тот же key),
-  form (finmodel | final | quiz | apartment), lang, page (адрес страницы: https://…/ — украинская,
+  form (finmodel | final | quiz | apartment | world), lang, page (адрес страницы: https://…/ — украинская,
   https://…/en/ — английская),
   turnstileToken, website (поле-ловушка, пустое), fields { name, phone,
   email, consent, contactMethod, format, purpose, areaFrom, areaTo,
-  budget, budgetCurrency, apartment, country }, quiz { answers:
+  budget, budgetCurrency, apartment, world, country }, quiz { answers:
   [{ question, answer }], calc: { ключ: число или строка } }.
-- Имя обязательно в finmodel и final; телефон — везде (7–15 цифр).
+- Имя обязательно в finmodel, final и world; телефон — везде (7–15 цифр).
+- world — окно «Детальніше» мира (выгрузка 2026-11-25): fields.world = WIND | ROCK | SUN (название мира из Sanity),
+  contactMethod — украинской подписью; email и согласия нет.
 - Источник визита — из cookie gp_utm (encodeURIComponent(JSON) с ключами
   utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid,
   fbclid, referrer, landing), не из тела запроса.
@@ -252,6 +255,7 @@
   | final_form | Фінальна форма |
   | quiz | Квіз «Розрахунок доходу» |
   | apartment_popup | Попап апартаменту |
+  | world_popup | Попап світу |
 - user_data: phone_number — E.164 (+380XXXXXXXXX, из маски; в квизе — код
   страны + номер); email — если поле есть в форме (с квиза 2026-11-25 его нет ни в одной форме).
   Пустые ключи не передаются; нет ни телефона, ни email — нет user_data.

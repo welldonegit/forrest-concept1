@@ -1503,6 +1503,59 @@
 --tab-shadow:0 12px 32px -12px rgba(0,0,0,.45);
 --tab-dur:.3s;
 
+/* окно «Детальніше» мира WIND/ROCK/SUN (выгрузка 2026-11-25, section-popups). Плавные отступы — между ступенями шкалы, как в выгрузке */
+--wpop-inset:var(--space-8);
+--wpop-radius:var(--radius-28);
+--wpop-back:color-mix(in srgb, var(--night-bark) 62%, transparent);  /* rgba(12,12,12,.62) */
+--wpop-shade:linear-gradient(to top, color-mix(in srgb, var(--night-bark) 86%, transparent) 0%, color-mix(in srgb, var(--night-bark) 55%, transparent) 30%, transparent 60%);
+--wpop-cols:minmax(0,5fr) minmax(0,7fr);
+--wpop-left-h:52svh;                          /* <900: фото над текстом */
+--wpop-intro-pad:clamp(var(--space-24),3.6vw,var(--space-64));
+--wpop-intro-gap:var(--space-16);
+--wpop-tagline-max:440px;
+--wpop-head-pad-block:clamp(var(--space-16),2vw,var(--space-28));
+--wpop-pad-inline:clamp(var(--space-24),4.4vw,var(--space-80));
+--wpop-head-gap:var(--space-24);
+--wpop-tabs-gap:var(--space-28);
+--wpop-tab-pad-top:var(--space-10); --wpop-tab-pad-bottom:var(--space-8);
+--wpop-tab-line:var(--border-2);
+--wpop-x:var(--control-h-44); --wpop-x-icon:var(--icon-20); /* рендер 22 */
+--wpop-body-pad-top:clamp(var(--space-32),4.4vw,var(--space-72));
+--wpop-body-pad-bottom:clamp(var(--space-32),4vw,var(--space-64));
+--wpop-text-max:760px;
+--wpop-section-gap:var(--space-20);
+--wpop-facts-gap:var(--space-24) var(--space-32);
+--wpop-facts-margin:clamp(var(--space-40),4vw,var(--space-56));
+--wpop-fact-gap:var(--space-10);
+--wpop-infra-gap:var(--space-12);
+--wpop-chips-gap:var(--space-8);
+--wpop-chip-h:var(--control-h-44);
+--wpop-chip-pad-block:var(--space-10); --wpop-chip-pad-inline:var(--space-20);
+--wpop-card-mt:clamp(var(--space-48),5vw,var(--space-72));
+--wpop-card-radius:var(--radius-24);
+--wpop-card-pad:clamp(var(--space-24),3vw,var(--space-40));
+--wpop-form-gap:var(--space-24);
+--wpop-form-head-gap:var(--space-12);
+--wpop-form-text-max:var(--form-text-max);
+--wpop-fields-gap:var(--space-16);
+--wpop-field-gap:var(--space-8);
+--wpop-input-h:var(--control-h-56);           /* рендер 52 → шкала 56 */
+--wpop-input-pad:var(--space-20);
+--wpop-input-radius:var(--radius-16);
+--wpop-opt-h:var(--control-h-44); --wpop-opt-pad:var(--space-16);
+--wpop-submit-h:var(--control-h-56);
+--wpop-send-gap:var(--space-12);
+/* анимация: открытие 1 с, закрытие .6 с (scripts/popups/world.js: CLOSE_MS), фото 1.6 с, тексты с задержкой .45/.58 с */
+--wpop-open-dur:1s; --wpop-close-dur:.6s;
+--wpop-back-in:.7s; --wpop-back-out:.5s;
+--wpop-img-fade:.8s; --wpop-img-dur:1.6s; --wpop-img-from:1.14;
+--wpop-rise-shift:28px; --wpop-rise-fade:.8s; --wpop-rise-dur:1s; --wpop-rise-out:.3s;
+--wpop-rise-delay:.45s; --wpop-rise-delay-late:.58s;
+--wpop-switch-dur:.7s; --wpop-switch-shift:14px;
+--wpop-tab-dur:.25s; --wpop-tab-line-dur:.4s; --wpop-hover-dur:.15s; --wpop-submit-dur:.2s;
+/* название мира: Unbounded 500, плавная (152/115/56) — ЖДЁТ ПОДТВЕРЖДЕНИЯ: роль worlds-decor (200/158/113/56) не помещается в левую колонку на 1024 */
+--type-wpop-name-size:clamp(56px,8vw,152px); --type-wpop-name-lh:.9; --type-wpop-name-ls:-.03em;
+
 /* роли попапов — временные, до сведения */
 --type-pop-title-size:clamp(28px,2.6vw,44px); --type-pop-title-lh:1.05; --type-pop-title-ls:-.035em; /* плавная: Unbounded 600, caps (44/37.4/28 · 28) */
 --type-pop-h2-size:clamp(24px,2.6vw,40px); --type-pop-h2-lh:1.12; --type-pop-h2-ls:-.03em;          /* плавная: Unbounded 500 (40/37.4/26.6 · 24) */

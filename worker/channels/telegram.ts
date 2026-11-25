@@ -24,6 +24,7 @@ const SOURCES: Record<StoredLead['form'], string> = {
   final: 'Фінальна форма',
   quiz: 'Квіз «Розрахунок доходу»',
   apartment: 'Попап апартаменту',
+  world: 'Попап світу',
 };
 
 /** Способ связи приходит украинской подписью из Sanity; коды — запасной вариант. */
@@ -34,6 +35,7 @@ const FIELDS: [keyof StoredLead['fields'], string][] = [
   ['phone', 'Телефон'],
   ['email', 'E-mail'],
   ['contactMethod', 'Звʼязок'],
+  ['world', 'Секція'],
   ['apartment', 'Апартамент'],
   ['format', 'Формат'],
   // финальная форма: «Який формат інвестиції вас цікавить?» — цель покупки

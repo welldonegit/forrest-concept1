@@ -666,7 +666,169 @@
                 "value": "WIND section — apartments for quiet and renewal"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Преміальний Adults Only-простір для гостей, які цінують приватність, тишу та відновлення. Комерційно секція орієнтована на платоспроможну аудиторію, короткі преміальні заїзди та попит у різні сезони, що підсилює потенціал стабільного завантаження протягом року."
+            },
+            {
+              "_key": "en",
+              "value": "A premium Adults Only space for guests who value privacy, quiet and recovery. Commercially, the section targets an affluent audience, short premium stays and demand across different seasons, which strengthens the potential for stable year-round occupancy."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "IV квартал 2028 року"
+            },
+            {
+              "_key": "en",
+              "value": "Q4 2028"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Adults Only"
+                },
+                {
+                  "_key": "en",
+                  "value": "Adults Only"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Biohacking & Recovery Center"
+                },
+                {
+                  "_key": "en",
+                  "value": "Biohacking & Recovery Center"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "SPA та wellness"
+                },
+                {
+                  "_key": "en",
+                  "value": "SPA and wellness"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Rooftop Pool"
+                },
+                {
+                  "_key": "en",
+                  "value": "Rooftop Pool"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторан і бар"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurant and bar"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "mini-coworking"
+                },
+                {
+                  "_key": "en",
+                  "value": "mini-coworking"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "переговорні кімнати"
+                },
+                {
+                  "_key": "en",
+                  "value": "meeting rooms"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "premium recovery services"
+                },
+                {
+                  "_key": "en",
+                  "value": "premium recovery services"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "підземний і гостьовий паркінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "underground and guest parking"
+                }
+              ]
+            }
+          ]
         },
         {
           "_key": "rock",
@@ -723,7 +885,195 @@
                 "value": "ROCK section — apartments for business and growth"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Секція створена для ділової аудиторії, корпоративних команд, подій і професійних спільнот. Її ключова перевага для інвестора — окремий B2B-сценарій попиту, який допомагає залучати гостей не лише у високий туристичний сезон, а й у традиційно слабші періоди року."
+            },
+            {
+              "_key": "en",
+              "value": "The section is designed for business guests, corporate teams, events and professional communities. Its key advantage for an investor is a separate B2B demand scenario that helps attract guests not only in the peak tourist season, but also in traditionally slower periods of the year."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "2030 рік"
+            },
+            {
+              "_key": "en",
+              "value": "2030"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "конференц-зона"
+                },
+                {
+                  "_key": "en",
+                  "value": "conference area"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "MICE-простори"
+                },
+                {
+                  "_key": "en",
+                  "value": "MICE spaces"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "медійний центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "media centre"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "streaming-ready інфраструктура"
+                },
+                {
+                  "_key": "en",
+                  "value": "streaming-ready infrastructure"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "коворкінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "coworking"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "переговорні кімнати"
+                },
+                {
+                  "_key": "en",
+                  "value": "meeting rooms"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "padel-корт"
+                },
+                {
+                  "_key": "en",
+                  "value": "padel court"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "rooftop"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooftop"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторани"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurants"
+                }
+              ]
+            },
+            {
+              "_key": "f11",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "фітнес-центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "fitness centre"
+                }
+              ]
+            },
+            {
+              "_key": "f12",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "простори для приватних і корпоративних подій"
+                },
+                {
+                  "_key": "en",
+                  "value": "spaces for private and corporate events"
+                }
+              ]
+            }
+          ]
         },
         {
           "_key": "sun",
@@ -780,7 +1130,208 @@
                 "value": "SUN section — apartments for family holidays"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Сімейний формат для відпочинку кількох поколінь, розрахований на довші заїзди та повторні візити. Для інвестора це сегмент із потенціалом стабільного family-попиту протягом року завдяки канікулам, святковим періодам і звичці родин повертатися у комфортні для них місця."
+            },
+            {
+              "_key": "en",
+              "value": "A family format for multi-generation holidays, designed for longer stays and repeat visits. For an investor, this is a segment with potential for stable year-round family demand thanks to school holidays, festive periods and families’ habit of returning to places where they feel comfortable."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "2030 рік"
+            },
+            {
+              "_key": "en",
+              "value": "2030"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "сімейні апартаменти"
+                },
+                {
+                  "_key": "en",
+                  "value": "family apartments"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "multi-room формати"
+                },
+                {
+                  "_key": "en",
+                  "value": "multi-room formats"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "дитячий центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "kids’ centre"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "SPA на два поверхи"
+                },
+                {
+                  "_key": "en",
+                  "value": "two-storey SPA"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "басейни"
+                },
+                {
+                  "_key": "en",
+                  "value": "swimming pools"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "скалодром"
+                },
+                {
+                  "_key": "en",
+                  "value": "climbing wall"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "мотузковий майданчик"
+                },
+                {
+                  "_key": "en",
+                  "value": "rope park"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "family-активності"
+                },
+                {
+                  "_key": "en",
+                  "value": "family activities"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "дитячі програми"
+                },
+                {
+                  "_key": "en",
+                  "value": "kids’ programmes"
+                }
+              ]
+            },
+            {
+              "_key": "f11",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "сімейний ресторан"
+                },
+                {
+                  "_key": "en",
+                  "value": "family restaurant"
+                }
+              ]
+            },
+            {
+              "_key": "f12",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "rooftop"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooftop"
+                }
+              ]
+            },
+            {
+              "_key": "f13",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "паркінг і сімейна логістика"
+                },
+                {
+                  "_key": "en",
+                  "value": "parking and family logistics"
+                }
+              ]
+            }
+          ]
         }
       ]
     },

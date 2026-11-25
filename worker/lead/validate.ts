@@ -4,13 +4,13 @@
  */
 import { languageIds } from '../../src/lib/languages.ts';
 
-export const FORMS = ['finmodel', 'final', 'quiz', 'apartment'] as const;
+export const FORMS = ['finmodel', 'final', 'quiz', 'apartment', 'world'] as const;
 export type FormId = (typeof FORMS)[number];
 
 /** Формы, где имя обязательно (в попапе апартамента и квизе — по желанию). */
-const NAME_REQUIRED: ReadonlySet<FormId> = new Set(['finmodel', 'final']);
+const NAME_REQUIRED: ReadonlySet<FormId> = new Set(['finmodel', 'final', 'world']);
 
-const TEXT_FIELDS = ['contactMethod', 'format', 'purpose', 'areaFrom', 'areaTo', 'budget', 'budgetCurrency', 'apartment', 'country'] as const;
+const TEXT_FIELDS = ['contactMethod', 'format', 'purpose', 'areaFrom', 'areaTo', 'budget', 'budgetCurrency', 'apartment', 'world', 'country'] as const;
 
 export interface LeadFields {
   name?: string;
@@ -25,6 +25,8 @@ export interface LeadFields {
   budget?: string;
   budgetCurrency?: string;
   apartment?: string;
+  /** Попап мира: WIND, ROCK, SUN — секция, по которой заявка (в CRM — в note). */
+  world?: string;
   country?: string;
 }
 

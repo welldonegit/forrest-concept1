@@ -24,6 +24,7 @@
   "form.formats",
   "menu.primary",
   "menu.secondary",
+  "popups.quiz.bonuses",
   "popups.quiz.budgets",
   "popups.quiz.countries",
   "seo.unapprovedLanguages"
@@ -100,6 +101,9 @@
   "contactOptions",
   "goals",
   "title"
+ ],
+ "world": [
+  "features"
  ],
  "teamMember": [
   "stats"

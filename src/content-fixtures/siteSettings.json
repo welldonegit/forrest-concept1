@@ -1208,6 +1208,138 @@
         }
       ]
     },
+    "world": {
+      "tabsLabel": [
+        {
+          "_key": "uk",
+          "value": "Секції"
+        },
+        {
+          "_key": "en",
+          "value": "Sections"
+        }
+      ],
+      "aboutLabel": [
+        {
+          "_key": "uk",
+          "value": "Про секцію"
+        },
+        {
+          "_key": "en",
+          "value": "About the section"
+        }
+      ],
+      "commissioningLabel": [
+        {
+          "_key": "uk",
+          "value": "Введення в експлуатацію"
+        },
+        {
+          "_key": "en",
+          "value": "Completion"
+        }
+      ],
+      "accessLabel": [
+        {
+          "_key": "uk",
+          "value": "Доступ до траси"
+        },
+        {
+          "_key": "en",
+          "value": "Slope access"
+        }
+      ],
+      "featuresLabel": [
+        {
+          "_key": "uk",
+          "value": "Ключова інфраструктура"
+        },
+        {
+          "_key": "en",
+          "value": "Key amenities"
+        }
+      ],
+      "formTitle": [
+        {
+          "_key": "uk",
+          "value": "Отримайте матеріали по {name}"
+        },
+        {
+          "_key": "en",
+          "value": "Get the {name} materials"
+        }
+      ],
+      "formText": [
+        {
+          "_key": "uk",
+          "value": "Актуальні планування, доступні апартаменти, умови придбання та персональний розрахунок прогнозованої дохідності."
+        },
+        {
+          "_key": "en",
+          "value": "Current floor plans, available apartments, purchase terms and a personal projected yield calculation."
+        }
+      ],
+      "nameLabel": [
+        {
+          "_key": "uk",
+          "value": "Ім’я"
+        },
+        {
+          "_key": "en",
+          "value": "Name"
+        }
+      ],
+      "phoneLabel": [
+        {
+          "_key": "uk",
+          "value": "Телефон"
+        },
+        {
+          "_key": "en",
+          "value": "Phone"
+        }
+      ],
+      "contactLegend": [
+        {
+          "_key": "uk",
+          "value": "Зручний спосіб зв’язку"
+        },
+        {
+          "_key": "en",
+          "value": "Preferred contact method"
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Отримати матеріали та розрахунок"
+        },
+        {
+          "_key": "en",
+          "value": "Get materials and calculation"
+        }
+      ],
+      "consentText": [
+        {
+          "_key": "uk",
+          "value": "Натискаючи кнопку, ви погоджуєтесь з {link}."
+        },
+        {
+          "_key": "en",
+          "value": "By clicking the button, you agree to the {link}."
+        }
+      ],
+      "consentLinkLabel": [
+        {
+          "_key": "uk",
+          "value": "політикою конфіденційності"
+        },
+        {
+          "_key": "en",
+          "value": "privacy policy"
+        }
+      ]
+    },
     "quiz": {
       "tabLabel": [
         {

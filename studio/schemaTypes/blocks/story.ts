@@ -46,16 +46,32 @@ export const worldsTitleLine = defineType({
   },
 });
 
+export const worldFeature = defineType({
+  name: 'worldFeature', title: 'Пункт інфраструктури', type: 'object',
+  fields: [text('label', { title: 'Текст' })],
+  preview: { select: { l: 'label' }, prepare: ({ l }) => ({ title: ukOf(l) }) },
+});
+
 export const world = defineType({
   name: 'world', title: 'Світ', type: 'object',
+  groups: [{ name: 'card', title: 'Картка', default: true }, { name: 'popup', title: 'Вікно «Детальніше»' }],
   fields: [
-    str('name', 'Назва світу', { required: true, description: 'WIND, ROCK, SUN — однаково для всіх мов.' }),
+    str('name', 'Назва світу', { required: true, group: 'card', description: 'WIND, ROCK, SUN — однаково для всіх мов.' }),
     texts('worldTexts', [
       defineField({ name: 'overline', title: 'Надпис над назвою', type: 'string' }),
       defineField({ name: 'subtitle', title: 'Підзаголовок', type: 'text', rows: 2 }),
-    ]),
-    linkField('cta', 'Кнопка'),
-    photoField('image', 'Фото'),
+    ], { group: 'card' }),
+    linkField('cta', 'Кнопка', { group: 'card', description: 'Кнопка відкриває вікно «Детальніше» цього світу. Адреса — запасна: куди веде кнопка, якщо вікно не завантажилось (зазвичай #forma).' }),
+    photoField('image', 'Фото', { group: 'card', description: 'Те саме фото — і в картці, і ліворуч у вікні «Детальніше».' }),
+    texts('worldPopupTexts', [
+      defineField({ name: 'about', title: 'Про секцію', type: 'text', rows: 5 }),
+      defineField({ name: 'commissioning', title: 'Введення в експлуатацію', type: 'string', description: 'Наприклад «IV квартал 2028 року».' }),
+      defineField({ name: 'access', title: 'Доступ до траси', type: 'string', description: 'Наприклад «Ski In / Ski Out, 5G».' }),
+    ], { name: 'popupTexts', title: 'Вікно «Детальніше»: тексти', group: 'popup' }),
+    defineField({
+      name: 'features', title: 'Ключова інфраструктура', type: 'array', of: [{ type: 'worldFeature' }], group: 'popup',
+      description: 'Пункти-«пігулки» у вікні «Детальніше», у цьому порядку.',
+    }),
   ],
   preview: { select: { name: 'name', g: 'texts', media: 'image' }, prepare: ({ name, g, media }) => ({ title: name, subtitle: ukOf(g, 'overline'), media }) },
 });

@@ -1,0 +1,21 @@
+---
+/** Фрагмент окна «Детальніше» миров WIND / ROCK / SUN (выгрузка 2026-11-25): см. layouts/PopupPage.astro. */
+import PopupPage from '../../../layouts/PopupPage.astro';
+import WorldPopup from '../../../components/popups/WorldPopup.astro';
+import '../../../styles/popups/popup.css';
+import '../../../styles/popups/world.css';
+import { getSiteSettings, getLanding, type WorldsBlock } from '../../../lib/content';
+import { langOf, langPaths } from '../../../lib/routes';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+
+const lang = langOf(Astro.params.lang);
+const settings = await getSiteSettings(lang);
+const landing = await getLanding(lang);
+const worlds = landing.blocks.find((b): b is WorldsBlock => b._type === 'worlds');
+---
+<PopupPage lang={lang} title={settings.seo.title}>
+  {worlds && <WorldPopup block={worlds} settings={settings} />}
+</PopupPage>

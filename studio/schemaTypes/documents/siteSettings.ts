@@ -179,6 +179,21 @@ export const siteSettings = defineType({
           fields: [texts('popupVideoTexts', [S('dialogLabel', 'Назва вікна'), S('closeLabel', 'Кнопка «Закрити»'), S('frameTitle', 'Назва відео')])],
         }),
         defineField({
+          name: 'world', title: 'Вікно «Детальніше» світу (WIND, ROCK, SUN)', type: 'object',
+          description: 'Спільні підписи вікна. Тексти кожного світу — у блоці «Три світи» → світ → «Вікно «Детальніше»». Способи звʼязку — «Форми» → способи звʼязку.',
+          fields: [texts('popupWorldTexts', [
+            S('tabsLabel', 'Назва перемикача світів (для програм читання з екрана)'),
+            S('aboutLabel', 'Підпис «Про секцію»'), S('commissioningLabel', 'Підпис «Введення в експлуатацію»'),
+            S('accessLabel', 'Підпис «Доступ до траси»'), S('featuresLabel', 'Підпис «Ключова інфраструктура»'),
+            S('formTitle', 'Заголовок форми', '{name} — назва світу: «Отримайте матеріали по {name}».'),
+            T('formText', 'Текст під заголовком форми'),
+            S('nameLabel', 'Підпис поля «Імʼя»'), S('phoneLabel', 'Підпис поля «Телефон»'), S('contactLegend', 'Підпис «Зручний спосіб звʼязку»'),
+            S('submitLabel', 'Кнопка відправки'),
+            T('consentText', 'Текст під кнопкою', '{link} — місце посилання на політику конфіденційності (Форми → Політика конфіденційності).'),
+            S('consentLinkLabel', 'Текст посилання на політику'),
+          ])],
+        }),
+        defineField({
           name: 'quiz', title: 'Квіз «Розрахувати дохід»', type: 'object',
           fields: [
             texts('popupQuizTexts', [

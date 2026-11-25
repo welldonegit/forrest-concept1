@@ -1,0 +1,153 @@
+---
+/**
+ * Окно «Детальніше» мира WIND / ROCK / SUN (выгрузка 2026-11-25: design-export/updates/2026-11-25/section-popups/).
+ * Слева — фото мира и название, справа — переключатель миров, описание, факты, инфраструктура и форма заявки.
+ * Открывается кнопками карточек блока Worlds (data-popup="world" data-world="<номер>"), код — scripts/popups/world.js.
+ * Тексты мира — блок «Три світи» → світ → «Вікно «Детальніше»»; общие подписи — siteSettings.popups.world.
+ * Заявка — форма world (docs/LEADS.md): имя, телефон, способ связи, секция; после успеха — «Дякуємо».
+ */
+import { getImage } from 'astro:assets';
+import Honeypot from '../ui/Honeypot.astro';
+import { getSiteSettingsUk, resolveImage, ukIfDiffers, type WorldsBlock, type SiteSettings } from '../../lib/content';
+
+interface Props {
+  block: WorldsBlock;
+  settings: SiteSettings;
+}
+
+const { block, settings } = Astro.props;
+const t = settings.popups.world;
+const errors = settings.form.errors;
+// подпись способа связи в заявке — украинская при любом языке страницы (data-uk, docs/LEADS.md)
+const ukSettings = await getSiteSettingsUk();
+const contacts = settings.form.contactOptions.map((o) => ({ ...o, uk: ukIfDiffers(o.label, ukSettings.form.contactOptions.find((u) => u._key === o._key)?.label) }));
+const policy = settings.privacyPolicy;
+const [before, after = ''] = t.consentText.split('{link}');
+
+const worlds = await Promise.all(
+  block.worlds.map(async (w, i) => {
+    const photo = await resolveImage(w.image);
+    // фото заполняет колонку (cover): на высоком окне ширину задаёт высота (фото 2:3 → 67vh)
+    const img = await getImage({ src: photo.src, widths: [480, 800, 1200, 1600].filter((x) => x < photo.src.width).concat(Math.min(photo.src.width, 2000)), format: 'avif' });
+    return { ...w, i, id: `wpop-${w._key}`, photo, img };
+  }),
+);
+---
+<dialog class="pop wpop" data-popup-root data-wpop data-w="0" aria-labelledby={`${worlds[0]?.id}-name`}>
+  <div class="wpop__back" data-popup-backdrop></div>
+  <div class="wpop__panel">
+    <div class="wpop__grid">
+      <div class="wpop__left">
+        {worlds.map((w) => (
+          <img
+            class="wpop__img"
+            data-w={w.i}
+            src={w.img.src}
+            srcset={w.img.srcSet.attribute}
+            sizes="(max-width: 899px) 100vw, max(42vw, 67vh)"
+            width={w.photo.src.width}
+            height={w.photo.src.height}
+            style={`object-position:${w.photo.position}`}
+            alt=""
+            decoding="async"
+          />
+        ))}
+        <div class="wpop__shade" aria-hidden="true"></div>
+        <div class="wpop__intro">
+          {worlds.map((w) => (
+            <div class="wpop__w wpop__rise" data-w={w.i}>
+              <span class="wpop__overline text-worlds-overline text-w-500">{w.overline}</span>
+              <h2 class="wpop__name text-wpop-name" id={`${w.id}-name`}>{w.name}</h2>
+              <p class="wpop__tagline text-title-sm">{w.subtitle}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="wpop__right">
+        <div class="wpop__head">
+          <div class="wpop__tabs text-worlds-body" role="tablist" aria-label={t.tabsLabel}>
+            {worlds.map((w) => (
+              <button class="wpop__tab" type="button" role="tab" id={`${w.id}-tab`} aria-controls={`${w.id}-panel`} aria-selected={w.i === 0 ? 'true' : 'false'} tabindex={w.i === 0 ? 0 : -1} data-wpop-tab={w.i}>{w.name}</button>
+            ))}
+          </div>
+          <button class="wpop__x" type="button" aria-label={settings.ui.closeLabel} data-popup-close>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+
+        <div class="wpop__body wpop__rise wpop__rise--late">
+          {worlds.map((w) => (
+            <div class="wpop__w wpop__pane" data-w={w.i} role="tabpanel" id={`${w.id}-panel`} aria-labelledby={`${w.id}-tab`}>
+              <section class="wpop__about">
+                <span class="wpop__label text-ct-work">{t.aboutLabel}</span>
+                <p class="wpop__text text-form-text">{w.about}</p>
+              </section>
+              <dl class="wpop__facts">
+                <div class="wpop__fact">
+                  <dt class="wpop__label text-ct-work">{t.commissioningLabel}</dt>
+                  <dd class="text-title-sm">{w.commissioning}</dd>
+                </div>
+                <div class="wpop__fact">
+                  <dt class="wpop__label text-ct-work">{t.accessLabel}</dt>
+                  <dd class="text-title-sm">{w.access}</dd>
+                </div>
+              </dl>
+              {w.features.length > 0 && (
+                <section class="wpop__infra">
+                  <span class="wpop__label text-ct-work" id={`${w.id}-infra`}>{t.featuresLabel}</span>
+                  <ul class="wpop__chips" role="list" aria-labelledby={`${w.id}-infra`}>
+                    {w.features.map((f) => <li class="wpop__chip text-pop-row text-w-400">{f.label}</li>)}
+                  </ul>
+                </section>
+              )}
+
+              <section class="wpop__card">
+                <form class="wpop__form" id={`${w.id}-form`} novalidate method="post" action="/api/lead" data-wpop-form data-world-name={w.name} aria-labelledby={`${w.id}-form-title`}>
+                  <div class="wpop__form-head">
+                    <h3 class="text-title-sm" id={`${w.id}-form-title`}>{t.formTitle.replace('{name}', w.name)}</h3>
+                    <p class="wpop__form-text text-body">{t.formText}</p>
+                  </div>
+                  <div class="wpop__fields">
+                    <div class="wpop__field">
+                      <label class="text-ct-work" for={`${w.id}-name`}>{t.nameLabel}</label>
+                      <input class="wpop__input text-form-input" id={`${w.id}-name`} name="name" type="text" autocomplete="name" required aria-describedby={`${w.id}-err-name`} />
+                      <span class="wpop__err text-pop-err" id={`${w.id}-err-name`} hidden data-msg-required={errors.required}>{errors.required}</span>
+                    </div>
+                    <div class="wpop__field">
+                      <label class="text-ct-work" for={`${w.id}-phone`}>{t.phoneLabel}</label>
+                      <input class="wpop__input text-form-input" id={`${w.id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={settings.form.phonePlaceholder} aria-describedby={`${w.id}-err-phone`} />
+                      <span class="wpop__err text-pop-err" id={`${w.id}-err-phone`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
+                    </div>
+                    {contacts.length > 0 && (
+                      <fieldset class="wpop__contact">
+                        <legend class="text-ct-work">{t.contactLegend}</legend>
+                        <div class="wpop__opts">
+                          {contacts.map((c, n) => (
+                            <label class="wpop__opt">
+                              <input type="radio" name="contact" value={c.value} data-uk={c.uk} checked={n === 0} />
+                              <span class="text-pop-small text-w-600">{c.label}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </fieldset>
+                    )}
+                  </div>
+                  <Honeypot />
+                  <div class="pop-captcha" data-turnstile></div>
+                  <p class="wpop__err text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
+                  <div class="wpop__send">
+                    <button class="wpop__submit text-pop-input" type="submit">{t.submitLabel}</button>
+                    <p class="wpop__consent text-caption">
+                      {policy ? <>{before}<a href={policy.href} target="_blank" rel="noopener">{t.consentLinkLabel}</a>{after}</> : t.consentText.replace('{link}', t.consentLinkLabel)}
+                    </p>
+                  </div>
+                </form>
+              </section>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>

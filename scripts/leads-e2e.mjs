@@ -167,6 +167,37 @@ const SOURCES = {
       assert.equal(d.fields.name, undefined);
     },
   },
+  world: {
+    form: 'world', form_id: 'world_popup', form_name: 'Попап світу',
+    async open(page) {
+      // кнопка первого мира (WIND) открывает окно; вкладка ROCK переключает мир — заявка уходит с секцией ROCK
+      const btn = page.locator('[data-popup="world"][data-world="0"]');
+      await btn.scrollIntoViewIfNeeded();
+      await btn.dispatchEvent('click'); // кнопка в сцене прокрутки Worlds: видимость зависит от кадра
+      const dlg = page.locator('dialog[open][data-wpop]');
+      await dlg.waitFor();
+      assert.equal(await dlg.getAttribute('data-w'), '0');
+      await dlg.locator('[data-wpop-tab="1"]').click();
+      assert.equal(await dlg.getAttribute('data-w'), '1');
+      const form = dlg.locator('.wpop__pane[data-w="1"] form[data-wpop-form]');
+      await form.waitFor();
+      return { scope: form, submit: form.locator('button[type=submit]'), status: form.locator('[data-form-status]') };
+    },
+    async fill({ scope }, phone = PHONE) {
+      await scope.locator('input[name=name]').fill('E2E World');
+      await scope.locator('input[name=phone]').pressSequentially(phone);
+      await scope.locator('.wpop__opt').nth(1).click(); // Viber
+    },
+    values: ({ scope }) => Promise.all(['name', 'phone'].map((n) => scope.locator(`input[name=${n}]`).inputValue())),
+    user: { phone_number: E164 },
+    data(d) {
+      // секция и способ связи — по-украински при любом языке; email и согласия нет
+      assert.equal(d.fields.world, 'ROCK');
+      assert.equal(d.fields.contactMethod, 'Viber');
+      assert.equal(d.fields.name, 'E2E World');
+      assert.equal(d.fields.email, undefined);
+    },
+  },
 };
 
 const leadEvents = (page) => page.evaluate(() => (window.dataLayer ?? []).filter((e) => e && e.event === 'generate_lead'));
