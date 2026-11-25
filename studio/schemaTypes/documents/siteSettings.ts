@@ -6,7 +6,7 @@
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
 import { ukOf } from '../lib/block.ts';
-import { iconField, linkField, linkItemType, photoField, str } from '../lib/fields.ts';
+import { iconField, linkItemType, photoField, str } from '../lib/fields.ts';
 import { languages, defaultLanguage } from '../../../src/lib/languages.ts';
 
 const S = (name: string, title: string, description?: string) => defineField({ name, title, type: 'string', description });
@@ -102,7 +102,11 @@ export const siteSettings = defineType({
           S('logoAlt', 'Опис логотипа'), S('menuOpenLabel', 'Кнопка «Відкрити меню»'), S('menuCloseLabel', 'Кнопка «Закрити меню»'),
           S('menuDialogLabel', 'Назва меню'), S('languageButtonLabel', 'Кнопка мови'), S('languageListLabel', 'Список мов'),
         ], { description: 'Здебільшого підписи для програм читання з екрана. Українська — обовʼязково.' }),
-        linkField('cta', 'Кнопка «Звʼязатися»'),
+        defineField({
+          name: 'cta', title: 'Кнопка «Звʼязатися»', type: 'object', options: { collapsible: false },
+          description: 'Відкриває попап «Звʼязатися» (Попапи → Попап «Звʼязатися»). Без JavaScript — дзвінок на номер із «Контакти → Телефон для дзвінка».',
+          fields: [text('label', { title: 'Підпис' })],
+        }),
         str('homeHref', 'Посилання логотипа', { description: 'Технічне: #top — нагору сторінки.', readOnly: true }),
       ],
     }),
@@ -192,6 +196,23 @@ export const siteSettings = defineType({
             T('consentText', 'Текст під кнопкою', '{link} — місце посилання на політику конфіденційності (Форми → Політика конфіденційності).'),
             S('consentLinkLabel', 'Текст посилання на політику'),
           ])],
+        }),
+        defineField({
+          name: 'contact', title: 'Попап «Звʼязатися»', type: 'object',
+          description: 'Відкривається кнопкою «Звʼязатися» в шапці. Поля «Імʼя» і «Телефон», підказки і тексти помилок — спільні («Форми заявки»).',
+          fields: [
+            texts('popupContactTexts', [
+              S('dialogLabel', 'Назва вікна (для програм читання з екрана)'),
+              T('title', 'Заголовок'),
+              S('submitLabel', 'Кнопка відправки'),
+            ]),
+            photoField('image', 'Фото', { description: 'Ліворуч від форми (на телефоні — над нею, 16:9). Точка фокусу визначає, яка частина фото видна.' }),
+            defineField({
+              name: 'unapprovedLanguages', title: 'Переклад не затверджено', type: 'array', of: [{ type: 'string' }],
+              options: { list: languages.filter((l) => l.id !== defaultLanguage).map((l) => ({ title: l.name, value: l.id })), layout: 'grid' },
+              description: 'Позначте мову, переклад якої ще не перевірено. Після перевірки — зніміть позначку. На сайт не впливає.',
+            }),
+          ],
         }),
         defineField({
           name: 'quiz', title: 'Квіз «Розрахувати дохід»', type: 'object',

@@ -127,8 +127,7 @@
           "_key": "en",
           "value": "Contact us"
         }
-      ],
-      "href": "#forma"
+      ]
     }
   },
   "menu": {
@@ -1338,6 +1337,61 @@
           "_key": "en",
           "value": "privacy policy"
         }
+      ]
+    },
+    "contact": {
+      "dialogLabel": [
+        {
+          "_key": "uk",
+          "value": "Зв'язатися з нами"
+        },
+        {
+          "_key": "en",
+          "value": "Contact us"
+        }
+      ],
+      "title": [
+        {
+          "_key": "uk",
+          "value": "Бажаєте отримати більше інформації про FORREST Trinity Resort?"
+        },
+        {
+          "_key": "en",
+          "value": "Would you like more information about FORREST Trinity Resort?"
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Передзвоніть мені"
+        },
+        {
+          "_key": "en",
+          "value": "Call me back"
+        }
+      ],
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:updates/2026-11-25-contact-popup/img/contact-popup-winter.avif"
+        },
+        "hotspot": {
+          "x": 0.62,
+          "y": 0.58
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "FORREST Trinity Resort взимку"
+          },
+          {
+            "_key": "en",
+            "value": "FORREST Trinity Resort in winter"
+          }
+        ]
+      },
+      "unapprovedLanguages": [
+        "en"
       ]
     },
     "quiz": {

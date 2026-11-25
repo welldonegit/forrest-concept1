@@ -1,0 +1,79 @@
+---
+/**
+ * Попап «Звʼязатися» (выгрузка 2026-11-25: design-export/updates/2026-11-25-contact-popup/).
+ * Слева фото, справа заголовок и форма «Передзвоніть мені»: имя (по желанию), телефон.
+ * Открывается кнопкой «Звʼязатися» в шапке (data-popup="contact"), код — scripts/popups/contact.js.
+ * Тексты окна — siteSettings.popups.contact; подписи и подсказки полей, ошибки — общие (siteSettings.form).
+ * Заявка — форма contact (docs/LEADS.md); после успеха — «Дякуємо» с событием generate_lead.
+ */
+import { getImage } from 'astro:assets';
+import Honeypot from '../ui/Honeypot.astro';
+import { resolveImage, type SiteSettings } from '../../lib/content';
+
+interface Props {
+  settings: SiteSettings;
+  popup: NonNullable<SiteSettings['popups']['contact']>;
+}
+
+const { settings, popup } = Astro.props;
+const form = settings.form;
+const errors = form.errors;
+const photo = await resolveImage(popup.image);
+// фото заполняет колонку (cover): на десктопе колонка ~553×610 — ширину задаёт высота (фото 3:2 → ~920)
+const img = await getImage({
+  src: photo.src,
+  widths: [480, 720, 960, 1280, 1600].filter((x) => x < photo.src.width).concat(Math.min(photo.src.width, 1920)),
+  format: 'avif',
+});
+const id = 'cpop';
+---
+<dialog class="pop cpop" data-popup-root data-cpop aria-label={popup.dialogLabel}>
+  <div class="cpop__scrim" data-popup-backdrop>
+    <div class="cpop__card">
+      <div class="cpop__img">
+        <img
+          src={img.src}
+          srcset={img.srcSet.attribute}
+          sizes="(max-width: 820px) 100vw, 920px"
+          width={photo.src.width}
+          height={photo.src.height}
+          style={`object-position:${photo.position}`}
+          alt={photo.alt}
+          decoding="async"
+        />
+      </div>
+      <div class="cpop__body">
+        <button class="cpop__x" type="button" aria-label={settings.ui.closeLabel} data-popup-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
+        <h2 class="cpop__title text-cpop-title" id={`${id}-title`}>{popup.title}</h2>
+        <form class="cpop__form" novalidate method="post" action="/api/lead" data-cpop-form aria-labelledby={`${id}-title`}>
+          <label class="visually-hidden" for={`${id}-name`}>{form.nameLabel}</label>
+          <input class="cpop__input text-form-input" id={`${id}-name`} name="name" type="text" autocomplete="name" placeholder={form.namePlaceholder} />
+          <label class="visually-hidden" for={`${id}-phone`}>{form.phoneLabel}</label>
+          <input
+            class="cpop__input text-form-input"
+            id={`${id}-phone`}
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            required
+            placeholder={form.phonePlaceholder}
+            aria-describedby={`${id}-err-phone`}
+          />
+          <span class="cpop__err text-pop-err" id={`${id}-err-phone`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
+          <Honeypot />
+          <div class="pop-captcha" data-turnstile></div>
+          <button class="cpop__submit text-form-input text-w-600" type="submit">
+            {popup.submitLabel}
+            <span class="cpop__submit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.6 3.6 6.9 3.2a1.9 1.9 0 0 0-2.1 1C4.1 5.6 3.6 7.4 4.3 9.6c1.9 5.6 4.5 8.2 10.1 10.1 2.2.7 4 .2 5.4-.5a1.9 1.9 0 0 0 1-2.1l-.4-1.7a1.9 1.9 0 0 0-1.4-1.4l-2.6-.6a1.9 1.9 0 0 0-1.8.5l-.9.9a12 12 0 0 1-4.4-4.4l.9-.9a1.9 1.9 0 0 0 .5-1.8L10 5a1.9 1.9 0 0 0-1.4-1.4Z" /><path d="M15 3.5a6 6 0 0 1 5.5 5.5" opacity=".55" /><path d="M14.6 7a2.6 2.6 0 0 1 2.4 2.4" opacity=".55" /></svg>
+            </span>
+          </button>
+          <p class="cpop__err cpop__status text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</dialog>

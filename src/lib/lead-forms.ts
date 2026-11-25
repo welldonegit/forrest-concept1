@@ -9,6 +9,7 @@ export const LEAD_FORMS = {
   quiz: { id: 'quiz', name: 'Квіз «Розрахунок доходу»' },
   apartment: { id: 'apartment_popup', name: 'Попап апартаменту' },
   world: { id: 'world_popup', name: 'Попап світу' },
+  contact: { id: 'contact_popup', name: "Попап «Зв'язатися»" },
 } as const;
 
 /** form_id → form_name. */

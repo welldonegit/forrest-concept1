@@ -1,0 +1,20 @@
+---
+/** Фрагмент попапа «Звʼязатися» (выгрузка 2026-11-25-contact-popup): см. layouts/PopupPage.astro. */
+import PopupPage from '../../../layouts/PopupPage.astro';
+import ContactPopup from '../../../components/popups/ContactPopup.astro';
+import '../../../styles/popups/popup.css';
+import '../../../styles/popups/contact.css';
+import { contactPopup, getSiteSettings } from '../../../lib/content';
+import { langOf, langPaths } from '../../../lib/routes';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+
+const lang = langOf(Astro.params.lang);
+const settings = await getSiteSettings(lang);
+const popup = contactPopup(settings);
+---
+<PopupPage lang={lang} title={settings.seo.title}>
+  {popup && <ContactPopup settings={settings} popup={popup} />}
+</PopupPage>

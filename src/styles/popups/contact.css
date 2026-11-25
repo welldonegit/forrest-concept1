@@ -1,0 +1,108 @@
+/* Попап «Звʼязатися» (выгрузка 2026-11-25: design-export/updates/2026-11-25-contact-popup/contact.css).
+   Грузится вместе с кодом попапа (scripts/popups/contact.js), не с главной. Значения — tokens.css (--cpop-*).
+   Появление как в выгрузке: подложка проявляется (.35s), карточка поднимается из 24px и .98 (.7s);
+   закрывается без анимации. prefers-reduced-motion — без анимаций и переходов. */
+
+.cpop__scrim{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:var(--cpop-pad);
+  background:var(--cpop-back);
+  -webkit-backdrop-filter:var(--cpop-blur); backdrop-filter:var(--cpop-blur);
+}
+.cpop__card{
+  position:relative;
+  inline-size:100%; max-inline-size:var(--cpop-max);
+  display:grid; grid-template-columns:var(--cpop-cols);
+  border-radius:var(--cpop-radius); overflow:hidden;
+  background:var(--linen); color:var(--text-primary);
+  box-shadow:var(--cpop-shadow);
+}
+
+.cpop__img{position:relative; min-block-size:var(--cpop-img-min-h); background:var(--moss)}
+.cpop__img img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover}
+
+.cpop__body{
+  display:flex; flex-direction:column; justify-content:center; gap:var(--cpop-body-gap);
+  padding:var(--cpop-body-pad);
+}
+
+.cpop__x{
+  position:absolute; inset-block-start:var(--cpop-x-offset); inset-inline-end:var(--cpop-x-offset); z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  inline-size:var(--pop-close); block-size:var(--pop-close);
+  padding:0; border:var(--border-1) solid var(--cpop-x-border); border-radius:var(--radius-pill);
+  background:transparent; color:var(--text-primary); cursor:pointer;
+  transition:background-color var(--cpop-x-dur), color var(--cpop-x-dur), transform var(--cpop-x-turn-dur) var(--ease-out-quint);
+}
+.cpop__x svg{inline-size:var(--cpop-x-icon); block-size:var(--cpop-x-icon)}
+
+.cpop__title{margin:0; text-wrap:balance}
+.text-cpop-title{font-family:var(--font-display); font-size:var(--type-cpop-title-size); line-height:var(--type-cpop-title-lh); letter-spacing:var(--type-cpop-title-ls); font-weight:500}
+
+.cpop__form{display:flex; flex-direction:column; gap:var(--cpop-form-gap); margin:0}
+.cpop__input{
+  inline-size:100%; min-inline-size:0; block-size:var(--cpop-input-h);
+  padding-block:0; padding-inline:var(--cpop-input-pad);
+  border:var(--border-1) solid var(--cpop-input-border); border-radius:var(--radius-pill);
+  background:var(--air); color:var(--text-primary);
+  outline:none; -webkit-appearance:none; appearance:none;
+  transition:border-color var(--cpop-field-dur) ease, box-shadow var(--cpop-field-dur) ease;
+}
+.cpop__input::placeholder{color:var(--stone); opacity:1}
+.cpop__input:focus{border-color:var(--spruce); box-shadow:var(--cpop-input-ring)}
+.cpop__input[aria-invalid="true"]{border-color:var(--spruce); box-shadow:var(--cpop-input-invalid)}
+
+.cpop__err{color:var(--text-primary); padding-inline-start:var(--cpop-input-pad)}
+.cpop__err[hidden]{display:none}
+
+.cpop__submit{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--cpop-submit-gap);
+  inline-size:100%; min-block-size:var(--cpop-input-h);
+  margin-block-start:var(--cpop-submit-mt);
+  padding-block:var(--space-6); padding-inline:var(--cpop-submit-pad-start) var(--cpop-submit-pad-end);
+  border:0; border-radius:var(--radius-pill);
+  background:var(--spruce); color:var(--air); text-align:start; cursor:pointer;
+  transition:background-color var(--cpop-x-dur) ease;
+}
+.cpop__submit:disabled{cursor:progress}
+.cpop__submit-icon{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--cpop-submit-icon); block-size:var(--cpop-submit-icon);
+  border-radius:var(--radius-pill);
+  background:var(--white-sand); color:var(--spruce);
+}
+.cpop__submit-icon svg{inline-size:var(--cpop-submit-svg); block-size:var(--cpop-submit-svg); transition:transform var(--cpop-icon-dur) var(--ease-out-quint)}
+
+@media (hover:hover){
+  .cpop__x:hover{background:var(--spruce); color:var(--air); transform:rotate(var(--cpop-x-turn))}
+  .cpop__input:hover:not(:focus):not([aria-invalid="true"]){border-color:var(--cpop-input-border-hover)}
+  .cpop__submit:hover{background:var(--night-bark)}
+  .cpop__submit:hover .cpop__submit-icon svg{transform:rotate(var(--cpop-icon-turn)) scale(var(--cpop-icon-scale))}
+}
+
+/* Появление (выгрузка: fcFade, fcUp, fcIn) — только transform и opacity. */
+@media (prefers-reduced-motion:no-preference){
+  .cpop[open] .cpop__scrim{animation:cpop-fade var(--cpop-fade) ease both}
+  .cpop[open] .cpop__card{animation:cpop-up var(--cpop-up) var(--ease-out-quint) both}
+  .cpop__err:not([hidden]){animation:cpop-in var(--cpop-err-in) var(--ease-out-quint) both}
+}
+@keyframes cpop-fade{from{opacity:0}}
+@keyframes cpop-up{from{opacity:0; transform:translateY(var(--cpop-up-shift)) scale(var(--cpop-up-scale))}}
+@keyframes cpop-in{from{opacity:0; transform:translateY(var(--cpop-err-shift))}}
+@media (prefers-reduced-motion:reduce){
+  .cpop__x,.cpop__input,.cpop__submit,.cpop__submit-icon svg{transition:none}
+}
+
+/* ≤820 (точка выгрузки): одна колонка, фото 16:9 над формой, карточка прокручивается внутри окна. */
+@media (max-width:820px){
+  .cpop__card{
+    grid-template-columns:minmax(0,1fr);
+    max-block-size:calc(100dvh - 2 * var(--cpop-pad));
+    overflow-y:auto; overscroll-behavior:contain;
+    border-radius:var(--cpop-radius-sm);
+  }
+  .cpop__img{min-block-size:0; aspect-ratio:var(--cpop-img-ratio-sm)}
+  .cpop__body{padding:var(--cpop-body-pad-sm)}
+  .cpop__x{background:var(--cpop-x-bg-sm); border-color:transparent}
+}

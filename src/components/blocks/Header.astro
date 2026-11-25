@@ -9,7 +9,7 @@ import logo from '../../assets/brand/logo-forrest-full.svg';
 import SocialIcon from '../ui/SocialIcon.astro';
 import LangOptions from '../ui/LangOptions.astro';
 import { getLanguage } from '../../lib/languages';
-import { resolveImage, type SiteSettings } from '../../lib/content';
+import { contactPopup, resolveImage, type SiteSettings } from '../../lib/content';
 import { onPage } from '../../lib/routes';
 
 interface Props {
@@ -24,6 +24,7 @@ interface Props {
 const { lang, settings, base, path = '' } = Astro.props;
 const { header, menu, contacts } = settings;
 const current = getLanguage(lang);
+const hasPopup = Boolean(contactPopup(settings));
 const photo = await resolveImage(menu.image);
 const logoSrc = logo.src;
 const logoW = logo.width;
@@ -64,10 +65,17 @@ const logoH = logo.height;
         </div>
       </div>
 
-      <a class="site-header__cta" href={onPage(header.cta.href, base)}>
+      <!-- «Звʼязатися» (выгрузка 2026-11-25-contact-popup): открывает попап contact (ui/popups.js);
+           без JS или если попап не загрузился — звонок на номер из «Контакти». -->
+      <a
+        class="site-header__cta"
+        href={contacts.phoneHref}
+        data-popup={hasPopup ? 'contact' : undefined}
+        aria-haspopup={hasPopup ? 'dialog' : undefined}
+      >
         <span class="site-header__cta-label text-header-body-sm">{header.cta.label}</span>
         <span class="site-header__cta-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.6 3.6 6.9 3.2a1.9 1.9 0 0 0-2.1 1C4.1 5.6 3.6 7.4 4.3 9.6c1.9 5.6 4.5 8.2 10.1 10.1 2.2.7 4 .2 5.4-.5a1.9 1.9 0 0 0 1-2.1l-.4-1.7a1.9 1.9 0 0 0-1.4-1.4l-2.6-.6a1.9 1.9 0 0 0-1.8.5l-.9.9a12 12 0 0 1-4.4-4.4l.9-.9a1.9 1.9 0 0 0 .5-1.8L10 5a1.9 1.9 0 0 0-1.4-1.4Z" /><path d="M15 3.5a6 6 0 0 1 5.5 5.5" opacity=".55" /><path d="M14.6 7a2.6 2.6 0 0 1 2.4 2.4" opacity=".55" /></svg>
         </span>
       </a>
     </div>
