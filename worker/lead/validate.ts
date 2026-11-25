@@ -4,10 +4,10 @@
  */
 import { languageIds } from '../../src/lib/languages.ts';
 
-export const FORMS = ['finmodel', 'final', 'quiz', 'apartment', 'world'] as const;
+export const FORMS = ['finmodel', 'final', 'quiz', 'apartment', 'world', 'contact'] as const;
 export type FormId = (typeof FORMS)[number];
 
-/** Формы, где имя обязательно (в попапе апартамента и квизе — по желанию). */
+/** Формы, где имя обязательно (в попапе апартамента, квизе и попапе «Звʼязатися» — по желанию). */
 const NAME_REQUIRED: ReadonlySet<FormId> = new Set(['finmodel', 'final', 'world']);
 
 const TEXT_FIELDS = ['contactMethod', 'format', 'purpose', 'areaFrom', 'areaTo', 'budget', 'budgetCurrency', 'apartment', 'world', 'country'] as const;
