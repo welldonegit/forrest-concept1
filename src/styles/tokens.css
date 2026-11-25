@@ -1553,7 +1553,7 @@
 --wpop-rise-delay:.45s; --wpop-rise-delay-late:.58s;
 --wpop-switch-dur:.7s; --wpop-switch-shift:14px;
 --wpop-tab-dur:.25s; --wpop-tab-line-dur:.4s; --wpop-hover-dur:.15s; --wpop-submit-dur:.2s;
-/* название мира: Unbounded 500, плавная (152/115/56) — ЖДЁТ ПОДТВЕРЖДЕНИЯ: роль worlds-decor (200/158/113/56) не помещается в левую колонку на 1024 */
+/* название мира: Unbounded 500, плавная (152/115/56) — значение выгрузки подтверждено человеком 2026-11-25; роль worlds-decor (200/158/113/56) не помещается в левую колонку на 1024 */
 --type-wpop-name-size:clamp(56px,8vw,152px); --type-wpop-name-lh:.9; --type-wpop-name-ls:-.03em;
 
 /* роли попапов — временные, до сведения */

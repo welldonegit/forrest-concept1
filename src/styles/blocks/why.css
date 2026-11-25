@@ -28,7 +28,7 @@
 --why-bar-h:var(--space-10);
 --why-bar-gap:clamp(var(--space-16),1.6vw,var(--space-24));   /* выгрузка 22 → 24 */
 --why-stars:clamp(88px,8vw,128px);
-/* число карточки и строки: ЖДЁТ ПОДТВЕРЖДЕНИЯ (своей роли нет; ближайшие — hero-h1 38–108, model-num 44–80) */
+/* число карточки и строки: значения выгрузки подтверждены человеком 2026-11-25 (своей роли нет; ближайшие — hero-h1 38–108, model-num 44–80) */
 --type-why-value-size:clamp(56px,6.2vw,108px); --type-why-value-lh:.9; --type-why-value-ls:-.06em;
 --type-why-row-size:clamp(56px,7.4vw,132px); --type-why-row-lh:.86; --type-why-row-ls:-.065em;
 --why-row-unit-scale:.36em;
