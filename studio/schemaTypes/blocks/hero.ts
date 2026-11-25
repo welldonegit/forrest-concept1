@@ -25,9 +25,9 @@ export const hero = defineType({
       defineField({ name: 'presentationLabel', title: 'Кнопка відео презентації', type: 'string' }),
     ], { group: 'content' }),
     linkField('cta', 'Головна кнопка', { group: 'content' }),
-    str('presentationVideoUrl', 'Відео презентації (YouTube)', {
+    str('presentationVideoUrl', 'Відео презентації', {
       group: 'content',
-      description: 'Посилання на YouTube. Порожньо — кнопка без дії. TODO: посилання від замовника.',
+      description: 'Посилання на YouTube (youtube.com або youtu.be). Кнопка відео презентації відкриває його у вікні — так само, як відео в блоці «Дохідність 365 днів на рік». Порожньо — кнопка без дії.',
     }),
     defineField({
       name: 'season', title: 'Кнопка «лето / зима»', type: 'object', group: 'content',

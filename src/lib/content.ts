@@ -414,7 +414,7 @@ export interface HeroBlock {
   skyline: { width: number; height: number; points: [number, number][] };
   cta: { label: string; href: string };
   presentationLabel: string;
-  /** Видео презентации (YouTube): открывается в видео-попапе. Пусто — кнопка без действия. TODO: адрес от клиента. */
+  /** «Відео презентації» (YouTube): открывается в том же видео-попапе, что у Season. Пусто — кнопка без действия. */
   presentationVideoUrl?: string;
   season: { prefix: string; toWinter: string; toSummer: string };
 }
