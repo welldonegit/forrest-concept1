@@ -1,7 +1,7 @@
 /** Блоки «Хід будівництва» (налаштування блоку; звіти — окремі документи), «Команда», «Питання та відповіді». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { linkField, num, photoField, str, titleLinesField, titleLinesType } from '../lib/fields.ts';
 
 const S = (name: string, title: string, description?: string) => defineField({ name, title, type: 'string', description });
@@ -11,6 +11,7 @@ export const construction = defineType({
   description: 'Самі звіти — у розділі «Хід будівництва» меню. Тут — заголовок і скільки останніх звітів показувати.',
   fields: [
     hiddenField,
+    languagesField,
     anchorField('budivnytstvo'),
     texts('constructionTexts', [
       S('title', 'Заголовок'),
@@ -67,6 +68,7 @@ export const team = defineType({
   name: 'team', title: 'Команда', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('komanda'),
     texts('teamTexts', [S('title', 'Заголовок'), defineField({ name: 'subtitle', title: 'Підзаголовок', type: 'text', rows: 2 })], { group: 'content' }),
     defineField({ name: 'members', title: 'Учасники', type: 'array', of: [{ type: 'teamMember' }], group: 'content' }),
@@ -110,6 +112,7 @@ export const faq = defineType({
   name: 'faq', title: 'Питання та відповіді', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('faq'),
     titleLinesField('faqTitleLine'),
     texts('faqTexts', [

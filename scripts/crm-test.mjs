@@ -100,7 +100,7 @@ const makeDue = (id) => sql(`UPDATE lead_deliveries SET next_attempt_at = '2000-
 const posts = () => crmCalls.filter((c) => c.method === 'POST');
 const bodyOf = (number) => posts().map((c) => c.body).find((b) => b.note.includes(`Номер: ${number}\n`));
 
-test('4 источника: лид в CRM, тело по схеме, поля по таблице, пустых ключей нет', async () => {
+test('5 источников: лид в CRM, тело по схеме, поля по таблице, пустых ключей нет', async () => {
   const cookie = `gp_utm=${encodeURIComponent(JSON.stringify({ utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring', gclid: 'g-1', referrer: 'https://www.google.com/' }))}`;
   const fin = await postLead({ lang: 'en', fields: { name: 'Олена', phone: '+380671234567', format: 'Superior', areaFrom: '29.5', areaTo: '34.5', contactMethod: 'Дзвінок' } }, cookie);
   const fin2 = await postLead({ fields: { name: 'Без формату', phone: '+380671234567', format: 'Ще не визначився, потрібна консультація' } });
@@ -111,7 +111,8 @@ test('4 источника: лид в CRM, тело по схеме, поля п
     quiz: { answers: [{ question: 'Який формат апартаментів розглядаєте?', answer: 'Deluxe' }, { question: 'На який бюджет?', answer: 'До $130 000' }], calc: { price: 132750, income: 15930 } },
   });
   const apt = await postLead({ form: 'apartment', lang: 'en', fields: { phone: '+380931234567', apartment: 'Family Suite' } });
-  for (const l of [fin, fin2, final, quiz, apt]) {
+  const world = await postLead({ form: 'world', lang: 'en', fields: { name: 'Марта', phone: '+380631112233', contactMethod: 'Viber', world: 'ROCK' } });
+  for (const l of [fin, fin2, final, quiz, apt, world]) {
     const row = await delivery(l.id);
     assert.equal(row.status, 'sent', `${l.number}: ${row.last_error}`);
     assert.match(row.external_id, /^\d+$/);
@@ -172,6 +173,14 @@ test('4 источника: лид в CRM, тело по схеме, поля п
   assert.equal(b5.note_section, 'Family Suite');
   assert.deepEqual(b5.data, { custom_field_values: { 'f-layout': ['Famili Suites/Apartments'] } });
   assert.equal(b5.contact.language, 'en');
+
+  // попап мира: секция — только в note (отдельного поля и объекта нет), формата нет
+  const b6 = bodyOf(world.number);
+  assert.equal(b6.contact.name, 'Марта');
+  assert.equal(b6.contact.preferred_contact_method, 'Viber');
+  assert.ok(b6.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${world.number}\nДжерело: попап світу\n`));
+  assert.match(b6.note, /\nСекція: ROCK(\n|$)/);
+  assert.equal('note_section' in b6, false);
 });
 
 test('явная ошибка CRM (400): код и пути полей без значений, повтор — без поиска', async () => {

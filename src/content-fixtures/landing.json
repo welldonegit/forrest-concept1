@@ -443,6 +443,333 @@
       ]
     },
     {
+      "_type": "whyUkraine",
+      "_key": "whyUkraine",
+      "languages": [
+        "en"
+      ],
+      "anchor": "chomu-ukraina",
+      "title": [
+        {
+          "_key": "t1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Переваги інвестування"
+            },
+            {
+              "_key": "en",
+              "value": "Benefits of investing"
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "в Україну"
+            },
+            {
+              "_key": "en",
+              "value": "in Ukraine"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "Відновлення України формує один із найбільших інвестиційних ринків Європи. Світовий банк оцінює потреби у відбудові майже у $588 млрд, а до 40% необхідного капіталу потенційно може забезпечити приватний сектор."
+        },
+        {
+          "_key": "en",
+          "value": "Ukraine’s recovery is shaping one of the largest investment markets in Europe. The World Bank estimates reconstruction needs at almost $588 billion, and up to 40% of the required capital could potentially come from the private sector."
+        }
+      ],
+      "cards": [
+        {
+          "_key": "c1",
+          "value": "$588",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "млрд"
+            },
+            {
+              "_key": "en",
+              "value": "bn"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Потреби у відновленні"
+            },
+            {
+              "_key": "en",
+              "value": "Recovery needs"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Масштаб відбудови створює довгостроковий попит на приватний капітал та нові активи."
+            },
+            {
+              "_key": "en",
+              "value": "The scale of reconstruction creates long-term demand for private capital and new assets."
+            }
+          ],
+          "visual": "none",
+          "dark": false
+        },
+        {
+          "_key": "c2",
+          "value": "40%",
+          "prefix": [
+            {
+              "_key": "uk",
+              "value": "до"
+            },
+            {
+              "_key": "en",
+              "value": "up to"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Роль приватного капіталу"
+            },
+            {
+              "_key": "en",
+              "value": "The role of private capital"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Приватні інвестиції мають стати важливою частиною відновлення України."
+            },
+            {
+              "_key": "en",
+              "value": "Private investment is set to become an important part of Ukraine’s recovery."
+            }
+          ],
+          "visual": "bar",
+          "barPercent": 40,
+          "dark": false
+        },
+        {
+          "_key": "c3",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Європейська інтеграція"
+            },
+            {
+              "_key": "en",
+              "value": "European integration"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "ЄС уже створює окремі механізми для залучення та зниження ризиків приватних інвестицій в Україну."
+            },
+            {
+              "_key": "en",
+              "value": "The EU is already creating dedicated mechanisms to attract private investment in Ukraine and reduce its risks."
+            }
+          ],
+          "visual": "stars",
+          "dark": true
+        }
+      ]
+    },
+    {
+      "_type": "photoBand",
+      "_key": "photoBand",
+      "languages": [
+        "en"
+      ],
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:updates/2026-11-25/ukraine-bukovel/img/bukovel-hills.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Карпатські полонини та ліси поблизу Буковеля"
+          },
+          {
+            "_key": "en",
+            "value": "Carpathian meadows and forests near Bukovel"
+          }
+        ]
+      }
+    },
+    {
+      "_type": "whyBukovel",
+      "_key": "whyBukovel",
+      "languages": [
+        "en"
+      ],
+      "anchor": "chomu-bukovel",
+      "title": [
+        {
+          "_key": "t1",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Буковель."
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel."
+            }
+          ],
+          "muted": false
+        },
+        {
+          "_key": "t2",
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Сформований попит упродовж року"
+            },
+            {
+              "_key": "en",
+              "value": "Established year-round demand"
+            }
+          ],
+          "muted": true
+        }
+      ],
+      "lead": [
+        {
+          "_key": "uk",
+          "value": "Буковель давно працює ширше за зимовий курорт: гірськолижний сезон доповнюють літній відпочинок, wellness, сімейні подорожі та подієві формати. У I кварталі 2026 року Поляницька громада зафіксувала майже 400 тис. туристичних ночівель, що на 22% більше рік до року."
+        },
+        {
+          "_key": "en",
+          "value": "Bukovel has long been more than a winter resort: the ski season is complemented by summer holidays, wellness, family trips and events. In Q1 2026, the Polianytsia community recorded almost 400 thousand tourist overnight stays, 22% more year on year."
+        }
+      ],
+      "rows": [
+        {
+          "_key": "r1",
+          "value": "≈3",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "млн"
+            },
+            {
+              "_key": "en",
+              "value": "million"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Туристів щороку"
+            },
+            {
+              "_key": "en",
+              "value": "Tourists every year"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Буковель уже має сформований масштабний туристичний потік."
+            },
+            {
+              "_key": "en",
+              "value": "Bukovel already has a large, established flow of tourists."
+            }
+          ]
+        },
+        {
+          "_key": "r2",
+          "value": "186",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "тис."
+            },
+            {
+              "_key": "en",
+              "value": "thousand"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Туристичних ночівель у II кварталі 2026"
+            },
+            {
+              "_key": "en",
+              "value": "Tourist overnight stays in Q2 2026"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "Поляницька громада, де розташований Буковель, зафіксувала 186 227 ночівель у квітні–червні 2026 року, це +4,5% до аналогічного періоду 2025 року."
+            },
+            {
+              "_key": "en",
+              "value": "The Polianytsia community, where Bukovel is located, recorded 186,227 overnight stays in April–June 2026, +4.5% on the same period of 2025."
+            }
+          ]
+        },
+        {
+          "_key": "r3",
+          "value": "7",
+          "unit": [
+            {
+              "_key": "uk",
+              "value": "хв"
+            },
+            {
+              "_key": "en",
+              "value": "min"
+            }
+          ],
+          "title": [
+            {
+              "_key": "uk",
+              "value": "FORREST — всередині цього попиту"
+            },
+            {
+              "_key": "en",
+              "value": "FORREST — right inside this demand"
+            }
+          ],
+          "text": [
+            {
+              "_key": "uk",
+              "value": "7 хвилин до центру, Ski In / Ski Out та три аудиторії Adults / Business / Family."
+            },
+            {
+              "_key": "en",
+              "value": "7 minutes to the centre, Ski In / Ski Out and three audiences: Adults / Business / Family."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "_type": "season",
       "_key": "season",
       "anchor": "season",
@@ -666,7 +993,169 @@
                 "value": "WIND section — apartments for quiet and renewal"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Преміальний Adults Only-простір для гостей, які цінують приватність, тишу та відновлення. Комерційно секція орієнтована на платоспроможну аудиторію, короткі преміальні заїзди та попит у різні сезони, що підсилює потенціал стабільного завантаження протягом року."
+            },
+            {
+              "_key": "en",
+              "value": "A premium Adults Only space for guests who value privacy, quiet and recovery. Commercially, the section targets an affluent audience, short premium stays and demand across different seasons, which strengthens the potential for stable year-round occupancy."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "IV квартал 2028 року"
+            },
+            {
+              "_key": "en",
+              "value": "Q4 2028"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Adults Only"
+                },
+                {
+                  "_key": "en",
+                  "value": "Adults Only"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Biohacking & Recovery Center"
+                },
+                {
+                  "_key": "en",
+                  "value": "Biohacking & Recovery Center"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "SPA та wellness"
+                },
+                {
+                  "_key": "en",
+                  "value": "SPA and wellness"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "Rooftop Pool"
+                },
+                {
+                  "_key": "en",
+                  "value": "Rooftop Pool"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторан і бар"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurant and bar"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "mini-coworking"
+                },
+                {
+                  "_key": "en",
+                  "value": "mini-coworking"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "переговорні кімнати"
+                },
+                {
+                  "_key": "en",
+                  "value": "meeting rooms"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "premium recovery services"
+                },
+                {
+                  "_key": "en",
+                  "value": "premium recovery services"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "підземний і гостьовий паркінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "underground and guest parking"
+                }
+              ]
+            }
+          ]
         },
         {
           "_key": "rock",
@@ -723,7 +1212,195 @@
                 "value": "ROCK section — apartments for business and growth"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Секція створена для ділової аудиторії, корпоративних команд, подій і професійних спільнот. Її ключова перевага для інвестора — окремий B2B-сценарій попиту, який допомагає залучати гостей не лише у високий туристичний сезон, а й у традиційно слабші періоди року."
+            },
+            {
+              "_key": "en",
+              "value": "The section is designed for business guests, corporate teams, events and professional communities. Its key advantage for an investor is a separate B2B demand scenario that helps attract guests not only in the peak tourist season, but also in traditionally slower periods of the year."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "2030 рік"
+            },
+            {
+              "_key": "en",
+              "value": "2030"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "конференц-зона"
+                },
+                {
+                  "_key": "en",
+                  "value": "conference area"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "MICE-простори"
+                },
+                {
+                  "_key": "en",
+                  "value": "MICE spaces"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "медійний центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "media centre"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "streaming-ready інфраструктура"
+                },
+                {
+                  "_key": "en",
+                  "value": "streaming-ready infrastructure"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "коворкінг"
+                },
+                {
+                  "_key": "en",
+                  "value": "coworking"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "переговорні кімнати"
+                },
+                {
+                  "_key": "en",
+                  "value": "meeting rooms"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "padel-корт"
+                },
+                {
+                  "_key": "en",
+                  "value": "padel court"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "rooftop"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooftop"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "ресторани"
+                },
+                {
+                  "_key": "en",
+                  "value": "restaurants"
+                }
+              ]
+            },
+            {
+              "_key": "f11",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "фітнес-центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "fitness centre"
+                }
+              ]
+            },
+            {
+              "_key": "f12",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "простори для приватних і корпоративних подій"
+                },
+                {
+                  "_key": "en",
+                  "value": "spaces for private and corporate events"
+                }
+              ]
+            }
+          ]
         },
         {
           "_key": "sun",
@@ -780,7 +1457,208 @@
                 "value": "SUN section — apartments for family holidays"
               }
             ]
-          }
+          },
+          "about": [
+            {
+              "_key": "uk",
+              "value": "Сімейний формат для відпочинку кількох поколінь, розрахований на довші заїзди та повторні візити. Для інвестора це сегмент із потенціалом стабільного family-попиту протягом року завдяки канікулам, святковим періодам і звичці родин повертатися у комфортні для них місця."
+            },
+            {
+              "_key": "en",
+              "value": "A family format for multi-generation holidays, designed for longer stays and repeat visits. For an investor, this is a segment with potential for stable year-round family demand thanks to school holidays, festive periods and families’ habit of returning to places where they feel comfortable."
+            }
+          ],
+          "commissioning": [
+            {
+              "_key": "uk",
+              "value": "2030 рік"
+            },
+            {
+              "_key": "en",
+              "value": "2030"
+            }
+          ],
+          "access": [
+            {
+              "_key": "uk",
+              "value": "Ski In / Ski Out, 5G"
+            },
+            {
+              "_key": "en",
+              "value": "Ski In / Ski Out, 5G"
+            }
+          ],
+          "features": [
+            {
+              "_key": "f1",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "прямий Ski In / Ski Out до траси 5G"
+                },
+                {
+                  "_key": "en",
+                  "value": "direct Ski In / Ski Out to slope 5G"
+                }
+              ]
+            },
+            {
+              "_key": "f2",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "сімейні апартаменти"
+                },
+                {
+                  "_key": "en",
+                  "value": "family apartments"
+                }
+              ]
+            },
+            {
+              "_key": "f3",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "multi-room формати"
+                },
+                {
+                  "_key": "en",
+                  "value": "multi-room formats"
+                }
+              ]
+            },
+            {
+              "_key": "f4",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "дитячий центр"
+                },
+                {
+                  "_key": "en",
+                  "value": "kids’ centre"
+                }
+              ]
+            },
+            {
+              "_key": "f5",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "SPA на два поверхи"
+                },
+                {
+                  "_key": "en",
+                  "value": "two-storey SPA"
+                }
+              ]
+            },
+            {
+              "_key": "f6",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "басейни"
+                },
+                {
+                  "_key": "en",
+                  "value": "swimming pools"
+                }
+              ]
+            },
+            {
+              "_key": "f7",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "скалодром"
+                },
+                {
+                  "_key": "en",
+                  "value": "climbing wall"
+                }
+              ]
+            },
+            {
+              "_key": "f8",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "мотузковий майданчик"
+                },
+                {
+                  "_key": "en",
+                  "value": "rope park"
+                }
+              ]
+            },
+            {
+              "_key": "f9",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "family-активності"
+                },
+                {
+                  "_key": "en",
+                  "value": "family activities"
+                }
+              ]
+            },
+            {
+              "_key": "f10",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "дитячі програми"
+                },
+                {
+                  "_key": "en",
+                  "value": "kids’ programmes"
+                }
+              ]
+            },
+            {
+              "_key": "f11",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "сімейний ресторан"
+                },
+                {
+                  "_key": "en",
+                  "value": "family restaurant"
+                }
+              ]
+            },
+            {
+              "_key": "f12",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "rooftop"
+                },
+                {
+                  "_key": "en",
+                  "value": "rooftop"
+                }
+              ]
+            },
+            {
+              "_key": "f13",
+              "label": [
+                {
+                  "_key": "uk",
+                  "value": "паркінг і сімейна логістика"
+                },
+                {
+                  "_key": "en",
+                  "value": "parking and family logistics"
+                }
+              ]
+            }
+          ]
         }
       ]
     },

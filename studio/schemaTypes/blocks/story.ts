@@ -1,7 +1,7 @@
 /** Блоки «Сезонність», «Три світи», «Інвестиційна модель». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { bool, linkField, photoField, str, titleLinesType } from '../lib/fields.ts';
 
 export const seasonTitleLine = titleLinesType('seasonTitleLine', 'plain');
@@ -10,6 +10,7 @@ export const season = defineType({
   name: 'season', title: 'Сезонність (відео)', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('season'),
     defineField({
       name: 'title', title: 'Заголовок', type: 'array', of: [{ type: 'seasonTitleLine' }], group: 'content',
@@ -46,16 +47,32 @@ export const worldsTitleLine = defineType({
   },
 });
 
+export const worldFeature = defineType({
+  name: 'worldFeature', title: 'Пункт інфраструктури', type: 'object',
+  fields: [text('label', { title: 'Текст' })],
+  preview: { select: { l: 'label' }, prepare: ({ l }) => ({ title: ukOf(l) }) },
+});
+
 export const world = defineType({
   name: 'world', title: 'Світ', type: 'object',
+  groups: [{ name: 'card', title: 'Картка', default: true }, { name: 'popup', title: 'Вікно «Детальніше»' }],
   fields: [
-    str('name', 'Назва світу', { required: true, description: 'WIND, ROCK, SUN — однаково для всіх мов.' }),
+    str('name', 'Назва світу', { required: true, group: 'card', description: 'WIND, ROCK, SUN — однаково для всіх мов.' }),
     texts('worldTexts', [
       defineField({ name: 'overline', title: 'Надпис над назвою', type: 'string' }),
       defineField({ name: 'subtitle', title: 'Підзаголовок', type: 'text', rows: 2 }),
-    ]),
-    linkField('cta', 'Кнопка'),
-    photoField('image', 'Фото'),
+    ], { group: 'card' }),
+    linkField('cta', 'Кнопка', { group: 'card', description: 'Кнопка відкриває вікно «Детальніше» цього світу. Адреса — запасна: куди веде кнопка, якщо вікно не завантажилось (зазвичай #forma).' }),
+    photoField('image', 'Фото', { group: 'card', description: 'Те саме фото — і в картці, і ліворуч у вікні «Детальніше».' }),
+    texts('worldPopupTexts', [
+      defineField({ name: 'about', title: 'Про секцію', type: 'text', rows: 5 }),
+      defineField({ name: 'commissioning', title: 'Введення в експлуатацію', type: 'string', description: 'Наприклад «IV квартал 2028 року».' }),
+      defineField({ name: 'access', title: 'Доступ до траси', type: 'string', description: 'Наприклад «Ski In / Ski Out, 5G».' }),
+    ], { name: 'popupTexts', title: 'Вікно «Детальніше»: тексти', group: 'popup' }),
+    defineField({
+      name: 'features', title: 'Ключова інфраструктура', type: 'array', of: [{ type: 'worldFeature' }], group: 'popup',
+      description: 'Пункти-«пігулки» у вікні «Детальніше», у цьому порядку.',
+    }),
   ],
   preview: { select: { name: 'name', g: 'texts', media: 'image' }, prepare: ({ name, g, media }) => ({ title: name, subtitle: ukOf(g, 'overline'), media }) },
 });
@@ -64,6 +81,7 @@ export const worlds = defineType({
   name: 'worlds', title: 'Три світи', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('worlds'),
     defineField({ name: 'title', title: 'Заголовок', type: 'array', of: [{ type: 'worldsTitleLine' }], group: 'content', validation: (r) => r.required().min(1) }),
     defineField({
@@ -91,6 +109,7 @@ export const model = defineType({
   name: 'model', title: 'Інвестиційна модель', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('model'),
     texts('modelTexts', [
       defineField({ name: 'title', title: 'Заголовок для програм читання з екрана', type: 'string', description: 'На сайті не видно, його озвучують програми для незрячих. TODO: текст чекає підтвердження.' }),

@@ -34,6 +34,7 @@ const SOURCES: Record<StoredLead['form'], string> = {
   final: 'фінальна форма',
   quiz: 'квіз «Розрахунок доходу»',
   apartment: 'попап апартаменту',
+  world: 'попап світу',
 };
 const CALC: Record<string, string> = { price: 'Вартість', first: 'Перший внесок', month: 'Платіж на місяць', income: 'Дохід на рік' };
 const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
@@ -152,6 +153,8 @@ export function buildCrmLead(lead: StoredLead, cfg: CrmSettings): Record<string,
   if (f.name && f.name.trim().length > 140) note.push(`Імʼя повністю: ${f.name.trim()}`);
   if (f.email && !contact.email) note.push(`E-mail: ${f.email.trim()}`);
   if (f.consent) note.push('Згода на обробку даних: так');
+  // Секция (попап мира): отдельного поля и объекта в CRM нет — в note (решение 2026-11-25)
+  if (f.world) note.push(`Секція: ${f.world.trim()}`);
 
   const body: Record<string, unknown> = { contact, added_at: lead.createdAt };
   if (cfg.source) body.source = cfg.source;

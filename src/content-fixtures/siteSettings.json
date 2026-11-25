@@ -1030,16 +1030,6 @@
           "_key": "en",
           "value": "We couldn't send your request. Please try again or call us"
         }
-      ],
-      "consent": [
-        {
-          "_key": "uk",
-          "value": "Потрібна ваша згода"
-        },
-        {
-          "_key": "en",
-          "value": "Your consent is required"
-        }
       ]
     }
   },
@@ -1218,6 +1208,138 @@
         }
       ]
     },
+    "world": {
+      "tabsLabel": [
+        {
+          "_key": "uk",
+          "value": "Секції"
+        },
+        {
+          "_key": "en",
+          "value": "Sections"
+        }
+      ],
+      "aboutLabel": [
+        {
+          "_key": "uk",
+          "value": "Про секцію"
+        },
+        {
+          "_key": "en",
+          "value": "About the section"
+        }
+      ],
+      "commissioningLabel": [
+        {
+          "_key": "uk",
+          "value": "Введення в експлуатацію"
+        },
+        {
+          "_key": "en",
+          "value": "Completion"
+        }
+      ],
+      "accessLabel": [
+        {
+          "_key": "uk",
+          "value": "Доступ до траси"
+        },
+        {
+          "_key": "en",
+          "value": "Slope access"
+        }
+      ],
+      "featuresLabel": [
+        {
+          "_key": "uk",
+          "value": "Ключова інфраструктура"
+        },
+        {
+          "_key": "en",
+          "value": "Key amenities"
+        }
+      ],
+      "formTitle": [
+        {
+          "_key": "uk",
+          "value": "Отримайте матеріали по {name}"
+        },
+        {
+          "_key": "en",
+          "value": "Get the {name} materials"
+        }
+      ],
+      "formText": [
+        {
+          "_key": "uk",
+          "value": "Актуальні планування, доступні апартаменти, умови придбання та персональний розрахунок прогнозованої дохідності."
+        },
+        {
+          "_key": "en",
+          "value": "Current floor plans, available apartments, purchase terms and a personal projected yield calculation."
+        }
+      ],
+      "nameLabel": [
+        {
+          "_key": "uk",
+          "value": "Ім’я"
+        },
+        {
+          "_key": "en",
+          "value": "Name"
+        }
+      ],
+      "phoneLabel": [
+        {
+          "_key": "uk",
+          "value": "Телефон"
+        },
+        {
+          "_key": "en",
+          "value": "Phone"
+        }
+      ],
+      "contactLegend": [
+        {
+          "_key": "uk",
+          "value": "Зручний спосіб зв’язку"
+        },
+        {
+          "_key": "en",
+          "value": "Preferred contact method"
+        }
+      ],
+      "submitLabel": [
+        {
+          "_key": "uk",
+          "value": "Отримати матеріали та розрахунок"
+        },
+        {
+          "_key": "en",
+          "value": "Get materials and calculation"
+        }
+      ],
+      "consentText": [
+        {
+          "_key": "uk",
+          "value": "Натискаючи кнопку, ви погоджуєтесь з {link}."
+        },
+        {
+          "_key": "en",
+          "value": "By clicking the button, you agree to the {link}."
+        }
+      ],
+      "consentLinkLabel": [
+        {
+          "_key": "uk",
+          "value": "політикою конфіденційності"
+        },
+        {
+          "_key": "en",
+          "value": "privacy policy"
+        }
+      ]
+    },
     "quiz": {
       "tabLabel": [
         {
@@ -1336,26 +1458,6 @@
           ]
         }
       ],
-      "contactTitle": [
-        {
-          "_key": "uk",
-          "value": "Як ми можемо з вами зв'язатися?"
-        },
-        {
-          "_key": "en",
-          "value": "How can we contact you?"
-        }
-      ],
-      "contactText": [
-        {
-          "_key": "uk",
-          "value": "Будь ласка, заповніть форму нижче"
-        },
-        {
-          "_key": "en",
-          "value": "Please fill in the form below"
-        }
-      ],
       "nameLabel": [
         {
           "_key": "uk",
@@ -1472,36 +1574,6 @@
           "value": "xx xxx xxxx*"
         }
       ],
-      "emailLabel": [
-        {
-          "_key": "uk",
-          "value": "E-mail"
-        },
-        {
-          "_key": "en",
-          "value": "E-mail"
-        }
-      ],
-      "consentText": [
-        {
-          "_key": "uk",
-          "value": "Я погоджуюсь з"
-        },
-        {
-          "_key": "en",
-          "value": "I agree to the"
-        }
-      ],
-      "consentLinkLabel": [
-        {
-          "_key": "uk",
-          "value": "політикою конфіденційності"
-        },
-        {
-          "_key": "en",
-          "value": "privacy policy"
-        }
-      ],
       "backLabel": [
         {
           "_key": "uk",
@@ -1530,6 +1602,240 @@
         {
           "_key": "en",
           "value": "Get the calculation"
+        }
+      ],
+      "messengerTitle": [
+        {
+          "_key": "uk",
+          "value": "У який месенджер вам надіслати інформацію?"
+        },
+        {
+          "_key": "en",
+          "value": "Which messenger should we send the information to?"
+        }
+      ],
+      "messengerText": [
+        {
+          "_key": "uk",
+          "value": "Фінмодель, планування та умови оплати прийдуть одним повідомленням"
+        },
+        {
+          "_key": "en",
+          "value": "The financial model, floor plans and payment terms will arrive in one message"
+        }
+      ],
+      "messengerGroupLabel": [
+        {
+          "_key": "uk",
+          "value": "Месенджер"
+        },
+        {
+          "_key": "en",
+          "value": "Messenger"
+        }
+      ],
+      "formTitle": [
+        {
+          "_key": "uk",
+          "value": "Будь ласка, заповніть форму нижче"
+        },
+        {
+          "_key": "en",
+          "value": "Please fill in the form below"
+        }
+      ],
+      "managerName": [
+        {
+          "_key": "uk",
+          "value": "Уляна Белінська"
+        },
+        {
+          "_key": "en",
+          "value": "Uliana Belinska"
+        }
+      ],
+      "managerRole": [
+        {
+          "_key": "uk",
+          "value": "Експерт з інвестицій"
+        },
+        {
+          "_key": "en",
+          "value": "Investment expert"
+        }
+      ],
+      "onlineLabel": [
+        {
+          "_key": "uk",
+          "value": "Онлайн"
+        },
+        {
+          "_key": "en",
+          "value": "Online"
+        }
+      ],
+      "bubbleFormat": [
+        {
+          "_key": "uk",
+          "value": "Оберіть формат, а я підготую розрахунок дохідності саме для нього"
+        },
+        {
+          "_key": "en",
+          "value": "Choose a format and I’ll prepare a yield calculation for it"
+        }
+      ],
+      "bubbleBudget": [
+        {
+          "_key": "uk",
+          "value": "Чудовий вибір! Вкажіть бюджет, і я підберу апартаменти з найкращою дохідністю"
+        },
+        {
+          "_key": "en",
+          "value": "Great choice! Tell me your budget and I’ll pick the apartments with the best yield"
+        }
+      ],
+      "bubbleMessenger": [
+        {
+          "_key": "uk",
+          "value": "Де вам зручніше спілкуватися? Надішлю матеріали саме туди"
+        },
+        {
+          "_key": "en",
+          "value": "Where is it easier for you to talk? I’ll send the materials there"
+        }
+      ],
+      "bubbleContact": [
+        {
+          "_key": "uk",
+          "value": "Залишився останній крок: залиште номер, і я надішлю розрахунок у {messenger}"
+        },
+        {
+          "_key": "en",
+          "value": "One last step: leave your number and I’ll send the calculation to {messenger}"
+        }
+      ],
+      "bonusesTitle": [
+        {
+          "_key": "uk",
+          "value": "Ваші бонуси"
+        },
+        {
+          "_key": "en",
+          "value": "Your bonuses"
+        }
+      ],
+      "bonusLockedLabel": [
+        {
+          "_key": "uk",
+          "value": "Відкриється після заявки"
+        },
+        {
+          "_key": "en",
+          "value": "Unlocks after you submit the request"
+        }
+      ],
+      "bonusOpenLabel": [
+        {
+          "_key": "uk",
+          "value": "Доступно"
+        },
+        {
+          "_key": "en",
+          "value": "Unlocked"
+        }
+      ],
+      "managerPhoto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "fixture:updates/2026-11-25/quiz/img/manager-ulyana.jpg"
+        },
+        "hotspot": {
+          "x": 0.5,
+          "y": 0.4
+        },
+        "alt": [
+          {
+            "_key": "uk",
+            "value": "Уляна Белінська"
+          },
+          {
+            "_key": "en",
+            "value": "Uliana Belinska"
+          }
+        ]
+      },
+      "bonuses": [
+        {
+          "_key": "plans",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Добірка актуальних планувань з цінами"
+            },
+            {
+              "_key": "en",
+              "value": "Current floor plans with prices"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:catalog-plans.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "payback",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Розрахунок прогнозованої окупності"
+            },
+            {
+              "_key": "en",
+              "value": "Projected payback calculation"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:final-form.jpg"
+            },
+            "hotspot": {
+              "x": 0.28,
+              "y": 0.22
+            },
+            "decorative": true
+          }
+        },
+        {
+          "_key": "terms",
+          "title": [
+            {
+              "_key": "uk",
+              "value": "Умови оплати та розтермінування"
+            },
+            {
+              "_key": "en",
+              "value": "Payment terms and instalments"
+            }
+          ],
+          "image": {
+            "_type": "image",
+            "asset": {
+              "_ref": "fixture:card-income.jpg"
+            },
+            "hotspot": {
+              "x": 0.5,
+              "y": 0.45
+            },
+            "decorative": true
+          }
         }
       ]
     }

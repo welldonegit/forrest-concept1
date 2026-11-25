@@ -1,0 +1,146 @@
+/* Окно «Детальніше» мира WIND / ROCK / SUN (выгрузка 2026-11-25, section-popups). Разметка — components/popups/WorldPopup.astro.
+   Состояния: data-w — текущий мир (0/1/2), data-open — окно раскрыто (ставит world.js после showModal). */
+.text-wpop-name{font-family:var(--font-display); font-size:var(--type-wpop-name-size); line-height:var(--type-wpop-name-lh); letter-spacing:var(--type-wpop-name-ls); font-weight:500}
+
+.wpop__back{position:absolute; inset:0; background:var(--wpop-back); opacity:0; transition:opacity var(--wpop-back-out) ease}
+.wpop[data-open] .wpop__back{opacity:1; transition-duration:var(--wpop-back-in)}
+
+.wpop__panel{
+  position:absolute; inset:var(--wpop-inset); overflow:hidden;
+  border-radius:var(--wpop-radius); background:var(--air); color:var(--text-primary);
+  clip-path:inset(100% 0 0 0 round var(--wpop-radius));
+  transition:clip-path var(--wpop-close-dur) var(--ease-in-out-quart);
+}
+.wpop[data-open] .wpop__panel{clip-path:inset(0 0 0 0 round var(--wpop-radius)); transition-duration:var(--wpop-open-dur)}
+
+.wpop__grid{position:absolute; inset:0; display:grid; grid-template-columns:var(--wpop-cols)}
+
+/* слева: фото мира, затемнение, название */
+.wpop__left{position:relative; overflow:hidden; background:var(--night-bark)}
+.wpop__img{
+  position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover;
+  opacity:0; transform:scale(var(--wpop-img-from));
+  transition:opacity var(--wpop-img-fade) ease, transform var(--wpop-img-dur) var(--ease-out-quint);
+}
+.wpop[data-open] .wpop__img{transform:none}
+.wpop[data-w="0"] .wpop__img[data-w="0"], .wpop[data-w="1"] .wpop__img[data-w="1"], .wpop[data-w="2"] .wpop__img[data-w="2"]{opacity:1}
+.wpop__shade{position:absolute; inset:0; background:var(--wpop-shade)}
+.wpop__intro{position:absolute; inset-inline:0; inset-block-end:0; padding:var(--wpop-intro-pad); color:var(--air)}
+.wpop__intro .wpop__w{flex-direction:column; gap:var(--wpop-intro-gap)}
+.wpop__overline{letter-spacing:var(--ls-chip)}
+.wpop__name{margin:0; overflow-wrap:anywhere}
+.wpop__tagline{margin:0; max-inline-size:var(--wpop-tagline-max)}
+
+/* миры: виден текущий, при смене — проявление снизу */
+.wpop__w{display:none}
+.wpop[data-w="0"] .wpop__w[data-w="0"], .wpop[data-w="1"] .wpop__w[data-w="1"], .wpop[data-w="2"] .wpop__w[data-w="2"]{
+  display:flex; flex-direction:column; animation:wpop-switch var(--wpop-switch-dur) var(--ease-out-quint);
+}
+@keyframes wpop-switch{from{opacity:0; transform:translateY(var(--wpop-switch-shift))}}
+
+/* тексты поднимаются после раскрытия панели */
+.wpop__rise{opacity:0; transform:translateY(var(--wpop-rise-shift)); transition:opacity var(--wpop-rise-out), transform var(--wpop-rise-out)}
+.wpop[data-open] .wpop__rise{
+  opacity:1; transform:none;
+  transition:opacity var(--wpop-rise-fade) var(--ease-out-quint) var(--wpop-rise-delay), transform var(--wpop-rise-dur) var(--ease-out-quint) var(--wpop-rise-delay);
+}
+.wpop[data-open] .wpop__rise--late{transition-delay:var(--wpop-rise-delay-late)}
+
+/* справа: вкладки и «Закрити» над прокручиваемым содержимым */
+.wpop__right{position:relative; display:flex; flex-direction:column; overflow-y:auto; overscroll-behavior:contain}
+.wpop__head{
+  position:sticky; inset-block-start:0; z-index:2;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--wpop-head-gap);
+  padding:var(--wpop-head-pad-block) var(--wpop-pad-inline); background:var(--air);
+}
+.wpop__tabs{display:flex; flex-wrap:wrap; column-gap:var(--wpop-tabs-gap)}
+.wpop__tab{
+  min-block-size:var(--tap-target); padding:var(--wpop-tab-pad-top) 0 var(--wpop-tab-pad-bottom);
+  border:0; font:inherit; color:var(--text-muted); cursor:pointer;
+  background:linear-gradient(currentColor, currentColor) 0 100% / 0 var(--wpop-tab-line) no-repeat;
+  transition:color var(--wpop-tab-dur), background-size var(--wpop-tab-line-dur) var(--ease-out-quint);
+}
+.wpop__tab:hover, .wpop__tab[aria-selected=true]{color:var(--text-primary)}
+.wpop__tab[aria-selected=true]{background-size:100% var(--wpop-tab-line)}
+.wpop__x{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  inline-size:var(--wpop-x); block-size:var(--wpop-x); border:0; border-radius:var(--radius-pill); cursor:pointer;
+  background:var(--air); color:var(--text-primary); box-shadow:inset 0 0 0 var(--border-1) var(--text-primary);
+  transition:background var(--wpop-hover-dur), color var(--wpop-hover-dur);
+}
+.wpop__x:hover{background:var(--text-primary); color:var(--air)}
+.wpop__x svg{inline-size:var(--wpop-x-icon); block-size:var(--wpop-x-icon)}
+
+.wpop__body{padding:var(--wpop-body-pad-top) var(--wpop-pad-inline) var(--wpop-body-pad-bottom)}
+.wpop__pane{max-inline-size:var(--wpop-text-max)}
+.wpop__label{color:var(--text-muted)}
+.wpop__about{display:flex; flex-direction:column; gap:var(--wpop-section-gap)}
+.wpop__text{margin:0; text-wrap:pretty}
+.wpop__facts{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:var(--wpop-facts-gap); margin:var(--wpop-facts-margin) 0}
+.wpop__fact{display:flex; flex-direction:column; gap:var(--wpop-fact-gap)}
+.wpop__fact dd{margin:0}
+.wpop__infra{display:flex; flex-direction:column; gap:var(--wpop-infra-gap)}
+.wpop .wpop__chips{display:flex; flex-wrap:wrap; gap:var(--wpop-chips-gap); margin:0; padding:0; list-style:none}
+.wpop__chip{
+  display:flex; align-items:center; min-block-size:var(--wpop-chip-h);
+  padding:var(--wpop-chip-pad-block) var(--wpop-chip-pad-inline); border-radius:var(--radius-pill); background:var(--white-sand);
+}
+
+/* форма заявки */
+.wpop__card{margin-block-start:var(--wpop-card-mt); padding:var(--wpop-card-pad); border-radius:var(--wpop-card-radius); background:var(--white-sand)}
+.wpop__form{display:flex; flex-direction:column; gap:var(--wpop-form-gap)}
+.wpop__form-head{display:flex; flex-direction:column; gap:var(--wpop-form-head-gap)}
+.wpop__form-head h3{margin:0}
+.wpop__form-text{margin:0; max-inline-size:var(--wpop-form-text-max); text-wrap:pretty}
+.wpop__fields{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--wpop-fields-gap)}
+.wpop__field{display:flex; flex-direction:column; gap:var(--wpop-field-gap)}
+.wpop__input{
+  inline-size:100%; block-size:var(--wpop-input-h); padding:0 var(--wpop-input-pad);
+  border:var(--border-1) solid var(--text-muted); border-radius:var(--wpop-input-radius);
+  background:var(--air); color:var(--text-primary); outline:none;
+  transition:border-color var(--wpop-hover-dur), box-shadow var(--wpop-hover-dur);
+}
+.wpop__input:hover, .wpop__input:focus{border-color:var(--text-primary)}
+.wpop__input:focus, .wpop__input[aria-invalid=true]{box-shadow:inset 0 0 0 var(--border-1) var(--text-primary)}
+.wpop__input:focus-visible{outline:var(--focus-width) solid var(--text-primary); outline-offset:var(--focus-offset)}
+.wpop__err{margin:0; color:var(--text-primary)}
+.wpop__err[hidden]{display:none}
+.wpop__contact{grid-column:1 / -1; min-inline-size:0; margin:0; padding:0; border:0}
+.wpop__contact legend{padding:0; margin-block-end:var(--wpop-field-gap)}
+.wpop__opts{display:flex; flex-wrap:wrap; gap:var(--wpop-chips-gap)}
+.wpop__opt{position:relative; display:block}
+.wpop__opt input{position:absolute; inset:0; margin:0; opacity:0; cursor:pointer}
+.wpop__opt span{
+  display:flex; align-items:center; justify-content:center; min-block-size:var(--wpop-opt-h); padding:0 var(--wpop-opt-pad);
+  border:var(--border-1) solid var(--text-muted); border-radius:var(--radius-pill); background:var(--air); color:var(--text-primary);
+  transition:background var(--wpop-hover-dur), border-color var(--wpop-hover-dur), color var(--wpop-hover-dur);
+}
+.wpop__opt:hover span{border-color:var(--text-primary)}
+.wpop__opt input:checked + span{background:var(--text-primary); border-color:var(--text-primary); color:var(--air)}
+.wpop__opt input:focus-visible + span{outline:var(--focus-width) solid var(--text-primary); outline-offset:var(--focus-offset)}
+.wpop__send{display:flex; flex-direction:column; gap:var(--wpop-send-gap)}
+.wpop__submit{
+  min-block-size:var(--wpop-submit-h); padding:var(--space-8) var(--wpop-input-pad);
+  border:0; border-radius:var(--radius-pill); background:var(--text-primary); color:var(--air); cursor:pointer;
+  transition:background var(--wpop-submit-dur);
+}
+.wpop__submit:hover{background:var(--night-bark)}
+.wpop__submit:disabled{cursor:progress}
+.wpop__submit:focus-visible, .wpop__x:focus-visible, .wpop__tab:focus-visible{outline:var(--focus-width) solid var(--text-primary); outline-offset:var(--focus-offset)}
+.wpop__consent{margin:0}
+.wpop__consent a{color:inherit; text-decoration:underline; text-underline-offset:.15em}
+
+/* узкий экран: фото сверху, всё окно прокручивается одной колонкой */
+@media (max-width:899px){
+  .wpop__grid{display:block; overflow-y:auto; overscroll-behavior:contain}
+  .wpop__left{block-size:var(--wpop-left-h)}
+  .wpop__right{overflow:visible}
+  .wpop__fields, .wpop__facts{grid-template-columns:minmax(0,1fr)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .wpop__back, .wpop__panel, .wpop__img, .wpop__rise, .wpop__tab, .wpop__x, .wpop__input, .wpop__opt span, .wpop__submit{transition:none}
+  .wpop__img{transform:none}
+  .wpop__rise{opacity:1; transform:none}
+  .wpop .wpop__w{animation:none}
+}

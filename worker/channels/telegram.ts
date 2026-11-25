@@ -24,6 +24,7 @@ const SOURCES: Record<StoredLead['form'], string> = {
   final: 'Фінальна форма',
   quiz: 'Квіз «Розрахунок доходу»',
   apartment: 'Попап апартаменту',
+  world: 'Попап світу',
 };
 
 /** Способ связи приходит украинской подписью из Sanity; коды — запасной вариант. */
@@ -34,6 +35,7 @@ const FIELDS: [keyof StoredLead['fields'], string][] = [
   ['phone', 'Телефон'],
   ['email', 'E-mail'],
   ['contactMethod', 'Звʼязок'],
+  ['world', 'Секція'],
   ['apartment', 'Апартамент'],
   ['format', 'Формат'],
   // финальная форма: «Який формат інвестиції вас цікавить?» — цель покупки
@@ -102,8 +104,8 @@ export function formatLeadMessage(lead: StoredLead): string {
   for (const [key, label] of FIELDS) {
     const raw = lead.fields[key];
     if (typeof raw !== 'string' || !raw.trim()) continue;
-    // в квизе формат и бюджет — это ответы; выводим один раз, в блоке ответов
-    if ((key === 'format' || key === 'budget') && answered.has(raw.trim())) continue;
+    // в квизе формат, бюджет и месенджер — это ответы; выводим один раз, в блоке ответов
+    if ((key === 'format' || key === 'budget' || key === 'contactMethod') && answered.has(raw.trim())) continue;
     if (key === 'format') {
       // «Фінмодель»: поле формы «Площа апартаментів» — формат и его площадь
       const area = areaText(lead.fields.areaFrom, lead.fields.areaTo);

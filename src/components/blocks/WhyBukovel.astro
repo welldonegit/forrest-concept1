@@ -1,0 +1,42 @@
+---
+/**
+ * «Буковель. Сформований попит упродовж року» (выгрузка 2026-11-25: design-export/updates/2026-11-25/ukraine-bukovel/).
+ * Заголовок с абзацем и строки «число — заголовок — текст» с линиями между ними.
+ * Если сразу перед блоком — «Фото між блоками», заголовок заходит на фото (why.css).
+ * Тексты — блок whyBukovel документа landing; виден на языках из поля «Мови» (на старте — только en).
+ */
+import type { WhyBukovelBlock } from '../../lib/content';
+
+interface Props {
+  block: WhyBukovelBlock;
+}
+
+const { block } = Astro.props;
+const titleId = `${block.anchor}-title`;
+// задержки — как в выгрузке: строки заголовка .05/.2, абзац .15; в строке число .12, заголовок .3, текст .42 с
+const LINE_D = [0.05, 0.2];
+const ROW = { value: 0.12, title: 0.3, text: 0.42 };
+const d = (s: number) => `--d:${s.toFixed(2)}s`;
+---
+<section class="why why-bv" id={block.anchor} aria-labelledby={titleId}>
+  <div class="why__head" data-reveal>
+    <h2 class="why__title text-display-sm" id={titleId}>
+      {block.title.map((line, i) => (
+        <span class:list={['why__line', line.muted && 'why__line--muted']} data-line style={d(LINE_D[i] ?? LINE_D[LINE_D.length - 1] + 0.15 * (i - 1))}>{line.text}</span>
+      ))}
+    </h2>
+    <p class="why__lead text-svc-lead" style={d(0.15)}>{block.lead}</p>
+  </div>
+  <ul class="why-bv__rows" role="list" data-reveal>
+    {block.rows.map((r) => (
+      <li class="why-bv__row" data-reveal>
+        <p class="why__value why-bv__value text-why-row" data-line style={d(ROW.value)}>
+          <span>{r.value}</span>
+          {r.unit && <span class="why__unit">{r.unit}</span>}
+        </p>
+        <h3 class="text-infra-title" data-rise style={d(ROW.title)}>{r.title}</h3>
+        <p class="why-bv__text text-team-text" data-rise style={d(ROW.text)}>{r.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>

@@ -54,6 +54,15 @@ export const quizBudget = defineType({
   preview: { select: { l: 'label' }, prepare: ({ l }) => ({ title: ukOf(l) }) },
 });
 
+export const quizBonus = defineType({
+  name: 'quizBonus', title: 'Бонус', type: 'object',
+  fields: [
+    text('title', { title: 'Назва бонусу' }),
+    photoField('image', 'Мініатюра', { description: 'Маленьке фото поруч із назвою (44 px). Зазвичай декоративне.' }),
+  ],
+  preview: { select: { t: 'title', media: 'image' }, prepare: ({ t, media }) => ({ title: ukOf(t), media }) },
+});
+
 export const quizCountry = defineType({
   name: 'quizCountry', title: 'Країна', type: 'object',
   fields: [str('code', 'Телефонний код', { required: true, description: 'Наприклад «+380».' }), text('label', { title: 'Назва країни' })],
@@ -147,7 +156,7 @@ export const siteSettings = defineType({
           name: 'errors', title: 'Тексти помилок', type: 'object',
           fields: [texts('formErrorTexts', [
             S('required', 'Порожнє обовʼязкове поле'), S('phone', 'Неправильний телефон'),
-            S('turnstile', 'Не пройдено перевірку «я не робот»'), S('send', 'Не вдалося відправити'), S('consent', 'Немає згоди (квіз)'),
+            S('turnstile', 'Не пройдено перевірку «я не робот»'), S('send', 'Не вдалося відправити'),
           ])],
         }),
       ],
@@ -170,16 +179,43 @@ export const siteSettings = defineType({
           fields: [texts('popupVideoTexts', [S('dialogLabel', 'Назва вікна'), S('closeLabel', 'Кнопка «Закрити»'), S('frameTitle', 'Назва відео')])],
         }),
         defineField({
+          name: 'world', title: 'Вікно «Детальніше» світу (WIND, ROCK, SUN)', type: 'object',
+          description: 'Спільні підписи вікна. Тексти кожного світу — у блоці «Три світи» → світ → «Вікно «Детальніше»». Способи звʼязку — «Форми» → способи звʼязку.',
+          fields: [texts('popupWorldTexts', [
+            S('tabsLabel', 'Назва перемикача світів (для програм читання з екрана)'),
+            S('aboutLabel', 'Підпис «Про секцію»'), S('commissioningLabel', 'Підпис «Введення в експлуатацію»'),
+            S('accessLabel', 'Підпис «Доступ до траси»'), S('featuresLabel', 'Підпис «Ключова інфраструктура»'),
+            S('formTitle', 'Заголовок форми', '{name} — назва світу: «Отримайте матеріали по {name}».'),
+            T('formText', 'Текст під заголовком форми'),
+            S('nameLabel', 'Підпис поля «Імʼя»'), S('phoneLabel', 'Підпис поля «Телефон»'), S('contactLegend', 'Підпис «Зручний спосіб звʼязку»'),
+            S('submitLabel', 'Кнопка відправки'),
+            T('consentText', 'Текст під кнопкою', '{link} — місце посилання на політику конфіденційності (Форми → Політика конфіденційності).'),
+            S('consentLinkLabel', 'Текст посилання на політику'),
+          ])],
+        }),
+        defineField({
           name: 'quiz', title: 'Квіз «Розрахувати дохід»', type: 'object',
           fields: [
             texts('popupQuizTexts', [
-              S('tabLabel', 'Бічна вкладка'), S('tabAriaLabel', 'Бічна вкладка (для програм читання з екрана)'), S('eyebrow', 'Надпис над кроком'),
-              S('formatTitle', 'Крок 1: заголовок'), S('budgetTitle', 'Крок 2: заголовок'), S('contactTitle', 'Крок 3: заголовок'),
-              T('contactText', 'Крок 3: текст'), S('nameLabel', 'Підпис поля «Імʼя»'), S('countryLabel', 'Підпис «Країна»'),
-              S('phonePlaceholder', 'Підказка в полі телефону'), S('emailLabel', 'Підпис поля email'),
-              T('consentText', 'Текст згоди', '{link} — місце посилання.'), S('consentLinkLabel', 'Текст посилання в згоді'),
+              S('tabLabel', 'Бічна вкладка'), S('tabAriaLabel', 'Бічна вкладка (для програм читання з екрана)'), S('eyebrow', 'Надпис над кроками'),
+              S('formatTitle', 'Крок 1: заголовок'), S('budgetTitle', 'Крок 2: заголовок'),
+              S('messengerTitle', 'Крок 3: заголовок'), T('messengerText', 'Крок 3: текст під заголовком'),
+              S('messengerGroupLabel', 'Крок 3: назва групи (для програм читання з екрана)'),
+              S('formTitle', 'Крок 4: заголовок'), S('nameLabel', 'Підпис поля «Імʼя»'), S('countryLabel', 'Підпис «Код країни»'),
+              S('phonePlaceholder', 'Підказка в полі телефону'),
               S('backLabel', 'Кнопка «Назад»'), S('nextLabel', 'Кнопка «Далі»'), S('submitLabel', 'Кнопка відправки'),
+              S('managerName', 'Менеджер: імʼя'), S('managerRole', 'Менеджер: посада'), S('onlineLabel', 'Позначка «Онлайн» (для програм читання з екрана)'),
+              T('bubbleFormat', 'Репліка менеджера, крок 1'), T('bubbleBudget', 'Репліка менеджера, крок 2'),
+              T('bubbleMessenger', 'Репліка менеджера, крок 3'),
+              T('bubbleContact', 'Репліка менеджера, крок 4', '{messenger} — назва обраного месенджера.'),
+              S('bonusesTitle', 'Заголовок «Ваші бонуси»'), S('bonusLockedLabel', 'Бонус закритий (для програм читання з екрана)'),
+              S('bonusOpenLabel', 'Бонус відкритий (для програм читання з екрана)'),
             ]),
+            photoField('managerPhoto', 'Менеджер: фото', { description: 'Квадратне фото, обличчя по центру. На сайті — кружок 56 px.' }),
+            defineField({
+              name: 'bonuses', title: 'Бонуси', type: 'array', of: [{ type: 'quizBonus' }],
+              description: 'Список «Ваші бонуси» біля менеджера. Відкриваються на кроці з формою.',
+            }),
             defineField({ name: 'budgets', title: 'Варіанти бюджету', type: 'array', of: [{ type: 'quizBudget' }] }),
             defineField({ name: 'countries', title: 'Країни', type: 'array', of: [{ type: 'quizCountry' }] }),
           ],
@@ -187,8 +223,8 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
-      name: 'privacyPolicy', title: 'Політика конфіденційності у згоді', type: 'reference', to: [{ type: 'legalDocument' }], group: 'forms',
-      description: 'Документ, на який веде посилання в згоді на обробку даних (квіз). Відкривається в новій вкладці.',
+      name: 'privacyPolicy', title: 'Політика конфіденційності', type: 'reference', to: [{ type: 'legalDocument' }], group: 'forms',
+      description: 'Документ, на який веде посилання «політикою конфіденційності» у формах. Відкривається в новій вкладці.',
     }),
     defineField({
       name: 'archivePage', title: 'Сторінка «Архів звітів»', type: 'object', group: 'pages',

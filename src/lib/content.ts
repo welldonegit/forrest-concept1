@@ -129,6 +129,7 @@ const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
   : import.meta.glob<ImageMetadata>(
   [
     '/design-export/assets/photos/hero-summer.jpg',
+    '/design-export/updates/2026-11-25/ukraine-bukovel/img/bukovel-hills.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
     '/design-export/assets/photos/footer-bridge.jpg',
@@ -159,6 +160,7 @@ const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
     '/design-export/assets/photos/catalog-plans.jpg',
     '/design-export/final-form.jpg',
     '/design-export/manager.jpg',
+    '/design-export/updates/2026-11-25/quiz/img/manager-ulyana.jpg',
     '/design-export/superior-room.jpg',
     '/design-export/deluxe-room.jpg',
     '/design-export/family-room.jpg',
@@ -295,7 +297,7 @@ export interface SiteSettings {
   notFoundPage: { seoTitle: string; message: string; homeButton: string };
   /** Страницы документов: «На головну», заголовок оглавления, подпись перед датой редакции. */
   documentPage: { backLabel: string; tocTitle: string; editionLabel: string };
-  /** Политика конфиденциальности — ссылка в согласии квиза. */
+  /** Политика конфиденциальности — ссылка в подписи под формами. */
   privacyPolicy?: DocumentLink;
   /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
   analytics?: { gtmId?: string };
@@ -307,14 +309,27 @@ export interface SiteSettings {
       submitLabel: string; planLabel: string; photoLabel: string; prevLabel: string; nextLabel: string;
     };
     video: { dialogLabel: string; closeLabel: string; frameTitle: string };
+    /** Окно «Детальніше» мира: общие подписи. {name} — название мира, {link} — ссылка на политику. */
+    world: {
+      tabsLabel: string; aboutLabel: string; commissioningLabel: string; accessLabel: string; featuresLabel: string;
+      formTitle: string; formText: string; nameLabel: string; phoneLabel: string; contactLegend: string;
+      submitLabel: string; consentText: string; consentLinkLabel: string;
+    };
     quiz: {
       tabLabel: string; tabAriaLabel: string; eyebrow: string;
       formatTitle: string; budgetTitle: string; budgets: { _key: string; label: string }[];
-      contactTitle: string; contactText: string; nameLabel: string; countryLabel: string;
+      messengerTitle: string; messengerText: string; messengerGroupLabel: string;
+      formTitle: string; nameLabel: string; countryLabel: string;
       /** code — телефонный код страны (+380); не переводится. */
       countries: { _key: string; code: string; label: string }[];
-      phonePlaceholder: string; emailLabel: string; consentText: string; consentLinkLabel: string;
+      phonePlaceholder: string;
       backLabel: string; nextLabel: string; submitLabel: string;
+      /** Менеджер в боковой панели квиза (свой, не siteSettings.manager — так в выгрузке 2026-11-25). */
+      managerName: string; managerRole: string; onlineLabel: string; managerPhoto: SanityImage;
+      /** Реплики менеджера по шагам; в bubbleContact {messenger} — выбранный месенджер. */
+      bubbleFormat: string; bubbleBudget: string; bubbleMessenger: string; bubbleContact: string;
+      bonusesTitle: string; bonusLockedLabel: string; bonusOpenLabel: string;
+      bonuses: { _key: string; title: string; image: SanityImage }[];
     };
   };
   header: {
@@ -364,7 +379,7 @@ export interface SiteSettings {
     successTitle: string;
     successText: string;
     /** Тексты ошибок: пустое обязательное поле, неверный телефон, Turnstile не пройден, ошибка отправки, нет согласия (квиз). */
-    errors: { required: string; phone: string; turnstile: string; send: string; consent: string };
+    errors: { required: string; phone: string; turnstile: string; send: string };
   };
   footer: {
     address: string;
@@ -446,8 +461,14 @@ export interface World {
   overline: string;
   name: string;
   subtitle: string;
+  /** Кнопка открывает окно «Детальніше» мира; href — запасной адрес без JS. */
   cta: { label: string; href: string };
   image: SanityImage;
+  /** Окно «Детальніше» (выгрузка 2026-11-25, section-popups). */
+  about: string;
+  commissioning: string;
+  access: string;
+  features: { _key: string; label: string }[];
 }
 
 export interface WorldsBlock {
@@ -845,14 +866,59 @@ export interface FaqBlock {
   items: FaqItem[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
+/** Строка заголовка блоков ukraine-bukovel: muted — приглушённым цветом. */
+export interface WhyTitleLine { _key: string; text: string; muted?: boolean }
+
+/** «Переваги інвестування в Україну» (выгрузка 2026-11-25, ukraine-bukovel). */
+export interface WhyUkraineBlock {
+  _type: 'whyUkraine';
+  _key: string;
+  anchor: string;
+  title: WhyTitleLine[];
+  lead: string;
+  cards: {
+    _key: string;
+    value?: string;
+    prefix?: string;
+    unit?: string;
+    title: string;
+    text: string;
+    visual?: 'none' | 'bar' | 'stars';
+    barPercent?: number;
+    dark?: boolean;
+  }[];
+}
+
+/** Фото на всю ширину между блоками: верх и низ растворяются в фоне (статичная маска). */
+export interface PhotoBandBlock {
+  _type: 'photoBand';
+  _key: string;
+  image: SanityImage;
+}
+
+/** «Буковель. Сформований попит упродовж року». */
+export interface WhyBukovelBlock {
+  _type: 'whyBukovel';
+  _key: string;
+  anchor: string;
+  title: WhyTitleLine[];
+  lead: string;
+  rows: { _key: string; value: string; unit?: string; title: string; text: string }[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | WhyUkraineBlock | PhotoBandBlock | WhyBukovelBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return linkDocuments(localize<SiteSettings>(deref(source.siteSettings), lang, 'siteSettings'), lang);
 }
 
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
-  return linkDocuments(localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing'), lang);
+  const landing = linkDocuments(localize<{ blocks: (LandingBlock & { languages?: string[] })[] }>(deref(source.landing), lang, 'landing'), lang);
+  // «Мови, на яких показувати блок»: пусто — на всех языках
+  const blocks = landing.blocks
+    .filter((b) => !b.languages?.length || b.languages.includes(lang))
+    .map(({ languages: _, ...b }) => b as LandingBlock);
+  return { ...landing, blocks };
 }
 
 /** Документы сайта на языке lang (страницы /<slug>/, /dokumenty/<slug>/; другие языки — с приставкой /en/). */

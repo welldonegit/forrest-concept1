@@ -17,6 +17,10 @@ import Team from '../../components/blocks/Team.astro';
 import Faq from '../../components/blocks/Faq.astro';
 import FormFinal from '../../components/blocks/FormFinal.astro';
 import Footer from '../../components/blocks/Footer.astro';
+import WhyUkraine from '../../components/blocks/WhyUkraine.astro';
+import PhotoBand from '../../components/blocks/PhotoBand.astro';
+import WhyBukovel from '../../components/blocks/WhyBukovel.astro';
+import whyCss from '../../styles/blocks/why.css?inline';
 import QuizTab from '../../components/ui/QuizTab.astro';
 import { getSiteSettings, getLanding } from '../../lib/content';
 import { langOf, langPaths } from '../../lib/routes';
@@ -32,10 +36,15 @@ const landing = await getLanding(lang);
 // без JS вкладка квиза ведёт к первой форме заявки
 const formAnchor = landing.blocks.find((b) => b._type === 'form')?.anchor;
 // Структурированные данные (JSON-LD): организация, сайт, комплекс — только на главной, из данных Sanity.
+// Блоки ukraine-bukovel (выгрузка 2026-11-25) — не во всех языках (поле «Мови»). Их стили и скрипт появления
+// выводятся только на странице, где они есть: главная без них (uk) не меняется ни на байт.
+const WHY = new Set(['whyUkraine', 'photoBand', 'whyBukovel']);
+const hasWhy = landing.blocks.some((b) => WHY.has(b._type));
 const jsonLd = structuredData(Astro.site!, lang, settings, await ogImage(Astro.site!, lang));
 ---
 <Base lang={lang} title={settings.seo.title} description={settings.seo.description} skipLink={settings.ui.skipLink} path="">
   {jsonLd && <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
+  {hasWhy && <style slot="head" is:inline set:html={whyCss} />}
   <Header lang={lang} settings={settings} />
   <QuizTab label={settings.popups.quiz.tabLabel} ariaLabel={settings.popups.quiz.tabAriaLabel} href={formAnchor ? `#${formAnchor}` : '#main'} />
   <main id="main" tabindex="-1">
@@ -43,6 +52,9 @@ const jsonLd = structuredData(Astro.site!, lang, settings, await ogImage(Astro.s
       switch (block._type) {
         case 'hero': return <Hero block={block} />;
         case 'stats': return <Stats block={block} />;
+        case 'whyUkraine': return <WhyUkraine block={block} />;
+        case 'photoBand': return <PhotoBand block={block} />;
+        case 'whyBukovel': return <WhyBukovel block={block} />;
         case 'season': return <Season block={block} />;
         case 'worlds': return <Worlds block={block} />;
         case 'model': return <Model block={block} />;
@@ -61,4 +73,8 @@ const jsonLd = structuredData(Astro.site!, lang, settings, await ogImage(Astro.s
     })}
   </main>
   <Footer settings={settings} />
+  {hasWhy && (
+    // появление блоков ukraine-bukovel: [data-reveal] получает data-in у экрана (остальное — CSS, why.css)
+    <script is:inline>(()=>{const els=document.querySelectorAll('[data-reveal]');if(!('IntersectionObserver'in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(e=>e.dataset.in='');return}const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.dataset.in='';io.unobserve(x.target)}}),{threshold:.15});els.forEach(e=>io.observe(e))})();</script>
+  )}
 </Base>

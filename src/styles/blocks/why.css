@@ -1,0 +1,155 @@
+/* ===== «Переваги інвестування в Україну», «Фото між блоками», «Буковель» (выгрузка 2026-11-25, ukraine-bukovel) =====
+   Файл не входит в main.css: страница подключает его, только если на ней есть эти блоки
+   (src/pages/[...lang]/index.astro). Так главная без этих блоков (uk) не меняется ни на байт.
+   Поэтому токены блоков — здесь, в :root, по тем же правилам, что tokens.css (шкала, роли сайта).
+   Плавные отступы — clamp между ступенями шкалы, как в выгрузке.
+   Появление: [data-reveal] получает data-in, когда подходит к экрану (скрипт — там же, в index.astro);
+   без JS и при prefers-reduced-motion — сразу в конечном виде. Анимируются только transform, opacity, clip-path. */
+:root{
+--why-pad-block:clamp(var(--space-64),8vw,var(--space-128));
+--why-pad-inline:clamp(var(--space-16),2.6vw,var(--space-36));   /* выгрузка 34 → 36 */
+--why-head-gap:clamp(var(--space-24),4vw,var(--space-72));
+--why-head-mb:clamp(var(--space-36),4.4vw,var(--space-72));
+--why-lead-max:520px;
+--why-cols-head:minmax(0,7fr) minmax(0,5fr);
+--why-cards-gap:clamp(var(--space-12),1.2vw,var(--space-16));
+--why-card-pad:clamp(var(--space-24),2.4vw,var(--space-36));
+--why-card-gap:clamp(var(--space-32),4vw,var(--space-64));
+--why-card-min-h:clamp(380px,31vw,480px);
+--why-card-radius:var(--radius-28);
+--why-card-text-gap:var(--space-12);
+--why-card-text-max:380px;
+--why-tag-h:var(--control-h-32);                 /* выгрузка 30 → 32 */
+--why-tag-pad:var(--space-12);                   /* выгрузка 13 */
+--why-tag-bg-dark:color-mix(in srgb, var(--air) 12%, transparent);
+--why-value-gap:.12em;
+--why-unit-scale:.42em;
+--why-unit-ls:-.03em;
+--why-bar-h:var(--space-10);
+--why-bar-gap:clamp(var(--space-16),1.6vw,var(--space-24));   /* выгрузка 22 → 24 */
+--why-stars:clamp(88px,8vw,128px);
+/* число карточки и строки: ЖДЁТ ПОДТВЕРЖДЕНИЯ (своей роли нет; ближайшие — hero-h1 38–108, model-num 44–80) */
+--type-why-value-size:clamp(56px,6.2vw,108px); --type-why-value-lh:.9; --type-why-value-ls:-.06em;
+--type-why-row-size:clamp(56px,7.4vw,132px); --type-why-row-lh:.86; --type-why-row-ls:-.065em;
+--why-row-unit-scale:.36em;
+--why-row-value-gap:.14em;
+/* фото: статичная маска — верх и низ растворяются в фоне (без анимации filter) */
+--band-ratio:1920 / 1000;
+--band-min-h:420px;
+--band-h-sm:440px;                               /* <768 */
+--band-mask:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.04) 5%,rgba(0,0,0,.16) 11%,rgba(0,0,0,.36) 17%,rgba(0,0,0,.6) 23%,rgba(0,0,0,.82) 29%,rgba(0,0,0,.95) 34%,#000 38%,#000 50%,rgba(0,0,0,.95) 55%,rgba(0,0,0,.84) 61%,rgba(0,0,0,.66) 67%,rgba(0,0,0,.45) 73%,rgba(0,0,0,.26) 80%,rgba(0,0,0,.11) 87%,rgba(0,0,0,.03) 94%,rgba(0,0,0,0) 100%);
+--band-overlap:clamp(var(--space-24),4vw,var(--space-72)); /* заголовок Буковеля заходит на фото */
+--bv-gap:clamp(var(--space-56),7vw,var(--space-96));     /* выгрузка до 112 → 96 */
+--bv-row-pad:clamp(var(--space-28),3.4vw,var(--space-56));
+--bv-cols-row:minmax(0,5fr) minmax(0,4fr) minmax(0,3fr);
+--bv-row-gap:clamp(var(--space-20),3vw,var(--space-56));
+--bv-row-title-gap:var(--space-16);              /* выгрузка 14 */
+--bv-text-max:400px;
+--bv-line:color-mix(in srgb, var(--spruce) 16%, transparent);  /* rgba(24,40,32,.16) */
+/* анимация (выгрузка): строки 1.4 с, карточки 1.5 с, фото 1.6/2.8 с, линии 1.8 с */
+--why-ease:var(--ease-out-expo);
+--why-line-dur:1.4s; --why-line-shift:.4em;
+--why-card-dur:1.5s; --why-card-shift:var(--space-56);
+--why-in-fade:1s; --why-in-dur:1.3s; --why-in-shift:18px;
+--why-lead-fade:.9s; --why-lead-dur:1.2s; --why-lead-shift:var(--space-24);
+--why-bar-dur:1.8s; --why-bar-delay:.8s;
+--why-stars-dur:2.2s; --why-stars-delay:.45s; --why-stars-from:-60deg; --why-stars-hover:30deg;
+--why-star-fade:.8s; --why-star-delay:.57s; --why-star-step:.07s;
+--band-fade:1.6s; --band-zoom-dur:2.8s; --band-zoom:1.08;
+--bv-line-dur:1.8s; --bv-lead-shift:28px; --bv-pill-dur:1.2s;
+}
+
+/* ---------- общее ---------- */
+.why{background:var(--bg-surface-warm); color:var(--text-primary); max-inline-size:var(--page-max); margin-inline:auto}
+.why-ua{padding:var(--why-pad-block) var(--why-pad-inline)}
+.why__head{display:grid; grid-template-columns:var(--why-cols-head); align-items:end; gap:var(--why-head-gap)}
+.why__title{margin:0; text-wrap:balance}
+.why__line{display:block}
+.why__line--muted{color:var(--text-muted)}
+.why__lead{margin:0; max-inline-size:var(--why-lead-max); text-wrap:pretty}
+.why__value{margin:0; display:flex; align-items:baseline; flex-wrap:wrap; gap:var(--why-value-gap)}
+.why__unit{font-size:var(--why-unit-scale); letter-spacing:var(--why-unit-ls); color:var(--text-muted)}
+.text-why-value{font-family:var(--font-display); font-size:var(--type-why-value-size); line-height:var(--type-why-value-lh); letter-spacing:var(--type-why-value-ls); font-weight:600}
+.text-why-row{font-family:var(--font-display); font-size:var(--type-why-row-size); line-height:var(--type-why-row-lh); letter-spacing:var(--type-why-row-ls); font-weight:600}
+
+/* ---------- Україна: карточки ---------- */
+.why-ua .why__head{margin-block-end:var(--why-head-mb)}
+.why-ua__cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--why-cards-gap); margin:0; padding:0; list-style:none}
+.why-ua__card{
+  position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:var(--why-card-gap);
+  min-block-size:var(--why-card-min-h); min-inline-size:0; padding:var(--why-card-pad); overflow:hidden;
+  border-radius:var(--why-card-radius); background:var(--air); color:var(--text-primary);
+}
+.why-ua__card--dark{background:var(--bg-inverse); color:var(--air)}
+.why-ua__tag{
+  display:inline-flex; align-items:center; align-self:flex-start; block-size:var(--why-tag-h); padding-inline:var(--why-tag-pad);
+  border-radius:var(--radius-pill); background:var(--bg-surface-warm); font-variant-numeric:tabular-nums;
+}
+.why-ua__card--dark .why-ua__tag{background:var(--why-tag-bg-dark); color:var(--air)}
+.why-ua__figure{display:flex; flex-direction:column; gap:var(--why-bar-gap)}
+.why-ua__bar{position:relative; block-size:var(--why-bar-h); border-radius:var(--radius-pill); background:var(--bg-surface-warm); overflow:hidden}
+.why-ua__fill{position:absolute; inset-block:0; inset-inline-start:0; border-radius:var(--radius-pill); background:var(--text-primary); transform-origin:0 50%}
+.why-ua__stars{inline-size:var(--why-stars); block-size:auto; flex:none; fill:currentColor}
+.why-ua__body{display:flex; flex-direction:column; gap:var(--why-card-text-gap)}
+.why-ua__card h3{margin:0; text-wrap:balance}
+.why-ua__card p{margin:0}
+.why-ua__text{max-inline-size:var(--why-card-text-max); text-wrap:pretty}
+
+/* ---------- фото между блоками ---------- */
+.why-band{position:relative; inline-size:100%; aspect-ratio:var(--band-ratio); min-block-size:var(--band-min-h); overflow:hidden; background:var(--bg-surface-warm)}
+.why-band__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; -webkit-mask-image:var(--band-mask); mask-image:var(--band-mask)}
+
+/* ---------- Буковель ---------- */
+.why-bv{padding:0 var(--why-pad-inline) var(--why-pad-block); display:flex; flex-direction:column; gap:var(--bv-gap)}
+.why-band + .why-bv{position:relative; z-index:1; margin-block-start:calc(-1 * var(--band-overlap))}
+.why-bv:not(.why-band + .why-bv){padding-block-start:var(--why-pad-block)}
+.why-bv__rows{position:relative; margin:0; padding:0; list-style:none; display:flex; flex-direction:column}
+.why-bv__row{position:relative; display:grid; grid-template-columns:var(--bv-cols-row); align-items:center; gap:var(--bv-row-gap); padding-block:var(--bv-row-pad)}
+.why-bv__row::before, .why-bv__rows::after{content:""; position:absolute; inset-inline:0; block-size:var(--border-1); background:var(--bv-line); transform-origin:0 50%}
+.why-bv__row::before{inset-block-start:0}
+.why-bv__rows::after{inset-block-end:0}
+.why-bv__value{white-space:nowrap; flex-wrap:nowrap; gap:var(--why-row-value-gap)}
+.why-bv__value .why__unit{font-size:var(--why-row-unit-scale)}
+.why-bv__row h3{margin:0; text-wrap:balance}
+.why-bv__text{margin:0; max-inline-size:var(--bv-text-max); text-wrap:pretty}
+
+@media (max-width:899px){
+  .why__head, .why-ua__cards{grid-template-columns:minmax(0,1fr)}
+  .why-ua__card{min-block-size:0}
+  .why-bv__row{grid-template-columns:minmax(0,1fr); gap:var(--space-16)}
+  .why-bv__value{flex-wrap:wrap; white-space:normal}   /* длинная подпись (перевод) переносится под число */
+}
+@media (max-width:767px){
+  .why-band{aspect-ratio:auto; block-size:var(--band-h-sm); min-block-size:0}
+}
+
+/* ---------- появление (только с JS и без reduced-motion) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js .why [data-line]{clip-path:inset(0 0 100% 0); transform:translateY(var(--why-line-shift));
+    transition:clip-path var(--why-line-dur) var(--why-ease) var(--d,0s), transform var(--why-line-dur) var(--why-ease) var(--d,0s)}
+  .js .why [data-in]:not(.why-bv__rows) [data-line], .js .why [data-line][data-in]{clip-path:inset(-25% -6% -25% -6%); transform:none}
+  .js .why-ua__card{clip-path:inset(100% 0 0 0 round var(--why-card-radius)); transform:translateY(var(--why-card-shift));
+    transition:clip-path var(--why-card-dur) var(--why-ease) var(--d,0s), transform var(--why-card-dur) var(--why-ease) var(--d,0s)}
+  .js .why [data-in]:not(.why-bv__rows) .why-ua__card{clip-path:inset(0 0 0 0 round var(--why-card-radius)); transform:none}
+  .js .why [data-rise]{opacity:0; transform:translateY(var(--why-in-shift));
+    transition:opacity var(--why-in-fade) ease var(--d,0s), transform var(--why-in-dur) var(--why-ease) var(--d,0s)}
+  .js .why [data-in]:not(.why-bv__rows) [data-rise]{opacity:1; transform:none}
+  .js .why__lead{opacity:0; transform:translateY(var(--why-lead-shift));
+    transition:opacity var(--why-lead-fade) ease var(--d,0s), transform var(--why-lead-dur) var(--why-ease) var(--d,0s)}
+  .js .why-bv .why__lead{transform:translateY(var(--bv-lead-shift))}
+  .js .why [data-in]:not(.why-bv__rows) .why__lead{opacity:1; transform:none}
+  .js .why-ua__fill{transform:scaleX(0); transition:transform var(--why-bar-dur) var(--why-ease) calc(var(--d,0s) + var(--why-bar-delay))}
+  .js .why [data-in]:not(.why-bv__rows) .why-ua__fill{transform:none}
+  .js .why-ua__stars{transform:rotate(var(--why-stars-from)); transition:transform var(--why-stars-dur) var(--why-ease)}
+  .js .why [data-in]:not(.why-bv__rows) .why-ua__stars{transform:none; transition-delay:calc(var(--d,0s) + var(--why-stars-delay))}
+  .js .why [data-in]:not(.why-bv__rows) .why-ua__card:hover .why-ua__stars{transform:rotate(var(--why-stars-hover)); transition-delay:0s}
+  .js .why-ua__stars path{opacity:0; transition:opacity var(--why-star-fade) ease calc(var(--d,0s) + var(--why-star-delay) + var(--i) * var(--why-star-step))}
+  .js .why [data-in]:not(.why-bv__rows) .why-ua__stars path{opacity:1}
+  .js .why-band{opacity:0; transition:opacity var(--band-fade) ease}
+  .js .why-band[data-in]{opacity:1}
+  .js .why-band__img{transform:scale(var(--band-zoom)); transition:transform var(--band-zoom-dur) var(--why-ease)}
+  .js .why-band[data-in] .why-band__img{transform:none}
+  .js .why-bv__row::before, .js .why-bv__rows::after{transform:scaleX(0); transition:transform var(--bv-line-dur) var(--ease-in-out-quart)}
+  .js .why-bv__rows::after{transition-delay:.3s}
+  .js .why-bv__row[data-in]::before, .js .why-bv__rows[data-in]::after{transform:none}
+}

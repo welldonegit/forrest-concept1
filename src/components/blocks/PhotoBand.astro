@@ -1,0 +1,32 @@
+---
+/**
+ * Фото между блоками на всю ширину (выгрузка 2026-11-25, ukraine-bukovel: фото леса между «Україна» и «Буковель»).
+ * Верх и низ растворяются в фоне — статичная маска (mask-image), без анимации filter.
+ * Фото — из Sanity (оригинал), размеры готовит сборка (AVIF). Стили — styles/blocks/why.css.
+ */
+import { getImage } from 'astro:assets';
+import { resolveImage, type PhotoBandBlock } from '../../lib/content';
+
+interface Props {
+  block: PhotoBandBlock;
+}
+
+const { block } = Astro.props;
+const photo = await resolveImage(block.image);
+const widths = [640, 960, 1280, 1920, 2560].filter((x) => x < photo.src.width).concat(photo.src.width);
+const img = await getImage({ src: photo.src, widths, format: 'avif' });
+---
+<div class="why-band" data-reveal>
+  <img
+    class="why-band__img"
+    src={img.src}
+    srcset={img.srcSet.attribute}
+    sizes="(max-width: 767px) 160vw, 100vw"
+    width={photo.src.width}
+    height={photo.src.height}
+    style={`object-position:${photo.position}`}
+    alt={photo.alt}
+    loading="lazy"
+    decoding="async"
+  />
+</div>

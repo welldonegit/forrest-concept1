@@ -1,7 +1,7 @@
 /** Блок «Цифри» (Stats): чотири картки з числом, підписом, плашкою і фото. */
 import { defineField, defineType } from 'sanity';
 import { texts } from '../lib/i18n.ts';
-import { blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 
 export const statsCard = defineType({
   name: 'statsCard',
@@ -39,6 +39,7 @@ export const stats = defineType({
   groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     defineField({
       name: 'cards',
       title: 'Картки',

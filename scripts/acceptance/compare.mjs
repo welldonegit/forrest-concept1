@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Приёмка блока по скриншотам: вёрстка против design-export/index.html.
+ * Приёмка блока по скриншотам: вёрстка против design-export/index.html (или config.export).
  *
  *   npm run acceptance -- --block header
  *   npm run acceptance -- --block header --widths 1440,390 --smoke none --states menu --lang en
@@ -84,7 +84,8 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const local = `http://127.0.0.1:${server.address().port}`;
 const base = args.url?.replace(/\/$/, '') ?? local;
-const EXPORT_URL = `${local}/design-export/index.html`;
+// config.export — другой файл выгрузки (новые экраны: design-export/updates/<дата>/…), по умолчанию index.html
+const EXPORT_URL = `${local}/design-export/${config.export ?? 'index.html'}`;
 const oursUrl = `${base}${lang === 'uk' ? '' : `/${lang}`}/${config.hash ?? ''}`;
 
 /* ---------- Замеры ---------- */
