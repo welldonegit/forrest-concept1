@@ -765,31 +765,31 @@
     "photo": {
       "_type": "image",
       "asset": {
-        "_ref": "fixture:manager.jpg"
+        "_ref": "fixture:updates/2026-11-25/quiz/img/manager-ulyana.jpg"
       },
       "hotspot": {
         "x": 0.5,
-        "y": 0.3
+        "y": 0.4
       },
       "alt": [
         {
           "_key": "uk",
-          "value": "Олена Коваль"
+          "value": "Уляна Белінська"
         },
         {
           "_key": "en",
-          "value": "Olena Koval"
+          "value": "Uliana Belinska"
         }
       ]
     },
     "name": [
       {
         "_key": "uk",
-        "value": "Олена Коваль"
+        "value": "Уляна Белінська"
       },
       {
         "_key": "en",
-        "value": "Olena Koval"
+        "value": "Uliana Belinska"
       }
     ],
     "role": [
