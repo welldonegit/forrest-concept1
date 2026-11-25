@@ -8,7 +8,9 @@
  * - Ошибка: текст из Sanity в [data-form-status] под кнопкой, видимо и для экранных дикторов (role=alert;
  *   капча — data-msg-turnstile, остальное — data-msg-send);
  *   введённые данные не сбрасываются.
- * - Успех: событие lead_submit в dataLayer — только форма и язык, без личных данных.
+ * - Успех: форма остаётся заблокированной (второе нажатие до ухода со страницы не даёт второй заявки),
+ *   goThanks() кладёт данные события generate_lead в sessionStorage (lead_event) и ведёт на «Дякуємо»;
+ *   событие отправляет в dataLayer сама «Дякуємо» (Base.astro). docs/LEADS.md, «Аналитика».
  */
 import { attachCaptcha } from './captcha.js';
 
@@ -34,6 +36,8 @@ export function leadSender(form, formId) {
   const status = form.querySelector('[data-form-status]') ?? (form.id ? document.querySelector(`[data-form-status="${form.id}"]`) : null);
   let key = null;
   let busy = false;
+  // заявка записана, идёт переход на «Дякуємо»: новых отправок нет. Возврат «Назад» из bfcache — форма снова доступна.
+  let sent = false;
   const fresh = () => { key = null; };
   form.addEventListener('input', fresh);
   form.addEventListener('change', fresh);
@@ -52,9 +56,13 @@ export function leadSender(form, formId) {
     if (form.id) document.querySelectorAll(`button[type=submit][form="${form.id}"]`).forEach((b) => { b.disabled = on; });
   }
 
+  addEventListener('pageshow', (e) => {
+    if (e.persisted && sent) { sent = false; setBusy(false); }
+  });
+
   /** fields, quiz — см. формат запроса. Возвращает { number } при успехе, иначе null. */
   return async function send({ fields, quiz }) {
-    if (busy) return null;
+    if (busy || sent) return null;
     setBusy(true);
     if (status) status.hidden = true;
     try {
@@ -86,6 +94,7 @@ export function leadSender(form, formId) {
       captcha.reset();
       if (res.ok && data.ok) {
         key = null;
+        sent = true;
         return data;
       }
       showError(data.error === 'captcha' ? 'turnstile' : 'send');
@@ -95,22 +104,44 @@ export function leadSender(form, formId) {
       showError('send');
       return null;
     } finally {
-      setBusy(false);
+      if (!sent) setBusy(false);
     }
   };
 }
 
-/** Событие успеха для GTM. done — после обработки события (или через timeout мс, если GTM ещё нет). */
-export function pushLeadEvent(formId, done, timeout = 800) {
-  let called = false;
-  const finish = () => { if (!called) { called = true; done?.(); } };
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'lead_submit',
-    lead_form: formId,
-    lead_language: document.documentElement.lang,
-    eventCallback: finish,
-    eventTimeout: timeout,
-  });
-  setTimeout(finish, timeout + 200);
+/** form_id и form_name события generate_lead по источнику заявки (form в запросе). */
+const LEAD_FORMS = {
+  finmodel: ['finmodel', 'Форма «Фінмодель»'],
+  final: ['final_form', 'Фінальна форма'],
+  quiz: ['quiz', 'Квіз «Розрахунок доходу»'],
+  apartment: ['apartment_popup', 'Попап апартаменту'],
+};
+
+/** Телефон из маски («+380 (67) 123-45-67», «+380 67 123 45 67») — в E.164: «+380671234567». */
+export function toE164(phone) {
+  const digits = String(phone ?? '').replace(/\D/g, '');
+  return digits ? `+${digits}` : undefined;
+}
+
+/**
+ * После успешной заявки: данные события generate_lead — в sessionStorage (lead_event), затем переход
+ * на «Дякуємо» этого языка (html[data-thanks]). Там событие читается, сразу удаляется и уходит в dataLayer.
+ * user_data — только заполненные поля формы; ни одного — без user_data. Личные данные живут
+ * в sessionStorage только до чтения на «Дякуємо»; в журналы и localStorage не попадают.
+ */
+export function goThanks(formId, number, { email, phone } = {}) {
+  const [form_id, form_name] = LEAD_FORMS[formId];
+  const event = { event: 'generate_lead', lead_id: number, form_id, form_name, form_location: location.pathname };
+  const user = {};
+  const mail = email?.trim();
+  if (mail) user.email = mail;
+  const tel = toE164(phone);
+  if (tel) user.phone_number = tel;
+  if (Object.keys(user).length) event.user_data = user;
+  try {
+    sessionStorage.setItem('lead_event', JSON.stringify(event));
+  } catch {
+    // хранилище недоступно (приватный режим, запрет) — переход без события
+  }
+  location.assign(document.documentElement.dataset.thanks);
 }

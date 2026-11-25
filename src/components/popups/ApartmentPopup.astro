@@ -84,7 +84,7 @@ const x = 'M6 6l12 12M18 6L6 18';
               <label class="visually-hidden" for={`${p.id}-phone`}>{texts.phoneLabel}</label>
               <input class="apop__tel text-pop-input" id={`${p.id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder={texts.phoneLabel} aria-describedby={`${p.id}-err`} />
               <span class="visually-hidden" id={`${p.id}-err`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
-              <button class="apop__price text-pop-caps" type="submit" data-success-label={texts.successLabel}>{texts.submitLabel}</button>
+              <button class="apop__price text-pop-caps" type="submit">{texts.submitLabel}</button>
               <Honeypot />
               <div class="pop-captcha" data-turnstile></div>
             </form>

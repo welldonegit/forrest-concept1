@@ -1,11 +1,12 @@
 /**
  * Квиз «Розрахувати дохід» (4.17), как в выгрузке (qShow / qGo / qHide):
  * шаг 1 — формат (выбор и через 420 мс следующий шаг), шаг 2 — бюджет (несколько вариантов, «Далі»
- * доступна после выбора), шаг 3 — контакты, затем «Дякуємо». При каждом открытии — с начала.
+ * доступна после выбора), шаг 3 — контакты; после заявки — страница «Дякуємо». При каждом открытии — с начала.
  * Переход: текущий шаг гаснет (300 мс), новый появляется по элементам; «Назад» — сверху вниз.
  * Проверка контактов — общие правила и тексты ошибок форм (form-fields.js, siteSettings.form.errors):
  * пустой или неполный телефон, нет согласия. Расчёт — calc() калькулятора Numbers с его числами.
- * Отправка — POST /api/lead (lead-api.js): ответы шагов и расчёт в quiz; успех — шаг «Дякуємо».
+ * Отправка — POST /api/lead (lead-api.js): ответы шагов и расчёт в quiz; успех — goThanks (страница «Дякуємо»,
+ * событие generate_lead). Своего шага «Дякуємо» нет (решение 2026-11-25).
  * prefers-reduced-motion: без анимаций, шаги сменяются сразу.
  */
 import { createModal } from './dialog.js';
@@ -13,7 +14,7 @@ import { cssNum } from './ease.js';
 import { formatNational, nationalOk, setError } from '../ui/form-fields.js';
 import { calc } from '../../lib/calc';
 import { preloadCaptcha } from '../ui/captcha.js';
-import { leadSender, pushLeadEvent, ukText } from '../ui/lead-api.js';
+import { leadSender, goThanks, ukText } from '../ui/lead-api.js';
 
 export function init(dlg) {
   const t = (name) => cssNum(dlg, name);
@@ -50,9 +51,8 @@ export function init(dlg) {
   function show(n) {
     step = n;
     steps.forEach((s, k) => { s.hidden = k !== n; });
-    fills.forEach((f, k) => f.toggleAttribute('data-on', k <= Math.min(n, 2)));
-    count.hidden = n > 2;
-    count.textContent = `0${Math.min(n + 1, 3)} / 03`;
+    fills.forEach((f, k) => f.toggleAttribute('data-on', k <= n));
+    count.textContent = `0${n + 1} / 03`;
     foot.hidden = n !== 1 && n !== 2;
     next.hidden = n !== 1;
     submit.hidden = n !== 2;
@@ -158,7 +158,7 @@ export function init(dlg) {
         calc: est ? Object.fromEntries(Object.entries(est).map(([k, v]) => [k, Math.round(v)])) : {},
       },
     });
-    if (result) pushLeadEvent('quiz', () => go(3));
+    if (result) goThanks('quiz', result.number, { phone: `${code.value} ${phone.value}`, email: form.elements.email.value });
   });
 
   return {

@@ -8,7 +8,7 @@
 import '../styles/main.css';
 import { getLanguage, languages } from '../lib/languages';
 import { getSiteSettings } from '../lib/content';
-import { homePath } from '../lib/routes';
+import { homePath, thanksPath } from '../lib/routes';
 import { alternates, ogImage, pageUrl } from '../lib/seo';
 
 /** Через сколько мс после загрузки страницы подключить GTM, если посетитель ничего не сделал. */
@@ -23,9 +23,11 @@ interface Props {
   path?: string;
   /** Не индексировать («Дякуємо», 404) — независимо от SITE_INDEXING. */
   noindex?: boolean;
+  /** «Дякуємо»: прочитать lead_event из sessionStorage и отправить generate_lead (docs/LEADS.md, «Аналитика»). */
+  leadEvent?: boolean;
 }
 
-const { lang, title, description, skipLink, path, noindex = false } = Astro.props;
+const { lang, title, description, skipLink, path, noindex = false, leadEvent = false } = Astro.props;
 const language = getLanguage(lang);
 const settings = await getSiteSettings(lang);
 const gtmId = settings.analytics?.gtmId?.trim();
@@ -38,8 +40,11 @@ const siteName = settings.seo.siteName?.trim();
 const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${language.subset}.woff2`];
 ---
 <!doctype html>
-{/* data-base — адрес главной этого языка («/», «/en/»): от него скрипты строят адреса (попапы). */}
-<html lang={language.id} dir={language.dir} data-base={homePath(language.id)}>
+{/*
+  data-base — адрес главной этого языка («/», «/en/»): от него скрипты строят адреса (попапы).
+  data-thanks — «Дякуємо» этого языка: туда ведут формы после заявки (lead-api.js, goThanks).
+*/}
+<html lang={language.id} dir={language.dir} data-base={homePath(language.id)} data-thanks={thanksPath(language.id)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,13 +53,20 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
       а gtm.js грузится при первом действии посетителя (прокрутка, касание, клавиша)
       или через GTM_DELAY мс после загрузки страницы. ID контейнера — siteSettings.analytics.gtmId
       (Sanity, вкладка «Технічне»); пусто — GTM не подключается.
+      «Дякуємо» (leadEvent): lead_event из sessionStorage читается и сразу удаляется (обновление и прямой
+      заход события не дают); есть — generate_lead в очередь после gtm.start и gtm.js сразу, без ожидания
+      действия посетителя: иначе событие теряется, если вкладку закрыли. Без lead_event — как обычно.
     */}
-    {gtmId && <script is:inline define:vars={{ gtmId, delay: GTM_DELAY }}>
-window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());
-dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});
-(()=>{const ev=['scroll','pointerdown','keydown','touchstart'];let done=0;
+    {(gtmId || leadEvent) && <script is:inline define:vars={{ gtmId: gtmId ?? '', delay: GTM_DELAY, leadEvent }}>
+window.dataLayer=window.dataLayer||[];
+if(gtmId){window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'})}
+let lead=null;
+if(leadEvent){try{const s=sessionStorage.getItem('lead_event');sessionStorage.removeItem('lead_event');const e=s&&JSON.parse(s);if(e&&e.event==='generate_lead'&&e.lead_id)lead=e}catch(_){}}
+if(lead)dataLayer.push(lead);
+if(gtmId)(()=>{const ev=['scroll','pointerdown','keydown','touchstart'];let done=0;
 const load=()=>{if(done)return;done=1;for(const t of ev)removeEventListener(t,load,true);
 const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id='+encodeURIComponent(gtmId);document.head.appendChild(s)};
+if(lead){load();return}
 for(const t of ev)addEventListener(t,load,{capture:true,passive:true});
 addEventListener('load',()=>setTimeout(load,delay))})();
     </script>}

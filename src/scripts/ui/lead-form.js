@@ -4,13 +4,13 @@
  * - Пустое имя или неполный номер — aria-invalid на поле (красная рамка и встряска),
  *   текст ошибки из siteSettings — для экранных дикторов (в выгрузке текста нет).
  * - Отправка в POST /api/lead (lead-api.js: капча, ключ повтора, тексты ошибок из Sanity);
- *   после записи заявки — событие в dataLayer и переход на «Дякуємо» (data-thanks: /thanks/, /en/thanks/).
+ *   после записи заявки — переход на «Дякуємо» с событием generate_lead (lead-api.js, goThanks).
  *   При ошибке данные остаются в полях.
  */
 import { within } from './lazy.js';
 import { formatPhone, setError, PHONE_DIGITS } from './form-fields.js';
 import { preloadCaptcha } from './captcha.js';
-import { leadSender, pushLeadEvent, ukText } from './lead-api.js';
+import { leadSender, goThanks, ukText } from './lead-api.js';
 
 function initForm(form) {
   if (form.dataset.leadReady !== undefined) return;
@@ -52,7 +52,7 @@ function initForm(form) {
         contactMethod: checked ? ukText(checked.parentElement) : undefined,
       },
     });
-    if (result) pushLeadEvent(formId, () => window.location.assign(form.dataset.thanks));
+    if (result) goThanks(formId, result.number, { phone: phone.value });
   });
   // посетитель нажал кнопку до загрузки модуля (main.js) — отправляем сейчас
   if (form.dataset.leadPending !== undefined) {

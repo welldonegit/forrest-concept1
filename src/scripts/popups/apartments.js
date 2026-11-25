@@ -14,7 +14,7 @@ import { createModal } from './dialog.js';
 import { cssEase, cssNum } from './ease.js';
 import { formatPhone, setError, PHONE_DIGITS } from '../ui/form-fields.js';
 import { preloadCaptcha } from '../ui/captcha.js';
-import { leadSender, pushLeadEvent } from '../ui/lead-api.js';
+import { leadSender, goThanks } from '../ui/lead-api.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const STEPS = 48;
@@ -198,25 +198,19 @@ function initPanel(el) {
     tel.value = formatPhone(tel.value);
     setError(tel, false);
   });
-  // Отправка — POST /api/lead (lead-api.js). Успех: form.dataset.sent, текст кнопки из data-success-label,
-  // кнопка неактивна; ошибка — текст в [data-form-status], номер остаётся в поле.
+  // Отправка — POST /api/lead (lead-api.js). Успех — страница «Дякуємо» с событием generate_lead (goThanks);
+  // ошибка — текст в [data-form-status], номер остаётся в поле.
   preloadCaptcha().catch(() => {});
   const send = leadSender(form, 'apartment');
   const apartment = el.querySelector('.apop__name')?.textContent.trim();
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if ('sent' in form.dataset) return;
     const digits = tel.value.replace(/\D/g, '').length;
     const bad = digits < PHONE_DIGITS;
     setError(tel, bad, digits ? 'invalid' : 'required');
     if (bad) { tel.focus(); return; }
     const result = await send({ fields: { phone: tel.value, apartment: apartment || undefined } });
-    if (!result) return;
-    pushLeadEvent('apartment');
-    const btn = form.querySelector('button[type=submit]');
-    form.dataset.sent = '';
-    btn.textContent = btn.dataset.successLabel;
-    btn.disabled = true;
+    if (result) goThanks('apartment', result.number, { phone: tel.value });
   });
 
   return { el, frame, go, step };

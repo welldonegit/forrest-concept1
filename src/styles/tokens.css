@@ -1420,9 +1420,6 @@
 --quiz-back-pad-start:var(--space-16); --quiz-back-pad-end:var(--space-20); /* рендер 14 / 18 */ --quiz-back-gap:var(--space-10);
 --quiz-next-pad-start:var(--space-28); --quiz-next-pad-end:var(--space-24); /* рендер 26 / 22 */ --quiz-next-gap:var(--space-12);
 --quiz-btn-icon:18px;
---quiz-ok:72px; --quiz-ok-icon:30px;
---quiz-ret-h:var(--control-h-56); --quiz-ret-pad:var(--space-28);
---quiz-done-gap:var(--space-24);
 --quiz-line:color-mix(in srgb, var(--spruce) 12%, transparent);       /* rgba(24,40,32,.12): рамка полей, дорожка шкалы */
 --quiz-line-soft:color-mix(in srgb, var(--spruce) 10%, transparent);  /* рамка вариантов */
 --quiz-line-strong:color-mix(in srgb, var(--spruce) 14%, transparent);/* кнопки «Назад», «Закрити» */
@@ -1446,7 +1443,6 @@
 --quiz-field-dur:.3s;
 --quiz-err-in:.4s;
 --quiz-btn-dur:.3s; --quiz-arrow-dur:.4s; --quiz-arrow-shift:4px; --quiz-disabled:.35;
---quiz-pop:.7s; --quiz-pop-delay:.1s; --quiz-draw:.6s; --quiz-draw-delay:.5s;
 /* значения JS (quiz.js) */
 --quiz-pick-delay:420; --quiz-leave-ms:300; --quiz-out-ms:420;
 

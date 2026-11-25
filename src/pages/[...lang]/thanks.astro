@@ -5,6 +5,7 @@
  * документа landing без заголовка; вместо лида — сообщение из siteSettings.thanksPage (h1),
  * одна кнопка «На головну» (thanksPage.homeButton), без кнопки презентации.
  * Не индексируется (integrations/indexing.ts).
+ * Событие generate_lead после заявки — Base.astro (leadEvent): из sessionStorage, один раз.
  */
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/blocks/Header.astro';
@@ -24,7 +25,7 @@ const hero = landing.blocks.find((b): b is HeroBlock => b._type === 'hero');
 const page = settings.thanksPage;
 const home = homePath(lang);
 ---
-<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink} path="thanks/" noindex>
+<Base lang={lang} title={page.seoTitle} description={page.seoDescription} skipLink={settings.ui.skipLink} path="thanks/" noindex leadEvent>
   <Header lang={lang} settings={settings} base={home} path="thanks/" />
   <main id="main" tabindex="-1">
     {hero ? <Hero block={hero} message={page.message} base={home} home={{ label: page.homeButton, href: home }} /> : <h1 class="visually-hidden">{page.message}</h1>}
