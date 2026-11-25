@@ -250,7 +250,7 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 | `form_id` / `form_name` | `finmodel` — Форма «Фінмодель»; `final_form` — Фінальна форма; `quiz` — Квіз «Розрахунок доходу»; `apartment_popup` — Попап апартаменту |
 | `form_location` | адреса сторінки, де була форма: `/` або `/en/` |
 | `user_data.phone_number` | телефон у форматі `+380XXXXXXXXX` |
-| `user_data.email` | email, якщо його ввели (є лише в квізі) |
+| `user_data.email` | email, якщо його ввели (зараз поля email немає в жодній формі) |
 
 Порожні поля не передаються; немає ні телефону, ні email — немає `user_data`. Якщо браузер забороняє `sessionStorage`, номер, форма й сторінка (без телефону й email) передаються в адресі «Дякуємо» і одразу з неї прибираються; подія тоді без `user_data`.
 
@@ -272,6 +272,17 @@ npm --prefix studio run -s sanity -- exec import/drop-success-texts.mjs --with-u
 ```
 
 Скрипт сам перевіряє, що на сайті вже новий код, зберігає копію документа в `~/forrest-backups/` і видаляє тексти однією транзакцією.
+
+**Квіз (оновлення 2026-11-25).** Тексти — «Налаштування сайту» → Попапи → Квіз: заголовки чотирьох кроків, менеджер (імʼя, посада, фото), репліки менеджера до кожного кроку (у репліці кроку 4 `{messenger}` — назва обраного месенджера), «Ваші бонуси» (назва й мініатюра). Варіанти месенджерів — «Форми» → способи звʼязку (у квізі показуються Telegram, Viber, WhatsApp). Згоди й поля email у квізі немає.
+
+Старі тексти квіза (крок «Як ми можемо з вами зв'язатися?», email, згода, помилка «Немає згоди») прибираються після злиття й виходу збірки на бойовий сайт (розробник):
+
+```sh
+npm --prefix studio run -s sanity -- dataset export production ~/forrest-backups/production-$(date +%F)-before-quiz-cleanup.tar.gz
+npm --prefix studio run -s sanity -- exec import/quiz-2026-11-25.mjs --with-user-token -- --stage cleanup
+```
+
+Скрипт сам перевіряє, що на сайті вже новий квіз, зберігає копію документа в `~/forrest-backups/` і видаляє поля однією транзакцією.
 
 ## CRM G-PLUS: налаштування
 
