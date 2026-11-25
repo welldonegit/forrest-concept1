@@ -7,6 +7,7 @@
    без JS и при prefers-reduced-motion — сразу в конечном виде. Анимируются только transform, opacity, clip-path. */
 :root{
 --why-pad-block:clamp(var(--space-64),8vw,var(--space-128));
+--why-pad-to-band:clamp(var(--space-20),2.8vw,var(--space-40)); /* низ «Україна» перед фото: зазор до видимого фото вдвое меньше выгрузки (решение 2026-11-25) */
 --why-pad-inline:clamp(var(--space-16),2.6vw,var(--space-36));   /* выгрузка 34 → 36 */
 --why-head-gap:clamp(var(--space-24),4vw,var(--space-72));
 --why-head-mb:clamp(var(--space-36),4.4vw,var(--space-72));
@@ -65,6 +66,7 @@
 /* ---------- общее ---------- */
 .why{background:var(--bg-surface-warm); color:var(--text-primary); max-inline-size:var(--page-max); margin-inline:auto}
 .why-ua{padding:var(--why-pad-block) var(--why-pad-inline)}
+.why-ua:has(+ .why-band){padding-block-end:var(--why-pad-to-band)}
 .why__head{display:grid; grid-template-columns:var(--why-cols-head); align-items:end; gap:var(--why-head-gap)}
 .why__title{margin:0; text-wrap:balance}
 .why__line{display:block}
