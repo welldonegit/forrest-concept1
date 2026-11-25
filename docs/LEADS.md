@@ -267,6 +267,23 @@
   Параметры сразу убираются из адреса (обновление события не даёт);
   неизвестный form_id или номер не FR-… — события нет.
 - Таблица form_id / form_name — одна, src/lib/lead-forms.ts.
+
+### Источник world_popup — окно «Детальніше» мира (2026-11-25)
+- Где: кнопка «Детальніше про …» на карточке блока «Три світи» → окно мира
+  (WIND / ROCK / SUN), форма внизу окна. Код — src/scripts/popups/world.js.
+- Тело: form: 'world'; fields: name (обязательно), phone (обязательно),
+  contactMethod (украинской подписью из Sanity), world (название мира из Sanity).
+  Email и согласия нет.
+- dataLayer на «Дякуємо»: form_id = world_popup, form_name = «Попап світу»,
+  user_data.phone_number.
+- Telegram: «№ FR-… · Попап світу», строки «Імʼя», «Телефон», «Звʼязок»,
+  «Секція: ROCK», затем страница, время и UTM — как у других источников.
+- CRM: contact.name, contact.phone_numbers, contact.preferred_contact_method,
+  contact.language; note — «Заявка з лендінгу Forrest», номер,
+  «Джерело: попап світу», страница, время, «Секція: ROCK». Отдельного поля
+  и объекта для секции в CRM нет (решение 2026-11-25); формат, площадь,
+  бюджет не передаются — в форме их нет.
+- Тесты: npm run test:e2e (источник world), npm run test:crm (секция в note).
 - Политика конфиденциальности должна упоминать передачу данных заявки
   в Google и Facebook — вопрос клиенту (ROADMAP).
 - Проверка — docs/ADMIN.md, «Аналітика заявок»; тесты — npm run test:e2e.
