@@ -13,6 +13,11 @@
  * - размеры читаются только при загрузке и изменении окна, в кадре — только scrollY.
  * prefers-reduced-motion: сцена та же, но без движения — состояния сменяются скачком
  * по середине каждого перехода (вариант на подтверждение, см. отчёт).
+ *
+ * Клавиатура (2026-11-25): кнопки «Детальніше» всегда в порядке Tab. Невидимый слайд не принимает
+ * нажатия мыши (pointer-events в worlds.css, прежде — inert). Кнопка получила фокус с клавиатуры
+ * (:focus-visible), а её мир не показан — окно прокручивается к кадру мира (FRAME_AT); при
+ * prefers-reduced-motion — без анимации. Мышь и касания фокус-прокрутку не вызывают.
  */
 const SMOOTH = 0.055;      // доля пути до цели за кадр
 const SNAP = 0.25;         // скачок прогресса больше — без сглаживания
@@ -21,6 +26,9 @@ const UNDER = 0.1;         // боковые карточки уходят по�
 const DIM = 0.18;          // в выгрузке brightness(0.82 → 1)
 const WAVE_SCALE = 0.08;   // scale(1.08 → 1)
 const WAVE_SHIFT = 3;      // translateY(3% → 0)
+// Кадр мира для фокуса с клавиатуры: прогресс, где слайд уже показан целиком и волна следующего не началась
+// (текст 0.26–0.33, ROCK 0.36–0.62, SUN 0.68–0.94).
+const FRAME_AT = [0.345, 0.65, 1];
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -52,6 +60,7 @@ export function initWorlds(root = document) {
   let ps = null;  // сглаженный прогресс
   let raf = 0;
   let active = -1;
+  let textOn = false;
 
   function measure() {
     const W = st.clientWidth;
@@ -128,7 +137,6 @@ export function initWorlds(root = document) {
     if (k === active) return;
     active = k;
     st.dataset.active = String(k);
-    slides.forEach((s, i) => (s.inert = i !== k));
   }
 
   function frame() {
@@ -157,7 +165,8 @@ export function initWorlds(root = document) {
     head.style.transform = `translateY(${px(-e * HEAD_SHIFT)})`;
     const to = m(0.26, 0.33);
     text.style.opacity = to.toFixed(3);
-    text.inert = to < 0.5;
+    textOn = to >= 0.5;
+    st.toggleAttribute('data-text-on', textOn);
 
     const r1 = smooth(m(0.36, 0.62));
     const r2 = smooth(m(0.68, 0.94));
@@ -174,9 +183,20 @@ export function initWorlds(root = document) {
     onScroll();
   };
 
+  // Фокус с клавиатуры на кнопке мира, который сейчас не показан, — прокрутка к его кадру.
+  const onFocus = (ev) => {
+    const btn = ev.target.closest?.('.worlds__btn');
+    if (!btn || !g || !btn.matches(':focus-visible')) return;
+    const k = slides.findIndex((s) => s.contains(btn));
+    if (k < 0 || (k === active && textOn)) return;
+    const top = Math.round(g.top + FRAME_AT[k] * g.total);
+    window.scrollTo({ top, behavior: reduced.matches ? 'instant' : 'smooth' });
+  };
+
   measure();
   frame();
   window.addEventListener('scroll', onScroll, { passive: true });
+  st.addEventListener('focusin', onFocus);
   const ro = new ResizeObserver(onResize);
   ro.observe(st);
   document.fonts?.ready.then(onResize);
@@ -185,6 +205,7 @@ export function initWorlds(root = document) {
   return () => {
     cancelAnimationFrame(raf);
     window.removeEventListener('scroll', onScroll);
+    st.removeEventListener('focusin', onFocus);
     ro.disconnect();
   };
 }
