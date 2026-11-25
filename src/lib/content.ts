@@ -159,6 +159,7 @@ const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
     '/design-export/assets/photos/catalog-plans.jpg',
     '/design-export/final-form.jpg',
     '/design-export/manager.jpg',
+    '/design-export/updates/2026-11-25/quiz/img/manager-ulyana.jpg',
     '/design-export/superior-room.jpg',
     '/design-export/deluxe-room.jpg',
     '/design-export/family-room.jpg',
@@ -295,7 +296,7 @@ export interface SiteSettings {
   notFoundPage: { seoTitle: string; message: string; homeButton: string };
   /** Страницы документов: «На головну», заголовок оглавления, подпись перед датой редакции. */
   documentPage: { backLabel: string; tocTitle: string; editionLabel: string };
-  /** Политика конфиденциальности — ссылка в согласии квиза. */
+  /** Политика конфиденциальности — ссылка в подписи под формами. */
   privacyPolicy?: DocumentLink;
   /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
   analytics?: { gtmId?: string };
@@ -310,11 +311,18 @@ export interface SiteSettings {
     quiz: {
       tabLabel: string; tabAriaLabel: string; eyebrow: string;
       formatTitle: string; budgetTitle: string; budgets: { _key: string; label: string }[];
-      contactTitle: string; contactText: string; nameLabel: string; countryLabel: string;
+      messengerTitle: string; messengerText: string; messengerGroupLabel: string;
+      formTitle: string; nameLabel: string; countryLabel: string;
       /** code — телефонный код страны (+380); не переводится. */
       countries: { _key: string; code: string; label: string }[];
-      phonePlaceholder: string; emailLabel: string; consentText: string; consentLinkLabel: string;
+      phonePlaceholder: string;
       backLabel: string; nextLabel: string; submitLabel: string;
+      /** Менеджер в боковой панели квиза (свой, не siteSettings.manager — так в выгрузке 2026-11-25). */
+      managerName: string; managerRole: string; onlineLabel: string; managerPhoto: SanityImage;
+      /** Реплики менеджера по шагам; в bubbleContact {messenger} — выбранный месенджер. */
+      bubbleFormat: string; bubbleBudget: string; bubbleMessenger: string; bubbleContact: string;
+      bonusesTitle: string; bonusLockedLabel: string; bonusOpenLabel: string;
+      bonuses: { _key: string; title: string; image: SanityImage }[];
     };
   };
   header: {
@@ -364,7 +372,7 @@ export interface SiteSettings {
     successTitle: string;
     successText: string;
     /** Тексты ошибок: пустое обязательное поле, неверный телефон, Turnstile не пройден, ошибка отправки, нет согласия (квиз). */
-    errors: { required: string; phone: string; turnstile: string; send: string; consent: string };
+    errors: { required: string; phone: string; turnstile: string; send: string };
   };
   footer: {
     address: string;

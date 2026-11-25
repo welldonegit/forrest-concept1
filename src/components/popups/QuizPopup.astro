@@ -1,13 +1,18 @@
 ---
 /**
- * Квиз «Розрахувати дохід» (4.17): открывается боковой вкладкой. Три шага и экран «Дякуємо», как в выгрузке.
+ * Квиз «Розрахувати дохід» (выгрузка 2026-11-25): открывается боковой вкладкой. Четыре шага —
+ * формат → бюджет → месенджер → контакты; после заявки — страница «Дякуємо» (своего шага «Дякуємо» нет).
+ * Справа (на узком экране — под шагом) менеджер с репликой к каждому шагу и «Ваші бонуси»:
+ * бонусы открываются на шаге с формой. На экране уже 900 бонусы — полосой под шапкой.
  * Форматы — те же, что карточки Apartments (документ формата + фото карточки), «ещё не определился» —
  * siteSettings.form.formatUndecidedLabel. Для расчёта у каждого формата — площадь и доходность
  * из калькулятора Numbers, цена за м² и условия оплаты по умолчанию — оттуда же (одно место для чисел):
- * квиз считает стоимость и доход той же функцией calc() и кладёт их в заявку (этап 5).
+ * квиз считает стоимость и доход той же функцией calc() и кладёт их в заявку.
+ * Месенджеры — способы связи формы (siteSettings.form.contactOptions) с иконкой: Telegram, Viber, WhatsApp.
  * Поведение — src/scripts/popups/quiz.js, стили — src/styles/popups/quiz.css.
  */
 import Honeypot from '../ui/Honeypot.astro';
+import SocialIcon from '../ui/SocialIcon.astro';
 import { Image } from 'astro:assets';
 import { areaRange, getSiteSettingsUk, resolveImage, ukIfDiffers, type ApartmentsBlock, type NumbersCalc, type SiteSettings } from '../../lib/content';
 
@@ -31,17 +36,27 @@ const formats = await Promise.all(
     return { id: item.format._id, name: item.format.name, area: item.format.area, areaFrom: from, areaTo: to, photo: await resolveImage(item.image), calcArea: c?.area, calcYield: c?.yieldPercent };
   }),
 );
-/** Политика конфиденциальности (siteSettings.privacyPolicy): открывается в новой вкладке — введённое в квиз не теряется. */
-const privacy = settings.privacyPolicy;
+/** Месенджеры шага 3: способы связи формы, для которых есть иконка. */
+const MESSENGERS = ['telegram', 'viber', 'whatsapp'];
+const messengers = settings.form.contactOptions
+  .filter((o) => MESSENGERS.includes(o.value))
+  .map((o) => ({ ...o, uk: ukIfDiffers(o.label, ukSettings.form.contactOptions.find((u) => u._key === o._key)?.label) }));
+const manager = await resolveImage(q.managerPhoto);
+const bonuses = await Promise.all(q.bonuses.map(async (b) => ({ ...b, photo: await resolveImage(b.image) })));
+/** «… у {messenger}»: место для названия выбранного месенджера (quiz.js). */
+const [contactBefore, contactAfter = ''] = q.bubbleContact.split('{messenger}');
+const bubbles = [q.bubbleFormat, q.bubbleBudget, q.bubbleMessenger];
 const id = 'quiz';
 const arrowNext = 'M5 12h14M13 6l6 6-6 6';
 const arrowBack = 'M19 12H5M11 6l-6 6 6 6';
 const check = 'M5 12.5l4.5 4.5L19 7.5';
+const lock = 'M8 11V7.5a4 4 0 0 1 8 0V11';
 ---
 <dialog
   class="pop quiz"
   data-popup-root
   data-quiz
+  data-step="0"
   aria-label={q.tabLabel}
   data-price-m2={calc.pricePerM2}
   data-first-percent={payment?.firstPercent}
@@ -52,108 +67,183 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
     <div class="quiz__head">
       <div class="quiz__row">
         <span class="quiz__eyebrow text-pop-caps">{q.eyebrow}</span>
+        <div class="quiz__bar" aria-hidden="true">
+          {[0, 1, 2, 3].map((k) => <span class="quiz__seg"><span class="quiz__fill" data-quiz-fill={k}></span></span>)}
+        </div>
         <div class="quiz__tools">
-          <span class="quiz__count text-pop-count" data-quiz-count>01 / 03</span>
+          <span class="quiz__count text-pop-count" data-quiz-count>01 / 04</span>
           <button class="pop-close quiz__x" type="button" aria-label={settings.ui.closeLabel} data-popup-close autofocus>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
       </div>
-      <div class="quiz__bar" aria-hidden="true">
-        {[0, 1, 2].map((k) => <span class="quiz__seg"><span class="quiz__fill" data-quiz-fill={k}></span></span>)}
-      </div>
     </div>
 
-    <div class="quiz__body" data-quiz-body>
-      <section class="quiz__step quiz__step--formats" data-quiz-step="0" aria-labelledby={`${id}-t0`}>
-        <h2 class="quiz__title text-pop-h2" id={`${id}-t0`} tabindex="-1" data-uk={ukIfDiffers(q.formatTitle, qUk.formatTitle)}>{q.formatTitle}</h2>
-        <div class="quiz__grid">
-          {formats.map((f) => (
-            <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format={f.id} data-area-from={f.areaFrom} data-area-to={f.areaTo} data-area={f.calcArea} data-yield={f.calcYield}>
-              <span class="quiz__img">
-                <Image class="quiz__photo" src={f.photo.src} alt="" widths={[320, 480, 640]} sizes="(max-width: 767px) 45vw, 320px" format="avif" loading="lazy" decoding="async" style={`--focus:${f.photo.position}`} />
+    <!-- бонусы полосой: только на экране уже 900 (там список в боковой панели скрыт) -->
+    <div class="quiz__strip">
+      <div class="quiz__bon-head quiz__strip-head">
+        <span class="text-pop-label">{q.bonusesTitle}</span>
+        <span class="quiz__bon-count">{bonuses.length}</span>
+      </div>
+      <ul class="quiz__strip-list" role="list">
+        {bonuses.map((b) => (
+          <li class="quiz__bon quiz__bon--strip">
+            <span class="quiz__bon-thumb"><Image class="quiz__bon-img" src={b.photo.src} alt={b.photo.alt} widths={[40, 80]} sizes="40px" format="avif" loading="lazy" decoding="async" style={`--focus:${b.photo.position}`} /></span>
+            <span class="quiz__bon-title">{b.title}</span>
+            <span class="quiz__bon-state">
+              <span class="quiz__bon-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2.5" /><path d={lock} /></svg><span class="visually-hidden">{q.bonusLockedLabel}</span></span>
+              <span class="quiz__bon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={check} /></svg><span class="visually-hidden">{q.bonusOpenLabel}</span></span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="quiz__main">
+      <div class="quiz__body" data-quiz-body>
+        <section class="quiz__step quiz__step--formats" data-quiz-step="0" aria-labelledby={`${id}-t0`}>
+          <h2 class="quiz__title text-pop-h2" id={`${id}-t0`} tabindex="-1" data-uk={ukIfDiffers(q.formatTitle, qUk.formatTitle)}>{q.formatTitle}</h2>
+          <div class="quiz__grid">
+            {formats.map((f) => (
+              <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format={f.id} data-area-from={f.areaFrom} data-area-to={f.areaTo} data-area={f.calcArea} data-yield={f.calcYield}>
+                <span class="quiz__img">
+                  <Image class="quiz__photo" src={f.photo.src} alt="" widths={[320, 480, 640]} sizes="(max-width: 767px) 45vw, 320px" format="avif" loading="lazy" decoding="async" style={`--focus:${f.photo.position}`} />
+                </span>
+                <span class="quiz__cap">
+                  <span class="quiz__mark quiz__mark--radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
+                  <span class="quiz__opt-text">
+                    <span class="quiz__opt-name text-pop-input">{f.name}</span>
+                    <span class="quiz__opt-area text-pop-small">{f.area}</span>
+                  </span>
+                </span>
+              </button>
+            ))}
+            <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format="undecided">
+              <span class="quiz__img quiz__img--icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z" /><path d="M9.5 10a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4" /><path d="M12 17h.01" /></svg>
               </span>
               <span class="quiz__cap">
                 <span class="quiz__mark quiz__mark--radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-                <span class="quiz__opt-text">
-                  <span class="quiz__opt-name text-pop-input">{f.name}</span>
-                  <span class="quiz__opt-area text-pop-small">{f.area}</span>
-                </span>
+                <span class="quiz__opt-text"><span class="quiz__opt-name text-pop-input" data-uk={ukIfDiffers(settings.form.formatUndecidedLabel, ukSettings.form.formatUndecidedLabel)}>{settings.form.formatUndecidedLabel}</span></span>
               </span>
             </button>
-          ))}
-          <button class="quiz__opt" type="button" aria-pressed="false" data-quiz-format="undecided">
-            <span class="quiz__img quiz__img--icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z" /><path d="M9.5 10a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4" /><path d="M12 17h.01" /></svg>
-            </span>
-            <span class="quiz__cap">
-              <span class="quiz__mark quiz__mark--radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-              <span class="quiz__opt-text"><span class="quiz__opt-name text-pop-input" data-uk={ukIfDiffers(settings.form.formatUndecidedLabel, ukSettings.form.formatUndecidedLabel)}>{settings.form.formatUndecidedLabel}</span></span>
-            </span>
-          </button>
-        </div>
-      </section>
-
-      <section class="quiz__step quiz__step--budget" data-quiz-step="1" aria-labelledby={`${id}-t1`} hidden>
-        <h2 class="quiz__title text-pop-h2" id={`${id}-t1`} tabindex="-1" data-uk={ukIfDiffers(q.budgetTitle, qUk.budgetTitle)}>{q.budgetTitle}</h2>
-        <div class="quiz__list">
-          {q.budgets.map((b) => (
-            <label class="quiz__opt quiz__opt--row text-pop-row">
-              <input class="quiz__check visually-hidden" type="checkbox" name="budget" value={b.label} data-uk={budgetUk(b)} data-quiz-budget />
-              <span class="quiz__mark quiz__mark--box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-              <span>{b.label}</span>
-            </label>
-          ))}
-        </div>
-      </section>
-
-      <section class="quiz__step quiz__step--contact" data-quiz-step="2" aria-labelledby={`${id}-t2`} hidden>
-        <div class="quiz__titles">
-          <h2 class="quiz__title text-pop-h2" id={`${id}-t2`} tabindex="-1">{q.contactTitle}</h2>
-          <p class="quiz__sub text-pop-sub">{q.contactText}</p>
-        </div>
-        <form class="quiz__form" id={`${id}-form`} novalidate method="post" action="/api/lead" data-quiz-form>
-          <label class="visually-hidden" for={`${id}-name`}>{q.nameLabel}</label>
-          <input class="quiz__field text-pop-input" id={`${id}-name`} name="name" type="text" autocomplete="name" placeholder={q.nameLabel} />
-          <div class="quiz__phone">
-            <span class="quiz__field quiz__code" data-quiz-code>
-              <span class="quiz__flag" aria-hidden="true" data-quiz-flag></span>
-              <span class="quiz__code-text text-pop-input" aria-hidden="true" data-quiz-code-text>{q.countries[0]?.code}</span>
-              <svg class="quiz__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
-              <select class="quiz__select" name="code" aria-label={q.countryLabel}>
-                {q.countries.map((c) => <option value={c.code}>{c.label} {c.code}</option>)}
-              </select>
-            </span>
-            <label class="visually-hidden" for={`${id}-phone`}>{q.phonePlaceholder}</label>
-            <input class="quiz__field text-pop-input" id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required placeholder={q.phonePlaceholder} aria-describedby={`${id}-err-phone`} />
           </div>
-          <span class="quiz__err text-pop-err" id={`${id}-err-phone`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
-          <label class="visually-hidden" for={`${id}-email`}>{q.emailLabel}</label>
-          <input class="quiz__field text-pop-input" id={`${id}-email`} name="email" type="email" autocomplete="email" placeholder={q.emailLabel} />
-          <div class="quiz__consent-wrap">
-            <label class="quiz__consent text-pop-small">
-              <input class="quiz__check visually-hidden" type="checkbox" name="consent" checked required aria-describedby={`${id}-err-consent`} />
-              <span class="quiz__mark quiz__mark--box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
-              <span class="quiz__consent-text">{q.consentText} <a class="quiz__link" href={privacy?.href ?? '#'} target="_blank" rel="noopener">{q.consentLinkLabel}</a> *</span>
-            </label>
-            <span class="quiz__err quiz__err--consent text-pop-err" id={`${id}-err-consent`} hidden data-msg-required={errors.consent}>{errors.consent}</span>
+        </section>
+
+        <section class="quiz__step quiz__step--budget" data-quiz-step="1" aria-labelledby={`${id}-t1`} hidden>
+          <h2 class="quiz__title text-pop-h2" id={`${id}-t1`} tabindex="-1" data-uk={ukIfDiffers(q.budgetTitle, qUk.budgetTitle)}>{q.budgetTitle}</h2>
+          <div class="quiz__list">
+            {q.budgets.map((b) => (
+              <label class="quiz__opt quiz__opt--row text-pop-row">
+                <input class="quiz__check visually-hidden" type="checkbox" name="budget" value={b.label} data-uk={budgetUk(b)} data-quiz-budget />
+                <span class="quiz__mark quiz__mark--box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
+                <span>{b.label}</span>
+              </label>
+            ))}
           </div>
-          <Honeypot />
-          <div class="pop-captcha" data-turnstile></div>
-          <p class="quiz__err text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
-        </form>
-      </section>
+        </section>
+
+        <section class="quiz__step quiz__step--messenger" data-quiz-step="2" aria-labelledby={`${id}-t2`} hidden>
+          <div class="quiz__titles">
+            <h2 class="quiz__title text-pop-h2" id={`${id}-t2`} tabindex="-1" data-uk={ukIfDiffers(q.messengerTitle, qUk.messengerTitle)}>{q.messengerTitle}</h2>
+            <p class="quiz__sub text-pop-sub">{q.messengerText}</p>
+          </div>
+          <div class="quiz__msgs" role="group" aria-label={q.messengerGroupLabel}>
+            {messengers.map((m) => (
+              <button class="quiz__opt quiz__msg" type="button" aria-pressed="false" data-quiz-messenger={m.value} data-uk={m.uk}>
+                <span class="quiz__msg-top">
+                  <span class="quiz__msg-icon" aria-hidden="true"><SocialIcon network={m.value} /></span>
+                  <span class="quiz__mark quiz__mark--radio" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={check} /></svg></span>
+                </span>
+                <span class="quiz__msg-name text-pop-stat" data-quiz-messenger-label>{m.label}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section class="quiz__step quiz__step--contact" data-quiz-step="3" aria-labelledby={`${id}-t3`} hidden>
+          <h2 class="quiz__title text-pop-h2" id={`${id}-t3`} tabindex="-1">{q.formTitle}</h2>
+          <form class="quiz__form" id={`${id}-form`} novalidate method="post" action="/api/lead" data-quiz-form>
+            <label class="visually-hidden" for={`${id}-name`}>{q.nameLabel}</label>
+            <input class="quiz__field text-pop-input" id={`${id}-name`} name="name" type="text" autocomplete="name" placeholder={q.nameLabel} />
+            <div class="quiz__phone">
+              <span class="quiz__field quiz__code" data-quiz-code>
+                <span class="quiz__flag" aria-hidden="true" data-quiz-flag></span>
+                <span class="quiz__code-text text-pop-input" aria-hidden="true" data-quiz-code-text>{q.countries[0]?.code}</span>
+                <svg class="quiz__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+                <select class="quiz__select" name="code" aria-label={q.countryLabel}>
+                  {q.countries.map((c) => <option value={c.code}>{c.label} {c.code}</option>)}
+                </select>
+              </span>
+              <label class="visually-hidden" for={`${id}-phone`}>{q.phonePlaceholder}</label>
+              <input class="quiz__field text-pop-input" id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required placeholder={q.phonePlaceholder} aria-describedby={`${id}-err-phone`} />
+            </div>
+            <span class="quiz__err text-pop-err" id={`${id}-err-phone`} hidden data-msg-required={errors.required} data-msg-invalid={errors.phone}>{errors.phone}</span>
+            <Honeypot />
+            <div class="pop-captcha" data-turnstile></div>
+            <p class="quiz__err text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
+            <button class="quiz__cta quiz__cta--submit text-calc-cta" type="submit" data-quiz-submit>
+              {q.submitLabel}
+              <span class="quiz__cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={arrowNext} /></svg></span>
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <aside class="quiz__side">
+        <div class="quiz__mgr">
+          <div class="quiz__mgr-head">
+            <span class="quiz__mgr-photo">
+              <Image class="quiz__mgr-img" src={manager.src} alt={manager.alt} widths={[56, 112]} sizes="56px" format="avif" loading="lazy" decoding="async" style={`--focus:${manager.position}`} />
+              <span class="quiz__ring" aria-hidden="true"></span>
+              <span class="quiz__online"><span class="visually-hidden">{q.onlineLabel}</span></span>
+            </span>
+            <span class="quiz__mgr-who">
+              <span class="quiz__mgr-name text-manager-name">{q.managerName}</span>
+              <span class="quiz__mgr-role text-pop-small">{q.managerRole}</span>
+            </span>
+          </div>
+          <div class="quiz__bubbles" aria-live="polite">
+            {bubbles.map((text, k) => (
+              <p class="quiz__bub" data-quiz-bubble={k} hidden={k > 0}>
+                <span class="quiz__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span class="quiz__bub-text text-pop-small">{text}</span>
+              </p>
+            ))}
+            <p class="quiz__bub" data-quiz-bubble="3" hidden>
+              <span class="quiz__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="quiz__bub-text text-pop-small">{contactBefore}<span data-quiz-bubble-messenger></span>{contactAfter}</span>
+            </p>
+          </div>
+        </div>
+        <div class="quiz__bonuses">
+          <div class="quiz__bon-head">
+            <span class="text-pop-label">{q.bonusesTitle}</span>
+            <span class="quiz__bon-count">{bonuses.length}</span>
+          </div>
+          <ul class="quiz__bon-list" role="list">
+            {bonuses.map((b) => (
+              <li class="quiz__bon">
+                <span class="quiz__bon-thumb"><Image class="quiz__bon-img" src={b.photo.src} alt={b.photo.alt} widths={[44, 88]} sizes="44px" format="avif" loading="lazy" decoding="async" style={`--focus:${b.photo.position}`} /></span>
+                <span class="quiz__bon-title">{b.title}</span>
+                <span class="quiz__bon-state">
+                  <span class="quiz__bon-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2.5" /><path d={lock} /></svg><span class="visually-hidden">{q.bonusLockedLabel}</span></span>
+                  <span class="quiz__bon-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={check} /></svg><span class="visually-hidden">{q.bonusOpenLabel}</span></span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
     </div>
 
     <div class="quiz__foot" data-quiz-foot hidden>
       <button class="quiz__btn quiz__btn--back text-pop-btn" type="button" data-quiz-back>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrowBack} /></svg>{q.backLabel}
       </button>
-      <button class="quiz__btn quiz__btn--next text-pop-btn" type="button" data-quiz-next disabled>
-        {q.nextLabel}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrowNext} /></svg>
-      </button>
-      <button class="quiz__btn quiz__btn--next text-pop-btn" type="submit" form={`${id}-form`} data-quiz-submit hidden>
-        {q.submitLabel}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={arrowNext} /></svg>
+      <button class="quiz__cta text-calc-cta" type="button" data-quiz-next disabled>
+        {q.nextLabel}
+        <span class="quiz__cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d={arrowNext} /></svg></span>
       </button>
     </div>
   </div>

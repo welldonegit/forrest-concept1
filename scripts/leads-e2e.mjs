@@ -23,7 +23,6 @@ const PORT = 8794;
 const UTM = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'e2e-spring', gclid: 'test-gclid' };
 const PHONE = '671234567';
 const E164 = '+380671234567';
-const EMAIL = 'e2e@example.com';
 
 const chunks = readdirSync('dist/client/_astro').filter((f) => f.endsWith('.js'));
 if (!chunks.some((f) => readFileSync(`dist/client/_astro/${f}`, 'utf8').includes(TEST_SITE_KEY))) {
@@ -125,18 +124,26 @@ const SOURCES = {
       await dlg.locator('label.quiz__opt--row').first().click();
       await dlg.locator('[data-quiz-next]').click();
       await dlg.locator('[data-quiz-step="2"]:not([hidden])').waitFor();
+      // месенджер: выбор сам ведёт на шаг с формой; там открываются бонусы
+      await dlg.locator('[data-quiz-messenger]').first().click();
+      await dlg.locator('[data-quiz-step="3"]:not([hidden])').waitFor();
+      assert.equal(await dlg.getAttribute('data-step'), '3');
+      assert.equal(await dlg.locator('.quiz__bonuses .quiz__bon-ok').first().isVisible(), true, 'бонуси відкриті');
       return { scope: dlg.locator('form[data-quiz-form]'), submit: dlg.locator('[data-quiz-submit]'), status: dlg.locator('[data-form-status]') };
     },
     async fill({ scope }, phone = PHONE) {
       await scope.locator('input[name=phone]').pressSequentially(phone);
-      await scope.locator('input[name=email]').fill(EMAIL);
     },
-    values: ({ scope }) => Promise.all(['phone', 'email'].map((n) => scope.locator(`input[name=${n}]`).inputValue())),
-    user: { email: EMAIL, phone_number: E164 },
+    values: ({ scope }) => Promise.all(['name', 'phone'].map((n) => scope.locator(`input[name=${n}]`).inputValue())),
+    user: { phone_number: E164 },
     data(d) {
-      assert.equal(d.fields.email, EMAIL);
-      assert.equal(d.quiz.answers.length, 2);
+      // согласия и email в новом квизе нет; месенджер — способ связи, по-украински при любом языке
+      assert.equal(d.fields.email, undefined);
+      assert.equal(d.fields.consent, undefined);
+      assert.equal(d.fields.contactMethod, 'Telegram');
+      assert.equal(d.quiz.answers.length, 3);
       assert.ok(d.quiz.answers.every((a) => a.question && a.answer));
+      assert.match(d.quiz.answers[2].question, /месенджер/);
       assert.ok(Object.keys(d.quiz.calc).length > 0, 'расчёт в заявке');
     },
   },

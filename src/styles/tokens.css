@@ -1367,24 +1367,24 @@
 --vpop-chrome:120px;                         /* как в выгрузке: кадр 16:9 помещается в окно минус 120 */
 --vpop-shadow:0 40px 80px -30px rgba(0,0,0,.6);
 
-/* квиз */
+/* квиз (выгрузка 2026-11-25: 4 шага, боковая панель менеджера и бонусов) */
 --quiz-pad:var(--space-24);
---quiz-max-w:1120px; --quiz-max-h:860px;
+--quiz-max-w:1240px; --quiz-max-h:860px;
 --quiz-radius:36px;                          /* рендер 36 (собственный радиус панели) */
 --quiz-back:color-mix(in srgb, var(--spruce) 50%, transparent);     /* rgba(24,40,32,.5) */
 --quiz-back-blur:10px;
 --quiz-shadow:0 40px 90px -30px rgba(0,0,0,.5);
---quiz-head-pad-block-start:var(--space-28);
+--quiz-head-pad-block-start:var(--space-12); /* рендер 14 */
 --quiz-pad-inline:var(--space-40);
---quiz-head-gap:var(--space-16);             /* рендер 18 */
---quiz-head-row-gap:var(--space-16);
---quiz-x:var(--control-h-48);
+--quiz-head-row-gap:var(--space-24);
+--quiz-tools-gap:var(--space-16);
+--quiz-x:var(--control-h-40);                /* рендер 40; область нажатия — 44 (--tap-target) */
 --quiz-x-icon:18px;
 --quiz-seg-h:3px; --quiz-seg-gap:var(--space-6);
 --quiz-body-pad-block-start:var(--space-56);
 --quiz-body-pad-block-end:var(--space-40);
 --quiz-step-gap:var(--space-40);
---quiz-step0-max:1000px; --quiz-step1-max:860px; --quiz-step2-max:620px;
+--quiz-step0-max:1000px; --quiz-step1-max:860px; --quiz-step3-max:620px;
 --quiz-grid-gap:var(--space-16);
 --quiz-opt-pad:var(--space-8);
 --quiz-opt-pad-end:var(--space-16);          /* рендер 14 */
@@ -1402,7 +1402,15 @@
 --quiz-row-gap:var(--space-16);              /* рендер 14 */
 --quiz-row-radius:18px;                      /* рендер 18 (собственный) */
 --quiz-title-gap:var(--space-12);            /* рендер 14 */
---quiz-step2-gap:var(--space-36);
+/* шаг «Месенджер» */
+--quiz-msg-h:200px;                          /* рендер clamp(160,15vw,200) */
+--quiz-msg-pad:var(--space-24);              /* рендер 22 */
+--quiz-msg-gap:var(--space-56);
+--quiz-msg-radius:var(--radius-24);          /* рендер 22 */
+--quiz-msg-icon-box:var(--control-h-56); --quiz-msg-icon:var(--icon-24);
+--quiz-msg-row-gap:var(--space-16);
+/* шаг с формой */
+--quiz-step3-gap:var(--space-36);
 --quiz-form-gap:var(--space-12);
 --quiz-field-h:var(--control-h-60);
 --quiz-field-pad:var(--space-20);
@@ -1410,28 +1418,62 @@
 --quiz-code-pad-start:var(--space-20); /* рендер 18 */ --quiz-code-pad-end:var(--space-40); --quiz-code-gap:var(--space-10);
 --quiz-flag-w:22px; --quiz-flag-h:15px; --quiz-flag-radius:3px;
 --quiz-chev:14px;
---quiz-consent-pad-top:var(--space-8);
---quiz-consent-gap:var(--space-12);
 --quiz-err-pad:var(--space-4);
---quiz-foot-pad-block-start:var(--space-16);
+--quiz-submit-mt:var(--space-8);
+/* кнопки: «Назад» и кнопка с кругом-стрелкой, как CTA калькулятора (64 / 52) */
+--quiz-foot-pad-block-start:var(--space-16); /* рендер 14 */
 --quiz-foot-pad-block-end:var(--space-28);
 --quiz-foot-gap:var(--space-12);
---quiz-btn-h:52px;
---quiz-back-pad-start:var(--space-16); --quiz-back-pad-end:var(--space-20); /* рендер 14 / 18 */ --quiz-back-gap:var(--space-10);
---quiz-next-pad-start:var(--space-28); --quiz-next-pad-end:var(--space-24); /* рендер 26 / 22 */ --quiz-next-gap:var(--space-12);
+--quiz-btn-h:var(--control-h-64);
+--quiz-back-pad-start:var(--space-20); --quiz-back-pad-end:var(--space-24); --quiz-back-gap:var(--space-10);
+--quiz-cta-pad-start:var(--space-28); --quiz-cta-pad-end:var(--space-6); --quiz-cta-gap:var(--space-24);
+--quiz-cta-icon-box:52px;                    /* как --calc-cta-icon-box */
 --quiz-btn-icon:18px;
+/* боковая панель: менеджер и бонусы */
+--quiz-side-w:252px;                         /* рендер clamp(216,19.8vw,252) */
+--quiz-side-pad-block-start:var(--space-32);
+--quiz-side-pad-block-end:var(--space-24);
+--quiz-side-gap:var(--space-12);
+--quiz-mgr-pad:var(--space-10); --quiz-mgr-pad-end:var(--space-12); /* рендер 10 / 14 */
+--quiz-mgr-gap:var(--space-12);              /* рендер 14 */
+--quiz-mgr-radius:var(--radius-24);
+--quiz-mgr-head-gap:var(--space-12); --quiz-mgr-head-pad:var(--space-4);
+--quiz-mgr-photo:var(--control-h-56);
+--quiz-mgr-who-gap:var(--space-4);
+--quiz-online:var(--space-12); --quiz-online-border:var(--border-2); --quiz-online-inset:1px;
+--quiz-on-scale:2;                           /* рендер: кольцо 0 → 6px вокруг точки 12 (12 + 2·6 = 24 = ×2) */
+--quiz-bub-pad-block:var(--space-12); --quiz-bub-pad-inline:var(--space-16);
+--quiz-bub-radius:var(--radius-4) var(--radius-16) var(--radius-16) var(--radius-16); /* рендер 6 / 18 */
+--quiz-dot:var(--space-6); --quiz-dot-gap:var(--space-4); /* рендер 6 / 5 */ --quiz-dot-lift:-3px;
+--quiz-bon-gap:var(--space-8);
+--quiz-bon-head-pad:var(--space-4);
+--quiz-bon-badge-h:22px; --quiz-bon-badge-pad:var(--space-8); /* рендер 22 / 9 */
+--quiz-bon-list-gap:var(--space-6);
+--quiz-bon-row-gap:var(--space-10);
+--quiz-bon-row-pad:var(--space-6); --quiz-bon-row-pad-end:var(--space-8);
+--quiz-bon-row-radius:var(--radius-16);      /* рендер 14 */
+--quiz-bon-thumb:var(--control-h-44); --quiz-bon-thumb-radius:var(--radius-12); /* рендер 44 / 10 */
+--quiz-bon-thumb-low:var(--control-h-32);    /* окно ниже 820: рендер 32 */
+--quiz-bon-state:var(--space-24);            /* рендер 26 */
+--quiz-bon-size:var(--type-pop-label-size); --quiz-bon-lh:var(--type-pop-label-lh); /* Unbounded 500, рендер 10.5/13.65 → 11/14 */
+/* полоса бонусов на узком экране (<900) */
+--quiz-strip-pad-top:var(--space-12);
+--quiz-strip-item-w:212px;                   /* рендер 212 */
+--quiz-strip-gap:var(--space-8);
+--quiz-strip-thumb:var(--control-h-40);      /* рендер 38 */
+--quiz-strip-state:var(--quiz-mark);
 --quiz-line:color-mix(in srgb, var(--spruce) 12%, transparent);       /* rgba(24,40,32,.12): рамка полей, дорожка шкалы */
 --quiz-line-soft:color-mix(in srgb, var(--spruce) 10%, transparent);  /* рамка вариантов */
---quiz-line-strong:color-mix(in srgb, var(--spruce) 14%, transparent);/* кнопки «Назад», «Закрити» */
+--quiz-line-strong:color-mix(in srgb, var(--spruce) 14%, transparent);/* кнопки «Назад», «Закрити», замок бонуса */
 --quiz-line-hover:color-mix(in srgb, var(--spruce) 28%, transparent);
---quiz-line-foot:color-mix(in srgb, var(--spruce) 8%, transparent);
 --quiz-opt-bg:color-mix(in srgb, var(--air) 50%, transparent);
---quiz-opt-shadow:0 18px 36px -24px rgba(24,40,32,.45);
+--quiz-opt-shadow:0 18px 36px -24px rgba(24,40,32,.45);   /* и карточка менеджера (рендер 0 24px 50px -36px) */
 --quiz-focus-ring:0 0 0 4px color-mix(in srgb, var(--spruce) 8%, transparent);
---quiz-img-bg:#E8DFCC;                       /* подложка фото варианта (рендер) */
+--quiz-img-bg:#E8DFCC;                       /* подложка фото варианта и менеджера (рендер) */
+--quiz-thumb-bg:var(--path-sand);            /* подложка миниатюры бонуса */
 --quiz-flag-top:#0057B7; --quiz-flag-bottom:#FFD500;  /* флаг Украины у кода +380 (рендер) */
 --quiz-flag-ring:0 0 0 1px rgba(24,40,32,.08);
-/* анимация (qBg, qPan, qIn, qPop, qDraw) */
+/* анимация (qBg, qPan, qIn, qBub, qDot, qBt, qOn) */
 --quiz-bg-in:.5s; --quiz-pan-in:.8s; --quiz-pan-shift:32px; --quiz-pan-scale:.985;
 --quiz-out:.4s; --quiz-out-shift:24px;
 --quiz-in:.85s; --quiz-in-shift:26px; --quiz-in-blur:6px; --quiz-in-step:.08s;
@@ -1443,7 +1485,13 @@
 --quiz-field-dur:.3s;
 --quiz-err-in:.4s;
 --quiz-btn-dur:.3s; --quiz-arrow-dur:.4s; --quiz-arrow-shift:4px; --quiz-disabled:.35;
-/* значения JS (quiz.js) */
+--quiz-cta-icon-dur:.6s;                     /* круг-стрелка поворачивается на −45° при наведении */
+--quiz-mgr-in:.8s; --quiz-mgr-delay:.25s;
+--quiz-bub-in:.6s; --quiz-bub-delay:.2s; --quiz-bub-from:.6; --quiz-bub-shift:8px;
+--quiz-dots:1s; --quiz-dots-out:.25s; --quiz-dots-out-at:1.15s; --quiz-dot-step:.15s;
+--quiz-bt-in:.5s; --quiz-bt-at:1.2s; --quiz-bt-shift:4px;
+--quiz-on:2.4s;
+--quiz-bon-in:.6s;
 --quiz-pick-delay:420; --quiz-leave-ms:300; --quiz-out-ms:420;
 
 /* боковая вкладка «Розрахувати дохід» */
@@ -1508,14 +1556,21 @@
 --vpop-radius:var(--radius-20);              /* рендер 20.5 */
 --quiz-pad:var(--space-16);                  /* рендер 14.3 */
 --quiz-radius:var(--radius-28);              /* рендер 26.6 */
---quiz-head-pad-block-start:var(--space-20); /* рендер 20.5 */
+--quiz-head-pad-block-start:var(--space-10); /* рендер 10.2 */
 --quiz-pad-inline:var(--space-28);           /* рендер 26.6 */
 --quiz-body-pad-block-start:var(--space-40); /* рендер 41 */
 --quiz-body-pad-block-end:var(--space-32);   /* рендер 30.7 */
 --quiz-step-gap:var(--space-32);             /* рендер 30.7 */
---quiz-step2-gap:var(--space-32);
+--quiz-step3-gap:var(--space-32);           /* рендер 30.7 */
 --quiz-grid-gap:var(--space-12);             /* рендер 12.3 */
 --quiz-foot-pad-block-end:var(--space-20);   /* рендер 20.5 */
+--quiz-head-row-gap:var(--space-16);         /* рендер 16.4 */
+--quiz-msg-h:160px;                          /* рендер 153.6 → min 160 */
+--quiz-msg-pad:var(--space-16);              /* рендер 16.4 */
+--quiz-msg-gap:var(--space-40);              /* рендер 41 */
+--quiz-side-w:216px;                         /* рендер 202.8 → min 216 */
+--quiz-side-pad-block-start:var(--space-24); /* рендер 24.6 */
+--quiz-side-pad-block-end:var(--space-20);   /* рендер 20.5 */
 --type-pop-stat-size:17px; --type-pop-stat-lh:20px;
 --tab-w:var(--tap-target); --tab-w-hover:52px; /* рендер 44 / 50 */
 --tab-pad-block:var(--space-24);             /* рендер 22 */
@@ -1540,12 +1595,13 @@
 --vpop-close-offset:var(--space-16);         /* рендер 14 */
 --vpop-radius:var(--radius-16);
 --quiz-pad:0; --quiz-radius:0;
---quiz-head-pad-block-start:var(--space-20); /* рендер 18 */
+--quiz-head-pad-block-start:var(--space-10);
 --quiz-pad-inline:var(--space-20);
 --quiz-body-pad-block-start:var(--space-28);
 --quiz-body-pad-block-end:var(--space-24);
 --quiz-step-gap:var(--space-24);
---quiz-step2-gap:var(--space-24);
+--quiz-step3-gap:var(--space-24);
+--quiz-msg-h:0px; --quiz-msg-pad:var(--space-16);
 --quiz-grid-gap:var(--space-10);
 --quiz-img-ratio:1 / 1;
 --quiz-foot-pad-block-end:var(--space-20);   /* рендер 18 */

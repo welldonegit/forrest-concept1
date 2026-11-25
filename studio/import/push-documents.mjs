@@ -7,10 +7,10 @@
  *   - документы legalDocument — создаются, если их ещё нет; --force — перезаписать все,
  *     id после «--» — перезаписать только эти (например legal-dozvil-na-budivelni-roboty);
  *   - landing: blocks[faq].docs — плашка FAQ: ссылки на три документа стройки (заменяет прежние PDF);
- *   - siteSettings: footer.legalLinks[p].document (политика в футере), privacyPolicy (согласие квиза),
+ *   - siteSettings: footer.legalLinks[p].document (политика в футере), privacyPolicy (ссылка под формами),
  *     documentPage (подписи страниц документов) — только если поля ещё пусты (--force — перезаписать);
- *   - решения 2026-11-20: ссылка «Умови використання» (footer.legalLinks[t]) удаляется; подпись ссылки
- *     в согласии квиза — только политика (меняется, лишь если в Sanity ещё прежний текст).
+ *   - решение 2026-11-20: ссылка «Умови використання» (footer.legalLinks[t]) удаляется.
+ * Согласия в квизе больше нет (выгрузка 2026-11-25): подпись ссылки в согласии не пишется.
  * Правится опубликованный документ и черновик, если он есть.
  *
  * Запуск (из studio/, нужен вход в Sanity):
@@ -34,9 +34,6 @@ if (!legal.length) throw new Error('В import/out/content.ndjson нет доку
 const faq = byId.get('landing').blocks.find((b) => b._type === 'faq');
 const settings = byId.get('siteSettings');
 const privacyLink = settings.footer.legalLinks.find((l) => l._key === 'p');
-/** Подпись ссылки в согласии квиза: новая — из импорта; меняем только прежний текст выгрузки. */
-const consentLabels = Object.fromEntries(settings.popups.quiz.texts.map((it) => [it.language, it.value.consentLinkLabel]));
-const OLD_CONSENT = { uk: 'політикою конфіденційності та правилами використання', en: 'privacy policy and terms of use' };
 
 const client = getCliClient({ apiVersion: '2025-02-19' }).withConfig({ perspective: 'raw' });
 const tx = client.transaction();
@@ -57,8 +54,7 @@ const targets = await client.fetch(
     "privacyDoc": footer.legalLinks[_key == "p"][0].document,
     "hasPrivacyLink": defined(footer.legalLinks[_key == "p"][0]),
     privacyPolicy, documentPage,
-    "hasTerms": defined(footer.legalLinks[_key == "t"][0]),
-    "consent": popups.quiz.texts[]{_key, language, "label": value.consentLinkLabel}}`,
+    "hasTerms": defined(footer.legalLinks[_key == "t"][0])}`,
   { ids: ['landing', 'drafts.landing', 'siteSettings', 'drafts.siteSettings'], faqKey: faq._key },
 );
 for (const t of targets) {
@@ -69,16 +65,8 @@ for (const t of targets) {
   } else {
     if (!t.hasPrivacyLink) log(`${t._id}: в футере нет ссылки _key "p" — политику в футер не добавляю, проверьте в Studio`);
     else if (!t.privacyDoc || force) { set['footer.legalLinks[_key=="p"].document'] = privacyLink.document; log(`${t._id}: футер «Політика конфіденційності» → документ`); }
-    if (!t.privacyPolicy || force) { set.privacyPolicy = settings.privacyPolicy; log(`${t._id}: згода квізу → політика`); }
+    if (!t.privacyPolicy || force) { set.privacyPolicy = settings.privacyPolicy; log(`${t._id}: політика конфіденційності → документ`); }
     if (!t.documentPage || force) { set.documentPage = settings.documentPage; log(`${t._id}: підписи сторінок документів`); }
-    // Решение 2026-11-20: в согласии квиза — только политика (прежний текст упоминал правила использования).
-    for (const c of t.consent ?? []) {
-      const next = consentLabels[c.language];
-      if (next && OLD_CONSENT[c.language] === c.label) {
-        set[`popups.quiz.texts[_key=="${c._key}"].value.consentLinkLabel`] = next;
-        log(`${t._id}: згода квізу (${c.language}) → «${next}»`);
-      }
-    }
   }
   const unset = [];
   if (t._type === 'siteSettings' && t.hasTerms) { unset.push('footer.legalLinks[_key=="t"]'); log(`${t._id}: футер — посилання «Умови використання» прибрано`); }
