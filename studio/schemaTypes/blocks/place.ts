@@ -1,7 +1,7 @@
 /** Блоки «Локація» и «Інфраструктура». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { iconField, linkField, num, photoField, titleLinesField, titleLinesType } from '../lib/fields.ts';
 
 export const locationTitleLine = titleLinesType('locationTitleLine', 'muted');
@@ -46,6 +46,7 @@ export const location = defineType({
   groups: [...blockGroups.slice(0, 1), { name: 'icons', title: 'Іконки міток' }, blockGroups[1]],
   fields: [
     hiddenField,
+    languagesField,
     anchorField('lokatsiya-google'),
     titleLinesField('locationTitleLine'),
     text('text', { title: 'Опис під заголовком', description: 'Перенос рядка (Enter) — новий рядок на сайті.', multiline: true, group: 'content' }),
@@ -102,6 +103,7 @@ export const infrastructure = defineType({
   name: 'infrastructure', title: 'Інфраструктура', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('infrastruktura'),
     titleLinesField('infraTitleLine'),
     text('moreLabel', { title: 'Кнопка «i» (для програм читання з екрана)', group: 'content' }),

@@ -1,7 +1,7 @@
 /** Блоки «Інвестиція в цифрах» (картки + калькулятор) и «Сервіс для інвестора». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { linkField, num, photoField, str, titleLinesField, titleLinesType } from '../lib/fields.ts';
 
 export const numbersTitleLine = titleLinesType('numbersTitleLine', 'muted');
@@ -21,6 +21,7 @@ export const numbers = defineType({
   description: 'Числа для розрахунку (ціна за м², дохідність, оплата) — у розділі «Ціни та дохідність».',
   fields: [
     hiddenField,
+    languagesField,
     anchorField('cyfry-2'),
     titleLinesField('numbersTitleLine'),
     defineField({
@@ -113,6 +114,7 @@ export const investorService = defineType({
   groups: [blockGroups[0], { name: 'dashboard', title: 'Макет кабінету' }, blockGroups[1]],
   fields: [
     hiddenField,
+    languagesField,
     anchorField('servis'),
     titleLinesField('serviceTitleLine'),
     text('lead', { title: 'Підзаголовок', multiline: true, group: 'content' }),

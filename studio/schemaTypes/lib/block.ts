@@ -3,6 +3,7 @@
  * якорь (id секции — на него ведут меню и футер).
  */
 import { defineField } from 'sanity';
+import { languages } from '../../../src/lib/languages.ts';
 
 export const blockGroups = [
   { name: 'content', title: 'Зміст', default: true },
@@ -15,6 +16,17 @@ export const hiddenField = defineField({
   type: 'boolean',
   description: 'Блок лишається в адмінці, але не показується на сайті.',
   initialValue: false,
+  group: 'content',
+});
+
+/** На каких языках блок виден на сайте. Пусто — на всех (по умолчанию). */
+export const languagesField = defineField({
+  name: 'languages',
+  title: 'Мови, на яких показувати блок',
+  type: 'array',
+  of: [{ type: 'string' }],
+  options: { list: languages.map((l) => ({ title: `${l.name} (${l.id})`, value: l.id })), layout: 'grid' },
+  description: 'Нічого не вибрано — блок показується на всіх мовах. Вибрано — тільки на цих мовах.',
   group: 'content',
 });
 

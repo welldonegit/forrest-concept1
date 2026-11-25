@@ -1,0 +1,68 @@
+---
+/**
+ * «Переваги інвестування в Україну» (выгрузка 2026-11-25: design-export/updates/2026-11-25/ukraine-bukovel/).
+ * Заголовок с приглушённой строкой, абзац справа, три карточки: число с подписью, смужка заполнения или звёзды ЕС.
+ * Тексты — блок whyUkraine документа landing; виден на языках из поля «Мови» (на старте — только en).
+ * Стили — styles/blocks/why.css (подключает страница, только если блок на ней есть), появление — data-reveal.
+ */
+import type { WhyUkraineBlock } from '../../lib/content';
+
+interface Props {
+  block: WhyUkraineBlock;
+}
+
+const { block } = Astro.props;
+const titleId = `${block.anchor}-title`;
+// задержки появления — как в выгрузке: строки заголовка .05/.2, абзац .22; карточки 0/.12/.24, внутри +.35/.45/.62 с
+const LINE_D = [0.05, 0.2];
+const CARD_STEP = 0.12;
+const IN = { tag: 0.35, value: 0.45, body: 0.62 };
+const d = (s: number) => `--d:${s.toFixed(2)}s`;
+// звёзды ЕС — геометрия из выгрузки (12 звёзд по кругу)
+const STAR = 'M0,-6 L1.76,-2.43 5.71,-1.85 2.85,0.93 3.53,4.85 0,3 -3.53,4.85 -2.85,0.93 -5.71,-1.85 -1.76,-2.43Z';
+const STARS = ['60.00 16.00', '82.00 21.89', '98.11 38.00', '104.00 60.00', '98.11 82.00', '82.00 98.11', '60.00 104.00', '38.00 98.11', '21.89 82.00', '16.00 60.00', '21.89 38.00', '38.00 21.89'];
+---
+<section class="why why-ua" id={block.anchor} aria-labelledby={titleId}>
+  <div class="why__head" data-reveal>
+    <h2 class="why__title text-display-sm" id={titleId}>
+      {block.title.map((line, i) => (
+        <span class:list={['why__line', line.muted && 'why__line--muted']} data-line style={d(LINE_D[i] ?? LINE_D[LINE_D.length - 1] + 0.15 * (i - 1))}>{line.text}</span>
+      ))}
+    </h2>
+    <p class="why__lead text-svc-lead" style={d(0.22)}>{block.lead}</p>
+  </div>
+  <ul class="why-ua__cards" role="list" data-reveal>
+    {block.cards.map((c, i) => {
+      const base = i * CARD_STEP;
+      return (
+        <li class:list={['why-ua__card', c.dark && 'why-ua__card--dark']} style={d(base)}>
+          <span class="why-ua__tag text-faq-tag" data-rise style={d(base + IN.tag)} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          {c.visual === 'stars' ? (
+            <svg class="why-ua__stars" viewBox="0 0 120 120" aria-hidden="true" focusable="false" style={d(base)}>
+              {STARS.map((t, n) => <path transform={`translate(${t})`} d={STAR} style={`--i:${n}`} />)}
+            </svg>
+          ) : (
+            <div class="why-ua__figure">
+              {(c.value || c.prefix || c.unit) && (
+                <p class="why__value text-why-value" data-line style={d(base + IN.value)}>
+                  {c.prefix && <span class="why__unit">{c.prefix}</span>}
+                  {c.value && <span>{c.value}</span>}
+                  {c.unit && <span class="why__unit">{c.unit}</span>}
+                </p>
+              )}
+              {c.visual === 'bar' && (
+                <div class="why-ua__bar" aria-hidden="true">
+                  <span class="why-ua__fill" style={`inline-size:${Math.max(0, Math.min(100, c.barPercent ?? 0))}%;${d(base)}`}></span>
+                </div>
+              )}
+            </div>
+          )}
+          <div class="why-ua__body" data-rise style={d(base + IN.body)}>
+            <h3 class="text-infra-title">{c.title}</h3>
+            <p class="why-ua__text text-team-text">{c.text}</p>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</section>

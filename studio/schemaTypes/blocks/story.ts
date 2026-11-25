@@ -1,7 +1,7 @@
 /** Блоки «Сезонність», «Три світи», «Інвестиційна модель». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { bool, linkField, photoField, str, titleLinesType } from '../lib/fields.ts';
 
 export const seasonTitleLine = titleLinesType('seasonTitleLine', 'plain');
@@ -10,6 +10,7 @@ export const season = defineType({
   name: 'season', title: 'Сезонність (відео)', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('season'),
     defineField({
       name: 'title', title: 'Заголовок', type: 'array', of: [{ type: 'seasonTitleLine' }], group: 'content',
@@ -80,6 +81,7 @@ export const worlds = defineType({
   name: 'worlds', title: 'Три світи', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('worlds'),
     defineField({ name: 'title', title: 'Заголовок', type: 'array', of: [{ type: 'worldsTitleLine' }], group: 'content', validation: (r) => r.required().min(1) }),
     defineField({
@@ -107,6 +109,7 @@ export const model = defineType({
   name: 'model', title: 'Інвестиційна модель', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('model'),
     texts('modelTexts', [
       defineField({ name: 'title', title: 'Заголовок для програм читання з екрана', type: 'string', description: 'На сайті не видно, його озвучують програми для незрячих. TODO: текст чекає підтвердження.' }),

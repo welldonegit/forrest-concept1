@@ -39,31 +39,52 @@
   "cells"
  ],
  "hero": [
+  "languages",
   "skyline.points",
   "title"
  ],
  "stats": [
-  "cards"
+  "cards",
+  "languages"
+ ],
+ "whyUkraine": [
+  "cards",
+  "languages",
+  "title"
+ ],
+ "photoBand": [
+  "languages"
+ ],
+ "whyBukovel": [
+  "languages",
+  "rows",
+  "title"
  ],
  "season": [
+  "languages",
   "title"
  ],
  "worlds": [
+  "languages",
   "title",
   "worlds"
  ],
  "model": [
+  "languages",
   "steps"
  ],
  "apartments": [
   "items",
+  "languages",
   "title"
  ],
  "form": [
   "bullets",
+  "languages",
   "title"
  ],
  "location": [
+  "languages",
   "pins",
   "resort.card.chips",
   "resort.card.facts",
@@ -71,10 +92,12 @@
  ],
  "infrastructure": [
   "items",
+  "languages",
   "title"
  ],
  "numbers": [
   "calc.title",
+  "languages",
   "paymentCard.steps",
   "title"
  ],
@@ -85,21 +108,28 @@
   "dashboard.nav",
   "dashboard.phone.stays",
   "dashboard.reports",
+  "languages",
   "services",
   "title"
  ],
+ "construction": [
+  "languages"
+ ],
  "team": [
+  "languages",
   "members"
  ],
  "faq": [
   "docs",
   "items",
+  "languages",
   "title"
  ],
  "formFinal": [
   "bullets",
   "contactOptions",
   "goals",
+  "languages",
   "title"
  ],
  "world": [

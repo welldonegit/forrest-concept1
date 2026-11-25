@@ -129,6 +129,7 @@ const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
   : import.meta.glob<ImageMetadata>(
   [
     '/design-export/assets/photos/hero-summer.jpg',
+    '/design-export/updates/2026-11-25/ukraine-bukovel/img/bukovel-hills.jpg',
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
     '/design-export/assets/photos/footer-bridge.jpg',
@@ -865,14 +866,59 @@ export interface FaqBlock {
   items: FaqItem[];
 }
 
-export type LandingBlock = HeroBlock | StatsBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
+/** Строка заголовка блоков ukraine-bukovel: muted — приглушённым цветом. */
+export interface WhyTitleLine { _key: string; text: string; muted?: boolean }
+
+/** «Переваги інвестування в Україну» (выгрузка 2026-11-25, ukraine-bukovel). */
+export interface WhyUkraineBlock {
+  _type: 'whyUkraine';
+  _key: string;
+  anchor: string;
+  title: WhyTitleLine[];
+  lead: string;
+  cards: {
+    _key: string;
+    value?: string;
+    prefix?: string;
+    unit?: string;
+    title: string;
+    text: string;
+    visual?: 'none' | 'bar' | 'stars';
+    barPercent?: number;
+    dark?: boolean;
+  }[];
+}
+
+/** Фото на всю ширину между блоками: верх и низ растворяются в фоне (статичная маска). */
+export interface PhotoBandBlock {
+  _type: 'photoBand';
+  _key: string;
+  image: SanityImage;
+}
+
+/** «Буковель. Сформований попит упродовж року». */
+export interface WhyBukovelBlock {
+  _type: 'whyBukovel';
+  _key: string;
+  anchor: string;
+  title: WhyTitleLine[];
+  lead: string;
+  rows: { _key: string; value: string; unit?: string; title: string; text: string }[];
+}
+
+export type LandingBlock = HeroBlock | StatsBlock | WhyUkraineBlock | PhotoBandBlock | WhyBukovelBlock | SeasonBlock | WorldsBlock | ModelBlock | ApartmentsBlock | FormBlock | LocationBlock | InfrastructureBlock | NumbersBlock | InvestorServiceBlock | ConstructionBlock | TeamBlock | FaqBlock | FormFinalBlock;
 
 export async function getSiteSettings(lang: string): Promise<SiteSettings> {
   return linkDocuments(localize<SiteSettings>(deref(source.siteSettings), lang, 'siteSettings'), lang);
 }
 
 export async function getLanding(lang: string): Promise<{ blocks: LandingBlock[] }> {
-  return linkDocuments(localize<{ blocks: LandingBlock[] }>(deref(source.landing), lang, 'landing'), lang);
+  const landing = linkDocuments(localize<{ blocks: (LandingBlock & { languages?: string[] })[] }>(deref(source.landing), lang, 'landing'), lang);
+  // «Мови, на яких показувати блок»: пусто — на всех языках
+  const blocks = landing.blocks
+    .filter((b) => !b.languages?.length || b.languages.includes(lang))
+    .map(({ languages: _, ...b }) => b as LandingBlock);
+  return { ...landing, blocks };
 }
 
 /** Документы сайта на языке lang (страницы /<slug>/, /dokumenty/<slug>/; другие языки — с приставкой /en/). */

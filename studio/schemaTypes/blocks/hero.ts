@@ -1,7 +1,7 @@
 /** Блок «Перший екран» (Hero): заголовок у два рядки, підзаголовок, кнопки, фото літо/зима. */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { linkField, photoField, str, num } from '../lib/fields.ts';
 
 export const heroTitleLine = defineType({
@@ -14,6 +14,7 @@ export const hero = defineType({
   name: 'hero', title: 'Перший екран', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     defineField({
       name: 'title', title: 'Заголовок', type: 'array', of: [{ type: 'heroTitleLine' }], group: 'content',
       description: 'Два рядки: перший — темний ліворуч, другий — білий праворуч.',

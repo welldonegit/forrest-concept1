@@ -1,7 +1,7 @@
 /** Блоки «Апартаменти», «Форма: фінмодель», «Фінальна форма». */
 import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
-import { anchorField, blockGroups, hiddenField, ukOf } from '../lib/block.ts';
+import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { photoField, str, titleLinesField, titleLinesType } from '../lib/fields.ts';
 
 export const apartmentsTitleLine = titleLinesType('apartmentsTitleLine', 'muted');
@@ -24,6 +24,7 @@ export const apartments = defineType({
   name: 'apartments', title: 'Апартаменти', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('apartamenty'),
     titleLinesField('apartmentsTitleLine'),
     texts('apartmentsTexts', [
@@ -54,6 +55,7 @@ export const form = defineType({
   name: 'form', title: 'Форма: фінмодель', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('forma'),
     titleLinesField('formTitleLine'),
     text('text', { title: 'Текст під заголовком', multiline: true, group: 'content' }),
@@ -78,6 +80,7 @@ export const formFinal = defineType({
   name: 'formFinal', title: 'Фінальна форма', type: 'object', groups: blockGroups,
   fields: [
     hiddenField,
+    languagesField,
     anchorField('forma-final'),
     titleLinesField('formTitleLine'),
     texts('formFinalTexts', [
