@@ -143,13 +143,6 @@ const check = 'M5 12.5l4.5 4.5L19 7.5';
           <p class="quiz__err text-pop-err" role="alert" data-form-status hidden data-msg-turnstile={errors.turnstile} data-msg-send={errors.send}></p>
         </form>
       </section>
-
-      <section class="quiz__step quiz__step--done" data-quiz-step="3" aria-labelledby={`${id}-t3`} aria-live="polite" hidden>
-        <span class="quiz__ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="quiz__ok-path" d={check} pathLength="1" /></svg></span>
-        <h2 class="quiz__title text-pop-h2" id={`${id}-t3`} tabindex="-1">{q.successTitle}</h2>
-        <p class="quiz__done-text text-pop-sub">{q.successText}</p>
-        <button class="quiz__btn quiz__btn--next quiz__ret text-pop-input" type="button" data-popup-close>{q.returnLabel}</button>
-      </section>
     </div>
 
     <div class="quiz__foot" data-quiz-foot hidden>

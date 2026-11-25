@@ -46,7 +46,6 @@
 .quiz__step--formats{max-inline-size:var(--quiz-step0-max)}
 .quiz__step--budget{max-inline-size:var(--quiz-step1-max)}
 .quiz__step--contact{max-inline-size:var(--quiz-step2-max); gap:var(--quiz-step2-gap)}
-.quiz__step--done{max-inline-size:var(--quiz-step2-max); min-block-size:100%; align-items:center; justify-content:center; text-align:center; gap:var(--quiz-done-gap)}
 .quiz__body[data-leave] .quiz__step{opacity:0; transform:translateY(var(--quiz-leave-shift)); filter:blur(var(--quiz-leave-blur))}
 
 /* появление шага: дети по очереди, варианты — своей лесенкой */
@@ -132,11 +131,6 @@
 .quiz__link{color:var(--text-primary); text-decoration:underline; text-underline-offset:3px}
 .quiz__err--consent{padding-inline-start:calc(var(--quiz-mark) + var(--quiz-consent-gap))}
 
-/* готово */
-.quiz__ok{display:flex; align-items:center; justify-content:center; inline-size:var(--quiz-ok); block-size:var(--quiz-ok); border-radius:var(--radius-pill); background:var(--text-primary); color:var(--air); animation:quiz-pop var(--quiz-pop) var(--ease-out-back-strong) var(--quiz-pop-delay) both}
-.quiz__ok svg{inline-size:var(--quiz-ok-icon); block-size:var(--quiz-ok-icon)}
-.quiz__ok-path{stroke-dasharray:1; animation:quiz-draw var(--quiz-draw) var(--ease-out-quint) var(--quiz-draw-delay) both}
-.quiz__done-text{margin:0; color:var(--text-primary); text-wrap:pretty}
 
 /* подвал и кнопки */
 .quiz__foot{display:flex; align-items:center; justify-content:space-between; gap:var(--quiz-foot-gap); padding:var(--quiz-foot-pad-block-start) var(--quiz-pad-inline) var(--quiz-foot-pad-block-end); border-block-start:var(--border-1) solid var(--quiz-line-foot); animation:quiz-fade var(--quiz-bg-in) ease both}
@@ -154,14 +148,11 @@
 .quiz__btn--next svg{transition:transform var(--quiz-arrow-dur) var(--ease-out-quint)}
 .quiz__btn--next:hover svg{transform:translateX(var(--quiz-arrow-shift))}
 .quiz__btn--next:disabled{opacity:var(--quiz-disabled); pointer-events:none}
-.quiz__ret{block-size:var(--quiz-ret-h); padding-inline:var(--quiz-ret-pad)}
 
 @keyframes quiz-fade{from{opacity:0}}
 @keyframes quiz-pan{from{opacity:0; transform:translateY(var(--quiz-pan-shift)) scale(var(--quiz-pan-scale))}}
 @keyframes quiz-in{from{opacity:0; transform:translateY(var(--quiz-in-shift)); filter:blur(var(--quiz-in-blur))}}
 @keyframes quiz-in-back{from{opacity:0; transform:translateY(calc(-1 * var(--quiz-in-shift))); filter:blur(var(--quiz-in-blur))}}
-@keyframes quiz-pop{0%{transform:scale(.6); opacity:0} 60%{transform:scale(1.06); opacity:1} 100%{transform:scale(1)}}
-@keyframes quiz-draw{from{stroke-dashoffset:1} to{stroke-dashoffset:0}}
 
 @media (max-width:767px){
   .quiz__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -169,6 +160,6 @@
   .quiz__panel{block-size:100%}
 }
 @media (prefers-reduced-motion:reduce){
-  .quiz__back, .quiz__panel, .quiz__foot, .quiz__err, .quiz__ok, .quiz__ok-path, .quiz__step > *, .quiz__grid > .quiz__opt, .quiz__list > .quiz__opt{animation:none}
+  .quiz__back, .quiz__panel, .quiz__foot, .quiz__err, .quiz__step > *, .quiz__grid > .quiz__opt, .quiz__list > .quiz__opt{animation:none}
   .quiz__step, .quiz__fill, .quiz__panel, .quiz__back{transition:none}
 }

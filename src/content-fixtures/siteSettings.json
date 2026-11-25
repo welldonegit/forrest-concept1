@@ -1145,16 +1145,6 @@
           "value": "Get the price"
         }
       ],
-      "successLabel": [
-        {
-          "_key": "uk",
-          "value": "Дякуємо, передзвонимо"
-        },
-        {
-          "_key": "en",
-          "value": "Thank you, we'll call you back"
-        }
-      ],
       "planLabel": [
         {
           "_key": "uk",
@@ -1540,36 +1530,6 @@
         {
           "_key": "en",
           "value": "Get the calculation"
-        }
-      ],
-      "successTitle": [
-        {
-          "_key": "uk",
-          "value": "Дякуємо!"
-        },
-        {
-          "_key": "en",
-          "value": "Thank you!"
-        }
-      ],
-      "successText": [
-        {
-          "_key": "uk",
-          "value": "Менеджер зв'яжеться з вами найближчим часом і розрахує дохід для обраного формату."
-        },
-        {
-          "_key": "en",
-          "value": "A manager will contact you shortly and calculate the income for the chosen format."
-        }
-      ],
-      "returnLabel": [
-        {
-          "_key": "uk",
-          "value": "Повернутися на сайт"
-        },
-        {
-          "_key": "en",
-          "value": "Back to the site"
         }
       ]
     }

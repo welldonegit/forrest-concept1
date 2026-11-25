@@ -304,7 +304,7 @@ export interface SiteSettings {
     apartment: {
       dialogLabel: string; areaLabel: string; priceLabel: string; incomeLabel: string; yieldLabel: string;
       fromFormat: string; yieldFormat: string; descriptionLabel: string; phoneLabel: string;
-      submitLabel: string; successLabel: string; planLabel: string; photoLabel: string; prevLabel: string; nextLabel: string;
+      submitLabel: string; planLabel: string; photoLabel: string; prevLabel: string; nextLabel: string;
     };
     video: { dialogLabel: string; closeLabel: string; frameTitle: string };
     quiz: {
@@ -315,7 +315,6 @@ export interface SiteSettings {
       countries: { _key: string; code: string; label: string }[];
       phonePlaceholder: string; emailLabel: string; consentText: string; consentLinkLabel: string;
       backLabel: string; nextLabel: string; submitLabel: string;
-      successTitle: string; successText: string; returnLabel: string;
     };
   };
   header: {

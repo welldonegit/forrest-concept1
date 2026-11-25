@@ -13,7 +13,6 @@ import { Image } from 'astro:assets';
 import ManagerCard from './ManagerCard.astro';
 import Honeypot from './Honeypot.astro';
 import SocialIcon from './SocialIcon.astro';
-import { langOf, thanksPath } from '../../lib/routes';
 import { resolveImage, type FormBullet, type FormTitleLine, type SiteSettings } from '../../lib/content';
 
 /** uk — украинская подпись для заявки (data-uk), если показана другая; areaFrom/To — площадь формата. */
@@ -74,7 +73,7 @@ const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
     </div>
 
     <div class="form__panel">
-      <form class="form__form" novalidate method="post" action="/api/lead" data-lead-form={variant === 'final' ? 'final' : 'finmodel'} data-thanks={thanksPath(langOf(Astro.params.lang))}>
+      <form class="form__form" novalidate method="post" action="/api/lead" data-lead-form={variant === 'final' ? 'final' : 'finmodel'}>
         <div class="form__field">
           <label class="form__label text-form-label" for={`${id}-name`}>{f.nameLabel}</label>
           <input class="form__input text-form-input" id={`${id}-name`} name="name" type="text" autocomplete="name" required placeholder={f.namePlaceholder} aria-describedby={`${id}-err-name`} />
