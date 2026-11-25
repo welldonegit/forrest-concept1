@@ -36,7 +36,7 @@ try {
   process.exit(1);
 }
 
-const SOURCES = { finmodel: 'Фінмодель', final: 'Фінальна форма', quiz: 'Квіз', apartment: 'Попап апартаменту' };
+const SOURCES = { finmodel: 'Фінмодель', final: 'Фінальна форма', quiz: 'Квіз', apartment: 'Попап апартаменту', world: 'Попап світу', contact: 'Попап «Звʼязатися»' };
 const STATUS = { sent: 'надіслано', pending: 'очікує', failed: 'не доставлена', not_configured: 'не налаштований' };
 const kyiv = (iso) => new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', dateStyle: 'short', timeStyle: 'short' }).format(new Date(iso));
 const cols = [

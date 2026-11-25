@@ -19,7 +19,8 @@
     "crm:check": "node --experimental-strip-types --no-warnings scripts/crm/check.mjs",
     "crm:delete": "node --experimental-strip-types --no-warnings scripts/crm/delete.mjs",
     "leads:export": "node scripts/leads-export.mjs",
-    "content:placeholders": "node --experimental-strip-types --no-warnings scripts/content-placeholders.mjs"
+    "content:placeholders": "node --experimental-strip-types --no-warnings scripts/content-placeholders.mjs",
+    "test:ui": "node --test --test-concurrency=1 scripts/worlds-keyboard-test.mjs scripts/contact-popup-test.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",
@@ -27,6 +28,9 @@
     "gsap": "3.15.0"
   },
   "devDependencies": {
-    "playwright": "1.56.0"
+    "@astrojs/check": "0.9.12",
+    "@types/node": "22.20.7",
+    "playwright": "1.56.0",
+    "typescript": "6.0.3"
   }
 }

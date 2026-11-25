@@ -17,6 +17,7 @@ const widths = [640, 960, 1280, 1920, 2560].filter((x) => x < photo.src.width).c
 const img = await getImage({ src: photo.src, widths, format: 'avif' });
 ---
 <div class="why-band" data-reveal>
+  <div class="why-band__media">
   <img
     class="why-band__img"
     src={img.src}
@@ -29,4 +30,5 @@ const img = await getImage({ src: photo.src, widths, format: 'avif' });
     loading="lazy"
     decoding="async"
   />
+  </div>
 </div>

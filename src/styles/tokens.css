@@ -619,6 +619,7 @@
 /* -- Header и меню: длительности и задержки из рендера -- */
 --header-enter-dur:1.1s;  --header-enter-delay:.25s;  --header-enter-shift:-24px;
 --header-control-dur:.3s; --header-chev-dur:.45s;
+--header-cta-icon-dur:.5s; --header-cta-icon-turn:-12deg; --header-cta-icon-scale:1.06; /* «Звʼязатися»: иконка при наведении (выгрузка 2026-11-25-contact-popup) */
 --langpanel-fade-dur:.35s; --langpanel-move-dur:.5s; --langopt-dur:.25s;
 --menu-hide-delay:1.15s;
 --menu-panel-open-dur:1.05s; --menu-panel-close-dur:.85s; --menu-panel-close-delay:.3s;
@@ -1143,6 +1144,7 @@
 
 @media (prefers-reduced-motion:reduce){:root{
 --dur-hover:0ms; --dur-accordion:0ms; --dur-menu:0ms; --dur-entrance:0ms;
+--header-cta-icon-dur:0s;
 }}
 
 /* ===== FAQ 4.14 (рендер; база = ≥1600 с 1920, ступени 1280–1599 / 768–1279 / <768) ===== */
@@ -1553,7 +1555,45 @@
 --wpop-rise-delay:.45s; --wpop-rise-delay-late:.58s;
 --wpop-switch-dur:.7s; --wpop-switch-shift:14px;
 --wpop-tab-dur:.25s; --wpop-tab-line-dur:.4s; --wpop-hover-dur:.15s; --wpop-submit-dur:.2s;
-/* название мира: Unbounded 500, плавная (152/115/56) — ЖДЁТ ПОДТВЕРЖДЕНИЯ: роль worlds-decor (200/158/113/56) не помещается в левую колонку на 1024 */
+
+/* попап «Звʼязатися» (выгрузка 2026-11-25-contact-popup): поля — clamp() выгрузки с границами по шкале, как у окна мира */
+--cpop-back:color-mix(in srgb, var(--night-bark) 50%, transparent);      /* rgba(12,12,12,.5) */
+--cpop-blur:blur(10px);
+--cpop-pad:clamp(var(--space-12),3vw,var(--space-40));
+--cpop-max:1080px;
+--cpop-cols:minmax(0,1.05fr) minmax(0,1fr);
+--cpop-radius:var(--radius-32);
+--cpop-radius-sm:var(--radius-28);           /* ≤820: рендер 26 */
+--cpop-shadow:0 60px 120px -40px color-mix(in srgb, var(--night-bark) 60%, transparent);
+--cpop-img-min-h:520px;
+--cpop-img-ratio-sm:16 / 9;                  /* ≤820: фото над формой */
+--cpop-body-gap:clamp(var(--space-24),2.6vw,var(--space-36));
+--cpop-body-pad:clamp(var(--space-56),5vw,var(--space-80)) clamp(var(--space-24),4vw,var(--space-56)) clamp(var(--space-32),4vw,var(--space-56));
+--cpop-body-pad-sm:var(--space-28) var(--space-20) var(--space-24);
+--cpop-x-offset:clamp(var(--space-16),1.6vw,var(--space-24)); /* рендер 14–22 */
+--cpop-x-border:color-mix(in srgb, var(--spruce) 16%, transparent);
+--cpop-x-bg-sm:color-mix(in srgb, var(--linen) 92%, transparent);
+--cpop-x-icon:var(--icon-20);                /* рендер 18 */
+/* заголовок: временная плавная роль, до сведения — Unbounded 500 (вес рендера: 600 в выгрузке без файла 600), 38/36/25.6 · 24;
+   pop-h2 (40/37.4/26.6 · 24) в пределах 2px, но на 1920 даёт 6 строк вместо 5 */
+--type-cpop-title-size:clamp(24px,2.5vw,38px); --type-cpop-title-lh:1.12; --type-cpop-title-ls:-.035em;
+--cpop-form-gap:var(--space-12);
+--cpop-input-h:var(--control-h-64);
+--cpop-input-pad:var(--space-24);            /* рендер 26 */
+--cpop-input-border:color-mix(in srgb, var(--spruce) 14%, transparent);
+--cpop-input-border-hover:color-mix(in srgb, var(--spruce) 28%, transparent);
+--cpop-input-ring:0 0 0 4px color-mix(in srgb, var(--spruce) 8%, transparent);
+--cpop-input-invalid:0 0 0 1px var(--spruce);
+--cpop-submit-mt:var(--space-8);
+--cpop-submit-pad-start:var(--space-28); --cpop-submit-pad-end:var(--space-6);
+--cpop-submit-gap:var(--space-24);
+--cpop-submit-icon:52px;                     /* круг с телефоном: собственный размер */
+--cpop-submit-svg:var(--icon-20);            /* рендер 19 */
+--cpop-fade:.35s; --cpop-up:.7s; --cpop-up-shift:24px; --cpop-up-scale:.98;
+--cpop-err-in:.4s; --cpop-err-shift:8px;
+--cpop-x-dur:.3s; --cpop-x-turn-dur:.4s; --cpop-field-dur:.3s; --cpop-icon-dur:.5s;
+--cpop-icon-turn:-12deg; --cpop-icon-scale:1.06; --cpop-x-turn:90deg;
+/* название мира: Unbounded 500, плавная (152/115/56) — значение выгрузки подтверждено человеком 2026-11-25; роль worlds-decor (200/158/113/56) не помещается в левую колонку на 1024 */
 --type-wpop-name-size:clamp(56px,8vw,152px); --type-wpop-name-lh:.9; --type-wpop-name-ls:-.03em;
 
 /* роли попапов — временные, до сведения */

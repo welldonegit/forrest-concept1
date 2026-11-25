@@ -10,6 +10,7 @@ const modules = {
   video: () => import('../popups/video.js'),
   quiz: () => import('../popups/quiz.js'),
   world: () => import('../popups/world.js'),
+  contact: () => import('../popups/contact.js'),
 };
 const cache = {};
 

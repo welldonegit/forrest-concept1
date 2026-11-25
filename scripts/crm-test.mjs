@@ -100,7 +100,7 @@ const makeDue = (id) => sql(`UPDATE lead_deliveries SET next_attempt_at = '2000-
 const posts = () => crmCalls.filter((c) => c.method === 'POST');
 const bodyOf = (number) => posts().map((c) => c.body).find((b) => b.note.includes(`Номер: ${number}\n`));
 
-test('5 источников: лид в CRM, тело по схеме, поля по таблице, пустых ключей нет', async () => {
+test('6 источников: лид в CRM, тело по схеме, поля по таблице, пустых ключей нет', async () => {
   const cookie = `gp_utm=${encodeURIComponent(JSON.stringify({ utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring', gclid: 'g-1', referrer: 'https://www.google.com/' }))}`;
   const fin = await postLead({ lang: 'en', fields: { name: 'Олена', phone: '+380671234567', format: 'Superior', areaFrom: '29.5', areaTo: '34.5', contactMethod: 'Дзвінок' } }, cookie);
   const fin2 = await postLead({ fields: { name: 'Без формату', phone: '+380671234567', format: 'Ще не визначився, потрібна консультація' } });
@@ -112,7 +112,10 @@ test('5 источников: лид в CRM, тело по схеме, поля 
   });
   const apt = await postLead({ form: 'apartment', lang: 'en', fields: { phone: '+380931234567', apartment: 'Family Suite' } });
   const world = await postLead({ form: 'world', lang: 'en', fields: { name: 'Марта', phone: '+380631112233', contactMethod: 'Viber', world: 'ROCK' } });
-  for (const l of [fin, fin2, final, quiz, apt, world]) {
+  // попап «Звʼязатися»: без имени (по желанию) — CRM получает имя-заглушку с номером заявки
+  const contact = await postLead({ form: 'contact', fields: { phone: '+380671112233' } });
+  const contactNamed = await postLead({ form: 'contact', lang: 'en', fields: { name: 'Анна', phone: '+380671112244' } });
+  for (const l of [fin, fin2, final, quiz, apt, world, contact, contactNamed]) {
     const row = await delivery(l.id);
     assert.equal(row.status, 'sent', `${l.number}: ${row.last_error}`);
     assert.match(row.external_id, /^\d+$/);
@@ -181,6 +184,18 @@ test('5 источников: лид в CRM, тело по схеме, поля 
   assert.ok(b6.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${world.number}\nДжерело: попап світу\n`));
   assert.match(b6.note, /\nСекція: ROCK(\n|$)/);
   assert.equal('note_section' in b6, false);
+
+  // попап «Звʼязатися»: имя и телефон, источник — в note
+  const b7 = bodyOf(contact.number);
+  assert.equal(b7.contact.name, `Заявка з сайту ${contact.number}`);
+  assert.deepEqual(b7.contact.phone_numbers, ['+380671112233']);
+  assert.equal('preferred_contact_method' in b7.contact, false);
+  assert.equal(b7.contact.language, 'ua');
+  assert.ok(b7.note.startsWith(`Заявка з лендінгу Forrest\nНомер: ${contact.number}\nДжерело: попап «Звʼязатися» (шапка)\n`));
+  for (const k of ['note_section', 'note_purpose', 'note_budget']) assert.equal(k in b7, false, k);
+  const b8 = bodyOf(contactNamed.number);
+  assert.equal(b8.contact.name, 'Анна');
+  assert.equal(b8.contact.language, 'en');
 });
 
 test('явная ошибка CRM (400): код и пути полей без значений, повтор — без поиска', async () => {

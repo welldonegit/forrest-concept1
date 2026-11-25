@@ -35,7 +35,7 @@
 - Для сетевых повторов проверки токена — idempotency_key в siteverify.
 
 ## Что в заявке
-- Источник: форма «Фінмодель», финальная форма, квиз, попап апартамента.
+- Источник: форма «Фінмодель», финальная форма, квиз, попап апартамента, окно мира, попап «Звʼязатися».
 - Поля формы (телефон обязателен во всех формах), для квиза — ответы
   (формат, бюджет, месенджер) и расчёт; язык, адрес страницы, время по Киеву, номер заявки.
   Квиз (выгрузка 2026-11-25): имя, телефон, месенджер → contactMethod; email и согласия нет.
@@ -141,7 +141,7 @@
 
 | Поле заявки | Поле CRM | Примечание |
 |---|---|---|
-| fields.name | contact.name (≤140) | обязателен в CRM; нет имени (квиз, апартамент) — «Заявка з сайту FR-…»; длиннее — полностью в note |
+| fields.name | contact.name (≤140) | обязателен в CRM; нет имени (квиз, апартамент, попап «Звʼязатися») — «Заявка з сайту FR-…»; длиннее — полностью в note |
 | fields.phone | contact.phone_numbers[0] | +380…, без пробелов |
 | fields.email | contact.email (≤140) | нет — нет ключа; длиннее 140 — только в note |
 | fields.contactMethod | contact.preferred_contact_method (≤128) | украинской подписью |
@@ -190,13 +190,14 @@
 - POST /api/lead, Content-Type: application/json, тот же адрес сайта
   (чужой Origin — 403).
 - Тело: key (UUID на одну попытку отправки формы, повтор — тот же key),
-  form (finmodel | final | quiz | apartment | world), lang, page (адрес страницы: https://…/ — украинская,
+  form (finmodel | final | quiz | apartment | world | contact), lang, page (адрес страницы: https://…/ — украинская,
   https://…/en/ — английская),
   turnstileToken, website (поле-ловушка, пустое), fields { name, phone,
   email, consent, contactMethod, format, purpose, areaFrom, areaTo,
   budget, budgetCurrency, apartment, world, country }, quiz { answers:
   [{ question, answer }], calc: { ключ: число или строка } }.
 - Имя обязательно в finmodel, final и world; телефон — везде (7–15 цифр).
+- contact — попап «Звʼязатися» (кнопка в шапке, выгрузка 2026-11-25): fields.name (по желанию), fields.phone; больше полей нет.
 - world — окно «Детальніше» мира (выгрузка 2026-11-25): fields.world = WIND | ROCK | SUN (название мира из Sanity),
   contactMethod — украинской подписью; email и согласия нет.
 - Источник визита — из cookie gp_utm (encodeURIComponent(JSON) с ключами
@@ -212,8 +213,8 @@
 ## Сайт: как устроено (5.2)
 - Код: src/scripts/ui/lead-api.js (отправка, ключ повтора, ошибки,
   goThanks — событие и переход), captcha.js (Turnstile), attribution.js (cookie gp_utm);
-  формы — lead-form.js, popups/quiz.js, popups/apartments.js.
-- После успеха все четыре источника — страница «Дякуємо» (/thanks/,
+  формы — lead-form.js, popups/quiz.js, popups/apartments.js, popups/world.js, popups/contact.js.
+- После успеха все источники — страница «Дякуємо» (/thanks/,
   /en/thanks/; адрес — html[data-thanks] из routes.ts). Своего шага
   «Дякуємо» у квиза и подписи успеха на кнопке попапа апартамента нет
   (решение 2026-11-25, отличие от выгрузки).
@@ -256,6 +257,7 @@
   | quiz | Квіз «Розрахунок доходу» |
   | apartment_popup | Попап апартаменту |
   | world_popup | Попап світу |
+  | contact_popup | Попап «Зв'язатися» |
 - user_data: phone_number — E.164 (+380XXXXXXXXX, из маски; в квизе — код
   страны + номер); email — если поле есть в форме (с квиза 2026-11-25 его нет ни в одной форме).
   Пустые ключи не передаются; нет ни телефона, ни email — нет user_data.
@@ -267,9 +269,54 @@
   Параметры сразу убираются из адреса (обновление события не даёт);
   неизвестный form_id или номер не FR-… — события нет.
 - Таблица form_id / form_name — одна, src/lib/lead-forms.ts.
+
+### Источник world_popup — окно «Детальніше» мира (2026-11-25)
+- Где: кнопка «Детальніше про …» на карточке блока «Три світи» → окно мира
+  (WIND / ROCK / SUN), форма внизу окна. Код — src/scripts/popups/world.js.
+- Тело: form: 'world'; fields: name (обязательно), phone (обязательно),
+  contactMethod (украинской подписью из Sanity), world (название мира из Sanity).
+  Email и согласия нет.
+- dataLayer на «Дякуємо»: form_id = world_popup, form_name = «Попап світу»,
+  user_data.phone_number.
+- Telegram: «№ FR-… · Попап світу», строки «Імʼя», «Телефон», «Звʼязок»,
+  «Секція: ROCK», затем страница, время и UTM — как у других источников.
+- CRM: contact.name, contact.phone_numbers, contact.preferred_contact_method,
+  contact.language; note — «Заявка з лендінгу Forrest», номер,
+  «Джерело: попап світу», страница, время, «Секція: ROCK». Отдельного поля
+  и объекта для секции в CRM нет (решение 2026-11-25); формат, площадь,
+  бюджет не передаются — в форме их нет.
+- Тесты: npm run test:e2e (источник world), npm run test:crm (секция в note).
 - Политика конфиденциальности должна упоминать передачу данных заявки
   в Google и Facebook — вопрос клиенту (ROADMAP).
 - Проверка — docs/ADMIN.md, «Аналітика заявок»; тесты — npm run test:e2e.
+
+### Источник contact_popup — попап «Звʼязатися» (2026-11-25)
+- Где: кнопка «Звʼязатися» в шапке (все страницы: главная, архив, документы, «Дякуємо», 404) → попап
+  «Передзвоніть мені» (выгрузка design-export/updates/2026-11-25-contact-popup/). Код — src/scripts/popups/contact.js.
+  Без JS кнопка — ссылка tel: на «Контакти → Телефон для дзвінка».
+- Тело: form: 'contact'; fields: name (по желанию — так в выгрузке), phone (обязательно). Способа связи,
+  email и согласия нет.
+- dataLayer на «Дякуємо»: form_id = contact_popup, form_name = «Попап «Зв'язатися»», user_data.phone_number.
+- Telegram:
+  ```
+  Заявка з лендінгу Forrest
+  № FR-000128 · Попап «Звʼязатися» (шапка)
+  25.11.2026, 16:05 (Київ) · мова: uk
+
+  Імʼя: Олена
+  Телефон: +380671234567
+  Сторінка: https://forrestresort.com.ua/archive/
+
+  Джерело
+  utm_source: google
+  …
+  ```
+  Нет имени — строки «Імʼя» нет.
+- CRM: contact.name (нет — «Заявка з сайту FR-…»), contact.phone_numbers, contact.language; note —
+  «Заявка з лендінгу Forrest», номер, «Джерело: попап «Звʼязатися» (шапка)», страница, время, UTM.
+  preferred_contact_method, формат, цель, бюджет не передаются — в форме их нет.
+- Тесты: npm run test:e2e (источник contact), npm run test:crm (без имени и с именем),
+  npm run test:ui (кнопка и попап на всех страницах).
 
 ## Этапы
 5.1 Сервер: /api/lead, D1, проверки, защита, статусы каналов.

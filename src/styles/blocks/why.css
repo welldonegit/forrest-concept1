@@ -7,6 +7,7 @@
    без JS и при prefers-reduced-motion — сразу в конечном виде. Анимируются только transform, opacity, clip-path. */
 :root{
 --why-pad-block:clamp(var(--space-64),8vw,var(--space-128));
+--why-pad-to-band:clamp(var(--space-20),2.8vw,var(--space-40)); /* низ «Україна» перед фото: зазор до видимого фото вдвое меньше выгрузки (решение 2026-11-25) */
 --why-pad-inline:clamp(var(--space-16),2.6vw,var(--space-36));   /* выгрузка 34 → 36 */
 --why-head-gap:clamp(var(--space-24),4vw,var(--space-72));
 --why-head-mb:clamp(var(--space-36),4.4vw,var(--space-72));
@@ -28,7 +29,7 @@
 --why-bar-h:var(--space-10);
 --why-bar-gap:clamp(var(--space-16),1.6vw,var(--space-24));   /* выгрузка 22 → 24 */
 --why-stars:clamp(88px,8vw,128px);
-/* число карточки и строки: ЖДЁТ ПОДТВЕРЖДЕНИЯ (своей роли нет; ближайшие — hero-h1 38–108, model-num 44–80) */
+/* число карточки и строки: значения выгрузки подтверждены человеком 2026-11-25 (своей роли нет; ближайшие — hero-h1 38–108, model-num 44–80) */
 --type-why-value-size:clamp(56px,6.2vw,108px); --type-why-value-lh:.9; --type-why-value-ls:-.06em;
 --type-why-row-size:clamp(56px,7.4vw,132px); --type-why-row-lh:.86; --type-why-row-ls:-.065em;
 --why-row-unit-scale:.36em;
@@ -37,7 +38,10 @@
 --band-ratio:1920 / 1000;
 --band-min-h:420px;
 --band-h-sm:440px;                               /* <768 */
---band-mask:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.04) 5%,rgba(0,0,0,.16) 11%,rgba(0,0,0,.36) 17%,rgba(0,0,0,.6) 23%,rgba(0,0,0,.82) 29%,rgba(0,0,0,.95) 34%,#000 38%,#000 50%,rgba(0,0,0,.95) 55%,rgba(0,0,0,.84) 61%,rgba(0,0,0,.66) 67%,rgba(0,0,0,.45) 73%,rgba(0,0,0,.26) 80%,rgba(0,0,0,.11) 87%,rgba(0,0,0,.03) 94%,rgba(0,0,0,0) 100%);
+/* маска: плавная кривая (smootherstep, по 10 точек) — сверху 0→40%, снизу 52→100%; на самом краю ровно 0 */
+--band-mask:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.009) 4%,rgba(0,0,0,0.058) 8%,rgba(0,0,0,0.163) 12%,rgba(0,0,0,0.317) 16%,rgba(0,0,0,0.500) 20%,rgba(0,0,0,0.683) 24%,rgba(0,0,0,0.837) 28%,rgba(0,0,0,0.942) 32%,rgba(0,0,0,0.991) 36%,#000 40%,#000 52%,rgba(0,0,0,0.991) 56.8%,rgba(0,0,0,0.942) 61.6%,rgba(0,0,0,0.837) 66.4%,rgba(0,0,0,0.683) 71.2%,rgba(0,0,0,0.500) 76%,rgba(0,0,0,0.317) 80.8%,rgba(0,0,0,0.163) 85.6%,rgba(0,0,0,0.058) 90.4%,rgba(0,0,0,0.009) 95.2%,rgba(0,0,0,0) 100%);
+--band-bg-top:var(--bg-surface-warm);    /* цвет, в который уходит фото: фон блока сверху */
+--band-bg-bottom:var(--bg-surface-warm); /* и снизу (заголовок «Буковель» заходит на фото — его фон там прозрачный) */
 --band-overlap:clamp(var(--space-24),4vw,var(--space-72)); /* заголовок Буковеля заходит на фото */
 --bv-gap:clamp(var(--space-56),7vw,var(--space-96));     /* выгрузка до 112 → 96 */
 --bv-row-pad:clamp(var(--space-28),3.4vw,var(--space-56));
@@ -62,6 +66,7 @@
 /* ---------- общее ---------- */
 .why{background:var(--bg-surface-warm); color:var(--text-primary); max-inline-size:var(--page-max); margin-inline:auto}
 .why-ua{padding:var(--why-pad-block) var(--why-pad-inline)}
+.why-ua:has(+ .why-band){padding-block-end:var(--why-pad-to-band)}
 .why__head{display:grid; grid-template-columns:var(--why-cols-head); align-items:end; gap:var(--why-head-gap)}
 .why__title{margin:0; text-wrap:balance}
 .why__line{display:block}
@@ -96,12 +101,16 @@
 .why-ua__text{max-inline-size:var(--why-card-text-max); text-wrap:pretty}
 
 /* ---------- фото между блоками ---------- */
-.why-band{position:relative; inline-size:100%; aspect-ratio:var(--band-ratio); min-block-size:var(--band-min-h); overflow:hidden; background:var(--bg-surface-warm)}
-.why-band__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover; -webkit-mask-image:var(--band-mask); mask-image:var(--band-mask)}
+.why-band{position:relative; inline-size:100%; aspect-ratio:var(--band-ratio); min-block-size:var(--band-min-h); overflow:hidden;
+  background:linear-gradient(var(--band-bg-top) 50%, var(--band-bg-bottom) 50%)}
+/* маска — на неподвижной обёртке: фото внутри приближается (появление), а края растворения остаются на месте */
+.why-band__media{position:absolute; inset:0; overflow:hidden; -webkit-mask-image:var(--band-mask); mask-image:var(--band-mask)}
+.why-band__img{position:absolute; inset:0; inline-size:100%; block-size:100%; object-fit:cover}
 
 /* ---------- Буковель ---------- */
 .why-bv{padding:0 var(--why-pad-inline) var(--why-pad-block); display:flex; flex-direction:column; gap:var(--bv-gap)}
-.why-band + .why-bv{position:relative; z-index:1; margin-block-start:calc(-1 * var(--band-overlap))}
+.why-band + .why-bv{position:relative; z-index:1; margin-block-start:calc(-1 * var(--band-overlap));
+  background:linear-gradient(transparent var(--band-overlap), var(--bg-surface-warm) var(--band-overlap))} /* над фото фон прозрачный: стыка нет */
 .why-bv:not(.why-band + .why-bv){padding-block-start:var(--why-pad-block)}
 .why-bv__rows{position:relative; margin:0; padding:0; list-style:none; display:flex; flex-direction:column}
 .why-bv__row{position:relative; display:grid; grid-template-columns:var(--bv-cols-row); align-items:center; gap:var(--bv-row-gap); padding-block:var(--bv-row-pad)}

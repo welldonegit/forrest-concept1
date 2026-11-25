@@ -1,0 +1,71 @@
+/* FORREST — кнопка «Зв'язатися» (хедер) + попап «Передзвоніть мені» */
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/unbounded-400-cyrillic-ext.woff2") format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/unbounded-400-cyrillic.woff2") format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/unbounded-400-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/unbounded-400-latin.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url("./fonts/unbounded-500-cyrillic-ext.woff2") format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url("./fonts/unbounded-500-cyrillic.woff2") format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url("./fonts/unbounded-500-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url("./fonts/unbounded-500-latin.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/mulish-400-cyrillic-ext.woff2") format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/mulish-400-cyrillic.woff2") format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/mulish-400-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url("./fonts/mulish-400-latin.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url("./fonts/mulish-600-cyrillic-ext.woff2") format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url("./fonts/mulish-600-cyrillic.woff2") format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url("./fonts/mulish-600-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url("./fonts/mulish-600-latin.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:700;font-display:swap;src:url("./fonts/mulish-700-cyrillic-ext.woff2") format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:700;font-display:swap;src:url("./fonts/mulish-700-cyrillic.woff2") format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:700;font-display:swap;src:url("./fonts/mulish-700-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:700;font-display:swap;src:url("./fonts/mulish-700-latin.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+.fc-btn,.fc-pop{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+.fc-btn *,.fc-pop *{box-sizing:border-box}
+
+/* Кнопка в хедері */
+.fc-btn{display:inline-flex;align-items:center;gap:14px;height:44px;padding:0 3px;border-radius:999px;border:1px solid rgba(24,40,32,.18);background:transparent;text-decoration:none;color:#182820;font-family:Mulish,sans-serif;font-weight:600;font-size:15px;line-height:1;cursor:pointer}
+.fc-btn__label{padding-left:18px}
+.fc-btn__icon{width:36px;height:36px;flex:none;border-radius:999px;background:#182820;color:#FFFFFF;display:flex;align-items:center;justify-content:center;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.fc-btn:hover .fc-btn__icon{transform:rotate(-12deg) scale(1.06)}
+.fc-btn:focus-visible{outline:2px solid #182820;outline-offset:3px}
+@media(max-width:899px){.fc-btn__label{display:none}}
+
+/* Попап */
+.fc-pop{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,40px);background:rgba(12,12,12,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:fcFade .35s ease both}
+.fc-pop[hidden]{display:none}
+.fc-pop__card{position:relative;width:100%;max-width:1080px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);border-radius:32px;overflow:hidden;background:#F7F2E8;box-shadow:0 60px 120px -40px rgba(12,12,12,.6);animation:fcUp .7s cubic-bezier(.22,1,.36,1) both}
+.fc-pop__img{position:relative;min-height:520px;background:#3A4A3C}
+.fc-pop__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 58%}
+.fc-pop__body{display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,2.6vw,36px);padding:clamp(56px,5vw,80px) clamp(24px,4vw,56px) clamp(32px,4vw,56px)}
+.fc-pop__x{position:absolute;top:clamp(14px,1.6vw,22px);right:clamp(14px,1.6vw,22px);z-index:2;width:52px;height:52px;border-radius:999px;border:1px solid rgba(24,40,32,.16);background:transparent;color:#182820;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s,color .3s,transform .4s cubic-bezier(.22,1,.36,1)}
+.fc-pop__x:hover{background:#182820;color:#FFFFFF;transform:rotate(90deg)}
+.fc-pop__title{margin:0;font-family:Unbounded,sans-serif;font-weight:600;font-synthesis:none;font-size:clamp(24px,2.5vw,38px);line-height:1.12;letter-spacing:-.035em;color:#182820;text-wrap:balance}
+.fc-form{display:flex;flex-direction:column;gap:12px;margin:0}
+.fc-input{height:64px;width:100%;min-width:0;border-radius:999px;border:1px solid rgba(24,40,32,.14);background:#FFFFFF;padding:0 26px;font-family:Mulish,sans-serif;font-weight:500;font-size:17px;color:#182820;outline:none;transition:border-color .3s ease,box-shadow .3s ease;-webkit-appearance:none;appearance:none}
+.fc-input::placeholder{color:#928C8E}
+.fc-input:hover{border-color:rgba(24,40,32,.28)}
+.fc-input:focus{border-color:#182820;box-shadow:0 0 0 4px rgba(24,40,32,.08)}
+.fc-input[aria-invalid=true]{border-color:#182820;box-shadow:0 0 0 1px #182820}
+.fc-err{font-family:Mulish,sans-serif;font-weight:600;font-size:13px;color:#182820;padding-left:26px;animation:fcIn .4s cubic-bezier(.22,1,.36,1) both}
+.fc-err[hidden]{display:none}
+.fc-submit{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;height:64px;margin-top:8px;padding:0 6px 0 28px;border-radius:999px;border:0;background:#182820;color:#FFFFFF;font-family:Mulish,sans-serif;font-weight:600;font-size:17px;cursor:pointer;transition:background .3s ease}
+.fc-submit:hover{background:#0C0C0C}
+.fc-submit__icon{width:52px;height:52px;flex:none;border-radius:999px;background:#F2EAD8;color:#182820;display:flex;align-items:center;justify-content:center}
+.fc-submit__icon svg{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.fc-submit:hover .fc-submit__icon svg{transform:rotate(-12deg) scale(1.06)}
+.fc-done{display:flex;flex-direction:column;gap:18px;animation:fcIn .5s cubic-bezier(.22,1,.36,1) both}
+.fc-done[hidden],.fc-step[hidden]{display:none}
+.fc-step{display:flex;flex-direction:column;gap:clamp(24px,2.6vw,36px)}
+.fc-done__mark{width:64px;height:64px;border-radius:999px;background:#182820;color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.fc-done__title{margin:0;font-family:Unbounded,sans-serif;font-weight:600;font-synthesis:none;font-size:clamp(26px,2.6vw,40px);line-height:1.1;letter-spacing:-.035em;color:#182820}
+.fc-done__text{margin:0;max-width:380px;font-family:Mulish,sans-serif;font-weight:500;font-size:17px;line-height:1.55;color:#928C8E}
+@keyframes fcFade{from{opacity:0}}
+@keyframes fcUp{from{opacity:0;transform:translateY(24px) scale(.98)}}
+@keyframes fcIn{from{opacity:0;transform:translateY(8px)}}
+@media(max-width:820px){
+.fc-pop__card{grid-template-columns:minmax(0,1fr);max-height:calc(100dvh - 24px);overflow-y:auto;border-radius:26px}
+.fc-pop__img{min-height:0;aspect-ratio:16/9}
+.fc-pop__body{padding:28px 20px 24px}
+.fc-pop__x{background:rgba(247,242,232,.92);border-color:transparent}
+}
+@media(prefers-reduced-motion:reduce){.fc-pop,.fc-pop__card,.fc-done,.fc-err{animation:none}.fc-btn__icon,.fc-pop__x,.fc-submit__icon svg{transition:none}}

@@ -130,6 +130,7 @@ const fixturePhotos: PhotoGlob = __CONTENT_SOURCE__ === 'sanity'
   [
     '/design-export/assets/photos/hero-summer.jpg',
     '/design-export/updates/2026-11-25/ukraine-bukovel/img/bukovel-hills.jpg',
+    '/design-export/updates/2026-11-25-contact-popup/img/contact-popup-winter.avif',
     '/design-export/assets/photos/hero-winter.jpg',
     '/design-export/assets/photos/card-apartments.jpg',
     '/design-export/assets/photos/footer-bridge.jpg',
@@ -315,6 +316,8 @@ export interface SiteSettings {
       formTitle: string; formText: string; nameLabel: string; phoneLabel: string; contactLegend: string;
       submitLabel: string; consentText: string; consentLinkLabel: string;
     };
+    /** Попап «Звʼязатися» (выгрузка 2026-11-25-contact-popup). Нет в Sanity (до записи скриптом) — кнопка шапки ведёт на tel:. */
+    contact?: { dialogLabel: string; title: string; submitLabel: string; image: SanityImage };
     quiz: {
       tabLabel: string; tabAriaLabel: string; eyebrow: string;
       formatTitle: string; budgetTitle: string; budgets: { _key: string; label: string }[];
@@ -340,7 +343,8 @@ export interface SiteSettings {
     menuDialogLabel: string;
     languageButtonLabel: string;
     languageListLabel: string;
-    cta: { label: string; href: string };
+    /** Кнопка «Звʼязатися»: открывает попап contact; без JS — tel: из contacts.phoneHref. */
+    cta: { label: string };
   };
   menu: {
     navLabel: string;
@@ -932,6 +936,13 @@ export async function getLegalDocuments(lang: string): Promise<LegalDocument[]> 
  * отправляет его. На украинской странице атрибута нет: подпись уже украинская.
  */
 export const getSiteSettingsUk = () => getSiteSettings(defaultLanguage);
+
+/** Попап «Звʼязатися» заполнен в Sanity (тексты и фото записывает studio/import/contact-popup-2026-11-25.mjs).
+ *  Нет — кнопка шапки остаётся ссылкой tel:, страница попапа пустая. */
+export function contactPopup(settings: SiteSettings) {
+  const c = settings.popups.contact;
+  return c?.title && c.submitLabel && c.image?.asset ? c : undefined;
+}
 
 /** Тот же блок лендинга на основном языке (по _key). */
 export async function getBlockUk<T extends { _key: string }>(block: T): Promise<T> {

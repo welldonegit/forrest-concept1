@@ -35,6 +35,7 @@ const SOURCES: Record<StoredLead['form'], string> = {
   quiz: 'квіз «Розрахунок доходу»',
   apartment: 'попап апартаменту',
   world: 'попап світу',
+  contact: 'попап «Звʼязатися» (шапка)',
 };
 const CALC: Record<string, string> = { price: 'Вартість', first: 'Перший внесок', month: 'Платіж на місяць', income: 'Дохід на рік' };
 const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;

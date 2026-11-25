@@ -112,7 +112,12 @@
 /* Геометрия фото считается в пикселях кадра (getBoundingClientRect), поэтому left/top физические. */
 .js .worlds[data-ready] .worlds__media{inset:auto; transform-origin:0 0}
 .js .worlds__reveal{clip-path:inset(100% 0 0 0)}
-.js .worlds__text{opacity:0}
+/* Нажатия мыши и касания — только по видимому слайду (прежде — inert). Фокус с клавиатуры кнопки получают всегда:
+   worlds.js прокручивает сцену к кадру мира (открытый вопрос 2026-11-25). */
+.js .worlds__text{opacity:0; pointer-events:none}
+.js .worlds__stage[data-text-on][data-active="0"] [data-slide="0"],
+.js .worlds__stage[data-text-on][data-active="1"] [data-slide="1"],
+.js .worlds__stage[data-text-on][data-active="2"] [data-slide="2"]{pointer-events:auto}
 .js .worlds__slide{
   opacity:0; transform:translateY(var(--worlds-slide-shift));
   transition:
