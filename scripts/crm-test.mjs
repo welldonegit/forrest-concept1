@@ -104,7 +104,8 @@ test('6 источников: лид в CRM, тело по схеме, поля 
   const cookie = `gp_utm=${encodeURIComponent(JSON.stringify({ utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'spring', gclid: 'g-1', referrer: 'https://www.google.com/' }))}`;
   const fin = await postLead({ lang: 'en', fields: { name: 'Олена', phone: '+380671234567', format: 'Superior', areaFrom: '29.5', areaTo: '34.5', contactMethod: 'Дзвінок' } }, cookie);
   const fin2 = await postLead({ fields: { name: 'Без формату', phone: '+380671234567', format: 'Ще не визначився, потрібна консультація' } });
-  const final = await postLead({ form: 'final', fields: { name: 'Іван', phone: '+380501112233', purpose: 'Пасивний дохід', contactMethod: 'Telegram' } });
+  // финальная форма: «Категорія інвестиції» → «Тип планування» и note_section, как у попапа апартамента (2026-11-26)
+  const final = await postLead({ form: 'final', fields: { name: 'Іван', phone: '+380501112233', category: 'Junior Suite', contactMethod: 'Telegram' } });
   const quiz = await postLead({
     form: 'quiz',
     fields: { phone: '+48501112233', email: 'a@example.com', consent: true, format: 'Deluxe', areaFrom: '43', areaTo: '50.9', budget: 'До $130 000', budgetCurrency: 'usd', country: '+48' },
@@ -156,9 +157,13 @@ test('6 источников: лид в CRM, тело по схеме, поля 
   assert.equal('data' in b2, false, 'нет UTM — нет data');
 
   const b3 = bodyOf(final.number);
-  assert.equal(b3.note_purpose, 'Пасивний дохід');
-  assert.equal('note_section' in b3, false);
-  assert.deepEqual(b3.data, { custom_field_values: { 'f-method': ['Telegram'] } });
+  assert.equal('note_purpose' in b3, false, 'цель больше не передаётся');
+  assert.equal(b3.note_section, 'Junior Suite');
+  assert.equal('note_square_from' in b3, false);
+  assert.deepEqual(b3.data, { custom_field_values: { 'f-method': ['Telegram'], 'f-layout': ['Junior/Executive suite'] } });
+  const tg3 = tgCalls.find((m) => m.text.includes(final.number))?.text ?? '';
+  assert.match(tg3, /Категорія: Junior Suite/, 'Telegram: строка «Категорія»');
+  assert.doesNotMatch(tg3, /Мета:/);
 
   const b4 = bodyOf(quiz.number);
   assert.equal(b4.contact.name, `Заявка з сайту ${quiz.number}`, 'имя обязательно в CRM');

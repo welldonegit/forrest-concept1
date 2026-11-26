@@ -10,7 +10,7 @@ export type FormId = (typeof FORMS)[number];
 /** Формы, где имя обязательно (в попапе апартамента, квизе и попапе «Звʼязатися» — по желанию). */
 const NAME_REQUIRED: ReadonlySet<FormId> = new Set(['finmodel', 'final', 'world']);
 
-const TEXT_FIELDS = ['contactMethod', 'format', 'purpose', 'areaFrom', 'areaTo', 'budget', 'budgetCurrency', 'apartment', 'world', 'country'] as const;
+const TEXT_FIELDS = ['contactMethod', 'format', 'purpose', 'areaFrom', 'areaTo', 'budget', 'budgetCurrency', 'apartment', 'world', 'country', 'category'] as const;
 
 export interface LeadFields {
   name?: string;
@@ -28,6 +28,8 @@ export interface LeadFields {
   /** Попап мира: WIND, ROCK, SUN — секция, по которой заявка (в CRM — в note). */
   world?: string;
   country?: string;
+  /** Финальная форма: «Категорія інвестиції» — название формата (Superior…). В CRM — «Тип планування». */
+  category?: string;
 }
 
 export interface QuizData {

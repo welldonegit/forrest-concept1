@@ -79,6 +79,7 @@ export const apartmentFormat = defineType({
     defineField({ name: 'tags', title: 'Плашки (у попапі)', type: 'array', of: [{ type: 'formatTag' }], description: 'Перша — залита кольором.' }),
     defineField({ name: 'gallery', title: 'Додаткові фото (у попапі)', type: 'array', of: [{ type: 'photo' }], options: { layout: 'grid' }, description: 'Після фото з картки. Можна не додавати.' }),
     photoField('plan', 'Планування', { description: 'Останній слайд попапу, вписується цілком на білому.' }),
+    num('priceFrom', 'Ціна від, $', { description: 'Мінімальна ціна апартамента в доларах, лише число (наприклад 132750). Показується в списку «Категорія інвестиції» фінальної форми: «від 132 750 $». Порожньо — категорія без ціни.' }),
   ],
   preview: { select: { name: 'name', g: 'texts', media: 'plan' }, prepare: ({ name, g, media }) => ({ title: name, subtitle: ukOf(g, 'area'), media }) },
 });

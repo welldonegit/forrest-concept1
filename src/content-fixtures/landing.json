@@ -6768,6 +6768,36 @@
           }
         }
       ],
+      "categoryLabel": [
+        {
+          "_key": "uk",
+          "value": "Категорія інвестиції"
+        },
+        {
+          "_key": "en",
+          "value": "Investment category"
+        }
+      ],
+      "categoryPlaceholder": [
+        {
+          "_key": "uk",
+          "value": "Оберіть категорію інвестиції"
+        },
+        {
+          "_key": "en",
+          "value": "Choose an investment category"
+        }
+      ],
+      "categoryPrice": [
+        {
+          "_key": "uk",
+          "value": "від {n} $"
+        },
+        {
+          "_key": "en",
+          "value": "from ${n}"
+        }
+      ],
       "goalLabel": [
         {
           "_key": "uk",

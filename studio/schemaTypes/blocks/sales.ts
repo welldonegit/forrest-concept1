@@ -3,6 +3,7 @@ import { defineField, defineType } from 'sanity';
 import { text, texts } from '../lib/i18n.ts';
 import { anchorField, blockGroups, hiddenField, languagesField, ukOf } from '../lib/block.ts';
 import { photoField, str, titleLinesField, titleLinesType } from '../lib/fields.ts';
+import { languages, defaultLanguage } from '../../../src/lib/languages.ts';
 
 export const apartmentsTitleLine = titleLinesType('apartmentsTitleLine', 'muted');
 export const formTitleLine = titleLinesType('formTitleLine', 'mutedText');
@@ -85,14 +86,22 @@ export const formFinal = defineType({
     titleLinesField('formTitleLine'),
     texts('formFinalTexts', [
       defineField({ name: 'text', title: 'Текст під заголовком', type: 'text', rows: 3 }),
-      defineField({ name: 'goalLabel', title: 'Питання про мету інвестиції', type: 'string' }),
+      defineField({ name: 'categoryLabel', title: 'Підпис поля «Категорія інвестиції»', type: 'string', description: 'Над списком категорій апартаментів.' }),
+      defineField({ name: 'categoryPlaceholder', title: 'Текст у порожньому полі категорії', type: 'string', description: 'Видно, поки відвідувач нічого не вибрав. Наприклад «Оберіть категорію інвестиції».' }),
+      defineField({ name: 'categoryPrice', title: 'Ціна в списку категорій', type: 'string', description: '{n} — ціна з «Формати апартаментів» → «Ціна від, $». Наприклад «від {n} $». Категорії та порядок — як у блоці «Апартаменти».' }),
+      defineField({ name: 'goalLabel', title: 'Питання про мету інвестиції (не використовується)', type: 'string', description: 'Старе поле: з 2026-11-26 у формі замість нього — «Категорія інвестиції». Можна не заповнювати.' }),
       defineField({ name: 'contactLegend', title: 'Підпис «Як звʼязатися»', type: 'string' }),
       defineField({ name: 'submitLabel', title: 'Кнопка відправки', type: 'string' }),
       defineField({ name: 'note', title: 'Підпис біля кнопки', type: 'string' }),
-    ], { group: 'content' }),
+    ], { group: 'content', optional: ['goalLabel'] }),
     bulletsField,
-    defineField({ name: 'goals', title: 'Варіанти мети', type: 'array', of: [{ type: 'choiceOption' }], group: 'content' }),
+    defineField({ name: 'goals', title: 'Варіанти мети (не використовується)', type: 'array', of: [{ type: 'choiceOption' }], group: 'content', description: 'Старі варіанти: на сайті більше не показуються.' }),
     defineField({ name: 'contactOptions', title: 'Способи звʼязку', type: 'array', of: [{ type: 'choiceOption' }], group: 'content' }),
+    defineField({
+      name: 'unapprovedLanguages', title: 'Переклад не затверджено', type: 'array', of: [{ type: 'string' }], group: 'content',
+      options: { list: languages.filter((l) => l.id !== defaultLanguage).map((l) => ({ title: l.name, value: l.id })), layout: 'grid' },
+      description: 'Позначте мову, переклад якої ще не перевірено. Після перевірки — зніміть позначку. На сайт не впливає.',
+    }),
   ],
   preview: {
     select: { hidden: 'hidden', g: 'title.0.texts', media: 'bullets.0.image' },

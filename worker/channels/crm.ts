@@ -165,8 +165,10 @@ export function buildCrmLead(lead: StoredLead, cfg: CrmSettings): Record<string,
 
   const purpose = cut(f.purpose, 150);
   if (purpose) body.note_purpose = purpose;
-  // Формат апартамента: «Фінмодель» (format), квиз (format), попап апартамента (apartment).
-  const section = cut(f.format ?? f.apartment, 150);
+  // Формат апартамента: «Фінмодель» (format), квиз (format), попап апартамента (apartment),
+  // финальная форма (category — «Категорія інвестиції»).
+  const layoutValue = f.format ?? f.apartment ?? f.category;
+  const section = cut(layoutValue, 150);
   if (section) body.note_section = section;
   if (f.apartment && f.format && f.apartment !== f.format) note.push(`Апартамент: ${f.apartment}`);
   const from = square(f.areaFrom);
@@ -179,7 +181,7 @@ export function buildCrmLead(lead: StoredLead, cfg: CrmSettings): Record<string,
     const cur = currency(f);
     if (cur) body.note_budget_currency = cur;
   }
-  for (const [label, v, max] of [['Мета', f.purpose, 150], ['Формат', f.format ?? f.apartment, 150], ['Бюджет', f.budget, 100]] as const) {
+  for (const [label, v, max] of [['Мета', f.purpose, 150], ['Формат', layoutValue, 150], ['Бюджет', f.budget, 100]] as const) {
     if (v && v.trim().length > max) note.push(`${label} повністю: ${v.trim()}`);
   }
 
@@ -207,7 +209,7 @@ export function buildCrmLead(lead: StoredLead, cfg: CrmSettings): Record<string,
   const ids = cfg.fields ?? {};
   const methodOption = contactMethodOption(f.contactMethod);
   if (ids.contactMethod && methodOption) custom[ids.contactMethod] = [methodOption];
-  const layout = layoutOption(f.format ?? f.apartment);
+  const layout = layoutOption(layoutValue);
   if (ids.layout && layout) custom[ids.layout] = [layout];
   const inField = new Set<string>();
   for (const k of ['gclid', 'fbclid'] as const) {

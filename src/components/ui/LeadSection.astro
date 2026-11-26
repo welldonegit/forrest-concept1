@@ -16,7 +16,7 @@ import SocialIcon from './SocialIcon.astro';
 import { resolveImage, type FormBullet, type FormTitleLine, type SiteSettings } from '../../lib/content';
 
 /** uk — украинская подпись для заявки (data-uk), если показана другая; areaFrom/To — площадь формата. */
-interface Option { value?: string; label: string; uk?: string; format?: string; areaFrom?: string; areaTo?: string }
+interface Option { value?: string; label: string; uk?: string; format?: string; areaFrom?: string; areaTo?: string; placeholder?: boolean }
 interface Props {
   id: string;
   variant: 'form' | 'final';
@@ -88,7 +88,8 @@ const chipText = variant === 'final' ? 'text-form-label' : 'text-form-chip';
           <label class="form__label text-form-label" for={`${id}-${select.name}`}>{select.label}</label>
           <span class="form__select-wrap">
             <select class="form__input form__select text-form-input" id={`${id}-${select.name}`} name={select.name}>
-              {select.options.map((o) => <option value={o.value} data-uk={o.uk} data-format={o.format} data-area-from={o.areaFrom} data-area-to={o.areaTo}>{o.label}</option>)}
+              {/* placeholder — текст пустого поля («Оберіть…»): выбран при загрузке, повторно не выбирается */}
+              {select.options.map((o) => <option value={o.value} selected={o.placeholder} disabled={o.placeholder} data-uk={o.uk} data-format={o.format} data-area-from={o.areaFrom} data-area-to={o.areaTo}>{o.label}</option>)}
             </select>
             <svg class="form__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
           </span>

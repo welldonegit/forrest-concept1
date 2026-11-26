@@ -4,22 +4,34 @@
  * (src/components/ui/LeadSection.astro): те же поля, проверка, тексты ошибок, успех и эксперт.
  * Отличаются раскладка (модификатор form--final: компактные поля, подпись рядом с кнопкой)
  * и контент — из Sanity (блок formFinal документа landing): заголовок, текст, карточки,
- * вопрос о цели инвестиции с вариантами, способы связи, кнопка и подпись.
+ * поле «Категорія інвестиції», способы связи, кнопка и подпись.
  */
 import LeadSection from '../ui/LeadSection.astro';
-import { getBlockUk, ukIfDiffers, type FormFinalBlock, type SiteSettings } from '../../lib/content';
+import { getBlockUk, ukIfDiffers, type ApartmentFormat, type FormFinalBlock, type SiteSettings } from '../../lib/content';
+import { fill, formatNumber } from '../../lib/calc';
 
 interface Props {
   block: FormFinalBlock;
   settings: SiteSettings;
+  /** Форматы в порядке блока Apartments. */
+  formats: ApartmentFormat[];
+  lang: string;
 }
 
-const { block, settings } = Astro.props;
-// Вопрос «Який формат інвестиції…» — цель покупки (в заявке purpose, в CRM note_purpose).
+const { block, settings, formats, lang } = Astro.props;
+// Поле «Категорія інвестиції» (решение заказчика 2026-11-26, вместо вопроса о цели): вариант —
+// «Superior — 29,5–34,5 м² — від 132 750 $», без цены — без последней части. В заявку — название
+// формата (category; в CRM — «Тип планування», в Telegram — «Категорія»). Ничего не выбрано по умолчанию.
 const uk = await getBlockUk(block);
 const withUk = <T extends { _key: string; label: string }>(items: T[], ukItems: T[]) =>
   items.map((o) => ({ ...o, uk: ukIfDiffers(o.label, ukItems.find((u) => u._key === o._key)?.label) }));
-const goals = withUk(block.goals, uk.goals);
+const categories = [
+  { value: '', label: block.categoryPlaceholder, placeholder: true },
+  ...formats.map((f) => ({
+    value: f.name,
+    label: [f.name, f.area, f.priceFrom ? fill(block.categoryPrice, formatNumber(f.priceFrom, lang)) : ''].filter(Boolean).join(' — '),
+  })),
+];
 const contactOptions = withUk(block.contactOptions, uk.contactOptions);
 ---
 <LeadSection
@@ -28,7 +40,7 @@ const contactOptions = withUk(block.contactOptions, uk.contactOptions);
   title={block.title}
   text={block.text}
   bullets={block.bullets}
-  select={{ label: block.goalLabel, name: 'goal', options: goals }}
+  select={{ label: block.categoryLabel, name: 'category', options: categories }}
   contactLegend={block.contactLegend}
   contactOptions={contactOptions}
   submitLabel={block.submitLabel}
