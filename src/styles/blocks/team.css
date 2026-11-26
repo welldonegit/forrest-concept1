@@ -138,6 +138,9 @@
 @media (max-width:600px){
   .team__quote{grid-template-columns:var(--team-q-col) minmax(0,1fr)}
 }
+/* «Показувати фото людей» выключено: цитата без портрета — одна колонка, отступы текста с обеих сторон */
+.team__quote.team__quote--text{grid-template-columns:minmax(0,1fr)}
+.team__quote--text .team__quote-body{padding-inline:var(--team-q-body-pad)}
 @media (prefers-reduced-motion:reduce){
   .team__grid, .team__tab, .team__arrow, .team__panel, .team__panel[data-open], .team__panel-in{transition:none}
 }

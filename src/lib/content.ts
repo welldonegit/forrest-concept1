@@ -817,6 +817,8 @@ export interface TeamBlock {
   anchor: string;
   title: string;
   subtitle: string;
+  /** «Показувати фото людей»: выключено (и пусто) — портретов в цитатах нет, не загружаются (2026-11-26). */
+  showPhotos?: boolean;
   members: TeamMember[];
 }
 

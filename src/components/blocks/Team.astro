@@ -10,6 +10,8 @@
  * Разметка — пары «кнопка + панель» (порядок фокуса совпадает с видом на обеих ширинах):
  * кнопки с aria-expanded, а не role="tab", потому что на телефоне это аккордеон.
  * Без JS — открыт первый участник. Переключение — src/scripts/ui/team.js.
+ * «Показувати фото людей» (showPhotos, решение заказчика 2026-11-26): выключено — портретов в цитатах нет
+ * (не выводятся и не загружаются), цитата — только текст, имя и должность на всю ширину.
  */
 import { Image } from 'astro:assets';
 import { resolveImage, type TeamBlock } from '../../lib/content';
@@ -20,12 +22,13 @@ interface Props {
 
 const { block } = Astro.props;
 const id = block.anchor;
+const showPhotos = block.showPhotos === true;
 const members = await Promise.all(
   block.members.map(async (m) => ({
     ...m,
     logoImg: await resolveImage(m.logo),
     photoImg: await resolveImage(m.photo),
-    portrait: await resolveImage(m.quote.photo),
+    portrait: showPhotos ? await resolveImage(m.quote.photo) : undefined,
   })),
 );
 // Строки вкладок (≥901): выбранная забирает остаток высоты, остальные — по минимуму (как flex-grow в выгрузке)
@@ -82,10 +85,12 @@ const rows = (sel: number) => members.map((_, i) => `minmax(var(--team-tab-min),
                     <li class="team__stat text-team-stat">{s.value && <b class="team__stat-value">{s.value}</b>}<span>{s.label}</span></li>
                   ))}
                 </ul>
-                <div class="team__quote">
-                  <span class="team__portrait">
-                    <Image class="team__img" src={m.portrait.src} alt={m.portrait.alt} widths={[240, 360]} sizes="(max-width: 1279px) 112px, 180px" format="avif" loading="lazy" decoding="async" style={`--focus:${m.portrait.position}`} />
-                  </span>
+                <div class:list={['team__quote', { 'team__quote--text': !m.portrait }]}>
+                  {m.portrait && (
+                    <span class="team__portrait">
+                      <Image class="team__img" src={m.portrait.src} alt={m.portrait.alt} widths={[240, 360]} sizes="(max-width: 1279px) 112px, 180px" format="avif" loading="lazy" decoding="async" style={`--focus:${m.portrait.position}`} />
+                    </span>
+                  )}
                   {/* figure — блок цитаты: blockquote и подпись (figcaption — прямой потомок figure, валидная разметка) */}
                   <figure class="team__quote-body">
                     <span class="team__qmark text-team-qmark" aria-hidden="true">“</span>
