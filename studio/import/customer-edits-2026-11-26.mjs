@@ -7,7 +7,8 @@
  *      сверяется с таблицей; при расхождении записывается значение таблицы (в журнале — «розбіжність»).
  *      Площадь только сверяется с таблицей (расхождение — предупреждение, не меняется).
  *    - «Головна сторінка» → «Фінальна форма» → тексты uk/en: подпись поля, текст пустого поля, шаблон цены.
- *      Заполненные тексты не меняются (--force — заменить). en — «Переклад не затверджено».
+ *      Заполненные тексты не меняются (--force — заменить), кроме текстов первой версии скрипта («Категорія
+ *      інвестиції», «Оберіть категорію інвестиції» и их en) — они заменяются уточнёнными. en — «Переклад не затверджено».
  *    - «Питання про мету інвестиції» и «Варіанти мети» остаются как есть (на сайте не используются).
  * 2. Блок «Команда»: переключатель «Показувати фото людей» = выключено (showPhotos: false). Уже заданное
  *    значение не меняется. Фото в цитатах не удаляются; до слияния сайт их показывает, как раньше.
@@ -34,10 +35,15 @@ const FORMATS = {
   Presidential: { area: '111,0–111,5 м²', price: 499500 },
 };
 
-/** Тексты поля «Категорія інвестиції»; {n} — цена. en — не затверждён. */
+/** Тексты поля категории (уточнены заказчиком 2026-11-26); {n} — цена. en — не затверждён. */
 const CATEGORY_TEXTS = {
-  uk: { categoryLabel: 'Категорія інвестиції', categoryPlaceholder: 'Оберіть категорію інвестиції', categoryPrice: 'від {n} $' },
-  en: { categoryLabel: 'Investment category', categoryPlaceholder: 'Choose an investment category', categoryPrice: 'from ${n}' },
+  uk: { categoryLabel: 'Яка категорія апартаментів вас цікавить?', categoryPlaceholder: 'Оберіть категорію', categoryPrice: 'від {n} $' },
+  en: { categoryLabel: 'Which apartment category are you interested in?', categoryPlaceholder: 'Select a category', categoryPrice: 'from ${n}' },
+};
+/** Тексты первой версии этого скрипта: если записаны ими — заменяются новыми без --force. */
+const PREVIOUS = {
+  uk: { categoryLabel: 'Категорія інвестиції', categoryPlaceholder: 'Оберіть категорію інвестиції' },
+  en: { categoryLabel: 'Investment category', categoryPlaceholder: 'Choose an investment category' },
 };
 
 const client = getCliClient({ apiVersion: '2025-02-19' }).withConfig({ perspective: 'raw' });
@@ -77,7 +83,7 @@ for (const doc of landingDocs) {
     if (!add) return t;
     const value = { ...t.value };
     for (const [k, v] of Object.entries(add)) {
-      if (value[k] && (value[k] === v || !force)) continue;
+      if (value[k] && (value[k] === v || (!force && value[k] !== PREVIOUS[t.language]?.[k]))) continue;
       log.push(`${id} фінальна форма (${t.language}) · ${k}: ${value[k] ? `«${value[k]}» → ` : ''}«${v}»`);
       value[k] = v;
       if (t.language === 'en') enAdded = true;
