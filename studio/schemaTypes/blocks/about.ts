@@ -71,6 +71,10 @@ export const team = defineType({
     languagesField,
     anchorField('komanda'),
     texts('teamTexts', [S('title', 'Заголовок'), defineField({ name: 'subtitle', title: 'Підзаголовок', type: 'text', rows: 2 })], { group: 'content' }),
+    defineField({
+      name: 'showPhotos', title: 'Показувати фото людей', type: 'boolean', initialValue: false, group: 'content',
+      description: 'Вимкнено — у цитатах учасників лише імʼя та посада, без фото автора. Фото лишаються в «Цитата» → «Фото автора» і зʼявляться, якщо увімкнути.',
+    }),
     defineField({ name: 'members', title: 'Учасники', type: 'array', of: [{ type: 'teamMember' }], group: 'content' }),
   ],
   preview: {

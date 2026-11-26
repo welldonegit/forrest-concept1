@@ -35,6 +35,8 @@ const settings = await getSiteSettings(lang);
 const landing = await getLanding(lang);
 // без JS вкладка квиза ведёт к первой форме заявки
 const formAnchor = landing.blocks.find((b) => b._type === 'form')?.anchor;
+// Категории финальной формы — в порядке блока Apartments; блока нет на странице — форматы формы «Фінмодель».
+const apartmentFormats = landing.blocks.find((b) => b._type === 'apartments')?.items.map((i) => i.format) ?? settings.form.formats;
 // Структурированные данные (JSON-LD): организация, сайт, комплекс — только на главной, из данных Sanity.
 // Блоки ukraine-bukovel (выгрузка 2026-11-25) — не во всех языках (поле «Мови»). Их стили и скрипт появления
 // выводятся только на странице, где они есть: главная без них (uk) не меняется ни на байт.
@@ -64,7 +66,7 @@ const jsonLd = structuredData(Astro.site!, lang, settings, await ogImage(Astro.s
         case 'infrastructure': return <Infrastructure block={block} swipeHint={settings.ui.swipeHint} />;
         case 'team': return <Team block={block} />;
         case 'faq': return <Faq block={block} />;
-        case 'formFinal': return <FormFinal block={block} settings={settings} />;
+        case 'formFinal': return <FormFinal block={block} settings={settings} formats={apartmentFormats} lang={lang} />;
         case 'construction': return <Construction block={block} lang={lang} />;
         case 'investorService': return <InvestorService block={block} />;
         case 'numbers': return <Numbers block={block} lang={lang} />;

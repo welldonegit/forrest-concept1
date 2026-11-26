@@ -93,7 +93,7 @@ const leadMessages = () => calls.filter((c) => c.text?.startsWith('<b>Заявк
 const serviceMessages = () => calls.filter((c) => c.text && !c.text.startsWith('<b>Заявка з лендінгу Forrest</b>'));
 
 test('успех: сообщение в Telegram — HTML с экранированием, пустых полей нет, UTM отдельным блоком', async () => {
-  const cookie = `gp_utm=${encodeURIComponent(JSON.stringify({ utm_source: 'google', utm_campaign: 'spring<&>' }))}`;
+  const cookie = `gp_utm=${encodeURIComponent(JSON.stringify({ utm_source: 'google', utm_campaign: 'spring<&>', referrer: 'https://www.google.com/', landing: 'https://forrestresort.com.ua/' }))}`;
   const id = await postLead({ fields: { name: 'Іван <b>&</b> "Тест"', phone: '+380671234567', contactMethod: 'viber' } }, cookie);
   const row = await delivery(id);
   assert.equal(row.status, 'sent');
@@ -109,6 +109,7 @@ test('успех: сообщение в Telegram — HTML с экраниров�
   assert.match(msg.text, /\(Київ\) · мова: uk/);
   assert.doesNotMatch(msg.text, /E-mail|Формат|Бюджет/, 'пустые поля не выводятся');
   assert.match(msg.text, /\n\n<b>Джерело<\/b>\nutm_source: google\nutm_campaign: spring&lt;&amp;&gt;$/);
+  assert.doesNotMatch(msg.text, /Сторінка:|referrer:|landing:/, 'страница, referrer и landing — только в D1 и CRM');
   assert.ok(msg.text.length <= 4096);
 });
 

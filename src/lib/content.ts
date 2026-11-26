@@ -524,7 +524,8 @@ export interface ApartmentFormat {
   /** Попап: фото после фото карточки Apartments; может быть пустым. */
   gallery: SanityImage[];
   /** Попап: последний слайд «Планування» (вписывается целиком, на белом). */
-  plan: SanityImage;
+  plan: SanityImage;  /** «Ціна від, $» — в списке категорий финальной формы; нет — категория без цены. */
+  priceFrom?: number;
 }
 
 export interface ApartmentItem {
@@ -816,6 +817,8 @@ export interface TeamBlock {
   anchor: string;
   title: string;
   subtitle: string;
+  /** «Показувати фото людей»: выключено (и пусто) — портретов в цитатах нет, не загружаются (2026-11-26). */
+  showPhotos?: boolean;
   members: TeamMember[];
 }
 
@@ -827,9 +830,11 @@ export interface FormFinalBlock {
   title: FormTitleLine[];
   text: string;
   bullets: FormBullet[];
-  /** Вопрос о цели инвестиции и варианты (value — техническое значение для заявки). */
-  goalLabel: string;
-  goals: { _key: string; value: string; label: string }[];
+  /** Поле «Категорія інвестиції»: подпись, текст пустого поля, шаблон цены «від {n} $».
+   *  Варианты — форматы из блока Apartments (2026-11-26, вместо вопроса о цели). */
+  categoryLabel: string;
+  categoryPlaceholder: string;
+  categoryPrice: string;
   contactLegend: string;
   contactOptions: { _key: string; value: string; label: string }[];
   submitLabel: string;

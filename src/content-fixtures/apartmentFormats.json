@@ -123,7 +123,8 @@
           "value": "Superior apartment floor plan"
         }
       ]
-    }
+    },
+    "priceFrom": 132750
   },
   {
     "_id": "format-deluxe",
@@ -310,7 +311,8 @@
           "value": "Deluxe apartment floor plan"
         }
       ]
-    }
+    },
+    "priceFrom": 197800
   },
   {
     "_id": "format-family",
@@ -436,7 +438,8 @@
           "value": "Family Suite apartment floor plan"
         }
       ]
-    }
+    },
+    "priceFrom": 269100
   },
   {
     "_id": "format-junior",
@@ -623,7 +626,8 @@
           "value": "Junior Suite apartment floor plan"
         }
       ]
-    }
+    },
+    "priceFrom": 347850
   },
   {
     "_id": "format-presidential",
@@ -810,6 +814,7 @@
           "value": "Presidential apartment floor plan"
         }
       ]
-    }
+    },
+    "priceFrom": 499500
   }
 ]

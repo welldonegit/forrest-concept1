@@ -39,7 +39,9 @@ const FIELDS: [keyof StoredLead['fields'], string][] = [
   ['world', 'Секція'],
   ['apartment', 'Апартамент'],
   ['format', 'Формат'],
-  // финальная форма: «Який формат інвестиції вас цікавить?» — цель покупки
+  // финальная форма: «Категорія інвестиції» (с 2026-11-26 вместо вопроса о цели)
+  ['category', 'Категорія'],
+  // старые заявки финальной формы: цель покупки
   ['purpose', 'Мета'],
   ['budget', 'Бюджет'],
   ['budgetCurrency', 'Валюта'],
@@ -54,7 +56,8 @@ const CALC: Record<string, string> = {
   income: 'Дохід на рік',
 };
 
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid', 'referrer', 'landing'] as const;
+// Блок «Джерело»: метки визита. Страница, referrer и landing в Telegram не выводятся (решение 2026-11-26) — они в D1 и CRM.
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'] as const;
 
 /** Время по Киеву: «20.11.2026, 14:05». */
 export function kyivTime(iso: string): string {
@@ -115,7 +118,6 @@ export function formatLeadMessage(lead: StoredLead): string {
     }
     rest.push(line(label, key === 'contactMethod' ? CONTACT[raw] ?? raw : raw));
   }
-  rest.push(line('Сторінка', lead.page));
 
   if (answers.length) {
     rest.push('', '<b>Відповіді квізу</b>');

@@ -5590,6 +5590,7 @@
           "value": "Behind FORREST are people who already know how to create value"
         }
       ],
+      "showPhotos": false,
       "members": [
         {
           "_key": "m1",
@@ -6766,6 +6767,36 @@
             },
             "decorative": true
           }
+        }
+      ],
+      "categoryLabel": [
+        {
+          "_key": "uk",
+          "value": "Яка категорія апартаментів вас цікавить?"
+        },
+        {
+          "_key": "en",
+          "value": "Which apartment category are you interested in?"
+        }
+      ],
+      "categoryPlaceholder": [
+        {
+          "_key": "uk",
+          "value": "Оберіть категорію"
+        },
+        {
+          "_key": "en",
+          "value": "Select a category"
+        }
+      ],
+      "categoryPrice": [
+        {
+          "_key": "uk",
+          "value": "від {n} $"
+        },
+        {
+          "_key": "en",
+          "value": "from ${n}"
         }
       ],
       "goalLabel": [

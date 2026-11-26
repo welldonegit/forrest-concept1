@@ -1,5 +1,6 @@
 /**
  * Формы заявки (data-lead-form): «Фінмодель» (data-lead-form="finmodel") и финальная (="final").
+ * - Финальная: «Категорія інвестиції» — название формата (Superior…), не переводится; не выбрано — не передаётся.
  * - Телефон: «+380 (XX) XXX-XX-XX», лишние цифры и префиксы 380 / 0 отбрасываются.
  * - Пустое имя или неполный номер — aria-invalid на поле (красная рамка и встряска),
  *   текст ошибки из siteSettings — для экранных дикторов (в выгрузке текста нет).
@@ -16,8 +17,8 @@ function initForm(form) {
   if (form.dataset.leadReady !== undefined) return;
   form.dataset.leadReady = '';
   const formId = form.dataset.leadForm;
-  // «Фінмодель»: format — формат и площадь; финальная: goal — цель покупки.
-  const { name, phone, format, goal, contact } = form.elements;
+  // «Фінмодель»: format — формат и площадь; финальная: category — категория (название формата).
+  const { name, phone, format, category, contact } = form.elements;
   const send = leadSender(form, formId);
   // номер, введённый до загрузки модуля, — в тот же вид, что при наборе
   if (phone.value) phone.value = formatPhone(phone.value);
@@ -39,7 +40,6 @@ function initForm(form) {
 
     // Значения — по-украински при любом языке страницы (data-uk, docs/LEADS.md).
     const opt = format?.selectedOptions[0];
-    const goalOpt = goal?.selectedOptions[0];
     const checked = form.querySelector('input[name=contact]:checked');
     const result = await send({
       fields: {
@@ -48,7 +48,7 @@ function initForm(form) {
         format: opt ? opt.dataset.format ?? ukText(opt) : undefined,
         areaFrom: opt?.dataset.areaFrom,
         areaTo: opt?.dataset.areaTo,
-        purpose: goalOpt ? ukText(goalOpt) : undefined,
+        category: category?.value || undefined,
         contactMethod: checked ? ukText(checked.parentElement) : undefined,
       },
     });
