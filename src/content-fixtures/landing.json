@@ -2937,11 +2937,11 @@
           "title": [
             {
               "_key": "uk",
-              "value": "КОНФЕРЕНЦ-ЗАЛИ НА [ФАКТ: N] ОСІБ"
+              "value": "КОНФЕРЕНЦ-ЗАЛИ"
             },
             {
               "_key": "en",
-              "value": "CONFERENCE HALLS FOR [FACT: N] PEOPLE"
+              "value": "CONFERENCE HALLS"
             }
           ],
           "lead": [
@@ -2961,7 +2961,7 @@
             },
             {
               "_key": "en",
-              "value": "The hall can be set up as a theatre, classroom, banquet or round table. Next to it — 4–6 meeting rooms and a coworking space."
+              "value": "The hall can be set up theatre-style, classroom-style, for a banquet or as a round table. 4–6 meeting rooms and a coworking space are next door."
             }
           ],
           "image": {
