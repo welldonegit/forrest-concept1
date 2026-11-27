@@ -146,9 +146,9 @@ npm --prefix studio run -s sanity -- exec import/construction-reports.mjs --with
 
 ## Домен
 
-- Worker `forrest-trinity-resort` відповідає на `forrestresort.com.ua` і `www.forrestresort.com.ua` (Custom Domains) та на превʼю `forrest-trinity-resort.forrestresort-com.workers.dev`.
+- Worker `forrest-trinity-resort` відповідає на `forrestresort.com.ua` і `www.forrestresort.com.ua` (Custom Domains) Технічна адреса `forrest-trinity-resort.forrestresort-com.workers.dev` вимкнена (2026-11-27, `workers_dev: false`): вона дублювала бойовий сайт у пошуку. Превʼю гілок — адреси версій `<гілка>-forrest-trinity-resort.forrestresort-com.workers.dev` (`preview_urls: true`).
 - Домени записані в `wrangler.jsonc` → `routes` (`custom_domain: true`). Цей список — **повний**: кожна викладка приводить домени Worker до нього, домен, доданий лише в панелі, буде відвʼязано. Новий домен — рядком у `routes` через коміт.
-- `"workers_dev": true` обовʼязковий: з `routes` wrangler інакше вимикає адресу `*.workers.dev` (документація Cloudflare, «workers.dev»).
+- Індексація відкривається лише у збірці з гілки `main` зі змінною `SITE_INDEXING=allow` (Workers Builds передає гілку в `WORKERS_CI_BRANCH`); інші гілки й локальна збірка закриті. Локально перевірити бойову збірку: `WORKERS_CI_BRANCH=main SITE_INDEXING=allow npm run build`.
 - DNS-запис для Custom Domain Cloudflare створює сам. Токен збірки Workers Builds має право `Workers Routes (edit)`, права на DNS у ньому немає, тому новий домен спершу додайте в панелі (Worker → Settings → Domains & Routes → Add → Custom Domain), потім — у `routes`.
 - **www → основний домен** — правило зони, не код: Cloudflare → `forrestresort.com.ua` → Rules → Redirect Rules → шаблон «Redirect from WWW to root» (або вручну: запит `https://www.*`, ціль `https://${1}`, 301, зберігати рядок запиту). Статика йде повз код Worker, тому переадресація в Worker не працює.
 - Перевірка: `curl -sI https://www.forrestresort.com.ua/en/?a=1` → `301`, `location: https://forrestresort.com.ua/en/?a=1`.
