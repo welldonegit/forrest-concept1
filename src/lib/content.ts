@@ -301,7 +301,8 @@ export interface SiteSettings {
   /** Политика конфиденциальности — ссылка в подписи под формами. */
   privacyPolicy?: DocumentLink;
   /** Аналитика (вкладка «Технічне»): ID контейнера GTM, например GTM-XXXXXXX. Пусто — GTM не подключается. */
-  analytics?: { gtmId?: string };
+  /** googleSiteVerification — значение метатега google-site-verification (Search Console). */
+  analytics?: { gtmId?: string; googleSiteVerification?: string };
   /** Тексты попапов (4.17). {n} — подстановка. */
   popups: {
     apartment: {
