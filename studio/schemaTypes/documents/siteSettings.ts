@@ -133,7 +133,7 @@ export const siteSettings = defineType({
         defineField({ name: 'legalLinks', title: 'Юридичні посилання', type: 'array', of: [{ type: 'navLink' }], description: 'Політика конфіденційності — виберіть документ.' }),
         defineField({
           name: 'credit', title: 'Студія-розробник', type: 'object',
-          fields: [text('label', { title: 'Підпис' }), str('logoLabel', 'Назва студії'), str('href', 'Посилання', { description: 'TODO: адреса студії.' })],
+          fields: [text('label', { title: 'Підпис' }), str('logoLabel', 'Назва студії'), str('href', 'Посилання', { description: 'Адреса сайту студії, наприклад https://well-done.com.ua/. Одна для всіх мов, відкривається в новій вкладці.' })],
         }),
         photoField('image', 'Фото футера'),
       ],
