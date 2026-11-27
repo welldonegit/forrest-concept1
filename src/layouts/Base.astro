@@ -32,6 +32,8 @@ const { lang, title, description, skipLink, path, noindex = false, leadEvent = f
 const language = getLanguage(lang);
 const settings = await getSiteSettings(lang);
 const gtmId = settings.analytics?.gtmId?.trim();
+// Подтверждение владельца сайта в Google Search Console (siteSettings.analytics, вкладка «Технічне»).
+const googleVerification = settings.analytics?.googleSiteVerification?.trim();
 const site = Astro.site!;
 const url = path === undefined ? undefined : pageUrl(site, lang, path);
 const canonical = noindex ? undefined : url;
@@ -49,6 +51,7 @@ const fonts = [`/fonts/unbounded-${language.subset}.woff2`, `/fonts/mulish-${lan
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
     {/*
       Google Tag Manager — отложенно (CLAUDE.md, «Скорость»): очередь dataLayer создаётся сразу,
       а gtm.js грузится при первом действии посетителя (прокрутка, касание, клавиша)

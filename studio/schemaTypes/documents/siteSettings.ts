@@ -309,7 +309,10 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: 'analytics', title: 'Аналітика', type: 'object', group: 'technical',
-      fields: [str('gtmId', 'ID контейнера Google Tag Manager', { description: 'Наприклад GTM-WPFP499D. Порожньо — GTM не підключається.' })],
+      fields: [
+        str('gtmId', 'ID контейнера Google Tag Manager', { description: 'Наприклад GTM-WPFP499D. Порожньо — GTM не підключається.' }),
+        str('googleSiteVerification', 'Код підтвердження Google Search Console', { description: 'Лише значення content з метатегу google-site-verification (без лапок і тегу). Виводиться в <head> сторінок сайту. Порожньо — метатегу немає.' }),
+      ],
     }),
   ],
   preview: { prepare: () => ({ title: 'Налаштування сайту' }) },

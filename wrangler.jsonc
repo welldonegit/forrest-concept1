@@ -22,8 +22,11 @@
     { "pattern": "forrestresort.com.ua", "custom_domain": true },
     { "pattern": "www.forrestresort.com.ua", "custom_domain": true }
   ],
-  // С routes wrangler по умолчанию выключает адрес *.workers.dev — он нужен как превью.
-  "workers_dev": true,
+  // Технический адрес forrest-trinity-resort.forrestresort-com.workers.dev выключен (2026-11-27): он отдавал ту же
+  // сборку, что основной домен, — дубль в поиске после открытия индексации. Превью веток (stage и др.) —
+  // адреса версий <версия|ветка>-forrest-trinity-resort.forrestresort-com.workers.dev: preview_urls включены явно.
+  "workers_dev": false,
+  "preview_urls": true,
   "assets": {
     "directory": "./dist/client",
     // Worker вызывается первым только для API; файлы статики идут мимо него.
